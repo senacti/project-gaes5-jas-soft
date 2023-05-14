@@ -1,5 +1,5 @@
 # JAS-SOFT
-<p align= "center"><img width="245" scr="Trimestre_3/2. Diseño Web/Makeup/logo.jpeg"></p>
+<p align= "center"><img width="245" scr="Trimestre_3/2. Diseño Web/Makeup/logo.jpeg?raw=true"></p>
 
 ## Objetivo General 🎯
 - Desarrollar un software para la empresa Promoplast S.A.S llamado JAS-SOFT, para la gestión del control de inventarios, ventas y recursos humanos para optimizar los procesos de producción y venta de plásticos.
