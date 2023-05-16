@@ -1,5 +1,6 @@
 # JAS-SOFT
-<p align= "center"><img width="245" scr="https://github.com/senauti/project-gaes5-jas-soft/blob/main/Trimestre_3/2.%20Dise%C3%B1o%20Web/Makeup/logo.png"></p>
+<p><img align= "center" width="245" scr="https://github.com/senauti/project-gaes5-jas-soft/blob/main/Trimestre_3/2.%20Dise%C3%B1o%20Web/Makeup/logo.png"></p>
+<p><img aling="center" width="300" src="https://github.com/senauti/project-gaes-2-fos/blob/main/LOGO/logo%20claro.jpeg?raw=true"><p/>
 
 ## Objetivo General 🎯
 - Desarrollar un software para la empresa Promoplast S.A.S llamado JAS-SOFT, para la gestión del control de inventarios, ventas y recursos humanos para optimizar los procesos de producción y venta de plásticos.
