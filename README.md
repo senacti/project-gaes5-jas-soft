@@ -18,16 +18,16 @@
 -Control e informes de ventas.
 -Control y gestión de personal y recursos humanos.
 
-## Justificación 
+## Justificación 👨🏻‍💻
 - El Sistema de Información JAS SOFT propuesto para la empresa Promoplast S.A., busca implementar mejoras en los procesos de inventario, ventas y manejo de personal, con el objetivo de generar mayor organización y potenciar las ventas de la misma.
 
-## Alcance
+## Alcance 🕐
 - Sistema de información web
 - Automatizar el registro y recepción de solicitudes
 - Apoyar la planeación en cuanto a órdenes de producción y el manejo de stock
 - Apoyar gestion de recursos humanos
 
-## Integrantes
+## Integrantes 👥
 - Juan Estrella
 - Cristian Devia
 - Santiago Forero
