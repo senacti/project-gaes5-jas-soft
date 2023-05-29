@@ -33,29 +33,30 @@
     </ul>
   </header>
 
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-2 barmenu">
-            <h3 class="mt-4">PROMOPLAST</h3>
-            <p></p>
-              <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                  <a class="nav-link" href="dashboard.html">MENU</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="rrhh.html">RRHH</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="produccion.html">PRODUCCION</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="inventario.html">INVENTARIO</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="ventas.html">VENTAS</a>
-                </li>
-              </ul>                 
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2 barmenu">
+        <h3 class="mt-4">PROMOPLAST</h3>
+        <p></p>
+        <ul class="nav nav-pills flex-column">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/dashboard') }}">MENU</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{{ url('/rrhh') }}">RRHH</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/produccion') }}">PRODUCCION</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/inventario') }}">INVENTARIO</a>
+            
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
+          </li>
+        </ul>        
+      </div>
           <div class="col-10" id="contentd">
             <div class="card" id="cardash">
               <nav class="descrip-menu">
