@@ -1,25 +1,30 @@
-body, html{
+body,
+html {
     height: 100%;
     width: 100%;
     background-image: url(./imgfondo.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-}body{
+}
+body {
     margin: 0;
     padding: 0;
-}a{
+}
+a {
     text-decoration: none;
     color: #000;
-}header{
+}
+header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 20px 5%;
     color: #f2f2f2;
+    background: seashell;
 }
 
-.box-content{
+.box-content {
     margin: 0;
     padding: 0;
     display: flex;
@@ -28,11 +33,13 @@ body, html{
     justify-content: center;
     align-items: center;
     opacity: 0.9;
-}.imglogin{
-        padding: 20px 5%;
-        width: 150px;
-        height: auto;
-}.flex-box{
+}
+.imglogin {
+    padding: 20px 5%;
+    width: 150px;
+    height: auto;
+}
+.flex-box {
     position: relative;
     width: 300px;
     padding: 40px;
@@ -48,9 +55,10 @@ body, html{
     justify-content: center;
     align-items: center;
     color: #000;
-}.flex-box input[type="email"],
+}
+.flex-box input[type="email"],
 .flex-box input[type="password"],
-.flex-box button[type="submit"]{
+.flex-box button[type="submit"] {
     border: 0;
     background: none;
     display: block;
@@ -63,17 +71,20 @@ body, html{
     outline: none;
     color: #000;
     transition: 0.5s;
-}.flex-box input[type="email"]:focus,
-.flex-box input[type="password"]:focus{
+}
+.flex-box input[type="email"]:focus,
+.flex-box input[type="password"]:focus {
     width: 250px;
     border-color: #000;
-}.flex-box button[type="submit"]{
+}
+.flex-box button[type="submit"] {
     border: 0;
     background: #300e8c;
     border: 2px solid #000;
     border-radius: 15px;
     cursor: pointer;
     color: #f2f2f2;
-}.flex-box button[type="submit"]:hover{
+}
+.flex-box button[type="submit"]:hover {
     background: #4f9c30;
 }
