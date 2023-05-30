@@ -20,3 +20,31 @@ Route::get('/index', function () {
 Route::get('/insumos', function () {
     return view("insumos");
 });
+
+Route::get('/produccion', function () {
+    return view("produccion");
+});
+
+Route::get('/insumos', function () {
+    return view("insumos");
+});
+
+Route::get('/rrhh', function () {
+    return view("rrhh");
+});
+
+Route::get('/ventas', function () {
+    return view("ventas");
+});
+
+Route::get('/sales', function () {
+    return view("sales");
+});
+
+Route::get('/inventario', function () {
+    return view("inventario");
+});
+
+Route::get('/login', function () {
+    return view("login");
+});
