@@ -24,12 +24,12 @@
   <header class="dash-menu">
     <img class="logo-dash-admin" src="{{ asset('pictures/logo.png') }}" alt="logo">
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Mision" data-bs-content="Some content inside the popover">Mision</button></li>
-    <li class="d-flex justify-content-center"><a href="sales.html">Catalogo</a></li>
+    <li class="d-flex justify-content-center"><a class="nav-link" href="{{ url('/sales') }}">Catalogo</a>
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Vision" data-bs-content="Some content inside the popover">Vision</button></li>
     <ul class="list-menu-ul">
         <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>
         <li class="list-menu-dash"> <img class="img-menu-dash rotate-img" src="pictures/flecha.png" alt="flecha"> </li>            
-        <li><a href="login.html" class="btn-ingresar" ><img class="img-login" src="pictures/login.png" alt="ingresar"></a></li>
+        <li><a href="{{ url('/login')}}" class="btn-ingresar" ><img class="img-login" src="pictures/login.png" alt="ingresar"></a></li>
     </ul>
   </header>
     <center>

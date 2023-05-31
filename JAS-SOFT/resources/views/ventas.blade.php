@@ -23,7 +23,7 @@
 <body>
   <header class="dash-menu">
     <img class="logo-dash-admin" src="PICTURES/logo.png" alt="logo">
-    <a href="index.html" class="btn" >HOME</a>
+    <a class="nav-link" href="{{ url('/index') }}">INICIO</a>
     <ul class="list-menu-ul">
         <li class="list-menu-dash"> <img class="img-menu-dash" src="PICTURES/campana.png" alt="Campana"> </li>
         <li class="list-menu-dash"> Administrador (Administrador) </li>

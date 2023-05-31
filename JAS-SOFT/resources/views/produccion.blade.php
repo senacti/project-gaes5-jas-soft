@@ -26,7 +26,7 @@
 <body>
   <header class="dash-menu">
     <img class="logo-dash-admin" src="PICTURES/logo.png" alt="logo">
-    <a href="index.html" class="btn" >HOME</a>
+    <a class="nav-link" href="{{ url('/index') }}">INICIO</a>
     <ul class="list-menu-ul">
         <li class="list-menu-dash"> <img class="img-menu-dash" src="PICTURES/campana.png" alt="Campana"> </li>
         <li class="list-menu-dash"> Administrador (Administrador) </li>
@@ -64,7 +64,7 @@
     <div class="col-10" id="contentd">
         <div class="card" id="cardash">
           <nav class="descrip-menu">
-            <a class="message-ubication" href="insumos.html">Insumos</a>          
+          <a class="message-ubication" href="{{ url('insumos') }}">Insumos</a>        
           </nav> 
           <div class="container mt-3">
             <h2>PRODUCCION</h2>

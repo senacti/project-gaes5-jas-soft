@@ -1,0 +1,78 @@
+.logo-dash-admin {
+    margin-left: 45%;
+    margin-top: 1%;
+}
+
+.inform-page-404 {
+    display: inline-block;
+    margin-top: 5%;
+    margin-left: 30%;
+    margin-right: 20px;  
+    text-align: center;
+}
+.inform-page-500 {
+    display: inline-block;
+    margin-top: 5%;
+    margin-left: 6%;
+    margin-right: 20px;  
+    text-align: center;
+}
+
+.title-error-404 {
+    margin: 1rem;
+    color: #2b69bb;
+    font-family: 'Roboto', sans-serif;
+}
+
+.img-error-404 {
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+}
+
+.img-page-404{
+    height: 25rem;
+    box-shadow: 0 4px 16px #2b69bb;    
+}
+
+.img-page-500{
+    height: 22rem;
+    width: auto;
+    box-shadow: 0 4px 16px #023b85;
+    justify-content: center;
+}
+
+.line-error-404 {
+    display: inline-block;
+    height: 400px;
+    border-left: 2px solid #2b69bb;
+}
+
+.line-error-500 {
+    display: inline-block;
+    height: 352px;
+    border-left: 2px solid #2b69bb;
+}
+
+.message-error-404 {
+    display: inline-block;
+    width: 600px;
+    color: #2b69bb;
+    font-size: 30px;
+}
+
+.link-error-404 {
+    color: #ffff;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.btn-back {
+    padding: 0.5rem;
+    display: block;
+    background-color: #2b69bb;
+    border-radius: 5px;
+    box-shadow: 0 4px 16px #2b69bb;
+    margin-top: 1%;
+    margin-left: 45%;
+}
