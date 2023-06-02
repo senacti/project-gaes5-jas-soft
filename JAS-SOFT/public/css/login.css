@@ -1,17 +1,3 @@
-body, html {
-    height: 100%;
-    width: 100%;
-    background-image: url(./imgfondo.png);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: cover;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-}
-
 a {
     text-decoration: none;
     color: #000;
@@ -27,11 +13,10 @@ header {
     justify-content: space-between;
     padding: 20px 5%;
     color: #f2f2f2;
+    background: seashell;
 }
 
 .box-content {
-    margin: 0;
-    padding: 0;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -55,7 +40,6 @@ header {
     border: 2px solid #000;
     margin-top: 3%;
     border-radius: 15px;
-    display: block;
     display: flex;
     flex-direction: column;
     justify-content: center;
