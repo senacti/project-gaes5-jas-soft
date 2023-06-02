@@ -56,3 +56,15 @@ Route::get('/dashboard', function () {
 Route::get('/postulaciones', function () {
     return view("postulaciones");
 });
+
+Route::get('/formulario', function () {
+    return view("formulario");
+});
+
+Route::get('/logeo', function () {
+    return view("logeo");
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
