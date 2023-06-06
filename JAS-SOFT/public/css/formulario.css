@@ -5,7 +5,14 @@
   }
   
   body {
-    background-image: url('imgfondo.png');
+    background-image: url('pictures/imgfondo.png');
+  }
+  a {
+    text-decoration: none;
+    color: #1f53c5;  
+  }
+  h1{    
+    color: #1f53c5;  
   }
   header{
     display: flex;
