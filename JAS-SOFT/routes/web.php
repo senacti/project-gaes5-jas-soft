@@ -57,14 +57,30 @@ Route::get('/postulaciones', function () {
     return view("postulaciones");
 });
 
-Route::get('/formulario', function () {
-    return view("formulario");
+Route::get('/register', function () {
+    return view("register");
 });
 
-Route::get('/logeo', function () {
-    return view("logeo");
+Route::get('/login', function () {
+    return view("login");
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+use App\Http\Controllers\RegisterController;
+
+Route::get('/registro', [RegisterController::class, 'create'])->name('registro.formulario');
+Route::post('/registro', [RegisterController::class, 'store'])->name('registro.almacenar');
+Route::get('/registro/exitoso', function () {
+    return "Registro exitoso";
+})->name('registro.exitoso');
