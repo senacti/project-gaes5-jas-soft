@@ -9,7 +9,6 @@
   <link  rel="shortcut icon" href="{{ asset('pictures/iconlogo.png') }}">
 </head>
 <body>
-  
     <header>
         <a href="{{ url('index') }}"> <h1>PROMOPLAST SAS</h1></a>
         <h1>REGISTRO</h1>
@@ -19,17 +18,19 @@
       @csrf
       <img class="imglogin" src="{{ asset('PICTURES/logo.png') }}" alt="Esta imagen no se puede visualizar">
       <h4>Formulario Registro</h4>
-      
-      <div class="row mb-3">
+
+    <div class="row mb-3">
         <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
 
-        <div class="col-md-6 controls">
-            <input id="name" type="text" class="form-control controls @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+        <div class="col-md-6">
+            <input id="name" type="name" class="form-control controls @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
 
             @error('name')
+            <div class="error-message">
                 <span class="invalid-feedback" role="alert">
                     <strong>{{ $message }}</strong>
                 </span>
+            </div>
             @enderror
         </div>
     </div>
@@ -41,9 +42,11 @@
             <input id="email" type="email" class="form-control controls @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
             @error('email')
+            <div class="error-message">
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>El email ya esta registrado</strong>
                 </span>
+            </div>
             @enderror
         </div>
     </div>
@@ -55,9 +58,11 @@
             <input id="password" type="password" class="form-control controls @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
             @error('password')
+            <div class="error-message">
                 <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
+                    <strong>La contraseña debe contener al menos 8 caracteres</strong>
                 </span>
+            </div>
             @enderror
         </div>
     </div>
@@ -73,13 +78,18 @@
     <div class="row mb-0">
         <div class="col-md-6 offset-md-4">
             <button type="submit" class="btn btn-primary">
-                {{ __('Registrearse') }}
+                {{ __('Registrarse') }}
             </button>
         </div>
     </div>
-    <input type="checkbox" name="" id="">
-      <p>Estoy de acuerdo con <a href="{{ url('term_cond.html') }}">Terminos y Condiciones</a></p>
-      
+    <div class="row mb-3">
+    <div class="col-md-6 offset-md-4">
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="" id="">
+            <label class="form-check-label" for="">Estoy de acuerdo con <a href="{{ url('term_cond.html') }}">Términos y Condiciones</a></label>
+        </div>
+    </div>
+</div>
       <p><a href="{{ url('login') }}">¿Ya tengo Cuenta?</a></p>
     </form>    
   </section>  
