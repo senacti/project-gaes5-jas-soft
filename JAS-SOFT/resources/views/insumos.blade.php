@@ -19,6 +19,17 @@
 
     <link  rel="shortcut icon" href="PICTURES/iconlogo.png">
     <title>PromoPlast | Insumo</title>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <title>{{ config('app.name', 'Laravel') }}</title>
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+    <!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
   </head>
 
   <body>
@@ -28,7 +39,17 @@
     <ul class="list-menu-ul">      
         <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>
         <li class="list-menu-dash"> Administrador (Administrador) </li>
-        <li class="list-menu-dash"> <img class="img-menu-dash rotate-img" src="pictures/flecha.png" alt="flecha"> </li>
+        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{{ route('logout') }}"
+             onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+              {{ __('Cerrar sesion') }}
+          </a>
+
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
+      </div>
         <li class="list-menu-dash"> <img class="img-menu-dash-users" src="pictures/usuario.png" alt=""> </li>
     </ul>
   </header>

@@ -8,15 +8,35 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/estilos-dash-admin.css') }}">
     <link rel="shortcut icon" href="{{ asset('PICTURES/iconlogo.png') }}" type="image/x-icon">
     <title>PromoPlast | Menú</title>
+
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+
 </head>
-<body>
-    
+<body>    
     <header class="dash-menu">
         <img class="logo-dash-admin" src="{{ asset('PICTURES/logo.png') }}" alt="logo">
         <ul class="list-menu-ul">
             <li class="list-menu-dash"> <img class="img-menu-dash" src="{{ asset('PICTURES/campana.png') }}" alt="Campana"> </li>
-            <li class="list-menu-dash"> Administrador (Administrador) </li>
-            <li class="list-menu-dash"> <img class="img-menu-dash rotate-img" src="{{ asset('PICTURES/flecha.png') }}" alt="flecha"> </li>
+            <li class="list-menu-dash"> Administrador (Administrador) </li>            
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                     document.getElementById('logout-form').submit();">
+                        {{ __('Cerrar sesion') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>
             <li class="list-menu-dash"> <img class="img-menu-dash-users" src="{{ asset('PICTURES/usuario.png') }}" alt=""> </li>
         </ul>
     </header>
