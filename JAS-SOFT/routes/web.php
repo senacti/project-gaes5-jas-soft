@@ -1,6 +1,9 @@
 <?php
 
+
+use App\Models\Insumo;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InsumoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,21 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/index', function () {
+Route::get('/', function () {
     return view("index");
-});
-
-Route::get('/insumos', function () {
-    return view("insumos");
 });
 
 Route::get('/produccion', function () {
     return view("produccion");
 });
 
-Route::get('/insumos', function () {
-    return view("insumos");
-});
+/*Route::get('/insumos', function () {
+    $insumos = Insumo::all();
+    dd($insumos);
+    return view('insumo.index')->with('insumos',$insumos);
+})->name('Insumo.index');*/
 
 Route::get('/rrhh', function () {
     return view("rrhh");
@@ -61,21 +62,15 @@ Route::get('/register', function () {
     return view("register");
 });
 
-Route::get('/login', function () {
-    return view("login");
-});
+//Route::get('/registerInsumo', function () {
+//    return view("/insumo/index");
+//});
+
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//route::resource('/insumos', InsumoController::class);
 
 use App\Http\Controllers\RegisterController;
 
@@ -84,3 +79,7 @@ Route::post('/registro', [RegisterController::class, 'store'])->name('registro.a
 Route::get('/registro/exitoso', function () {
     return "Registro exitoso";
 })->name('registro.exitoso');
+
+Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
+Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar');
+Route::post('/registerInsumo', [InsumoController::class, 'update'])->name('registerInsumo.update');

@@ -11,13 +11,12 @@
 <body>    
     <header>
         <h2>PROMOPLAST SAS</h2>
-        <a href="{{ url('index') }}" class="btn-ingresar"><img class="img-login" src="{{ asset('PICTURES/icons8-atrás-64.png') }}" alt="ingresar"></a>
+        <a href="{{ url('/') }}" class="btn-ingresar"><img class="img-login" src="{{ asset('PICTURES/icons8-atrás-64.png') }}" alt="ingresar"></a>
         <h2>INICIO DE SESION</h2>
     </header>
     <div class="box-content">
         <form  method="POST" action="{{ route('login') }}" class="flex-box needs-validation">
             @csrf
-
             <img class="imglogin" src="{{ asset('PICTURES/logo.png') }}" alt="Esta imagen no se puede visualizar">
             <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Correo') }}</label>

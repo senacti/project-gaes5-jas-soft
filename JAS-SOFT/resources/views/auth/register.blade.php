@@ -10,8 +10,8 @@
 </head>
 <body>
     <header>
-        <a href="{{ url('index') }}"> <h1>PROMOPLAST SAS</h1></a>
-        <h1>REGISTRO</h1>
+        <a href="{{ url('index') }}"> <h2>PROMOPLAST SAS</h2></a>
+        <h2>REGISTRO</h2>
     </header>
   <section class="form-register">
     <form method="POST" action="{{ route('register') }}">

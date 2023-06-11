@@ -18,8 +18,8 @@ header{
   align-items: center;
   justify-content: space-between;
   padding: 20px 5%;
-  }
-  header a,h1{
+}
+header a,h2{
     color: #f2f2f2;
   }
 .imglogin{
