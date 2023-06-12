@@ -99,32 +99,34 @@
                       <td>{{$insumo->Cantidad}}</td>
                       <td>{{$insumo->IdUnidadMedida}}</td>
                       <td>{{$insumo->Color}}</td>
-                     {{--<td>{{$insumo->Tamaño}}</td>--}}
+                      <td>{{--$insumo->Tamaño--}}</td>
                       <td>     
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar{{$insumo->id}}"></button>                        
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#delete{{$insumo->id}}"></button>                        
-                      </td>                      
-                    </tr>
-                    @include('insumo.info')                    
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar{{$insumo->id}}">Editar</button>                        
+                        <form action="{{ route('insumo.destroy',$insumo->id) }}" method="POST">
+                          @method('DELETE')
+                          @csrf
+                          <button type="submit" class="btn btn-danger" >Eliminar</button>
+                      </form>                   
+                      </td>                                            
+                    </tr>                                         
                     @endforeach                
                   </tbody>
                 </table>  
                 <div class="d-flex justify-content-around bg mb-3">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                  @include('insumo.create')                
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
                     Nuevo Insumo
                   </button>
                   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ordenModal">
                     Crear orden de compra
-                  </button>
-                  @include('insumo.create')
+                  </button>                                  
                 </div>             
-
               </div>
             </div>      
           </div>
         </div>
       </div> 
-    <script src="jquery-3.6.0.min.js"></script>
+    <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
     <script type="text/javascript" src="{{ asset ('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset ('js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset ('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -133,6 +135,11 @@
       $(document).ready( function () {
       $('#tablas').DataTable();
       } );
+
+      function probar() {
+        alert('entra');
+      }
     </script>
+    
     </body>
 </html>

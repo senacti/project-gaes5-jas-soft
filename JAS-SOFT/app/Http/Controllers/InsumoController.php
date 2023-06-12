@@ -52,7 +52,7 @@ class InsumoController extends Controller
         $insumos->save();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect()->route('insumo.index');
+        return redirect()->route('insumo.listar');
     }
 
     /**
@@ -69,7 +69,7 @@ class InsumoController extends Controller
     public function edit(Insumo $id)
     {
         $insumos = Insumo::find($id);
-        return view('insumos.edit', ['insumo' => $insumos]);
+        return view('insumos.info', ['insumo' => $insumos]);
     }
 
     /**
@@ -78,9 +78,9 @@ class InsumoController extends Controller
     public function update(Request $request, Insumo $id)
     {
         $insumos = Insumo::find($id);
-        $insumos->name = $request->input('cantidad');
-        $insumos->email = $request->input('color');
-        $insumos->save();
+        $insumos->Cantidad = $request->input('Cantidad');
+        $insumos->Color = $request->input('color');
+        $insumos->update();
         return redirect()->route('insumo.index');
     }
 
@@ -88,9 +88,13 @@ class InsumoController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy($id)
-    {
-        $insumos = Insumo::find($id);
-        $insumos->delete();
-        return redirect()->route('insumo.index');
+    {       
+        $insumo = Insumo::find($id);
+    if (!$insumo) {
+        // Manejar caso si el insumo no existe
+    }    
+    $insumo->delete();
+    
+    return redirect()->back();
     }
 }

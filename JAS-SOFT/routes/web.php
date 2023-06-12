@@ -82,4 +82,9 @@ Route::get('/registro/exitoso', function () {
 
 Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
 Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar');
-Route::post('/registerInsumo', [InsumoController::class, 'update'])->name('registerInsumo.update');
+Route::post('/insumos', [InsumoController::class, 'update'])->name('insumo.actualizar');
+//Route::get('/insumo', [InsumoController::class, 'create'])->name('insumo.create');
+Route::delete('/insumos', [InsumoController::class, 'destroy'])->name('insumo.destroy');
+//Route::resource('insumos',InsumoController::class);
+
+
