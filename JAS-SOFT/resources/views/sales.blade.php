@@ -13,7 +13,7 @@
     <header>
         <img class="logo-compania" src="{{ asset('PICTURES/logo.png') }}" alt="logo">
         <h1>CATALOGO DE PRODUCTOS</h1>       
-        <a href="{{ url('index') }}" class="btn-ingresar"><img class="img-login" src="{{ asset('PICTURES/Home.png') }}" alt="ingresar" width="40px"></a>
+        <a href="{{ url('') }}" class="btn-ingresar"><img class="img-login" src="{{ asset('PICTURES/Home.png') }}" alt="ingresar" width="40px"></a>
     </header>
 
     <section class="contenido">
