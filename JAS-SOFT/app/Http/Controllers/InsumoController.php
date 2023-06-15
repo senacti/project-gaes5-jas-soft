@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Insumo;
+use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 
 class InsumoController extends Controller
@@ -52,7 +53,7 @@ class InsumoController extends Controller
         $insumos->save();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect()->route('insumo.listar');
+        return redirect()->route('insumo.listar')->with('Insumo creado con');
     }
 
     /**
@@ -81,20 +82,16 @@ class InsumoController extends Controller
         $insumos->Cantidad = $request->input('Cantidad');
         $insumos->Color = $request->input('color');
         $insumos->update();
-        return redirect()->route('insumo.index');
+        return redirect()->route('insumo.index')->with('Insumo actulizado con exito');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
-    {       
-        $insumo = Insumo::find($id);
-    if (!$insumo) {
-        // Manejar caso si el insumo no existe
-    }    
-    $insumo->delete();
-    
-    return redirect()->back();
+    public function destroy(Insumo $id)    
+    {                    
+        $insumos = Insumo::find($id)->delete();             
+       // $insumos->delete();
+        return redirect()->route('insumo.index')->with('Insumo eliminado con exito');
     }
 }

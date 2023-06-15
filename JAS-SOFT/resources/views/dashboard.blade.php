@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/estilos-dash-admin.css') }}">
     <link rel="shortcut icon" href="{{ asset('PICTURES/iconlogo.png') }}" type="image/x-icon">
@@ -18,20 +19,17 @@
     <header class="dash-menu">
         <img class="logo-dash-admin" src="{{ asset('PICTURES/logo.png') }}" alt="logo">
         <ul class="list-menu-ul">
-            <li class="list-menu-dash"> <img class="img-menu-dash" src="{{ asset('PICTURES/campana.png') }}" alt="Campana"> </li>
-            <li class="list-menu-dash"> Administrador (Administrador) </li>            
+            <li class="list-menu-dash"> <img class="img-menu-dash" src="{{ asset('PICTURES/campana.png') }}" alt="Campana"> </li>                      
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
                 </a>
-
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
                     <a class="dropdown-item" href="{{ route('logout') }}" 
                        onclick="event.preventDefault();
                                      document.getElementById('logout-form').submit();">
                         {{ __('Cerrar sesión') }}
                     </a>
-
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>

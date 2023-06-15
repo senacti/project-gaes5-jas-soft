@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\OrdenpedidoController;
 use App\Models\Insumo;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InsumoController;
@@ -20,15 +21,9 @@ Route::get('/', function () {
     return view("index");
 });
 
-Route::get('/produccion', function () {
+/*Route::get('/produccion', function () {
     return view("produccion");
-});
-
-/*Route::get('/insumos', function () {
-    $insumos = Insumo::all();
-    dd($insumos);
-    return view('insumo.index')->with('insumos',$insumos);
-})->name('Insumo.index');*/
+});*/
 
 Route::get('/rrhh', function () {
     return view("rrhh");
@@ -84,7 +79,9 @@ Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('regist
 Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar');
 Route::post('/insumos', [InsumoController::class, 'update'])->name('insumo.actualizar');
 //Route::get('/insumo', [InsumoController::class, 'create'])->name('insumo.create');
-Route::delete('/insumos', [InsumoController::class, 'destroy'])->name('insumo.destroy');
+Route::delete('/insumos', [InsumoController::class, 'destroy'])->name('insumo.eliminar');
 //Route::resource('insumos',InsumoController::class);
 
-
+Route::resource('/ordenpedido', OrdenpedidoController::class);
+//Route::delete('/ordenpedido', [OrdenpedidoController::class, 'destroy'])->name('ordenpedido.eliminar');
+//Route::post('/ordenpedido', [OrdenpedidoController::class, 'update'])->name('insumo.actualizar');

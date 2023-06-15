@@ -28,23 +28,28 @@
   </head>
 
   <body>
+   
   <header class="dash-menu">
     <img class="logo-dash-admin" src="pictures/logo.png" alt="logo">
     <a class="nav-link" href="{{ url('/index') }}">INICIO</a>
     <ul class="list-menu-ul">      
-        <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>
-        <li class="list-menu-dash"> Administrador (Administrador) </li>
-        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="{{ route('logout') }}"
-             onclick="event.preventDefault();
-                           document.getElementById('logout-form').submit();">
-              {{ __('Cerrar sesion') }}
+        <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>        
+        <li class="nav-item dropdown">
+          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+              {{ Auth::user()->name }}
           </a>
+          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+              <a class="dropdown-item" href="{{ route('logout') }}" 
+                 onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+                  {{ __('Cerrar sesión') }}
+              </a>
 
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-              @csrf
-          </form>
-      </div>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
+          </div>
+      </li>
         <li class="list-menu-dash"> <img class="img-menu-dash-users" src="pictures/usuario.png" alt=""> </li>
     </ul>
   </header>
@@ -76,7 +81,7 @@
           <div class="col-10" id="contentd">
             <div class="card" id="cardash">
               <nav class="descrip-menu">
-              <a class="message-ubication" href="{{ url('produccion') }}">PRODUCCION</a>      
+              <a class="message-ubication" href="{{ url('/ordenpedido') }}">PRODUCCION</a>      
               </nav>  
               <div class="container mt-3">
                 <h2>INSUMOS</h2>
@@ -95,18 +100,18 @@
                   <tbody>
                    @foreach($insumos as $insumo)
                     <tr>
-                      <td scope="row">{{$insumo->IdInsumo}}</td>                                       
+                      <td scope="row" class="align-middle">{{$insumo->IdInsumo}}</td>                                       
                       <td>{{$insumo->Cantidad}}</td>
                       <td>{{$insumo->IdUnidadMedida}}</td>
                       <td>{{$insumo->Color}}</td>
                       <td>{{--$insumo->Tamaño--}}</td>
-                      <td>     
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar{{$insumo->id}}">Editar</button>                        
-                        <form action="{{ route('insumo.destroy',$insumo->id) }}" method="POST">
-                          @method('DELETE')
+                      <td>                                                
+                        <form action="{{ route('insumo.eliminar',$insumo->id) }}" method="POST">                          
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar{{$insumo->id}}">Editar</button>  
                           @csrf
-                          <button type="submit" class="btn btn-danger" >Eliminar</button>
-                      </form>                   
+                          @method('DELETE')
+                          <button type="submit" class="btn btn-danger" >{{__('Eliminar')}}</button>
+                        </form>                   
                       </td>                                            
                     </tr>                                         
                     @endforeach                
@@ -134,11 +139,7 @@
     <script>
       $(document).ready( function () {
       $('#tablas').DataTable();
-      } );
-
-      function probar() {
-        alert('entra');
-      }
+      } );      
     </script>
     
     </body>
