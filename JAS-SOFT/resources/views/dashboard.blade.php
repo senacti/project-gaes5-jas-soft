@@ -67,6 +67,12 @@
             <p class="text-moduls" >Insumos, provedores y mas...</p>
         </a>
 
+        <a href="{{ url('buzon') }}" class="contenedor-moduls">
+            <img class="img-moduls" src="{{ asset('PICTURES/buzom.png') }}" alt="img01">            
+            <h2 class="title-moduls">BUZON DE SUGERENCIAS</h2>
+            <p class="text-moduls" >Consulta y guarda PQR...</p>
+        </a>
+
         <a href="{{ url('error404') }}" class="contenedor-moduls">
             <img class="img-moduls" src="{{ asset('PICTURES/configuracion.png') }}" alt="img01">
             <h2 class="title-moduls">CONFIGURACION</h2>
@@ -78,6 +84,7 @@
             <h2 class="title-moduls">PROXIMAMENTE</h2>
             <p class="text-moduls" > </p>
         </a>
+
     </div>
 </center>
 </body>

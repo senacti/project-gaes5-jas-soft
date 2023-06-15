@@ -49,6 +49,18 @@ Route::get('/dashboard', function () {
     return view("dashboard");
 });
 
+Route::get('/sugerencia', function () {
+    return view("sugerencia");
+});
+
+Route::get('/agregar', function () {
+    return view("agregar");
+});
+
+Route::get('/buzon', function () {
+    return view("buzon");
+});
+
 Route::get('/postulaciones', function () {
     return view("postulaciones");
 });
@@ -85,3 +97,6 @@ Route::delete('/insumos', [InsumoController::class, 'destroy'])->name('insumo.el
 Route::resource('/ordenpedido', OrdenpedidoController::class);
 //Route::delete('/ordenpedido', [OrdenpedidoController::class, 'destroy'])->name('ordenpedido.eliminar');
 //Route::post('/ordenpedido', [OrdenpedidoController::class, 'update'])->name('insumo.actualizar');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -55,6 +55,9 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('/buzon') }}">BUZON</a>
+          </li>
         </ul>        
       </div>
       <div class="col-10" id="contentd">
