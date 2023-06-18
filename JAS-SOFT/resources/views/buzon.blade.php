@@ -82,7 +82,7 @@
                             <a class="message-ubication" href="{{ url('/agregar') }}">Agregar</a>
                         </nav>
                         <nav class="descrip-menu">
-                            <a class="message-ubication" href="{{ url('/agregar') }}">Enviar Sugerencia</a>
+                            <a class="message-ubication" href="{{ url('/sugerencia') }}">Enviar Sugerencia</a>
                         </nav>
 
                         <table class="table table-striped" id="tablas">
