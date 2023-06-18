@@ -61,7 +61,7 @@
             <p class="text-moduls" >Contrato, consulta de agendamiento y mas...</p>
         </a>
 
-        <a href="{{ url('produccion') }}" class="contenedor-moduls">
+        <a href="{{ url('ordenpedido') }}" class="contenedor-moduls">
             <img class="img-moduls" src="{{ asset('PICTURES/casco.png') }}" alt="img01">
             <h2 class="title-moduls">PRODUCCION</h2>
             <p class="text-moduls" >Insumos, provedores y mas...</p>

@@ -9,8 +9,8 @@ class Insumo extends Model
 {
     use HasFactory;
 
-    protected $table = 'insumo';
-    protected $primaryKey = 'id';
+    protected $table = 'insumos';
+    protected $primaryKey = 'IdInsumo';
 
     protected $fillable = [       
         'Cantidad',

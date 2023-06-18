@@ -19,10 +19,21 @@ class InsumoController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     */
+    public function vistaedit(Request $request)
+    {
+        $idinsumo = $request->input('idinsumo');
+        $insumos = Insumo::find($idinsumo);          
+        //dd($insumos);
+        return view('insumo.edit')->with('insumos',$insumos);
+    }
+
+    /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    {        
         return view('insumo.create');
     }
 
@@ -38,7 +49,7 @@ class InsumoController extends Controller
         'Cantidad' => 'required',
         'Unidadmedida' => 'required',
         'Color' => 'required',
-        'Tamaño' => 'required',
+      //  'Tamaño' => 'required',
         ]);
         
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
@@ -76,22 +87,34 @@ class InsumoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Insumo $id)
+    public function update(Request $request )
     {
-        $insumos = Insumo::find($id);
+        
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([      
+            'Cantidad' => 'required',
+            'Color' => 'required',
+            //  'Tamaño' => 'required',
+        ]);
+        $idinsumo = $request->input('idinsumo');
+        $insumos = Insumo::find($idinsumo);   
         $insumos->Cantidad = $request->input('Cantidad');
-        $insumos->Color = $request->input('color');
+        $insumos->Color = $request->input('Color');
         $insumos->update();
-        return redirect()->route('insumo.index')->with('Insumo actulizado con exito');
+
+        return redirect()->route('insumo.listar')->with('Insumo actulizado con exito');
     }
 
+    
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Insumo $id)    
+    public function destroy(Request $request)    
     {                    
-        $insumos = Insumo::find($id)->delete();             
-       // $insumos->delete();
-        return redirect()->route('insumo.index')->with('Insumo eliminado con exito');
+           
+        $idinsumo = $request->input('idinsumo');
+        $insumos = Insumo::find($idinsumo);               
+        $insumos->delete();
+        return redirect()->back()->with('Insumo eliminado con exito');
     }
 }

@@ -93,7 +93,7 @@
                       <th>Cantidad</th>
                       <th>Unidad de medida</th>   
                       <th>Color</th>
-                      <th>tamaño</th> 
+                      {{--<th>tamaño</th> --}}
                       <th></th>            
                     </tr>
                   </thead>
@@ -104,12 +104,17 @@
                       <td>{{$insumo->Cantidad}}</td>
                       <td>{{$insumo->IdUnidadMedida}}</td>
                       <td>{{$insumo->Color}}</td>
-                      <td>{{--$insumo->Tamaño--}}</td>
-                      <td>                                                
-                        <form action="{{ route('insumo.eliminar',$insumo->id) }}" method="POST">                          
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editar{{$insumo->id}}">Editar</button>  
-                          @csrf
-                          @method('DELETE')
+                     {{-- <td>$insumo->Tamaño</td>--}}
+                      <td>        
+                       {{--@include('insumo.info') --}}     
+                       <form action="{{ route('insumo.edit') }}" method="POST">                                              
+                        @csrf                        
+                        <input type="hidden" id="idinsumo" name="idinsumo" value="{{$insumo->IdInsumo}}">
+                        <button type="submit" class="btn btn-warning" >{{__('Editar')}}</button>
+                       </form>                                                              
+                        <form action="{{ route('insumo.eliminar') }}" method="POST">                                              
+                          @csrf                        
+                          <input type="hidden" id="idinsumo" name="idinsumo" value="{{$insumo->IdInsumo}}">
                           <button type="submit" class="btn btn-danger" >{{__('Eliminar')}}</button>
                         </form>                   
                       </td>                                            
@@ -140,6 +145,15 @@
       $(document).ready( function () {
       $('#tablas').DataTable();
       } );      
+
+      function mostrarid() {
+        id = document.getElementById('idinsumo').value;
+        alert(id);
+      }
+      
+      function abrirmodal(){
+        $('#editar').show();
+      }
     </script>
     
     </body>

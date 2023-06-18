@@ -89,14 +89,10 @@ Route::get('/registro/exitoso', function () {
 
 Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
 Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar');
-Route::post('/insumos', [InsumoController::class, 'update'])->name('insumo.actualizar');
-//Route::get('/insumo', [InsumoController::class, 'create'])->name('insumo.create');
-Route::delete('/insumos', [InsumoController::class, 'destroy'])->name('insumo.eliminar');
+Route::post('/insumos/editar', [InsumoController::class, 'vistaedit'])->name('insumo.edit');
+Route::post('insumos/eliminar', [InsumoController::class, 'destroy'])->name('insumo.eliminar');
+Route::post('insumos/actualizar', [InsumoController::class, 'update'])->name('insumo.actualizarinsumo');
+//Route::post('/insumosActualizar', 'InsumoController@actualizarinsumo')->name('insumo.actualizar');
 //Route::resource('insumos',InsumoController::class);
-
-Route::resource('/ordenpedido', OrdenpedidoController::class);
-//Route::delete('/ordenpedido', [OrdenpedidoController::class, 'destroy'])->name('ordenpedido.eliminar');
-//Route::post('/ordenpedido', [OrdenpedidoController::class, 'update'])->name('insumo.actualizar');
-Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
