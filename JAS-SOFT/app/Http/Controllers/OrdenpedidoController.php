@@ -62,10 +62,12 @@ class OrdenpedidoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Ordenpedido $id)
+    public function edit(Request $request)
     {
-        $ordenpedidos = Ordenpedido::find($id);
-        return view('ordenpedido.edit', ['ordenpedido' =>$ordenpedidos]);
+        $idordenpedido = $request->input('ordenpedido');        
+        //dd($insumos);       
+        $ordenpedidos = Ordenpedido::find($idordenpedido);
+        return view('ordenpedido.edit')->with('ordenpedidos', $ordenpedidos);
     }
 
     /**
@@ -75,11 +77,15 @@ class OrdenpedidoController extends Controller
     public function update(Request $request, Ordenpedido $ordenpedidos)
     {
         
+        $validatedData = $request->validate([
+            'cantidadProducto' => 'required',                  
+            'IdEstadopedido' => 'required',        
+        ]);
+        
         $idordenpedido = $request->input('idordenpedido');
         $ordenpedidos = Ordenpedido::find($idordenpedido);
-        $ordenpedidos->cantidadProducto = $request->input('cantidadProducto');
-        $ordenpedidos->fechaPedido = $request->input('fechaPedido');
-        $ordenpedidos->IdEstadopedido = $request->input('IdEstadopedido');
+        $ordenpedidos->cantidadProducto = $request->input('cantidadproducto');        
+        $ordenpedidos->IdEstadopedido = $request->input('idestadopedido');
         $ordenpedidos->update();
 
         return redirect()->route('ordenpedido.index')->with('success', 'Ordenpedido actulizado correctamente');
@@ -88,11 +94,12 @@ class OrdenpedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $ordenpedidos = Ordenpedido::find($id)->delete();
-
-        return redirect()->route('ordenpedido.index')
-            ->with('success', 'Ordenpedido eliminada correctamente');
+        $idordenpedido = $request->input('idordenpedido');        
+        $ordenpedidos = Ordenpedido::find($idordenpedido);
+        //dd($ordenpedidos);
+        $ordenpedidos->delete();
+        return redirect()->back()->with('pedido eliminado con exito');
     }
 }

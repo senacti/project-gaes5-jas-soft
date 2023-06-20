@@ -11,11 +11,12 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
 
-    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
+        rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css') }}">
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    
+
 
     <link rel="shortcut icon" href="PICTURES/iconlogo.png">
     <title>PromoPlast | Produccion</title>
@@ -91,13 +92,18 @@
                                         <td>{{ $ordenpedido->IdEstadopedido }}</td>
 
                                         <td>
-                                            <form action="{{ route('ordenpedido.eliminar', $ordenpedido->id) }}"
-                                                method="POST">
-                                                <a class="btn btn-sm btn-success"
-                                                    href="{{ route('ordenpedido.edit', $ordenpedido->id) }}"><i
-                                                        class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                            <form action="{{ route('ordenpedido.edit') }}" method="post">
                                                 @csrf
-                                                @method('DELETE')
+                                                <input type="hidden" id="idordenpedido" name="idordenpedido"
+                                                    value="{{ $ordenpedido->IdOrdenPedido }}">
+                                                <button type="submit"
+                                                    class="btn btn-success btn-sm">{{ __('Editar') }}</button>
+                                            </form>                                           
+                                            <form action="{{ route('ordenpedido.eliminar', $ordenpedido->IdOrdenPedido) }}"
+                                                method="POST">                                               
+                                                @csrf
+                                                <input type="hidden" id="idinsumo" name="idinsumo"
+                                                    value="{{ $ordenpedido->IdOrdenPedido }}">
                                                 <button type="submit" class="btn btn-danger btn-sm"><i
                                                         class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                             </form>
@@ -105,19 +111,23 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <div>
+                            </div>
                         </table>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                            Agregar Produccion
-                        </button>
-
+                        @include('ordenpedido.create')
+                        <div class="d-flex justify-content-around bg mb-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#myModal">
+                                Agregar Produccion
+                            </button>
+                        </div>
                         <!-- The Modal -->
-
                     </div>
                 </div>
             </div>
 </body>
 
-<script src="jquery-3.6.0.min.js"></script>
+<script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -130,23 +140,9 @@
         $('#tablas').DataTable();
     });
 
-    function soloLetras(e) {
-        var key = e.keyCode || e.which,
-            tecla = String.fromCharCode(key).toLowerCase(),
-            letras = " áéíóúabcdefghijklmnñopqrstuvwxyz",
-            especiales = [8, 37, 39, 46],
-            tecla_especial = false;
-
-        for (var i in especiales) {
-            if (key == especiales[i]) {
-                tecla_especial = true;
-                break;
-            }
-        }
-
-        if (letras.indexOf(tecla) == -1 && !tecla_especial) {
-            return false;
-        }
+    function mostrarid() {
+        id = document.getElementById('idordenpedido').value;
+        alert(id);
     }
 </script>
 

@@ -9,12 +9,11 @@ class Ordenpedido extends Model
 {
     protected $table = 'ordenpedido';
     protected $primaryKey = 'IdOrdenPedido';   
-    protected $fillable = [
-		'IdOrdenPedido' => 'required',
-		'cantidadProducto' => 'required',
-		'fechaPedido' => 'required',
-		'IdProducto' => 'required',
-		'IdEstadopedido' => 'required',
+    protected $fillable = [		
+		'cantidadProducto',
+		'fechaPedido',
+		'IdProducto',
+		'IdEstadopedido',
     ];
     public $timestamps = false;
 }
