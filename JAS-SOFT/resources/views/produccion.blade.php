@@ -294,6 +294,7 @@
     </div>    
   </body>
 
+<<<<<<< Updated upstream
     <script src="jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="{{ asset ('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset ('js/dataTables.bootstrap.min.js') }}"></script>
@@ -304,6 +305,71 @@
         
       <script>
         $(document).ready( function () {
+=======
+            <div class="col-10" id="contentd">
+                <div class="card" id="cardash">
+                    <nav class="descrip-menu">
+                        <a class="message-ubication" href="{{ url('insumos') }}">Insumos</a>
+                    </nav>
+                    <div class="container mt-3">
+                        <h2>PRODUCCION</h2>
+                        <p></p>
+                        <table class="table table-striped" id="tablas">
+                            <thead>
+                                <tr>
+                                    <th>Codigo produccion</th>
+                                    <th>Cantidadproducto</th>
+                                    <th>Fechapedido</th>
+                                    <th>Idproducto</th>
+                                    <th>Idestadopedido</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @foreach ($ordenpedidos as $ordenpedido)
+                                    <tr>
+                                        <td>{{ $ordenpedido->IdOrdenPedido }}</td>
+                                        <td>{{ $ordenpedido->cantidadProducto }}</td>
+                                        <td>{{ $ordenpedido->fechaPedido }}</td>
+                                        <td>{{ $ordenpedido->IdProducto }}</td>
+                                        <td>{{ $ordenpedido->IdEstadopedido }}</td>
+
+                                        <td>
+                                            <form action="{{ route('ordenpedido.eliminar', $ordenpedido->id) }}"
+                                                method="POST">
+                                                <a class="btn btn-sm btn-success"
+                                                    href="{{ route('ordenpedido.edit', $ordenpedido->id) }}"><i
+                                                        class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm"><i
+                                                        class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                            Agregar Produccion
+                        </button>                       
+                    </div>
+                </div>
+            </div>
+</body>
+
+<script src="jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+<script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
+<script src="JS/slidebar.js"></script>
+
+<script>
+    $(document).ready(function() {
+>>>>>>> Stashed changes
         $('#tablas').DataTable();
         } );
 

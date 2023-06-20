@@ -53,6 +53,7 @@ class OrdenpedidoController extends Controller
         
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
         
+<<<<<<< Updated upstream
         $ordenpedido = new Ordenpedido;
         $ordenpedido->fechaProduccion = $request->input('fechaProduccion');
         $ordenpedido->IdOrdenPedido = $request->input('IdOrdenPedido');
@@ -61,6 +62,17 @@ class OrdenpedidoController extends Controller
         $ordenpedido->save();
 
         return redirect()->route('produccion')->with('Orden de produccion creada con');
+=======
+        $ordenpedidos = new Ordenpedido;
+        $ordenpedidos->cantidadProducto = $request->input('cantidadProducto');
+        $ordenpedidos->fechaPedido = $request->input('fechaPedido');
+        $ordenpedidos->IdOrdenPedido = 2;//$request->input('IdOrdenPedido');
+        $ordenpedidos->IdEstadopedido = 2;//$request->input('IdEstadopedido');      
+        //dd($ordenpedidos);
+        $ordenpedidos->save();
+
+        return redirect()->route('ordenpedido.listar')->with('Orden de produccion creada con exito');
+>>>>>>> Stashed changes
     }
 
     /**
@@ -96,7 +108,20 @@ class OrdenpedidoController extends Controller
      */
     public function update(Request $request, Ordenpedido $ordenpedido)
     {
+<<<<<<< Updated upstream
         request()->validate(Ordenpedido::$rules);
+=======
+        $validatedData = $request->validate([
+            'cantidadProducto' => 'required',                  
+            'IdEstadopedido' => 'required',        
+        ]);
+        
+        $idordenpedido = $request->input('idordenpedido');
+        $ordenpedidos = Ordenpedido::find($idordenpedido);
+        $ordenpedidos->cantidadProducto = $request->input('cantidadProducto');        
+        $ordenpedidos->IdEstadopedido = $request->input('IdEstadopedido');
+        $ordenpedidos->update();
+>>>>>>> Stashed changes
 
         $ordenpedido->update($request->all());
 
@@ -109,11 +134,19 @@ class OrdenpedidoController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
+<<<<<<< Updated upstream
         $ordenpedido = Ordenpedido::find($id)->delete();
 
         return redirect()->route('ordenpedido.index')
             ->with('success', 'Ordenpedido eliminada correctamente');
+=======
+        $idordenpedido = $request->input('idordenpedido');        
+        $ordenpedidos = Ordenpedido::find($idordenpedido);
+        dd($ordenpedidos);
+        $ordenpedidos->delete();
+        return redirect()->back()->with('pedido eliminado con exito');
+>>>>>>> Stashed changes
     }
 }

@@ -23,6 +23,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ordenpedido extends Model
 {
     protected $table = 'ordenpedido';
+<<<<<<< Updated upstream
     protected $primaryKey = 'id';   
     static $rules = [
 		'IdOrdenPedido' => 'required',
@@ -30,6 +31,14 @@ class Ordenpedido extends Model
 		'fechaPedido' => 'required',
 		'IdProducto' => 'required',
 		'IdEstadopedido' => 'required',
+=======
+    protected $primaryKey = 'IdOrdenPedido';   
+    protected $fillable = [		
+		'cantidadProducto',
+		'fechaPedido',
+		'IdProducto',
+		'IdEstadopedido',
+>>>>>>> Stashed changes
     ];
 
     protected $perPage = 20;
