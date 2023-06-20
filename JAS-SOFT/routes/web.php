@@ -75,7 +75,7 @@ Route::get('/register', function () {
 
 
 Auth::routes();
-
+Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumos.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 //route::resource('/insumos', InsumoController::class);
 
@@ -95,4 +95,4 @@ Route::post('insumos/actualizar', [InsumoController::class, 'update'])->name('in
 //Route::post('/insumosActualizar', 'InsumoController@actualizarinsumo')->name('insumo.actualizar');
 //Route::resource('insumos',InsumoController::class);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
