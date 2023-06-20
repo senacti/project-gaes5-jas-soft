@@ -14,14 +14,12 @@
 .cabecera{
   background-color:black;
   color: white;
-
-
 }
 </style>
 </head>
 
 <body>
-  <img class="logo-dash-admin" src="{{ asset('pictures/logo.png') }}" alt="logo">
+    <img class="logo-dash-admin" src="{{ asset('PICTURES/Logo_Proyecto.png') }}" alt="logo">
     <h1 class="text-center">INSUMOS</h1>
     <table class="table" style = "text-aling:center; font-size: 20px">
         <thead class = "cabecera">

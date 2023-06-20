@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Insumo;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InsumoController extends Controller
 {
@@ -18,17 +19,12 @@ class InsumoController extends Controller
         return view('insumo.index')->with('insumos', $insumos);
     }
 
-<<<<<<< Updated upstream
-=======
     public function pdf(){
         $insumos=insumo::all();
         $pdf = Pdf::loadview('insumo.pdf',compact('insumos'));
         return $pdf->stream();
     }
 
-
-
->>>>>>> Stashed changes
     /**
      * Display a listing of the resource.
      */
