@@ -14,8 +14,8 @@ class InsumoController extends Controller
     public function index()
     {
         $insumos = Insumo::all();
-     //   dd($insumos);
-        return view('insumo.index')->with('insumos',$insumos);
+        //dd($insumos);
+        return view('insumo.index')->with('insumos', $insumos);
     }
 
     /**
@@ -24,16 +24,16 @@ class InsumoController extends Controller
     public function vistaedit(Request $request)
     {
         $idinsumo = $request->input('idinsumo');
-        $insumos = Insumo::find($idinsumo);          
+        $insumos = Insumo::find($idinsumo);
         //dd($insumos);
-        return view('insumo.edit')->with('insumos',$insumos);
+        return view('insumo.edit')->with('insumos', $insumos);
     }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {        
+    {
         return view('insumo.create');
     }
 
@@ -42,18 +42,18 @@ class InsumoController extends Controller
      */
     public function store(Request $request)
     {
-        
-       // Validar los datos recibidos del formulario
+
+        // Validar los datos recibidos del formulario
         $validatedData = $request->validate([
-        'NombreInsumo' => 'required',
-        'Cantidad' => 'required',
-        'Unidadmedida' => 'required',
-        'Color' => 'required',
-      //  'Tamaño' => 'required',
+            'NombreInsumo' => 'required',
+            'Cantidad' => 'required',
+            'Unidadmedida' => 'required',
+            'Color' => 'required',
+            //  'Tamaño' => 'required',
         ]);
-        
+
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
-        
+
         $insumos = new Insumo;
         $insumos->Cantidad = $request->input('Cantidad');
         $insumos->Color = $request->input('Color');
@@ -87,17 +87,17 @@ class InsumoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request )
+    public function update(Request $request)
     {
-        
+
         // Validar los datos recibidos del formulario
-        $validatedData = $request->validate([      
+        $validatedData = $request->validate([
             'Cantidad' => 'required',
             'Color' => 'required',
             //  'Tamaño' => 'required',
         ]);
         $idinsumo = $request->input('idinsumo');
-        $insumos = Insumo::find($idinsumo);   
+        $insumos = Insumo::find($idinsumo);
         $insumos->Cantidad = $request->input('Cantidad');
         $insumos->Color = $request->input('Color');
         $insumos->update();
@@ -105,15 +105,15 @@ class InsumoController extends Controller
         return redirect()->route('insumo.listar')->with('Insumo actulizado con exito');
     }
 
-    
+
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request)    
-    {                    
-           
+    public function destroy(Request $request)
+    {
+
         $idinsumo = $request->input('idinsumo');
-        $insumos = Insumo::find($idinsumo);               
+        $insumos = Insumo::find($idinsumo);
         $insumos->delete();
         return redirect()->back()->with('Insumo eliminado con exito');
     }

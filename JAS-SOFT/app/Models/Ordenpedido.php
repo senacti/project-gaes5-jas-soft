@@ -2,77 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Ordenpedido
- *
- * @property $IdOrdenPedido
- * @property $cantidadProducto
- * @property $fechaPedido
- * @property $IdProducto
- * @property $IdEstadopedido
- *
- * @property Estadopedido $estadopedido
- * @property Ordenproduccion[] $ordenproduccions
- * @property Pago[] $pagos
- * @property Ventum[] $ventas
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
 class Ordenpedido extends Model
 {
     protected $table = 'ordenpedido';
-    protected $primaryKey = 'id';   
-    static $rules = [
+    protected $primaryKey = 'IdOrdenPedido';   
+    protected $fillable = [
 		'IdOrdenPedido' => 'required',
 		'cantidadProducto' => 'required',
 		'fechaPedido' => 'required',
 		'IdProducto' => 'required',
 		'IdEstadopedido' => 'required',
     ];
-
-    protected $perPage = 20;
-
-    /**
-     * Attributes that should be mass-assignable.
-     *
-     * @var array
-     */
-    protected $fillable = ['IdOrdenPedido','cantidadProducto','fechaPedido','IdProducto','IdEstadopedido'];
-
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function estadopedido()
-    {
-        return $this->hasOne('App\Models\Estadopedido', 'IdEstadoPedido', 'IdEstadopedido');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function ordenproduccions()
-    {
-        return $this->hasMany('App\Models\Ordenproduccion', 'IdOrdenPedido', 'IdOrdenPedido');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function pagos()
-    {
-        return $this->hasMany('App\Models\Pago', 'IdOrdenPedido', 'IdOrdenPedido');
-    }
-    
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function ventas()
-    {
-        return $this->hasMany('App\Models\Ventum', 'IdOrdenPedido', 'IdOrdenPedido');
-    }
-    
-
+    public $timestamps = false;
 }

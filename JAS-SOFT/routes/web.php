@@ -1,10 +1,10 @@
 <?php
 
 
-use App\Http\Controllers\OrdenpedidoController;
+
 use App\Models\Insumo;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\InsumoController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +20,6 @@ use App\Http\Controllers\InsumoController;
 Route::get('/', function () {
     return view("index");
 });
-
-/*Route::get('/produccion', function () {
-    return view("produccion");
-});*/
 
 Route::get('/rrhh', function () {
     return view("rrhh");
@@ -69,15 +65,10 @@ Route::get('/register', function () {
     return view("register");
 });
 
-//Route::get('/registerInsumo', function () {
-//    return view("/insumo/index");
-//});
-
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-//route::resource('/insumos', InsumoController::class);
+
 
 use App\Http\Controllers\RegisterController;
 
@@ -87,12 +78,24 @@ Route::get('/registro/exitoso', function () {
     return "Registro exitoso";
 })->name('registro.exitoso');
 
+
+use App\Http\Controllers\InsumoController;
+
 Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
 Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar');
 Route::post('/insumos/editar', [InsumoController::class, 'vistaedit'])->name('insumo.edit');
 Route::post('insumos/eliminar', [InsumoController::class, 'destroy'])->name('insumo.eliminar');
 Route::post('insumos/actualizar', [InsumoController::class, 'update'])->name('insumo.actualizarinsumo');
-//Route::post('/insumosActualizar', 'InsumoController@actualizarinsumo')->name('insumo.actualizar');
-//Route::resource('insumos',InsumoController::class);
+
+
+use App\Http\Controllers\OrdenpedidoController;
+
+Route::post('/registerordenpedido', [OrdenpedidoController::class, 'store'])->name('ordenpedido.almacenar');
+Route::get('/ordenpedidos', [OrdenpedidoController::class, 'index'])->name('ordenpedido.listar');
+Route::post('/ordenpedidos/editar', [OrdenpedidoController::class, 'edit'])->name('ordenpedido.edit');
+Route::post('ordenpedidos/eliminar', [OrdenpedidoController::class, 'destroy'])->name('ordenpedido.eliminar');
+Route::post('ordenpedidos/actualizar', [OrdenpedidoController::class, 'update'])->name('ordenpedido.actualizarordenpedido');
+
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -1,5 +1,9 @@
-@extends('layouts.app')
-@section('content')
+<link href="{{ asset ('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
+<link rel="stylesheet" type="text/css" href="{{ asset ('css/Style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset ('css/Header.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset ('css/footer.css') }}">
+<link rel="stylesheet" href="{{ asset ('css/estilos-dash-admin.css') }}"> 
+
   <form action="{{ route('insumo.actualizarinsumo')}}" method="post">  
     @csrf              
 
@@ -34,4 +38,3 @@
       <button type="submit">Guardar</button>
     </div>
   </form>
-@endsection

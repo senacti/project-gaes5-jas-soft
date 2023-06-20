@@ -9,10 +9,10 @@ class Insumo extends Model
 {
     use HasFactory;
 
-    protected $table = 'insumos';
+    protected $table = 'insumo';
     protected $primaryKey = 'IdInsumo';
 
-    protected $fillable = [       
+    protected $fillable = [
         'Cantidad',
         'Color',
         'IdEmpleado',
