@@ -7,6 +7,7 @@ use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+
 class InsumoController extends Controller
 {
     /**

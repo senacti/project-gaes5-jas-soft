@@ -19,8 +19,9 @@
 </head>
 
 <body>
-    <img class="logo-dash-admin" src="{{ asset('PICTURES/Logo_Proyecto.png') }}" alt="logo">
-    <h1 class="text-center">INSUMOS</h1>
+  {{-- <img src="assets/iconlogo.png" alt="Imagen" width="50px" height="50px">
+  <img src="" alt=""> --}}
+    <h1 class="text-center">REPORTE DE INSUMOS</h1>
     <table class="table" style = "text-aling:center; font-size: 20px">
         <thead class = "cabecera">
           <tr>
