@@ -18,6 +18,17 @@ class InsumoController extends Controller
         return view('insumo.index')->with('insumos', $insumos);
     }
 
+<<<<<<< Updated upstream
+=======
+    public function pdf(){
+        $insumos=insumo::all();
+        $pdf = Pdf::loadview('insumo.pdf',compact('insumos'));
+        return $pdf->stream();
+    }
+
+
+
+>>>>>>> Stashed changes
     /**
      * Display a listing of the resource.
      */
