@@ -50,10 +50,10 @@
                         <a class="nav-link" href="{{ url('/rrhh') }}">RRHH</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ordenpedido') }}">PRODUCCION</a>
+                        <a class="nav-link" href="{{ url('/ordenpedidos') }}">PRODUCCION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/inventario') }}">INVENTARIO</a>
+                        <a class="nav-link" href="{{ url('/productos') }}">INVENTARIO</a>
 
                     </li>
                     <li class="nav-item">
@@ -102,7 +102,7 @@
                                             <form action="{{ route('ordenpedido.eliminar', $ordenpedido->IdOrdenPedido) }}"
                                                 method="POST">                                               
                                                 @csrf
-                                                <input type="hidden" id="idinsumo" name="idinsumo"
+                                                <input type="hidden" id="idordenpedido" name="idordenpedido"
                                                     value="{{ $ordenpedido->IdOrdenPedido }}">
                                                 <button type="submit" class="btn btn-danger btn-sm"><i
                                                         class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
@@ -117,14 +117,10 @@
                         @include('ordenpedido.create')
                         <div class="d-flex justify-content-around bg mb-3">
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#myModal">
+                                data-bs-target="#create">
                                 Agregar Produccion
                             </button>
-                        </div>
-                        <!-- The Modal -->
-                    </div>
-                </div>
-            </div>
+                        </div>               
 </body>
 
 <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
@@ -144,6 +140,10 @@
         id = document.getElementById('idordenpedido').value;
         alert(id);
     }
+
+    function abrirmodal() {
+            $('#editar').show();
+        }
 </script>
 
 </html>

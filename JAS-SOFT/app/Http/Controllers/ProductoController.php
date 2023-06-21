@@ -18,48 +18,59 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::paginate();
-
-        return view('producto.index', compact('productos'))
-            ->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
+        $productos = Producto::all();
+        //dd($productos)
+        return view('producto.index')->with('productos', $productos);
     }
 
     /**
      * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        $producto = new Producto();
-        return view('producto.create', compact('producto'));
+        return view('producto.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        request()->validate(Producto::$rules);
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([
+            'Nombreproducto' => 'required',
+            'Cantidad' => 'required',
+            'Unidadmedida' => 'required',
+            'Color' => 'required',
+            //  'Tamaño' => 'required',
+        ]);
 
-        $producto = Producto::create($request->all());
+        // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto created successfully.');
+        $productos = new Producto;
+        $productos->CantidadProducto = $request->input('Cantidad');
+        $productos->ValorUnidadMedidaProducto = $request->input('Color');
+        $productos->FechaFabricacion = $request->input('FechaFabricacion');
+        $productos->IdColor = 2;
+        $productos->IdEmpleado = 2;
+        $productos->IdUnidadMedida = 2;
+        $productos->IdEstadoProducto = 2;
+        $productos->IdNombreProducto = 2;
+        //dd($producto);
+        $productos->save();
+
+        // Redirigir a una página de éxito o mostrar un mensaje de éxito
+        return redirect()->route('producto.listar')->with('producto creado con');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $producto = Producto::find($id);
+        $productos = Producto::find($id);
 
         return view('producto.show', compact('producto'));
     }
@@ -67,12 +78,10 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $producto = Producto::find($id);
+        $productos = Producto::find($id);
 
         return view('producto.edit', compact('producto'));
     }
@@ -80,9 +89,6 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Producto $producto
-     * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Producto $producto)
     {
@@ -90,20 +96,18 @@ class ProductoController extends Controller
 
         $producto->update($request->all());
 
-        return redirect()->route('productos.index')
+        return redirect()->route('producto.index')
             ->with('success', 'Producto updated successfully');
     }
 
     /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $producto = Producto::find($id)->delete();
+        $idproducto = $request->input('idproducto');
+        $productos = Producto::find($idproducto);
+        $productos->delete();
 
-        return redirect()->route('productos.index')
-            ->with('success', 'Producto deleted successfully');
+        return redirect()->back()->with('success', 'Producto deleted successfully');
     }
 }

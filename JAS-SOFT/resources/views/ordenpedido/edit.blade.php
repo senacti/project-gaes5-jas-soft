@@ -6,17 +6,17 @@
 
 
 
-<form action="{{ route('ordenpedido.actualizarordenpedido') }}" class="was-validated" method="post">
+<form action="{{ route('ordenpedido.actualizarordenpedido') }}" method="post">
     @csrf
     <div class="modal-body">
         <div class="row">
             <div class="form-floating mb-3 mt-3 col-4">
                 <input type="text" class="form-control" id="cantidadProducto"
-                    placeholder="cantidadProducto" name="cantidadProducto" maxlength="30" required value="{{$ordenpedidos->cantidadProducto}}">
+                    placeholder="cantidadProducto" name="cantidadProducto" maxlength="30" required value="{{$ordenpedido->cantidadProducto}}">
                 <label for="cantidad">Cantidad</label>
             </div>             
             <div class="form-floating mt-4 mb-3 col-6">
-                <select class="form-select" id="IdEstadopedido" name="IdEstadopedido" value="{{$ordenpedidos->IdEstadopedido}}">
+                <select class="form-select" id="IdEstadopedido" name="IdEstadopedido" value="{{$ordenpedido->IdEstadopedido}}">
                     <option value="1">En produccion</option>
                     <option value="2">En espera</option>
                     <option value="2">En alistamiento</option>

@@ -54,7 +54,7 @@
                 <p class="text-moduls">Guarda, modifica, consulta las ventas y mas...</p>
             </a>
 
-            <a href="{{ url('inventario') }}" class="contenedor-moduls">
+            <a href="{{ url('productos') }}" class="contenedor-moduls">
                 <img class="img-moduls" src="{{ asset('PICTURES/inventario.png') }}" alt="img01">
                 <h2 class="title-moduls">INVENTARIO</h2>
                 <p class="text-moduls">Crear, modifica, consulta los productos y mas...</p>

@@ -21,7 +21,7 @@ class OrdenpedidoController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {       
+    {
         return view('ordenpedido.create');
     }
 
@@ -30,27 +30,25 @@ class OrdenpedidoController extends Controller
      */
     public function store(Request $request)
     {
-       // Validar los datos recibidos del formulario
-       $validatedData = $request->validate([
-        'cantidadProducto' => 'required',
-        'fechaPedido' => 'required',
-        'IdProducto' => 'required',
-        'IdEstadopedido' => 'required',        
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([
+            'cantidadProducto' => 'required',
+            'fechaPedido' => 'required',
+            'IdProducto' => 'required',
+            'IdEstadopedido' => 'required',
         ]);
-        
+
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
-        
+
         $ordenpedidos = new Ordenpedido;
         $ordenpedidos->cantidadProducto = $request->input('cantidadProducto');
         $ordenpedidos->fechaPedido = $request->input('fechaPedido');
-        $ordenpedidos->IdOrdenPedido = $request->input('IdOrdenPedido');
-        $ordenpedidos->IdEstadopedido = $request->input('IdEstadopedido');      
+        $ordenpedidos->IdEstadopedido = $request->input('IdEstadopedido');
         //dd($ordenpedidos);
         $ordenpedidos->save();
 
-        return redirect()->route('ordenpedido.store')->with('Orden de produccion creada con exito');
+        return redirect()->route('ordenpedido.store')->with('success', 'Orden de producción creada con éxito');
     }
-
     /**
      * Display the specified resource.
      */
@@ -64,7 +62,7 @@ class OrdenpedidoController extends Controller
      */
     public function edit(Request $request)
     {
-        $idordenpedido = $request->input('ordenpedido');        
+        $idordenpedido = $request->input('ordenpedido');
         //dd($insumos);       
         $ordenpedidos = Ordenpedido::find($idordenpedido);
         return view('ordenpedido.edit')->with('ordenpedidos', $ordenpedidos);
@@ -76,27 +74,27 @@ class OrdenpedidoController extends Controller
      */
     public function update(Request $request, Ordenpedido $ordenpedidos)
     {
-        
+
         $validatedData = $request->validate([
-            'cantidadProducto' => 'required',                  
-            'IdEstadopedido' => 'required',        
+            'cantidadProducto' => 'required',
+            'IdEstadopedido' => 'required',
         ]);
-        
+
         $idordenpedido = $request->input('idordenpedido');
         $ordenpedidos = Ordenpedido::find($idordenpedido);
-        $ordenpedidos->cantidadProducto = $request->input('cantidadproducto');        
+        $ordenpedidos->cantidadProducto = $request->input('cantidadproducto');
         $ordenpedidos->IdEstadopedido = $request->input('idestadopedido');
         $ordenpedidos->update();
 
         return redirect()->route('ordenpedido.index')->with('success', 'Ordenpedido actulizado correctamente');
     }
-   
+
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(Request $request)
     {
-        $idordenpedido = $request->input('idordenpedido');        
+        $idordenpedido = $request->input('idordenpedido');
         $ordenpedidos = Ordenpedido::find($idordenpedido);
         //dd($ordenpedidos);
         $ordenpedidos->delete();
