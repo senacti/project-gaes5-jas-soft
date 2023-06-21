@@ -111,6 +111,6 @@ Route::post('/productos/editar', [ProductoController::class, 'edit'])->name('pro
 Route::post('productos/eliminar', [ProductoController::class, 'destroy'])->name('producto.eliminar');
 Route::post('productos/actualizar', [ProductoController::class, 'update'])->name('producto.actualizarproducto');
 
-
+//sss
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
