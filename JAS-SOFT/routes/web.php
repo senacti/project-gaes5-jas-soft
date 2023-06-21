@@ -68,11 +68,11 @@ Route::get('/register', function () {
 
 Auth::routes();
 
-
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
 
 
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
@@ -95,6 +95,7 @@ Route::post('/registro', [RegisterController::class, 'store'])->name('registro.a
 Route::get('/registro/exitoso', function () {
     return "Registro exitoso";
 })->name('registro.exitoso');
+
 
 
 
