@@ -29,20 +29,21 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Producto extends Model
 {
-    
-    static $rules = [
-		'IdProducto' => 'required',
-		'CantidadProducto' => 'required',
-		'ValorUnidadMedidaProducto' => 'required',
-		'FechaFabricacion' => 'required',
-		'IdColor' => 'required',
-		'IdEmpleado' => 'required',
-		'IdUnidadMedida' => 'required',
-		'IdEstadoProducto' => 'required',
-		'IdNombreProducto' => 'required',
+    protected $table = 'producto';
+    protected $primaryKey = 'IdProducto';   
+    static $rules = [		
+		'CantidadProducto',
+		'ValorUnidadMedidaProducto',
+		'FechaFabricacion',
+		'IdColor',
+		'IdEmpleado',
+		'IdUnidadMedida',
+		'IdEstadoProducto',
+		'IdNombreProducto',
     ];
 
     protected $perPage = 20;
+    public $timestamps = false;
 
     /**
      * Attributes that should be mass-assignable.

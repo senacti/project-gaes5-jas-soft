@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="{{ asset ('css/estilos-dash-admin.css') }}"> 
 
   <form action="{{ route('insumo.actualizarinsumo')}}" method="post">  
-    @csrf              
+    @csrf            
 
     <div class="modal-body">
       <div class="row">

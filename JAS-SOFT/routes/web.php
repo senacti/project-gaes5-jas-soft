@@ -66,10 +66,14 @@ Route::get('/register', function () {
 });
 
 Auth::routes();
+<<<<<<< Updated upstream
 
 
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
 
+=======
+Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
+>>>>>>> Stashed changes
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -98,6 +102,14 @@ Route::get('/ordenpedidos', [OrdenpedidoController::class, 'index'])->name('orde
 Route::post('/ordenpedidos/editar', [OrdenpedidoController::class, 'edit'])->name('ordenpedido.edit');
 Route::post('ordenpedidos/eliminar', [OrdenpedidoController::class, 'destroy'])->name('ordenpedido.eliminar');
 Route::post('ordenpedidos/actualizar', [OrdenpedidoController::class, 'update'])->name('ordenpedido.actualizarordenpedido');
+
+use App\Http\Controllers\ProductoController;
+
+Route::post('/registerproducto', [ProductoController::class, 'store'])->name('producto.almacenar');
+Route::get('/productos', [ProductoController::class, 'index'])->name('producto.listar');
+Route::post('/productos/editar', [ProductoController::class, 'edit'])->name('producto.edit');
+Route::post('productos/eliminar', [ProductoController::class, 'destroy'])->name('producto.eliminar');
+Route::post('productos/actualizar', [ProductoController::class, 'update'])->name('producto.actualizarproducto');
 
 
 
