@@ -66,11 +66,10 @@ Route::get('/register', function () {
 });
 
 Auth::routes();
-<<<<<<< Updated upstream
 
-=======
+
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
->>>>>>> Stashed changes
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
