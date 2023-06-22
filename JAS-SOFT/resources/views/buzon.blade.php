@@ -86,78 +86,52 @@
                         </nav>
 
                         <table class="table table-striped" id="tablas">
-                            <thead>
-                                <tr>
+                        <tbody>
+                                    @foreach ($buzonsugerencias as $buzonsugerencia)
+                                        <tr>
+                                            <td>{{ ++$i }}</td>
+                                            
+											<td>{{ $buzonsugerencia->IdSugerencias }}</td>
+											<td>{{ $buzonsugerencia->CategoriaSugerencia }}</td>
+											<td>{{ $buzonsugerencia->DescripSugerencias }}</td>
+											<td>{{ $buzonsugerencia->IdEmpleado }}</td>
 
-                                    <th>Categoría</th>
-                                    <th>Fecha de creación</th>
-                                    <th>E-mail asociado</th>
-                                    <th>Acciones</th>
-
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-
-                                    <td>Mobiliario</td>
-                                    <td>23/03/2023</td>
-                                    <td>asociado@gmail.com</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-editar">Editar</button>
-                                        <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-
-                                    <td>Acoso laboral</td>
-                                    <td>23/03/2023</td>
-                                    <td>asociado@gmail.com</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-editar">Editar</button>
-                                        <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-
-                                    <td>Festividades</td>
-                                    <td>23/03/2023</td>
-                                    <td>asociado@gmail.com</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-editar">Editar</button>
-                                        <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-
-                                    <td>Instalaciones</td>
-                                    <td>23/03/2023</td>
-                                    <td>asociado@gmail.com</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-editar">Editar</button>
-                                        <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                                <tr>
-
-                                    <td>Cargas de trabajo</td>
-                                    <td>23/03/2023</td>
-                                    <td>asociado@gmail.com</td>
-                                    <td>
-                                        <button class="btn btn-primary btn-editar">Editar</button>
-                                        <button class="btn btn-danger btn-eliminar">Eliminar</button>
-                                    </td>
-
-                                </tr>
-                            </tbody>
+                                            <td>
+                                                <form action="{{ route('buzonsugerencias.destroy',$buzonsugerencia->id) }}" method="POST">
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('buzonsugerencias.show',$buzonsugerencia->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('buzonsugerencias.edit',$buzonsugerencia->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
                         </table>
                     </div>
                 </div>
             </div>
+
+            <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
+    <script type="text/javascript" src="{{ asset ('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset ('js/dataTables.bootstrap.min.js') }}"></script>
+    <script src="{{ asset ('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset ('https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js') }}"></script>
+    <script>
+      $(document).ready( function () {
+      $('#tablas').DataTable();
+      } );      
+
+      function mostrarid() {
+        id = document.getElementById('idbuzonsugerencia').value;
+        alert(id);
+      }
+      
+      function abrirmodal(){
+        $('#editar').show();
+      }
+    </script>
 
 </body>
 
