@@ -76,15 +76,14 @@
                             <thead class="thead">
                                 <tr>
                                     <th>Idproducto</th>
-                                    <th>Cantidadproducto</th>
-                                    <th>Valorunidadmedidaproducto</th>
+                                    <th>Cantidad</th>
+                                    <th>Tamaño</th>
                                     <th>Fechafabricacion</th>
-                                    <th>Idcolor</th>
-                                    <th>Idempleado</th>
-                                    <th>Idunidadmedida</th>
-                                    <th>Idestadoproducto</th>
-                                    <th>Idnombreproducto</th>
-
+                                    <th>Color</th>
+                                    <th>Empleado</th>
+                                    <th>Unidadmedida</th>
+                                    <th>Estadoproducto</th>
+                                    <th>Producto</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -100,7 +99,6 @@
                                         <td>{{ $producto->IdUnidadMedida }}</td>
                                         <td>{{ $producto->IdEstadoProducto }}</td>
                                         <td>{{ $producto->IdNombreProducto }}</td>
-
                                         <td>
                                             <form action="{{ route('producto.eliminar', $producto->IdProducto) }}"
                                                 method="post">
@@ -118,12 +116,12 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
-                            Agregar Productos
-                        </button>
-
-                       
-
+                        <div>
+                            @include('producto.create')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">                                
+                                Agregar Productos
+                            </button>  
+                        </div>                                           
                     </div>
                 </div>
             </div>

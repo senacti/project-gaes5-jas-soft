@@ -62,9 +62,10 @@ class OrdenpedidoController extends Controller
      */
     public function edit(Request $request)
     {
-        $idordenpedido = $request->input('ordenpedido');
-        //dd($insumos);       
+        $idordenpedido = $request->input('idordenpedido');
+        //dd($ordenpedidos);      
         $ordenpedidos = Ordenpedido::find($idordenpedido);
+        //dd($idordenpedido);
         return view('ordenpedido.edit')->with('ordenpedidos', $ordenpedidos);
     }
 
@@ -76,17 +77,18 @@ class OrdenpedidoController extends Controller
     {
 
         $validatedData = $request->validate([
-            'cantidadProducto' => 'required',
-            'IdEstadopedido' => 'required',
+            'cantidadproducto' => 'required',
+            'idestadopedido' => 'required',
         ]);
 
-        $idordenpedido = $request->input('idordenpedido');
+        $idordenpedido = $request->input('idordenpedido');       
         $ordenpedidos = Ordenpedido::find($idordenpedido);
+        //dd($request->input('cantidadproducto'));
         $ordenpedidos->cantidadProducto = $request->input('cantidadproducto');
         $ordenpedidos->IdEstadopedido = $request->input('idestadopedido');
         $ordenpedidos->update();
 
-        return redirect()->route('ordenpedido.index')->with('success', 'Ordenpedido actulizado correctamente');
+        return redirect()->route('ordenpedido.listar')->with('success', 'Ordenpedido actulizado correctamente');
     }
 
     /**

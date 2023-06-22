@@ -58,7 +58,7 @@ class InsumoController extends Controller
             'Cantidad' => 'required',
             'Unidadmedida' => 'required',
             'Color' => 'required',
-            //  'Tamaño' => 'required',
+            //'Tamaño' => 'required',
         ]);
 
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
@@ -73,7 +73,7 @@ class InsumoController extends Controller
         $insumos->save();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect()->route('insumo.listar')->with('Insumo creado con');
+        return redirect()->route('insumo.listar')->with('Insumo creado con exito');
     }
 
     /**
@@ -103,8 +103,9 @@ class InsumoController extends Controller
         $validatedData = $request->validate([
             'Cantidad' => 'required',
             'Color' => 'required',
-            //  'Tamaño' => 'required',
+            //'Tamaño' => 'required',
         ]);
+        
         $idinsumo = $request->input('idinsumo');
         $insumos = Insumo::find($idinsumo);
         $insumos->Cantidad = $request->input('Cantidad');

@@ -6,7 +6,6 @@
 
   <form action="{{ route('insumo.actualizarinsumo')}}" method="post">  
     @csrf            
-
     <div class="modal-body">
       <div class="row">
         <div class="form-floating mb-3 mt-3">

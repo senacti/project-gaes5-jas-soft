@@ -39,6 +39,7 @@
                             <label for="IdEstadopedido" class="form-label">Estado</label>
                         </div>
                     </div>
+                    <button type="submit" id="submitordenpedido" class="hidden"></button>
             </form>
         </div>
 

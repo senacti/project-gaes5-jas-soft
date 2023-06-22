@@ -82,7 +82,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 @foreach ($ordenpedidos as $ordenpedido)
                                     <tr>
                                         <td>{{ $ordenpedido->IdOrdenPedido }}</td>
@@ -98,9 +97,10 @@
                                                     value="{{ $ordenpedido->IdOrdenPedido }}">
                                                 <button type="submit"
                                                     class="btn btn-success btn-sm">{{ __('Editar') }}</button>
-                                            </form>                                           
-                                            <form action="{{ route('ordenpedido.eliminar', $ordenpedido->IdOrdenPedido) }}"
-                                                method="POST">                                               
+                                            </form>
+                                            <form
+                                                action="{{ route('ordenpedido.eliminar', $ordenpedido->IdOrdenPedido) }}"
+                                                method="POST">
                                                 @csrf
                                                 <input type="hidden" id="idordenpedido" name="idordenpedido"
                                                     value="{{ $ordenpedido->IdOrdenPedido }}">
@@ -111,8 +111,6 @@
                                     </tr>
                                 @endforeach
                             </tbody>
-                            <div>
-                            </div>
                         </table>
                         @include('ordenpedido.create')
                         <div class="d-flex justify-content-around bg mb-3">
@@ -120,9 +118,13 @@
                                 data-bs-target="#create">
                                 Agregar Produccion
                             </button>
-                        </div>               
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
-
 <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
@@ -142,8 +144,8 @@
     }
 
     function abrirmodal() {
-            $('#editar').show();
-        }
+        $('#editar').show();
+    }
 </script>
 
 </html>

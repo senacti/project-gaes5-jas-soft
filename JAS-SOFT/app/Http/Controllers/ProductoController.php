@@ -40,28 +40,27 @@ class ProductoController extends Controller
         // Validar los datos recibidos del formulario
         $validatedData = $request->validate([
             'Nombreproducto' => 'required',
-            'Cantidad' => 'required',
-            'Unidadmedida' => 'required',
-            'Color' => 'required',
-            //  'Tamaño' => 'required',
+            'Cantidadproducto' => 'required',
+            'ValorUnidadMedidaProducto' => 'required',
+            'FechaFabricacion' => 'required',            
         ]);
 
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $productos = new Producto;
-        $productos->CantidadProducto = $request->input('Cantidad');
-        $productos->ValorUnidadMedidaProducto = $request->input('Color');
+        $productos->CantidadProducto = $request->input('Cantidadproducto');
+        $productos->ValorUnidadMedidaProducto = $request->input('ValorUnidadMedidaProducto');
         $productos->FechaFabricacion = $request->input('FechaFabricacion');
-        $productos->IdColor = 2;
-        $productos->IdEmpleado = 2;
-        $productos->IdUnidadMedida = 2;
-        $productos->IdEstadoProducto = 2;
-        $productos->IdNombreProducto = 2;
+        $productos->IdColor = $request->input('idcolor');
+        $productos->IdEmpleado = $request->input('FechaFabricacion');
+        $productos->IdUnidadMedida = $request->input('Tamaño');
+        $productos->IdEstadoProducto = $request->input('FechaFabricacion');
+        $productos->IdNombreProducto = $request->input('FechaFabricacion');
         //dd($producto);
         $productos->save();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
-        return redirect()->route('producto.listar')->with('producto creado con');
+        return redirect()->route('producto.listar')->with('producto creado con exito');
     }
 
     /**
@@ -70,34 +69,41 @@ class ProductoController extends Controller
      */
     public function show($id)
     {
-        $productos = Producto::find($id);
-
-        return view('producto.show', compact('producto'));
+        
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $productos = Producto::find($id);
-
-        return view('producto.edit', compact('producto'));
+        $idproducto= $request->input('idproducto');
+        $productos = Producto::find($idproducto);       
+        return view('producto.edit')->with('productos', $productos);
     }
 
     /**
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request, Producto $producto)
+    public function update(Request $request)
     {
-        request()->validate(Producto::$rules);
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([            
+            'Cantidadproducto' => 'required',               
+        ]);
 
-        $producto->update($request->all());
+        // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
-        return redirect()->route('producto.index')
-            ->with('success', 'Producto updated successfully');
+        $idproducto = $request->input('idproducto');
+        $productos = Producto::find($idproducto);
+        $productos->CantidadProducto = $request->input('Cantidadproducto');      
+        //dd($producto);
+        $productos->update();
+
+        // Redirigir a una página de éxito o mostrar un mensaje de éxito
+        return redirect()->route('producto.listar')->with('producto actualizado con exito');
     }
 
     /**
@@ -107,7 +113,7 @@ class ProductoController extends Controller
         $idproducto = $request->input('idproducto');
         $productos = Producto::find($idproducto);
         $productos->delete();
-
+        
         return redirect()->back()->with('success', 'Producto deleted successfully');
     }
 }
