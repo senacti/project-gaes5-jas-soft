@@ -8,7 +8,7 @@ use App\Http\Controllers\VentumController;
 class Ventum extends Model
 {
     protected $table = 'venta';
-    protected $primariKey = 'IdVenta';
+    protected $primaryKey = 'IdVenta';
 
     protected $fillable = [
 		'fecha',
@@ -21,6 +21,7 @@ class Ventum extends Model
 		'IdEmpleado',
 		'IdOrdenPedido',
     ];
+
     /**
      * Attributes that should be mass-assignable.
      *

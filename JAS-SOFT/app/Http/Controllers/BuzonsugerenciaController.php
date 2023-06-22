@@ -121,7 +121,7 @@ class BuzonsugerenciaController extends Controller
         $idSugerencias = $request->input('idsugerencias');
         $buzonsugerencia = Buzonsugerencia::find($idSugerencias);
         $buzonsugerencia->delete();
-        return redirect()->back()->with('Insumo eliminado con exito');
+        return redirect()->back()->with('Sugerencia eliminada correctamente');
 
     }
 }

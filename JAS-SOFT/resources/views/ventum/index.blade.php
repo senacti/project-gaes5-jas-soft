@@ -110,8 +110,7 @@
                                         <td>
                                             <form action="{{ route('ventum.edit') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" id="idventa" name="idventa"
-                                                    value="{{ $venta->IdVenta }}">
+                                                <input type="hidden" name="idventa" value="{{ $venta->IdVenta }}">
                                                 <button type="submit"
                                                     class="btn btn-success btn-sm">{{ __('Editar') }}</button>
                                             </form>

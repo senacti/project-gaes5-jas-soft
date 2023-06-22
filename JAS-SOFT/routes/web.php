@@ -108,6 +108,7 @@ Route::post('productos/actualizar', [ProductoController::class, 'update'])->name
 
 use App\Http\Controllers\VentumController;
 
+
 Route::post('/registerventum', [ventumController::class, 'store'])->name('ventum.almacenar');
 Route::get('/ventum', [VentumController::class, 'index'])->name('ventum.listar');
 Route::post('/ventum/editar', [VentumController::class, 'edit'])->name('ventum.edit');
@@ -122,3 +123,6 @@ Route::get('/buzonsugerencias', [BuzonsugerenciaController::class, 'index'])->na
 Route::post('/buzonsugerencias/editar', [BuzonsugerenciaController::class, 'edit'])->name('buzonsugerencia.edit');
 Route::post('buzonsugerencias/eliminar', [BuzonsugerenciaController::class, 'destroy'])->name('buzonsugerencia.eliminar');
 Route::post('buzonsugerencias/actualizar', [BuzonsugerenciaController::class, 'update'])->name('buzonsugerencia.actualizarBuzonsugerencia');
+
+
+Route::get('/ventum', [VentumController::class, 'index'])->name('ventum.index');

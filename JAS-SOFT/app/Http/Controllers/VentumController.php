@@ -50,15 +50,27 @@ class VentumController extends Controller
 
     public function show(Ventum $venta)
     {
-        
+
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, Ventum $venta)
     {
-        $idventa = $request->input('idventa');
-        $venta = Ventum::find($idventa);
-        return view('ventum.edit')->with('venta', $venta);
+        // Aquí puedes realizar las operaciones necesarias para obtener la venta con el ID proporcionado
+        $venta = Ventum::find($venta->IdVenta);
+
+        // Verificar si se encontró una venta con el ID proporcionado
+        if (!$venta) {
+            return redirect()->route('ventum.index')->with('error', 'Venta no encontrada');
+        }
+
+        // Realiza cualquier otra lógica requerida para la vista de edición
+
+        // Luego, devuelve la vista de edición con la venta
+        return view('ventum.index', compact('ventum'));
     }
+
+
+
 
     public function update(Request $request)
     {
@@ -93,8 +105,13 @@ class VentumController extends Controller
     {
         $idventa = $request->input('idventa');
         $venta = Ventum::find($idventa);
-        $venta->delete();
 
-        return redirect()->route('ventum.index')->with('success', 'Venta eliminada correctamente');
+        if ($venta) {
+            $venta->delete();
+            return redirect()->back()->with('success', 'Venta eliminada correctamente');
+        }
+
+        return redirect()->back()->with('error', 'No se encontró la venta');
     }
+
 }
