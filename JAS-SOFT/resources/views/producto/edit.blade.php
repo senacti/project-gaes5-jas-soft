@@ -10,13 +10,11 @@
                 <div class="modal-body">
                     <div class="row">                        
                         <div class="form-floating mt-3 mb-3 col-6">
-                            <input type="text" required class="form-control" id="Cantidadproducto"
-                                placeholder="CantidadProducto" name="Cantidadproducto" maxlength="10" value="{{$productos->CantidadProducto}}">
+                            <input type="text" required class="form-control" id="cantidadproducto" placeholder="CantidadProducto" name="cantidadproducto" maxlength="10" value="{{$productos->CantidadProducto}}">
                             <label for="Cantidad">Cantidad</label>
                         </div>                      
                         <div class="form-floating mt-3 mb-3 col-6">
-                            <input type="text" class="form-control" id="idcolor" placeholder="idcolors"
-                                name="idcolor"value="{{$productos->IdColor}}">
+                            <input type="text" class="form-control" id="idcolor" placeholder="idcolors" name="idcolor"value="{{$productos->IdColor}}">
                             <label for="idcolors">Color</label>
                         </div>  
                     </div>

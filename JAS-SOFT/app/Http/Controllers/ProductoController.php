@@ -91,14 +91,17 @@ class ProductoController extends Controller
     {
         // Validar los datos recibidos del formulario
         $validatedData = $request->validate([            
-            'Cantidadproducto' => 'required',               
+            'Cantidadproducto' => 'required',   
+            'IdColor' => 'required',            
         ]);
 
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $idproducto = $request->input('idproducto');
         $productos = Producto::find($idproducto);
-        $productos->CantidadProducto = $request->input('Cantidadproducto');      
+        dd($productos);
+        $productos->CantidadProducto = $request->input('cantidadproducto');  
+        $productos->IdColor = $request->input('idcolor');     
         //dd($producto);
         $productos->update();
 

@@ -54,10 +54,12 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url('/productos') }}">INVENTARIO</a>
-
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
+                        <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('/buzonsugerencia') }}">BUZON</a>
                     </li>
                 </ul>
             </div>
@@ -129,7 +131,7 @@
 <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js') }}"></script>
+
 <script type="text/javascript" src="{{ asset('js/validaciones.js') }}"></script>
 <script src="JS/slidebar.js"></script>
 

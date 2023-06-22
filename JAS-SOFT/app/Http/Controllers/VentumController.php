@@ -50,16 +50,17 @@ class VentumController extends Controller
 
     public function show(Ventum $venta)
     {
-        return view('ventum.show', ['venta' => $venta]);
+        
     }
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $venta = Ventum::findOrFail($id);
-        return view('ventum.edit', ['venta' => $venta]);
+        $idventa = $request->input('idventa');
+        $venta = Ventum::find($idventa);
+        return view('ventum.edit')->with('venta', $venta);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $validatedData = $request->validate([
             'fecha' => 'required',
@@ -73,7 +74,7 @@ class VentumController extends Controller
             'IdOrdenPedido' => 'required',
         ]);
 
-        $venta = Ventum::findOrFail($id);
+        $venta = new Ventum;
         $venta->fecha = $request->input('fecha');
         $venta->totalVenta = $request->input('totalventa');
         $venta->subTotal = $request->input('subTotal');
@@ -88,9 +89,10 @@ class VentumController extends Controller
         return redirect()->route('ventum.index')->with('success', 'Venta actualizada correctamente');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $venta = Ventum::findOrFail($id);
+        $idventa = $request->input('idventa');
+        $venta = Ventum::find($idventa);
         $venta->delete();
 
         return redirect()->route('ventum.index')->with('success', 'Venta eliminada correctamente');

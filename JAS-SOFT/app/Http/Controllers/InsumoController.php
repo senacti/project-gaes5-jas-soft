@@ -20,7 +20,7 @@ class InsumoController extends Controller
         return view('insumo.index')->with('insumos', $insumos);
     }
 
-    public function pdf()
+    public function pdf(Insumo $insumo)
     {
         $insumos=insumo::all();
         $pdf = Pdf::loadview('insumo.pdf')->wit('insumos');

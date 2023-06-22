@@ -50,18 +50,16 @@
                         <a class="nav-link" href="{{ url('/rrhh') }}">RRHH</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/produccion') }}">PRODUCCION</a>
+                        <a class="nav-link" href="{{ url('/ordenpedidos') }}">PRODUCCION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/inventario') }}">INVENTARIO</a>
-
+                        <a class="nav-link" href="{{ url('/productos') }}">INVENTARIO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
+                        <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/buzon') }}">BUZON</a>
-                    </li>
+                        <a class="nav-link" href="{{ url('/buzonsugerencia') }}">BUZON</a>
                 </ul>
             </div>
             <div class="col-10" id="contentd">
@@ -101,16 +99,19 @@
                                         <td>{{ $producto->IdNombreProducto }}</td>
                                         <td>
                                             <form action="{{ route('producto.eliminar', $producto->IdProducto) }}"
-                                                method="post">
-                                                <a class="btn btn-sm btn-success"
-                                                    href="{{ route('producto.edit', $producto->IdProducto) }}"><i
-                                                        class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                method="post">                                               
                                                 @csrf
                                                 <input type="hidden" id="idproducto" name="idproducto"
                                                     value="{{ $producto->IdProducto }}">
-                                                <button type="submit" class="btn btn-danger btn-sm"><i
-                                                        class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}</button>
-                                            </form>
+                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
+                                            </form>   
+                                            <form action="{{ route('producto.edit') }}" method="POST">
+                                                @csrf
+                                                <input type="hidden" id="idproducto" name="idproducto"
+                                                    value="{{ $producto->IdProducto }}">
+                                                <button type="submit"
+                                                    class="btn btn-success">{{ __('Editar') }}</button>
+                                            </form>                                       
                                         </td>
                                     </tr>
                                 @endforeach
@@ -131,7 +132,6 @@
     <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
     <script src="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#tablas').DataTable();

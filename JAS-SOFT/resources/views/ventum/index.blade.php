@@ -6,14 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/Style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/Header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/footer.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
 
-    <link href="{{ asset ('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset ('css/estilos-dash-admin.css') }}">
-    <link rel="stylesheet" href="{{ asset ('css/jquery.dataTables.min.css') }}">
-    <script src="{{ asset ('js/bootstrap.bundle.min.js') }}"></script>
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
@@ -28,8 +29,10 @@
         <ul class="list-menu-ul">
             <li class="list-menu-dash"> <img class="img-menu-dash" src="PICTURES/campana.png" alt="Campana"> </li>
             <li class="list-menu-dash"> Administrador (Administrador) </li>
-            <li class="list-menu-dash"> <img class="img-menu-dash rotate-img" src="PICTURES/flecha.png" alt="flecha"> </li>
-            <li class="list-menu-dash"> <img class="img-menu-dash-users" src="PICTURES/usuario.png" alt=""> </li>
+            <li class="list-menu-dash"> <img class="img-menu-dash rotate-img" src="PICTURES/flecha.png" alt="flecha">
+            </li>
+            <li class="list-menu-dash"> <img class="img-menu-dash-users" src="PICTURES/usuario.png" alt="">
+            </li>
         </ul>
     </header>
 
@@ -46,16 +49,16 @@
                         <a class="nav-link" href="{{ url('/rrhh') }}">RRHH</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/produccion') }}">PRODUCCION</a>
+                        <a class="nav-link" href="{{ url('/ordenpedidos') }}">PRODUCCION</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/inventario') }}">INVENTARIO</a>
+                        <a class="nav-link" href="{{ url('/productos') }}">INVENTARIO</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
+                        <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/buzon') }}">BUZON</a>
+                        <a class="nav-link" href="{{ url('/buzonsugerencia') }}">BUZON</a>
                     </li>
                 </ul>
             </div>
@@ -93,30 +96,41 @@
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $venta)
-                                <tr>
-                                    <td>{{ $venta->IdVenta }}</td>
-                                    <td>{{ $venta->fecha }}</td>
-                                    <td>{{ $venta->totalVenta }}</td>
-                                    <td>{{ $venta->subTotal }}</td>
-                                    <td>{{ $venta->CantidadDescuento }}</td>
-                                    <td>{{ $venta->totalIva }}</td>
-                                    <td>{{ $venta->IdCliente }}</td>
-                                    <td>{{ $venta->IdPagos }}</td>
-                                    <td>{{ $venta->IdEmpleado }}</td>
-                                    <td>{{ $venta->IdOrdenPedido }}</td>
-                                    <td>
-                                        <form action="{{ route('ventum.eliminar', $venta->IdVenta) }}" method="POST">
-                                            <a class="btn btn-sm btn-success" href="{{ route('ventum.edit', $venta->IdVenta) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td>{{ $venta->IdVenta }}</td>
+                                        <td>{{ $venta->fecha }}</td>
+                                        <td>{{ $venta->totalVenta }}</td>
+                                        <td>{{ $venta->subTotal }}</td>
+                                        <td>{{ $venta->CantidadDescuento }}</td>
+                                        <td>{{ $venta->totalIva }}</td>
+                                        <td>{{ $venta->IdCliente }}</td>
+                                        <td>{{ $venta->IdPagos }}</td>
+                                        <td>{{ $venta->IdEmpleado }}</td>
+                                        <td>{{ $venta->IdOrdenPedido }}</td>
+                                        <td>
+                                            <form action="{{ route('ventum.edit') }}" method="post">
+                                                @csrf
+                                                <input type="hidden" id="idventa" name="idventa"
+                                                    value="{{ $venta->IdVenta }}">
+                                                <button type="submit"
+                                                    class="btn btn-success btn-sm">{{ __('Editar') }}</button>
+                                            </form>
+                                            <form action="{{ route('ventum.eliminar') }}"
+                                                method="POST">
+                                                @csrf
+                                                <input type="hidden" id="idventa" name="idventa"
+                                                    value="{{ $venta->IdVenta }}">
+                                                <button type="submit"
+                                                    class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
+                                            </form>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         @include ('ventum.create')
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#myModal">
                             Nueva venta
                         </button>
 
@@ -126,7 +140,8 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
+    <script src="{{ asset ('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('JS/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('JS/dataTables.bootstrap.min.js') }}"></script>
     <script>

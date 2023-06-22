@@ -48,7 +48,7 @@
     </nav>
     <center>
         <div class="contenedor">
-            <a href="{{ url('ventas') }}" class="contenedor-moduls">
+            <a href="{{ url('ventum') }}" class="contenedor-moduls">
                 <img class="img-moduls" src="{{ asset('PICTURES/carro.png') }}" alt="img01">
                 <h2 class="title-moduls">VENTAS</h2>
                 <p class="text-moduls">Guarda, modifica, consulta las ventas y mas...</p>
@@ -72,7 +72,7 @@
                 <p class="text-moduls">Insumos, provedores y mas...</p>
             </a>
 
-            <a href="{{ url('buzon') }}" class="contenedor-moduls">
+            <a href="{{ url('buzonsugerencia') }}" class="contenedor-moduls">
                 <img class="img-moduls" src="{{ asset('PICTURES/buzom.png') }}" alt="img01">
                 <h2 class="title-moduls">BUZON DE SUGERENCIAS</h2>
                 <p class="text-moduls">Consulta y guarda PQR...</p>
