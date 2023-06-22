@@ -43,11 +43,13 @@ class OrdenpedidoController extends Controller
         $ordenpedidos = new Ordenpedido;
         $ordenpedidos->cantidadProducto = $request->input('cantidadProducto');
         $ordenpedidos->fechaPedido = $request->input('fechaPedido');
+        $ordenpedidos->IdProducto = $request->input('IdProducto');
         $ordenpedidos->IdEstadopedido = $request->input('IdEstadopedido');
+        
         //dd($ordenpedidos);
         $ordenpedidos->save();
 
-        return redirect()->route('ordenpedido.store')->with('success', 'Orden de producción creada con éxito');
+        return redirect()->route('ordenpedido.listar')->with('success', 'Orden de producción creada con éxito');
     }
     /**
      * Display the specified resource.
