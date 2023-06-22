@@ -18,21 +18,16 @@ class BuzonsugerenciaController extends Controller
      */
     public function index()
     {
-        $buzonsugerencias = Buzonsugerencia::paginate();
-
-        return view('buzonsugerencia.index', compact('buzonsugerencias'))
-            ->with('i', (request()->input('page', 1) - 1) * $buzonsugerencias->perPage());
+        
+        $buzonsugerencia = Buzonsugerencia::all();
+        //dd($buzonsugerencias);
+        return view('buzonsugerencia.index')->with('buzonsugerencias', $buzonsugerencia);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function create()
     {
-        $buzonsugerencia = new Buzonsugerencia();
-        return view('buzonsugerencia.create', compact('buzonsugerencia'));
+        return view('buzonsugerencias.create');
     }
 
     /**
@@ -43,12 +38,27 @@ class BuzonsugerenciaController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(Buzonsugerencia::$rules);
 
-        $buzonsugerencia = Buzonsugerencia::create($request->all());
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([
+            'CategoriaSugerencia' => 'required',
+            'DescripSugerencias' => 'required',
+            
+            
+        ]);
 
-        return redirect()->route('buzonsugerencias.index')
-            ->with('success', 'Buzonsugerencia created successfully.');
+        // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
+
+        $insumos = new Buzonsugerencia;
+        $insumos->CategoriaSugerencia = $request->input('CategoriaSugerencia');
+        $insumos->DescripSugerencias = $request->input('DescripSugerencias');
+        $insumos->IdEmpleado = 2;
+       
+        //dd($insumo);
+        $insumos->save();
+
+        // Redirigir a una página de éxito o mostrar un mensaje de éxito
+        return redirect()->route('buzonsugerencias.listar')->with('Buzon creado con exito');
     }
 
     /**
@@ -57,11 +67,9 @@ class BuzonsugerenciaController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Buzonsugerencia $id)
     {
-        $buzonsugerencia = Buzonsugerencia::find($id);
-
-        return view('buzonsugerencia.show', compact('buzonsugerencia'));
+        
     }
 
     /**
@@ -70,11 +78,12 @@ class BuzonsugerenciaController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $buzonsugerencia = Buzonsugerencia::find($id);
-
-        return view('buzonsugerencia.edit', compact('buzonsugerencia'));
+        $idSugerencias = $request->input('idsugerencias');
+        $insumos = Buzonsugerencia::find($idSugerencias);
+        //dd($insumos);
+        return view('insumo.edit')->with('insumos', $insumos);
     }
 
     /**
@@ -86,12 +95,20 @@ class BuzonsugerenciaController extends Controller
      */
     public function update(Request $request, Buzonsugerencia $buzonsugerencia)
     {
-        request()->validate(Buzonsugerencia::$rules);
+        // Validar los datos recibidos del formulario
+        $validatedData = $request->validate([
+            'CategoriaSugerencia' => 'required',
+            'DescripSugerencias' => 'required',
+            //'Tamaño' => 'required',
+        ]);
+        
+        $idSugerencias = $request->input('idSugerencias');
+        $buzonsugerencia = Buzonsugerencia::find($idSugerencias);
+        $buzonsugerencia->CategoriaSugerencia = $request->input('CategoriaSugerencia');
+        $buzonsugerencia->DescripSugerencias = $request->input('DescripSugerencias');
+        $buzonsugerencia->update();
 
-        $buzonsugerencia->update($request->all());
-
-        return redirect()->route('buzonsugerencias.index')
-            ->with('success', 'Buzonsugerencia updated successfully');
+        return redirect()->route('buzonsugerencias.listar')->with('Buzon actulizado con exito');
     }
 
     /**
@@ -99,11 +116,12 @@ class BuzonsugerenciaController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        $buzonsugerencia = Buzonsugerencia::find($id)->delete();
+        $idSugerencias = $request->input('idsugerencias');
+        $buzonsugerencia = Buzonsugerencia::find($idSugerencias);
+        $buzonsugerencia->delete();
+        return redirect()->back()->with('Insumo eliminado con exito');
 
-        return redirect()->route('buzonsugerencias.index')
-            ->with('success', 'Buzonsugerencia deleted successfully');
     }
 }

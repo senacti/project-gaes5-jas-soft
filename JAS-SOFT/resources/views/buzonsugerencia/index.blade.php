@@ -96,7 +96,7 @@
 											<td>{{ $buzonsugerencia->IdEmpleado }}</td>
 
                                             <td>
-                                                <form action="{{ route('buzonsugerencia.eliminar',$buzonsugerencia->IdSugerencias) }}" method="POST">
+                                                <form action="{{ route('buzonsugerencia.eliminar') }}" method="POST">
                                                     
                                                     <a class="btn btn-sm btn-success" href="{{ route('buzonsugerencia.edit',$buzonsugerencia->IdSugerencias) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
                                                     @csrf
