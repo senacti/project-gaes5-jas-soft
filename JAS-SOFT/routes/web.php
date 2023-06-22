@@ -3,6 +3,7 @@
 
 
 use App\Models\Insumo;
+use App\Http\Controllers\BuzonsugerenciaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -115,3 +116,9 @@ Route::post('/ventum/actualizar', [VentumController::class, 'update'])->name('ve
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::post('/registerbuzonsugerencia', [BuzonsugerenciaController::class, 'store'])->name('buzonsugerencia.almacenar');
+Route::get('/buzonsugerencias', [BuzonsugerenciaController::class, 'index'])->name('buzonsugerencia.listar');
+Route::post('/buzonsugerencias/editar', [BuzonsugerenciaController::class, 'edit'])->name('buzonsugerencia.edit');
+Route::post('buzonsugerencias/eliminar', [BuzonsugerenciaController::class, 'destroy'])->name('buzonsugerencia.eliminar');
+Route::post('buzonsugerencias/actualizar', [BuzonsugerenciaController::class, 'update'])->name('buzonsugerencia.actualizarBuzonsugerencia');
