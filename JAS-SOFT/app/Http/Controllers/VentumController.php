@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Ventum;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class VentumController extends Controller
 {
@@ -11,6 +12,12 @@ class VentumController extends Controller
     {
         $ventas = Ventum::all();
         return view('ventum.index')->with('ventas', $ventas);
+    }
+    public function pdf(Ventum $venta)
+    {
+        $insumos=Ventum::all();
+        $pdf = Pdf::loadview('venta.pdf')->wit('venta');
+        return $pdf->stream();
     }
 
     public function create()

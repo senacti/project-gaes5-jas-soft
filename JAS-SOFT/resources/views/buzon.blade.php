@@ -49,17 +49,17 @@
           <a class="nav-link" href="{{ url('/rrhh') }}">RRHH</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/produccion') }}">PRODUCCION</a>
+            <a class="nav-link" href="{{ url('/ordenpedidos') }}">PRODUCCION</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{ url('/inventario') }}">INVENTARIO</a>
             
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/ventas') }}">VENTAS</a>
+            <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url('/buzon') }}">BUZON</a>
+            <a class="nav-link" href="{{ url('/buzonsugerencias') }}">BUZON</a>
           </li>
         </ul>        
       </div>

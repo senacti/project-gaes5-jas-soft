@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Insumo;
 use Illuminate\Console\View\Components\Alert;
 use Illuminate\Http\Request;
@@ -24,7 +25,7 @@ class InsumoController extends Controller
     {
         $insumos=insumo::all();
         $pdf = Pdf::loadview('insumo.pdf')->wit('insumos');
-        return $pdf->stream();
+        return $pdf->download('insumo.pdf');
     }
 
     /**

@@ -69,6 +69,7 @@ Route::get('/register', function () {
 
 Auth::routes();
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
+Route::get('venta/pdf', [VentumController::class, 'pdf'])->name('venta.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -126,3 +127,7 @@ Route::post('buzonsugerencias/actualizar', [BuzonsugerenciaController::class, 'u
 
 
 Route::get('/ventum', [VentumController::class, 'index'])->name('ventum.index');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

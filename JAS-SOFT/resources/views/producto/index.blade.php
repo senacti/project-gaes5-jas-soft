@@ -59,7 +59,7 @@
                         <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/buzonsugerencia') }}">BUZON</a>
+                        <a class="nav-link" href="{{ url('/buzonsugerencias') }}">BUZON</a>
                 </ul>
             </div>
             <div class="col-10" id="contentd">

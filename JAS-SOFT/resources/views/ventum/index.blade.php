@@ -58,7 +58,7 @@
                         <a class="nav-link" href="{{ url('/ventum') }}">VENTAS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url('/buzonsugerencia') }}">BUZON</a>
+                        <a class="nav-link" href="{{ url('/buzonsugerencias') }}">BUZON</a>
                     </li>
                 </ul>
             </div>
@@ -110,7 +110,8 @@
                                         <td>
                                             <form action="{{ route('ventum.edit') }}" method="post">
                                                 @csrf
-                                                <input type="hidden" name="idventa" value="{{ $venta->IdVenta }}">
+                                                <input type="hidden" id="idventa" name="idventa"
+                                                    value="{{ $venta->IdVenta }}">
                                                 <button type="submit"
                                                     class="btn btn-success btn-sm">{{ __('Editar') }}</button>
                                             </form>
@@ -132,6 +133,8 @@
                             data-bs-target="#myModal">
                             Nueva venta
                         </button>
+                        
+                        <button><a href="{{ url('venta/pdf') }}" class="btn btn-success" target="_blank">PDF</a></button>
 
                     </div>
                 </div>

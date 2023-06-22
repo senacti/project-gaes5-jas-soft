@@ -69,10 +69,18 @@
 
     <div class="row mb-3">
         <label for="password-confirm" class="col-md-4 col-form-label text-md-end">{{ __('Confirmar contraseña') }}</label>
-
         <div class="col-md-6">
             <input id="password-confirm" type="password" class="form-control controls" name="password_confirmation" required autocomplete="new-password">
         </div>
+        
+        @error('password')
+        <div class="error-message">
+            <span class="invalid-feedback" role="alert">
+                <strong>La contraseña no coincide</strong>
+            </span>
+        </div>
+        @enderror
+        
     </div>
 
     <div class="row mb-0">
