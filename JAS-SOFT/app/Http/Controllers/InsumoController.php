@@ -21,12 +21,13 @@ class InsumoController extends Controller
         return view('insumo.index')->with('insumos', $insumos);
     }
 
-    public function pdf(Insumo $insumo)
+    public function pdf()
     {
-        $insumos=insumo::all();
-        $pdf = Pdf::loadview('insumo.pdf')->wit('insumos');
-        return $pdf->download('insumo.pdf');
+        $insumos = Insumo::all();
+        $pdf = PDF::loadView('insumo.pdf', ['insumos' => $insumos]);
+        return $pdf->stream();
     }
+    
 
     /**
      * Display a listing of the resource.

@@ -13,10 +13,10 @@ class VentumController extends Controller
         $ventas = Ventum::all();
         return view('ventum.index')->with('ventas', $ventas);
     }
-    public function pdf(Ventum $venta)
+    public function pdf()
     {
-        $insumos=Ventum::all();
-        $pdf = Pdf::loadview('venta.pdf')->wit('venta');
+        $insumos = Ventum::all();
+        $pdf = PDF::loadView('ventum.pdf', ['ventas' => $insumos]);
         return $pdf->stream();
     }
 
