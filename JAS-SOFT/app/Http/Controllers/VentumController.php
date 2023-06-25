@@ -60,26 +60,18 @@ class VentumController extends Controller
 
     }
 
-    public function edit(Request $request, Ventum $venta)
+    public function edit(Request $request)
     {
         // Aquí puedes realizar las operaciones necesarias para obtener la venta con el ID proporcionado
-        $venta = Ventum::find($venta->IdVenta);
-
-        // Verificar si se encontró una venta con el ID proporcionado
-        if (!$venta) {
-            return redirect()->route('ventum.index')->with('error', 'Venta no encontrada');
-        }
-
-        // Realiza cualquier otra lógica requerida para la vista de edición
-
-        // Luego, devuelve la vista de edición con la venta
-        return view('ventum.index', compact('ventum'));
+        $idventa = $request->input('idventa');
+        $venta = Ventum::find($idventa);
+        return redirect()->route('ventum.edit')->with('venta', $venta);
     }
 
 
 
 
-    public function update(Request $request)
+    public function update(Request $request, Ventum $venta)
     {
         $validatedData = $request->validate([
             'fecha' => 'required',
@@ -96,16 +88,16 @@ class VentumController extends Controller
         $venta = new Ventum;
         $venta->fecha = $request->input('fecha');
         $venta->totalVenta = $request->input('totalventa');
-        $venta->subTotal = $request->input('subTotal');
-        $venta->CantidadDescuento = $request->input('CantidadDescuento');
-        $venta->totalIva = $request->input('totalIva');
-        $venta->IdCliente = $request->input('IdCliente');
-        $venta->IdPagos = $request->input('IdPagos');
-        $venta->IdEmpleado = $request->input('IdEmpleado');
-        $venta->IdOrdenPedido = $request->input('IdOrdenPedido');
-        $venta->save();
+        $venta->subTotal = $request->input('subtotal');
+        $venta->CantidadDescuento = $request->input('cantidaddescuento');
+        $venta->totalIva = $request->input('totaliva');
+        $venta->IdCliente = $request->input('idcliente');
+        $venta->IdPagos = $request->input('idpagos');
+        $venta->IdEmpleado = $request->input('idempleado');
+        $venta->IdOrdenPedido = $request->input('idordenpedido');
+        $venta->update();
 
-        return redirect()->route('ventum.index')->with('success', 'Venta actualizada correctamente');
+        return redirect()->route('ventum.listar')->with('success', 'Venta actualizada correctamente');
     }
 
     public function destroy(Request $request)

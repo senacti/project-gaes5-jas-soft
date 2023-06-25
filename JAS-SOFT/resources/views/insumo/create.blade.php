@@ -38,8 +38,14 @@
                                <label for="sel1" class="form-label">Unidad</label>
                            </div>
                            <div class="form-floating mt-3 mb-3 col-6">
-                               <input type="text" class="form-control" id="Color" placeholder="Color"
-                                   name="Color" required value="{{ $insumo->Color }}">
+                               <select class="form-select" class="form-control" id="Color" placeholder="Color"
+                                   name="Color" required>
+                                   <option value="1">Rojo</option>
+                                   <option value="2">Verde</option>
+                                   <option value="3">Azul</option>
+                                   <option value="4">Amarillo</option>
+                                   <option value="4">Negro</option>
+                               </select>
                                <label for="Color">Color</label>
                            </div>
                            <div class="form-floating mt-3 mb-3 col-6">

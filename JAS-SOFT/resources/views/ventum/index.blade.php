@@ -108,7 +108,7 @@
                                         <td>{{ $venta->IdEmpleado }}</td>
                                         <td>{{ $venta->IdOrdenPedido }}</td>
                                         <td>
-                                            <form action="{{ route('ventum.edit') }}" method="post">
+                                            <form action="{{ route('ventum.edit') }}" method="POST">
                                                 @csrf
                                                 <input type="hidden" id="idventa" name="idventa"
                                                     value="{{ $venta->IdVenta }}">

@@ -9,8 +9,8 @@ use App\Models\Insumo;
 use App\Http\Controllers\BuzonsugerenciaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\InsumoController;
-use App\Http\Controllers\VentumController;
+
+
 
 
 
@@ -94,8 +94,6 @@ Route::get('ventum/pdf', [VentumController::class, 'pdf'])->name('ventum.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-
-
 use App\Http\Controllers\RegisterController;
 
 
@@ -106,9 +104,7 @@ Route::get('/registro/exitoso', function () {
 })->name('registro.exitoso');
 
 
-
-
-
+use App\Http\Controllers\InsumoController;
 
 
 Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
@@ -116,8 +112,6 @@ Route::get('/insumos', [InsumoController::class, 'index'])->name('insumo.listar'
 Route::post('/insumos/editar', [InsumoController::class, 'vistaedit'])->name('insumo.edit');
 Route::post('insumos/eliminar', [InsumoController::class, 'destroy'])->name('insumo.eliminar');
 Route::post('insumos/actualizar', [InsumoController::class, 'update'])->name('insumo.actualizarinsumo');
-
-
 
 
 use App\Http\Controllers\OrdenpedidoController;
@@ -140,7 +134,7 @@ Route::post('productos/eliminar', [ProductoController::class, 'destroy'])->name(
 Route::post('productos/actualizar', [ProductoController::class, 'update'])->name('producto.actualizarproducto');
 
 
-
+use App\Http\Controllers\VentumController;
 
 
 Route::post('/registerventum', [ventumController::class, 'store'])->name('ventum.almacenar');
@@ -148,7 +142,6 @@ Route::get('/ventum', [VentumController::class, 'index'])->name('ventum.listar')
 Route::post('/ventum/editar', [VentumController::class, 'edit'])->name('ventum.edit');
 Route::post('/ventum/eliminar', [VentumController::class, 'destroy'])->name('ventum.eliminar');
 Route::post('/ventum/actualizar', [VentumController::class, 'update'])->name('ventum.actualizarordenpedido');
-
 
 
 

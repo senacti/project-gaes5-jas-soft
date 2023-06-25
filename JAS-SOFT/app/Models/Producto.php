@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
 class Producto extends Model
-{
+{    
     protected $table = 'producto';
     protected $primaryKey = 'IdProducto';   
     static $rules = [		

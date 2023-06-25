@@ -48,14 +48,14 @@ class ProductoController extends Controller
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $productos = new Producto;
-        $productos->CantidadProducto = $request->input('Cantidadproducto');
-        $productos->ValorUnidadMedidaProducto = $request->input('ValorUnidadMedidaProducto');
-        $productos->FechaFabricacion = $request->input('FechaFabricacion');
+        $productos->CantidadProducto = $request->input('cantidadproducto');
+        $productos->ValorUnidadMedidaProducto = $request->input('valorunidadmedidaproducto');
+        $productos->FechaFabricacion = $request->input('fechafabricacion');
         $productos->IdColor = $request->input('idcolor');
-        $productos->IdEmpleado = $request->input('FechaFabricacion');
-        $productos->IdUnidadMedida = $request->input('Tamaño');
-        $productos->IdEstadoProducto = $request->input('FechaFabricacion');
-        $productos->IdNombreProducto = $request->input('FechaFabricacion');
+        $productos->IdEmpleado = $request->input('idempleado');
+        $productos->IdUnidadMedida = $request->input('tamaño');
+        $productos->IdEstadoProducto = $request->input('idestadoproducto');
+        $productos->IdNombreProducto = $request->input('idnombreproducto');
         //dd($producto);
         $productos->save();
 
@@ -87,7 +87,7 @@ class ProductoController extends Controller
      * Update the specified resource in storage.
      *
      */
-    public function update(Request $request)
+    public function update(Request $request, Producto $productos)
     {
         // Validar los datos recibidos del formulario
         $validatedData = $request->validate([            
@@ -98,10 +98,10 @@ class ProductoController extends Controller
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $idproducto = $request->input('idproducto');
-        $productos = Producto::find($idproducto);
-        dd($productos);
+        $productos = Producto::find($idproducto);        
         $productos->CantidadProducto = $request->input('cantidadproducto');  
         $productos->IdColor = $request->input('idcolor');     
+        $productos->IdEstadoProducto = $request->input('idestadoproducto');
         //dd($producto);
         $productos->update();
 

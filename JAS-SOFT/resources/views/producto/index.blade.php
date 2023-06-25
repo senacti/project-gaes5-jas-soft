@@ -105,7 +105,7 @@
                                                     value="{{ $producto->IdProducto }}">
                                                 <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
                                             </form>   
-                                            <form action="{{ route('producto.edit') }}" method="POST">
+                                            <form action="{{ route('producto.edit') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" id="idproducto" name="idproducto"
                                                     value="{{ $producto->IdProducto }}">
