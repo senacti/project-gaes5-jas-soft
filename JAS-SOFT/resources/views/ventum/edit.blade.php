@@ -31,7 +31,6 @@
                                         value="{{ $venta->subTotal }}" required>
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <label for="CantidadDescuento"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Cantidad Descuento') }}</label>
@@ -40,7 +39,6 @@
                                         name="cantidaddescuento" value="{{ $venta->CantidadDescuento }}" required>
                                 </div>
                             </div>
-
                             <div class="form-group row">
                                 <label for="totalIva"
                                     class="col-md-4 col-form-label text-md-right">{{ __('Total IVA') }}</label>
@@ -49,9 +47,9 @@
                                         value="{{ $venta->totalIva }}" required>
                                 </div>
                             </div>
-
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
+                                    <input type="hiiden" name="idventa">
                                     <button type="submit" class="btn btn-primary">
                                         {{ __('Guardar') }}
                                     </button>

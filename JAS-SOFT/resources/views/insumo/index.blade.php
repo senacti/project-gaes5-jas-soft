@@ -146,14 +146,44 @@
 
         </div>
       </div> 
+     
     <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
     <script type="text/javascript" src="{{ asset ('js/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset ('js/dataTables.bootstrap.min.js') }}"></script>
   
     <script>
+        
       $(document).ready( function () {
-      $('#tablas').DataTable();
-      } );      
+        var oTable = $("#tablas").dataTable({
+            dom: 'Bfrtip',                     
+            
+            language: {
+                sProcessing: "Procesando...",
+                sLengthMenu: "Mostrar MENU",
+                sZeroRecords: "No se encontraron resultados",
+                sEmptyTable: "Ningún dato disponible en esta tabla",
+                sInfo: "Mostrando del START al END de TOTAL registros",
+                sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+                sInfoFiltered: "(filtrado de un total de MAX registros)",
+                sInfoPostFix: "",
+                sSearch: "Buscar:",
+                sUrl: "",
+                sInfoThousands: ",",
+                sLoadingRecords: "Cargando...",
+                oPaginate: {
+                    sFirst: "Primero",
+                    sLast: "Último",
+                    sNext: "Siguiente",
+                    sPrevious: "Anterior"
+                },
+                oAria: {
+                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                    sSortDescending: ": Activar para ordenar la columna de manera descendente"
+                },
+            },
+        });
+        
+      } );  
 
       function mostrarid() {
         id = document.getElementById('idinsumo').value;
@@ -162,7 +192,7 @@
       
       function abrirmodal(){
         $('#editar').show();
-      }
+      }     
     </script>
    
     </body>

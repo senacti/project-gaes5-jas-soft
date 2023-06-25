@@ -37,14 +37,19 @@ class ProductoController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar los datos recibidos del formulario
-        $validatedData = $request->validate([
-            'Nombreproducto' => 'required',
-            'Cantidadproducto' => 'required',
-            'ValorUnidadMedidaProducto' => 'required',
-            'FechaFabricacion' => 'required',            
-        ]);
 
+        // Validar los datos recibidos del formulario
+        
+        $validatedData = $request->validate([
+            'cantidadproducto' => 'required',
+            'valorunidadmedidaproducto' => 'required',
+            'fechafabricacion' => 'required',
+            'idcolor' => 'required',
+            'idempleado' => 'required',            
+            'idestadoproducto' => 'required',
+            'idnombreproducto' => 'required',
+        ]);
+        //dd('productos');
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $productos = new Producto;
@@ -53,7 +58,7 @@ class ProductoController extends Controller
         $productos->FechaFabricacion = $request->input('fechafabricacion');
         $productos->IdColor = $request->input('idcolor');
         $productos->IdEmpleado = $request->input('idempleado');
-        $productos->IdUnidadMedida = $request->input('tamaño');
+        $productos->IdUnidadMedida = $request->input('valorunidadmedidaproducto');
         $productos->IdEstadoProducto = $request->input('idestadoproducto');
         $productos->IdNombreProducto = $request->input('idnombreproducto');
         //dd($producto);
@@ -67,9 +72,9 @@ class ProductoController extends Controller
      * Display the specified resource.
      *
      */
-    public function show($id)
+    public function show()
     {
-        
+
     }
 
     /**
@@ -78,8 +83,8 @@ class ProductoController extends Controller
      */
     public function edit(Request $request)
     {
-        $idproducto= $request->input('idproducto');
-        $productos = Producto::find($idproducto);       
+        $idproducto = $request->input('idproducto');
+        $productos = Producto::find($idproducto);
         return view('producto.edit')->with('productos', $productos);
     }
 
@@ -90,19 +95,22 @@ class ProductoController extends Controller
     public function update(Request $request, Producto $productos)
     {
         // Validar los datos recibidos del formulario
-        $validatedData = $request->validate([            
-            'Cantidadproducto' => 'required',   
-            'IdColor' => 'required',            
+
+        $validatedData = $request->validate([
+            'cantidadproducto' => 'required',
+            'idcolor' => 'required',
+            "idestadoproducto" => 'required',
         ]);
 
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
 
         $idproducto = $request->input('idproducto');
-        $productos = Producto::find($idproducto);        
-        $productos->CantidadProducto = $request->input('cantidadproducto');  
-        $productos->IdColor = $request->input('idcolor');     
+        //dd($idproducto);     
+        $productos = Producto::find($idproducto);
+        $productos->CantidadProducto = $request->input('cantidadproducto');
+        $productos->IdColor = $request->input('idcolor');
         $productos->IdEstadoProducto = $request->input('idestadoproducto');
-        //dd($producto);
+        //dd($productos);
         $productos->update();
 
         // Redirigir a una página de éxito o mostrar un mensaje de éxito
@@ -116,7 +124,7 @@ class ProductoController extends Controller
         $idproducto = $request->input('idproducto');
         $productos = Producto::find($idproducto);
         $productos->delete();
-        
+
         return redirect()->back()->with('success', 'Producto deleted successfully');
     }
 }

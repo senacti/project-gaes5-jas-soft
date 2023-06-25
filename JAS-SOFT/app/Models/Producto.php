@@ -31,7 +31,7 @@ class Producto extends Model
 {    
     protected $table = 'producto';
     protected $primaryKey = 'IdProducto';   
-    static $rules = [		
+    protected $fillable = [		
 		'CantidadProducto',
 		'ValorUnidadMedidaProducto',
 		'FechaFabricacion',
@@ -42,7 +42,7 @@ class Producto extends Model
 		'IdNombreProducto',
     ];
 
-    protected $perPage = 20;
+    
     public $timestamps = false;
 
     /**
@@ -50,9 +50,7 @@ class Producto extends Model
      *
      * @var array
      */
-    protected $fillable = ['IdProducto','CantidadProducto','ValorUnidadMedidaProducto','FechaFabricacion','IdColor','IdEmpleado','IdUnidadMedida','IdEstadoProducto','IdNombreProducto'];
-
-
+   
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
