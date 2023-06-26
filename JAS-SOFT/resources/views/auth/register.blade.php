@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <a href="{{ url('index') }}"> <h2>PROMOPLAST SAS</h2></a>
+        <a href="{{ url('home') }}"> <h2>PROMOPLAST SAS</h2></a>
         <h2>REGISTRO</h2>
     </header>
   <section class="form-register">
@@ -94,6 +94,7 @@
     <div class="col-md-6 offset-md-4">
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="" id="">
+
             <label class="form-check-label" for="">Estoy de acuerdo con <a href="{{ url('term_cond.html') }}">Términos y Condiciones</a></label>
         </div>
     </div>

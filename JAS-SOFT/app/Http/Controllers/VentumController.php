@@ -47,7 +47,7 @@ class VentumController extends Controller
         $venta->IdCliente = $request->input('idcliente');
         $venta->IdPagos = 31;
         $venta->IdEmpleado = $request->input('idempleado');
-        $venta->IdOrdenPedido = 20;
+        $venta->IdOrdenPedido = 10;
         // dd($venta);
 
         $venta->save();
