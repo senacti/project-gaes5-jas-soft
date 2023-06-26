@@ -134,7 +134,7 @@
                             Nueva venta
                         </button>
                         
-                        <button><a href="{{ url('venta/pdf') }}" class="btn btn-success" target="_blank">PDF</a></button>
+                        <button><a href="{{ url('ventum/pdf') }}" class="btn btn-success" target="_blank">PDF</a></button>
 
                     </div>
                 </div>

@@ -9,7 +9,8 @@ use App\Models\Insumo;
 use App\Http\Controllers\BuzonsugerenciaController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\InsumoController;
+use App\Http\Controllers\VentumController;
 
 
 
@@ -104,7 +105,6 @@ Route::get('/registro/exitoso', function () {
 })->name('registro.exitoso');
 
 
-use App\Http\Controllers\InsumoController;
 
 
 Route::post('/registerInsumo', [InsumoController::class, 'store'])->name('registerInsumo.almacenar');
@@ -134,7 +134,7 @@ Route::post('productos/eliminar', [ProductoController::class, 'destroy'])->name(
 Route::post('productos/actualizar', [ProductoController::class, 'update'])->name('producto.actualizarproducto');
 
 
-use App\Http\Controllers\VentumController;
+
 
 
 Route::post('/registerventum', [ventumController::class, 'store'])->name('ventum.almacenar');
