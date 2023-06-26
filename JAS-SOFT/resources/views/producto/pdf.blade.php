@@ -31,7 +31,7 @@
     <h1 class="text-center">REPORTE INVENTARIO</h1>
     <p></p>
     <table class="table" style="text-align:center; font-size: 15px" id="tablas">
-        <thead class="thead">
+        <thead class="cabecera">
             <tr>
                 <th>Idproducto</th>
                 <th>Cantidad</th>

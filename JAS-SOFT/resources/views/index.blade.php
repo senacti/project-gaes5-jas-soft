@@ -23,9 +23,9 @@
 <body>
   <header class="dash-menu">
     <img class="logo-dash-admin" src="{{ asset('pictures/logo.png') }}" alt="logo">
-    <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Mision" data-bs-content="Some content inside the popover">Mision</button></li>
+    <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Mision" data-bs-content="Nuestra mision es liderar la industria del plastico al proporcionar soluciones innovadoras y sostenibles que satisfagan las necesidades de nuestros clientes.">Mision</button></li>
     <li class="d-flex justify-content-center"><a class="nav-link" href="{{ url('/sales') }}">Catalogo</a>
-    <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Vision" data-bs-content="Some content inside the popover">Vision</button></li>
+    <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Vision" data-bs-content="Nos visualizamos como la empresa lider en la industria del pastico, reconocida por nuestra capacidad de adaptacion a los desafios camnbiantes y nuestro enfoque en la sostenibilidad">Vision</button></li>
     <ul class="list-menu-ul">          
         <li><a href="{{ url('/login')}}" class="btn-ingresar" ><img class="img-login" src="pictures/login.png" alt="ingresar"></a></li>
     </ul>
