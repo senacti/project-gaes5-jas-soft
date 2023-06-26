@@ -1,20 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/Style.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/Header.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset ('css/footer.css') }}">
-    <link rel="stylesheet" href="{{ asset ('css/estilos-dash-admin.css') }}"> 
-    
-    <link href="{{ asset ('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">     
-    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css')}}">  
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/Style.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
+
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
+        rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css') }}">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link  rel="shortcut icon" href="PICTURES/iconlogo.png">
+    <link rel="shortcut icon" href="PICTURES/iconlogo.png">
     <title>PromoPlast | Insumo</title>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -25,34 +27,36 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-  </head>
+</head>
 
-  <body>
-   
-  <header class="dash-menu">
-    <img class="logo-dash-admin" src="pictures/logo.png" alt="logo">
-    <a class="nav-link" href="{{ url('/index') }}">INICIO</a>
-    <ul class="list-menu-ul">      
-        <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>        
-        <li class="nav-item dropdown">
-          <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-              {{ Auth::user()->name }}
-          </a>
-          <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-              <a class="dropdown-item" href="{{ route('logout') }}" 
-                 onclick="event.preventDefault();
+<body>
+
+    <header class="dash-menu">
+        <img class="logo-dash-admin" src="pictures/logo.png" alt="logo">
+        <a class="nav-link" href="{{ url('/index') }}">INICIO</a>
+        <ul class="list-menu-ul">
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+                    <a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-                  {{ __('Cerrar sesión') }}
-              </a>
+                        {{ __('Cerrar sesión') }}
+                    </a>
 
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                  @csrf
-              </form>
-          </div>
-      </li>
-        <li class="list-menu-dash"> <img class="img-menu-dash-users" src="pictures/usuario.png" alt=""> </li>
-    </ul>
-  </header>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </li>            
+            <li class="list-menu-dash"> <img class="img-menu-dash" src="pictures/campana.png" alt="Campana"> </li>            
+            <li class="list-menu-dash"> <img class="img-menu-dash-users" src="pictures/usuario.png" alt="">
+            </li>
+        </ul>
+    </header>
 
     <div class="container-fluid">
         <div class="row">
@@ -116,7 +120,7 @@
                                                 <button type="submit"
                                                     class="btn btn-success">{{ __('Editar') }}</button>
                                             </form>
-                                            <form action="{{ route('insumo.eliminar')}}" method="post">
+                                            <form action="{{ route('insumo.eliminar') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" id="idinsumo" name="idinsumo"
                                                     value="{{ $insumo->IdInsumo }}">
@@ -145,55 +149,55 @@
             </div>
 
         </div>
-      </div> 
-     
-    <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
-    <script type="text/javascript" src="{{ asset ('js/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset ('js/dataTables.bootstrap.min.js') }}"></script>
-  
-    <script>
-        
-      $(document).ready( function () {
-        var oTable = $("#tablas").dataTable({
-            dom: 'Bfrtip',                     
-            
-            language: {
-                sProcessing: "Procesando...",
-                sLengthMenu: "Mostrar MENU",
-                sZeroRecords: "No se encontraron resultados",
-                sEmptyTable: "Ningún dato disponible en esta tabla",
-                sInfo: "Mostrando del START al END de TOTAL registros",
-                sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
-                sInfoFiltered: "(filtrado de un total de MAX registros)",
-                sInfoPostFix: "",
-                sSearch: "Buscar:",
-                sUrl: "",
-                sInfoThousands: ",",
-                sLoadingRecords: "Cargando...",
-                oPaginate: {
-                    sFirst: "Primero",
-                    sLast: "Último",
-                    sNext: "Siguiente",
-                    sPrevious: "Anterior"
-                },
-                oAria: {
-                    sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-                    sSortDescending: ": Activar para ordenar la columna de manera descendente"
-                },
-            },
-        });
-        
-      } );  
+    </div>
 
-      function mostrarid() {
-        id = document.getElementById('idinsumo').value;
-        alert(id);
-      }
-      
-      function abrirmodal(){
-        $('#editar').show();
-      }     
+    <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/dataTables.bootstrap.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            var oTable = $("#tablas").dataTable({
+                dom: 'Bfrtip',
+
+                language: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar MENU",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla",
+                    sInfo: "Mostrando del START al END de TOTAL registros",
+                    sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de MAX registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    oPaginate: {
+                        sFirst: "Primero",
+                        sLast: "Último",
+                        sNext: "Siguiente",
+                        sPrevious: "Anterior"
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente"
+                    },
+                },
+            });
+
+        });
+
+        function mostrarid() {
+            id = document.getElementById('idinsumo').value;
+            alert(id);
+        }
+
+        function abrirmodal() {
+            $('#editar').show();
+        }
     </script>
-   
-    </body>
+
+</body>
+
 </html>

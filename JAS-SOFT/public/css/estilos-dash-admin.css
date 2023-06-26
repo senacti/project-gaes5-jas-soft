@@ -2,6 +2,7 @@
     margin: 0;
     border: 0;
     box-sizing: border-box;
+    text-decoration: none;
 }
 
 .dash-menu {
@@ -9,6 +10,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.3rem;
+    text-decoration: none;
     background-color: #092CA0;
 }.dash-menu a {
     color: #fff;
@@ -16,6 +18,7 @@
     font-size: 30px;
 }.dash-menu button {
     color: #fff;
+    text-decoration: none;
     text-decoration: none;
     font-size: 30px;
 }.logo-dash-admin {
@@ -48,6 +51,7 @@
 .descrip-menu{ 
     background-color: #ebebeb;
     overflow: hidden;
+    text-decoration: none;
 }.descrip-menu p{ 
     float: left;
 }span{
@@ -86,9 +90,11 @@
     justify-content: center;
     text-align: center;
     margin: 6%;
+    text-decoration: none;
 }.title-moduls {
     margin-top: 0.5rem;
     color: black;
+    text-decoration: none;
 }.text-moduls {
     margin-top: 0.5rem;
     color: black;
@@ -98,6 +104,7 @@
     margin: 2rem 2rem 0 2rem ;
     padding: 2rem 2rem;
     border-radius: 1rem;
+    text-decoration: none;
     border: 1px solid #000;
 }.contenedor-moduls:hover {
     color: rgba(255, 255, 255, 1) !important;

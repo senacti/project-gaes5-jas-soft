@@ -1,56 +1,61 @@
-*{
+* {
     margin: 0;
     padding: 0;
     font-family: Verdana, Tahoma, sans-serif;
 }
 
-#cerrar {
-   font-size: 10px;    
+.list-menu-ul li {
+    margin-right: 30%;
 }
-#cerrar a{
+
+#cerrar {
+    font-size: 10px;
+}
+
+#cerrar a {
     color: #000000;
     font-size: 20px;
 }
 
 a {
     text-decoration: none;
-    color: #ffff;    
+    color: #ffff;
 }
 
-.logo-compania{
+.logo-compania {
     height: 50px;
     width: 150px;
 }
 
-.cabecera{
+.cabecera {
     padding: 15px;
     display: flex;
     justify-content: space-between;
 }
 
-.barra-busqueda{
-    width: 45rem; 
+.barra-busqueda {
+    width: 45rem;
     height: 2rem;
     border-radius: 10px;
     margin-top: 7px;
 }
 
-.btn-ingresar{
+.btn-ingresar {
     background-color: #ffff;
     border: 1px solid #ffff;
-    cursor:pointer;
+    cursor: pointer;
     align-items: center;
     padding-top: 10px;
     padding-right: 12px;
-    
+
 }
 
-.navegacion{
+.navegacion {
     background-color: #092CA0;
     border-bottom: 2px solid #116415;
 }
 
-.lista-navegacion{
+.lista-navegacion {
     list-style: none;
     display: flex;
     justify-content: space-evenly;
@@ -58,55 +63,55 @@ a {
     font-size: 18px;
 }
 
-.item-lista-nav{
+.item-lista-nav {
     display: flex;
     align-items: center;
     font-weight: bold;
 
 }
 
-.informativo-principal{
+.informativo-principal {
     position: relative;
     display: inline-block;
     text-align: center;
     background-size: 1200px;
 }
 
-.img-fondo{
+.img-fondo {
     opacity: 0.35;
 }
 
-.texto-principal{
+.texto-principal {
     font-size: 45px;
     padding: 60px;
-    text-align: center; 
+    text-align: center;
     position: absolute;
     top: 10px;
     left: 10px;
     padding-top: 200px;
 }
 
-.texto-secundario{
+.texto-secundario {
     background-color: rgb(90, 90, 211);
     font-size: 15px;
     color: #ffff;
     padding: 20px 50px;
     margin: 20px 400px;
     text-align: center;
-    
+
 }
 
-.texto-cotiza{
+.texto-cotiza {
     background-color: rgb(176, 176, 190);
     font-size: 15px;
     color: #000000;
     padding: 20px;
     margin: 45px 550px;
     text-align: center;
-    
+
 }
 
-.texto-categorias{
+.texto-categorias {
     background-color: rgb(90, 90, 211);
     font-size: 12px;
     color: #ffff;
@@ -114,14 +119,14 @@ a {
     padding: 30px 0px;
 }
 
-.titulo-principal{
+.titulo-principal {
     font-size: 45px;
     padding-top: 60px;
     padding-bottom: 20px;
     text-align: center;
 }
 
-.producto{
+.producto {
     height: 200px;
     width: 220px;
     display: inline-block;
@@ -131,24 +136,25 @@ a {
     align-items: center;
 }
 
-.informativo-sobrenosotros{
+.informativo-sobrenosotros {
     background-color: rgb(218, 234, 241);
     padding-bottom: 90px;
 }
 
-.texto-aux-sobrenosotros{
+.texto-aux-sobrenosotros {
     text-align: center;
     margin: 10px 230px;
     font-size: 20px;
 }
 
-.titulo-contacto{
+.titulo-contacto {
     font-size: 20px;
     font-weight: bold;
 }
 
-.texto-contactos{
-    background-color: rgb(218, 234, 241);;
+.texto-contactos {
+    background-color: rgb(218, 234, 241);
+    ;
     font-size: 15px;
     color: #000000;
     padding: 20px;
@@ -160,7 +166,8 @@ a {
     background-color: #2b69bb;
     display: flex;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
+    ;
 }
 
 .item-redes {
