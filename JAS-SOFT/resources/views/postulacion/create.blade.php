@@ -5,7 +5,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Nueva Postulacion</h4>
+                <h4 class="modal-title">Nueva Postulación</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
@@ -14,38 +14,29 @@
                 <form action="{{ route('postulacion.almacenar') }}" class="was-validated" method="POST">
                     @csrf
                     <div class="row">
-
-                    <input type="hidden" class="form-control" id="IdPostulacion" placeholder="Id Postulacion" 
-                    name="IdPostulacion" required value="{{ $postulaciones->IdPostulacion }}">
-
                         <div class="col-md-6">
                             <div class="form-floating mt-3 mb-3">
-                                <input type="datetime-local" required class="form-control" id="fechaPostulacion" placeholder="fecha Postulacion" name="fecha Postulacion" maxlength="20">
+                                <input type="datetime-local" required class="form-control" id="fechaPostulacion" placeholder="Fecha Postulación" name="fecha Postulación" maxlength="20">
                                 <label for="fechaPostulacion">Fecha</label>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="DescripOferta" placeholder="descripcion oferta" name="DescripOferta" required>
-                                <label for="DescripOferta">Descripcion de Oferta</label>
+                                <input type="text" class="form-control" id="DescripOferta" placeholder="Descripción de Oferta" name="DescripOferta" required>
+                                <label for="DescripOferta">Descripción de Oferta</label>
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">Complete el campo</div>
                             </div>
 
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="PerfilPostulacion" placeholder="Perfil Postulacion" name="PerfilPostulacion" required>
-                                <label for="PerfilPostulacion">Perfil de la Postulacion</label>
+                                <input type="text" class="form-control" id="PerfilPostulacion" placeholder="Perfil Postulación" name="PerfilPostulacion" required>
+                                <label for="PerfilPostulacion">Perfil de la Postulación</label>
                                 <div class="valid-feedback"></div>
                                 <div class="invalid-feedback">Complete el campo</div>
                             </div>
+                        </div>
 
+                        <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="PerfilPostulacion" placeholder="Perfil Postulacion" name="PerfilPostulacion" required>
-                                <label for="PerfilPostulacion">Perfil de la Postulacion</label>
-                                <div class="valid-feedback"></div>
-                                <div class="invalid-feedback">Complete el campo</div>
-                            </div>    
-
-                            <div class="form-floating mt-3 mb-3">
                                 <select class="form-select" id="IdDetallesOferta" placeholder="Estado" name="IdDetallesOferta">
                                     <option value="0">Seleccione</option>
                                     <option value="2">Organizar los productos</option>
@@ -56,9 +47,9 @@
                                     <option value="12">Realizar control de calidad en productos plásticos</option>
                                 </select>
                                 <label for="IdDetallesOferta" class="form-label">Detalles de Oferta</label>
-                            </div>  
+                            </div>
 
-                            <div class="form-floating mt-3 mb-3">
+                            <div class="form-floating mb-3">
                                 <select class="form-select" id="IdEstadoPostulaciones" placeholder="Estado" name="IdEstadoPostulaciones">
                                     <option value="0">Seleccione</option>
                                     <option value="1">Inscrito</option>
@@ -68,10 +59,10 @@
                                     <option value="5">Retiro Voluntario</option>
                                     <option value="6">Proceso Concluido</option>
                                 </select>
-                                <label for="IdEstadoPostulaciones" class="form-label">Estado de la postulacion</label>
+                                <label for="IdEstadoPostulaciones" class="form-label">Estado de la Postulación</label>
                             </div>
 
-                            <div class="form-floating mt-3 mb-3">
+                            <div class="form-floating mb-3">
                                 <select class="form-select" id="IdEmpleado" placeholder="Empleado" name="IdEmpleado">
                                     <option value="0">Seleccione</option>
                                     <option value="1">Pedro</option>
@@ -86,15 +77,14 @@
                             </div>
                         </div>
                     </div>
-                
-            </div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+                    </div>
+                </form>
             </div>
-            </form>
         </div>
     </div>
 </div>

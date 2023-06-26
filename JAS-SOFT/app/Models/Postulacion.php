@@ -1,21 +1,39 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
-
- class Postulacion extends Model
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Controllers\PostulacionController;
+/**
+ * Class Postulacion
+ *
+ * @property $IdPostulacion
+ * @property $FechaPostulacion
+ * @property $DescripOferta
+ * @property $PerfilPostulacion
+ * @property $IdDetallesOferta
+ * @property $IdEmpleado
+ * @property $IdEstadoPostulaciones
+ *
+ * @property Agendamiento[] $agendamientos
+ * @property Descripofertum $descripofertum
+ * @property Empleado $empleado
+ * @property Estadopostulacione $estadopostulacione
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
+class Postulacion extends Model
 {
     protected $table = 'postulacion';
     protected $primaryKey = 'IdPostulacion';
     protected $fillable = [
-        'FechaPostulacion' => 'required',
-        'DescripOferta' => 'required',
-        'PerfilPostulacion' => 'required',
-        'IdDetallesOferta' => 'required',
-        'IdEmpleado' => 'required',
-        'IdEstadoPostulaciones' => 'required',
+        'IdPostulacion',
+        'FechaPostulacion' ,
+        'DescripOferta' ,
+        'PerfilPostulacion' ,
+        'IdDetallesOferta' ,
+        'IdEmpleado' ,
+        'IdEstadoPostulaciones' ,
     ];
 
     public $timestamps = false;

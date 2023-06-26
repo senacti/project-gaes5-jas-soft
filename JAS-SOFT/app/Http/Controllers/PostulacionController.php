@@ -16,10 +16,7 @@ class PostulacionController extends Controller
 
     public function create()
     {
-        
-
-    return view('postulacion.create');
-        
+        return view('postulacion.create');
     }
 
     public function store(Request $request)
@@ -33,14 +30,15 @@ class PostulacionController extends Controller
             'IdEstadoPostulaciones' => 'required',
         ]);
 
-        $postulacion = new Postulacion;
-        $postulacion->FechaPostulacion = $request->input('FechaPostulacion');
-        $postulacion->DescripOferta = $request->input('DescripOferta');
-        $postulacion->PerfilPostulacion = $request->input('PerfilPostulacion');
-        $postulacion->IdDetallesOferta = $request->input('IdDetallesOferta');
-        $postulacion->IdEmpleado = $request->input('IdEmpleado');
-        $postulacion->IdEstadoPostulaciones = $request->input('IdEstadoPostulaciones');
-        $postulacion->save();
+        $postulaciones = new Postulacion;
+        $postulaciones->FechaPostulacion = $request->input('FechaPostulacion');
+        $postulaciones->DescripOferta = $request->input('DescripOferta');
+        $postulaciones->PerfilPostulacion = $request->input('PerfilPostulacion');
+        $postulaciones->IdDetallesOferta = $request->input('IdDetallesOferta');
+        $postulaciones->IdEmpleado = $request->input('IdEmpleado');
+        $postulaciones->IdEstadoPostulaciones = $request->input('IdEstadoPostulaciones');
+
+        $postulaciones->save();
 
         return redirect()->route('postulacion.index')->with('success', 'Postulacion creada correctamente');
     }
@@ -82,3 +80,4 @@ class PostulacionController extends Controller
         return redirect()->back()->with('error', 'No se encontró la postulacion');
     }
 }
+
