@@ -10,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
 
-    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
-        rel="stylesheet">
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
@@ -96,44 +95,40 @@
                             </thead>
                             <tbody>
                                 @foreach ($ventas as $venta)
-                                    <tr>
-                                        <td>{{ $venta->IdVenta }}</td>
-                                        <td>{{ $venta->fecha }}</td>
-                                        <td>{{ $venta->totalVenta }}</td>
-                                        <td>{{ $venta->subTotal }}</td>
-                                        <td>{{ $venta->CantidadDescuento }}</td>
-                                        <td>{{ $venta->totalIva }}</td>
-                                        <td>{{ $venta->IdCliente }}</td>
-                                        <td>{{ $venta->IdPagos }}</td>
-                                        <td>{{ $venta->IdEmpleado }}</td>
-                                        <td>{{ $venta->IdOrdenPedido }}</td>
-                                        <td>
-                                            <form action="{{ route('ventum.edit') }}" method="POST">
-                                                @csrf
-                                                <input type="hidden" id="idventa" name="idventa"
-                                                    value="{{ $venta->IdVenta }}">
-                                                <button type="submit"
-                                                    class="btn btn-success btn-sm">{{ __('Editar') }}</button>
-                                            </form>
-                                            <form action="{{ route('ventum.eliminar') }}"
-                                                method="POST">
-                                                @csrf
-                                                <input type="hidden" id="idventa" name="idventa"
-                                                    value="{{ $venta->IdVenta }}">
-                                                <button type="submit"
-                                                    class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ $venta->IdVenta }}</td>
+                                    <td>{{ $venta->fecha }}</td>
+                                    <td>{{ $venta->totalVenta }}</td>
+                                    <td>{{ $venta->subTotal }}</td>
+                                    <td>{{ $venta->CantidadDescuento }}</td>
+                                    <td>{{ $venta->totalIva }}</td>
+                                    <td>{{ $venta->IdCliente }}</td>
+                                    <td>{{ $venta->IdPagos }}</td>
+                                    <td>{{ $venta->IdEmpleado }}</td>
+                                    <td>{{ $venta->IdOrdenPedido }}</td>
+                                    <td>
+                                    {{-- @include('ventum.info') --}}
+                                        <form action="{{ route('ventum.edit') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" id="idventa" name="idventa" value="{{ $venta->IdVenta }}">
+                                            <button type="submit" class="btn btn-success btn-sm">{{ __('Editar') }}</button>
+                                        </form>
+                                        <form action="{{ route('ventum.eliminar') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" id="idventa" name="idventa" value="{{ $venta->IdVenta }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
-                        @include ('ventum.create')
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                            data-bs-target="#myModal">
-                            Nueva venta
-                        </button>
-                        
+                        <div class="d-flex justify-content-around bg mb-3">
+                            @include ('ventum.create')
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                Nueva venta
+                            </button>
+                        </div>
                         <button><a href="{{ url('ventum/pdf') }}" class="btn btn-success" target="_blank">PDF</a></button>
 
                     </div>
@@ -141,8 +136,8 @@
             </div>
         </div>
     </div>
-
-    <script src="{{ asset ('https://code.jquery.com/jquery-3.6.0.min.js')}}"></script>  
+    
+    <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
     <script src="{{ asset ('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('JS/jquery.dataTables.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('JS/dataTables.bootstrap.min.js') }}"></script>

@@ -141,7 +141,7 @@ Route::post('/registerventum', [ventumController::class, 'store'])->name('ventum
 Route::get('/ventum', [VentumController::class, 'index'])->name('ventum.listar');
 Route::post('/ventum/editar', [VentumController::class, 'edit'])->name('ventum.edit');
 Route::post('/ventum/eliminar', [VentumController::class, 'destroy'])->name('ventum.eliminar');
-Route::post('/ventum/actualizar', [VentumController::class, 'update'])->name('ventum.actualizarordenpedido');
+Route::post('/ventum/actualizar', [VentumController::class, 'update'])->name('ventum.actualizarventum');
 
 
 

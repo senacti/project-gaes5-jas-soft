@@ -1,64 +1,37 @@
-@extends('layouts.app')
+<link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet"> 
+<link rel="stylesheet" type="text/css" href="{{ asset('css/Style.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
+<link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}"> 
 
-@section('template_title')
-    {{ __('Edit Ventum') }}
-@endsection
-
-@section('content')
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Edit Ventum') }}</div>
-                    <div class="card-body">
-                        <form action="{{ route('ventum.actualizarventum') }}" method="post">
-                            @csrf
-
-                            <div class="form-group row">
-                                <label for="totalVenta"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Total Venta') }}</label>
-                                <div class="col-md-6">
-                                    <input id="totalventa" type="text" class="form-control" name="totalventa"
-                                        value="{{ $venta->totalVenta }}" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="subTotal"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Subtotal') }}</label>
-                                <div class="col-md-6">
-                                    <input id="subtotal" type="text" class="form-control" name="subtotal"
-                                        value="{{ $venta->subTotal }}" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="CantidadDescuento"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Cantidad Descuento') }}</label>
-                                <div class="col-md-6">
-                                    <input id="cantidaddescuento" type="text" class="form-control"
-                                        name="cantidaddescuento" value="{{ $venta->CantidadDescuento }}" required>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label for="totalIva"
-                                    class="col-md-4 col-form-label text-md-right">{{ __('Total IVA') }}</label>
-                                <div class="col-md-6">
-                                    <input id="totaliva" type="text" class="form-control" name="totaliva"
-                                        value="{{ $venta->totalIva }}" required>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <input type="hiiden" name="idventa">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Guardar') }}
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+<form action="{{ route('ventum.actualizarventum') }}" method="post">  
+    @csrf            
+    <div class="modal-body">
+        <div class="row">
+            <div class="form-floating mb-3 mt-3">
+                <input type="hidden" class="form-control" id="idventa" placeholder="Id Venta" name="idventa" required value="{{ $ventas->IdVenta }}">       
             </div>
+
+            <div class="form-floating mt-3 mb-3 col-6">
+                <input type="text" class="form-control" id="totalventa" placeholder="Total" name="totalventa" required value="{{ $ventas->totalVenta }}">
+                <label for="Total">Total</label>
+            </div> 
+
+            <div class="form-floating mt-3 mb-3 col-6">
+                <input type="text" class="form-control" id="subtotal" placeholder="Subtotal" name="subTotal" required value="{{ $ventas->subTotal }}">
+                <label for="Subtotal">Subtotal</label>
+            </div> 
+
+            <div class="form-floating mt-3 mb-3 col-6">
+                <input type="text" class="form-control" id="descuento" placeholder="Descuento" name="descuento" required value="{{ $ventas->cantidadDescuento }}">
+                <label for="Descuento">Descuento</label>
+            </div> 
+
+            <div class="form-floating mt-3 mb-3 col-6">
+                <input type="text" class="form-control" id="totaliva" placeholder="IVA" name="totaliva" required value="{{ $ventas->totalIva }}">
+                <label for="IVA">IVA</label>
+            </div> 
         </div>
+        <button type="submit">Guardar</button>
     </div>
-@endsection
+</form>

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>Reporte de ventas</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -51,18 +51,6 @@
                     <td>{{ $venta->IdPagos }}</td>
                     <td>{{ $venta->IdEmpleado }}</td>
                     <td>{{ $venta->IdOrdenPedido }}</td>
-                    <td>
-                        <form action="{{ route('ventum.edit') }}" method="post">
-                            @csrf
-                            <input type="hidden" id="idventa" name="idventa" value="{{ $venta->IdVenta }}">
-                            <button type="submit" class="btn btn-success btn-sm">{{ __('Editar') }}</button>
-                        </form>
-                        <form action="{{ route('ventum.eliminar') }}" method="POST">
-                            @csrf
-                            <input type="hidden" id="idventa" name="idventa" value="{{ $venta->IdVenta }}">
-                            <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
-                        </form>
-                    </td>
                 </tr>
             @endforeach
         </tbody>
