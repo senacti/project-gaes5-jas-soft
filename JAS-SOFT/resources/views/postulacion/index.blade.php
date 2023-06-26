@@ -110,15 +110,14 @@
                                                     <td>{{ $postulacion->IdEmpleado }}</td>
                                                     <td>{{ $postulacion->IdEstadoPostulaciones }}</td>
                                                     <td>
-                                                        <form action="{{ route('postulacion.edit', $postulacion->id) }}" method="post">
+                                                        <form action="{{ route('postulacion.edit', $postulacion->IdPostulacion) }}" method="post">
                                                             @csrf
-
                                                             <input type="hidden" name="idpostulacion" value="{{ $postulacion->IdPostulacion }}">
                                                             <button type="submit" class="btn btn-success btn-sm">{{ __('Editar') }}</button>
                                                         </form>
                                                         <form action="{{ route('postulacion.eliminar') }}" method="POST">
                                                             @csrf
-
+                                                            <input type="hidden" name="idpostulacion" value="{{ $postulacion->IdPostulacion }}">
                                                             <button type="submit" class="btn btn-danger btn-sm">
                                                                 <i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}
                                                             </button>

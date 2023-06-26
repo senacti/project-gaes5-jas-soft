@@ -42,7 +42,7 @@ class PostulacionController extends Controller
 
         return redirect()->route('postulacion.listar')->with('success', 'Postulacion creada correctamente');
     }
-       /**
+    /**
      * Display the specified resource.
      */
     public function show()
@@ -53,18 +53,18 @@ class PostulacionController extends Controller
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'FechaPostulacion' => 'required',
-            'DescripOferta' => 'required',
-            'PerfilPostulacion' => 'required',
+            'fechapostulacion' => 'required',
+            'descripoferta' => 'required',
+            'perfilpostulacion' => 'required',
         ]);
 
-        $idPostulacion = $request->input('IdPostulacion');
+        $idPostulacion = $request->input('idpostulacion');
         $postulacion = Postulacion::find($idPostulacion);
 
 
-        $postulacion->FechaPostulacion = $request->input('FechaPostulacion');
-        $postulacion->DescripOferta = $request->input('DescripOferta');
-        $postulacion->PerfilPostulacion = $request->input('PerfilPostulacion');
+        $postulacion->FechaPostulacion = $request->input('fechapostulacion');
+        $postulacion->DescripOferta = $request->input('descripoferta');
+        $postulacion->PerfilPostulacion = $request->input('perfilpostulacion');
         $postulacion->save();
 
 
@@ -73,16 +73,23 @@ class PostulacionController extends Controller
         return redirect()->back()->with('error', 'No se encontró la postulacion');
     }
 
+    public function edit(Request $request)
+    {
+        $idPostulacion = $request->input('idPostulacion');
+        //dd($ordenpedidos);      
+        $postulacion = Postulacion::find($idPostulacion);
+        //dd($idordenpedido);
+        return view('postulacion.edit')->with('postulacion', $postulacion);
+    }
+
     public function destroy(Request $request)
     {
         $idPostulacion = $request->input('idpostulacion');
         $postulacion = Postulacion::find($idPostulacion);
+        $postulacion->delete();
+        return redirect()->back()->with('success', 'Postulacion eliminada con éxito');
 
-        if ($postulacion) {
-            $postulacion->delete();
-            return redirect()->back()->with('success', 'Postulacion eliminada con éxito');
-        }
 
-        return redirect()->back()->with('error', 'No se encontró la postulacion');
+
     }
 }
