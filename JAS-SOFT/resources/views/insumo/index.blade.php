@@ -99,7 +99,7 @@
                                     <th>Cantidad</th>
                                     <th>Unidad de medida</th>
                                     <th>Color</th>
-                                    {{-- <th>tamaño</th> --}}
+                                    <th>Tamaño</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -110,7 +110,7 @@
                                         <td>{{ $insumo->Cantidad }}</td>
                                         <td>{{ $insumo->IdUnidadMedida }}</td>
                                         <td>{{ $insumo->Color }}</td>
-                                        {{-- <td>$insumo->Tamaño</td> --}}
+                                        <td>{{ $insumo->Tamanio }}</td>
                                         <td>
                                             {{-- @include('insumo.info') --}}
                                             <form action="{{ route('insumo.edit') }}" method="POST">

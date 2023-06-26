@@ -60,7 +60,7 @@ class InsumoController extends Controller
             'Cantidad' => 'required',
             'Unidadmedida' => 'required',
             'Color' => 'required',
-            //'Tamaño' => 'required',
+            'Tamanio' => 'required',
         ]);
 
         // Crear un nuevo modelo o utilizar un modelo existente para almacenar los datos en la base de datos
@@ -68,6 +68,7 @@ class InsumoController extends Controller
         $insumos = new Insumo;
         $insumos->Cantidad = $request->input('Cantidad');
         $insumos->Color = $request->input('Color');
+        $insumos->Tamanio = $request->input('Tamanio');
         $insumos->IdEmpleado = '2';
         $insumos->IdUnidadMedida = 2;
         $insumos->IdNombreInsumo = 2;

@@ -18,6 +18,7 @@ class Insumo extends Model
         'IdEmpleado',
         'IdUnidadMedida',
         'IdNombreInsumo',
+        'Tamanio',
     ];
     public $timestamps = false;
 }

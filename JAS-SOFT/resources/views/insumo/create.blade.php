@@ -49,8 +49,8 @@
                                <label for="Color">Color</label>
                            </div>
                            <div class="form-floating mt-3 mb-3 col-6">
-                               <input type="text" class="form-control" id="Tamaño" placeholder="Tamaño"
-                                   name="Tamaño" required value="{{ $insumo->Tamaño }}">
+                               <input type="text" class="form-control" id="Tamanio" placeholder="Tamaño"
+                                   name="Tamanio" required value="{{ $insumo->Tamanio }}">
                                <label for="Tamaño">Tamaño</label>
                            </div>
                        </div>

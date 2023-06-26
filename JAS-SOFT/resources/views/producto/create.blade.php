@@ -5,7 +5,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Registrar Insumo</h4>
+                <h4 class="modal-title">Registrar inventario</h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <!-- Modal body -->
