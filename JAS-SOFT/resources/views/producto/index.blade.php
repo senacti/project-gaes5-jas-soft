@@ -11,8 +11,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
 
-    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
-        rel="stylesheet">
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <link rel="stylesheet" href="{{ asset('https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css') }}">
 
@@ -87,42 +86,41 @@
                             </thead>
                             <tbody>
                                 @foreach ($productos as $producto)
-                                    <tr>
-                                        <td>{{ $producto->IdProducto }}</td>
-                                        <td>{{ $producto->CantidadProducto }}</td>
-                                        <td>{{ $producto->ValorUnidadMedidaProducto }}</td>
-                                        <td>{{ $producto->FechaFabricacion }}</td>
-                                        <td>{{ $producto->IdColor }}</td>
-                                        <td>{{ $producto->IdEmpleado }}</td>
-                                        <td>{{ $producto->IdUnidadMedida }}</td>
-                                        <td>{{ $producto->IdEstadoProducto }}</td>
-                                        <td>{{ $producto->IdNombreProducto }}</td>
-                                        <td>
-                                            <form action="{{ route('producto.eliminar', $producto->IdProducto) }}"
-                                                method="post">                                               
-                                                @csrf
-                                                <input type="hidden" id="idproducto" name="idproducto"
-                                                    value="{{ $producto->IdProducto }}">
-                                                <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
-                                            </form>   
-                                            <form action="{{ route('producto.edit') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" id="idproducto" name="idproducto"
-                                                    value="{{ $producto->IdProducto }}">
-                                                <button type="submit"
-                                                    class="btn btn-success">{{ __('Editar') }}</button>
-                                            </form>                                       
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td>{{ $producto->IdProducto }}</td>
+                                    <td>{{ $producto->CantidadProducto }}</td>
+                                    <td>{{ $producto->ValorUnidadMedidaProducto }}</td>
+                                    <td>{{ $producto->FechaFabricacion }}</td>
+                                    <td>{{ $producto->IdColor }}</td>
+                                    <td>{{ $producto->IdEmpleado }}</td>
+                                    <td>{{ $producto->IdUnidadMedida }}</td>
+                                    <td>{{ $producto->IdEstadoProducto }}</td>
+                                    <td>{{ $producto->IdNombreProducto }}</td>
+                                    <td>
+                                        <form action="{{ route('producto.eliminar', $producto->IdProducto) }}" method="post">
+                                            @csrf
+                                            <input type="hidden" id="idproducto" name="idproducto" value="{{ $producto->IdProducto }}">
+                                            <button type="submit" class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
+                                        </form>
+                                        <form action="{{ route('producto.edit') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" id="idproducto" name="idproducto" value="{{ $producto->IdProducto }}">
+                                            <button type="submit" class="btn btn-success">{{ __('Editar') }}</button>
+                                        </form>
+                                    </td>
+                                </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div>
                             @include('producto.create')
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">                                
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
                                 Agregar Productos
-                            </button>  
-                        </div>                                           
+                            </button>
+                        </div>
+                        <div>
+                            <a href="{{ url('productos/pdf') }}" class="btn btn-success ml-2" target="_blank">PDF</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -149,6 +147,5 @@
 </body>
 <footer>
 </footer>
+
 </html>
-
-

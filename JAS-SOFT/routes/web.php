@@ -11,11 +11,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\InsumoController;
 use App\Http\Controllers\VentumController;
-
-
-
-
-
+use App\Http\Controllers\ProductoController;
+use App\Models\Producto;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,6 +89,7 @@ Route::get('/register', function () {
 Auth::routes();
 Route::get('insumos/pdf', [InsumoController::class, 'pdf'])->name('insumo.pdf');
 Route::get('ventum/pdf', [VentumController::class, 'pdf'])->name('ventum.pdf');
+Route::get('productos/pdf', [ProductoController::class, 'pdf'])->name('producto.pdf');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
@@ -124,7 +122,7 @@ Route::post('ordenpedidos/eliminar', [OrdenpedidoController::class, 'destroy'])-
 Route::post('ordenpedidos/actualizar', [OrdenpedidoController::class, 'update'])->name('ordenpedido.actualizarordenpedido');
 
 
-use App\Http\Controllers\ProductoController;
+
 
 
 Route::post('/registerproducto', [ProductoController::class, 'store'])->name('producto.almacenar');
