@@ -27,6 +27,9 @@
                             <select class="form-select" id="IdProducto" name="IdProducto">
                                 <option value="1">botellas de plasticos</option>
                                 <option value="2">Ganchos plasticos</option>
+                                <option value="3">Tubo de plastico</option>
+                                <option value="4">Contenedor de plastico</option>
+                                <option value="5">Tapon de plastico</option>
                             </select>
                             <label for="IdProducto" class="form-label">Producto</label>
                         </div>
@@ -34,7 +37,7 @@
                             <select class="form-select" id="IdEstadopedido" name="IdEstadopedido">
                                 <option value="1">En produccion</option>
                                 <option value="2">En espera</option>
-                                <option value="2">En alistamiento</option>
+                                <option value="3">En alistamiento</option>
                             </select>
                             <label for="IdEstadopedido" class="form-label">Estado</label>
                         </div>

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Http\Controllers\PostulacionController;
 /**
  * Class Postulacion
  *
@@ -25,27 +25,24 @@ use Illuminate\Database\Eloquent\Model;
 class Postulacion extends Model
 {
     protected $table = 'postulacion';
-
-    static $rules = [
-        'IdPostulacion' => 'required',
-        'FechaPostulacion' => 'required',
-        'DescripOferta' => 'required',
-        'PerfilPostulacion' => 'required',
-        'IdDetallesOferta' => 'required',
-        'IdEmpleado' => 'required',
-        'IdEstadoPostulaciones' => 'required',
+    protected $primaryKey = 'IdPostulacion';
+    protected $fillable = [
+        'IdPostulacion',
+        'FechaPostulacion' ,
+        'DescripOferta' ,
+        'PerfilPostulacion' ,
+        'IdDetallesOferta' ,
+        'IdEmpleado' ,
+        'IdEstadoPostulaciones' ,
     ];
 
-    protected $perPage = 20;
-
+    public $timestamps = false;
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['IdPostulacion', 'FechaPostulacion', 'DescripOferta', 'PerfilPostulacion', 'IdDetallesOferta', 'IdEmpleado', 'IdEstadoPostulaciones'];
-
-
+    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

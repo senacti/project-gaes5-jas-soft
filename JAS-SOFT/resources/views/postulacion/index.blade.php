@@ -10,8 +10,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/Header.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/footer.css') }}">
 
-    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}"
-        rel="stylesheet">
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/estilos-dash-admin.css') }}">
     <link rel="stylesheet" href="{{ asset('css/jquery.dataTables.min.css') }}">
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
@@ -75,32 +74,22 @@
                         <div class="col-sm-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                                        <span id="card_title">
-                                            {{ __('Postulacion') }}
-                                        </span>
 
-                                        <div class="float-right">
-                                            <a href="{{ route('postulacion.listar') }}"
-                                                class="btn btn-primary btn-sm float-right" data-placement="left">
-                                                {{ __('Create New') }}
-                                            </a>
-                                        </div>
+                                    <div class="d-flex justify-content-around bg mb-3">
+                                        @include ('postulacion.create')
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+                                            Nueva Postulacion
+                                        </button>
                                     </div>
+
                                 </div>
-                                @if ($message = Session::get('success'))
-                                    <div class="alert alert-success">
-                                        <p>{{ $message }}</p>
-                                    </div>
-                                @endif
 
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
                                             <thead class="thead">
                                                 <tr>
-                                                    <th>No</th>
-                                                    <th>Idpostulacion</th>
+                                                    <th>IdPostulacion</th>
                                                     <th>Fechapostulacion</th>
                                                     <th>Descripoferta</th>
                                                     <th>Perfilpostulacion</th>
@@ -112,49 +101,64 @@
                                             </thead>
                                             <tbody>
                                                 @foreach ($postulaciones as $postulacion)
-                                                    <tr>
-                                                        <td>{{ $postulacion->id }}</td>
-                                                        <td>{{ $postulacion->IdPostulacion }}</td>
-                                                        <td>{{ $postulacion->FechaPostulacion }}</td>
-                                                        <td>{{ $postulacion->DescripOferta }}</td>
-                                                        <td>{{ $postulacion->PerfilPostulacion }}</td>
-                                                        <td>{{ $postulacion->IdDetallesOferta }}</td>
-                                                        <td>{{ $postulacion->IdEmpleado }}</td>
-                                                        <td>{{ $postulacion->IdEstadoPostulaciones }}</td>
-                                                        <td>
-                                                            <form
-                                                                action="{{ route('postulacion.edit', $postulacion->id) }}"
-                                                                method="post">
-                                                                @csrf
-                                                                <input type="hidden" name="idpostulacion"
-                                                                    value="{{ $postulacion->IdPostulacion }}">
-                                                                <button type="submit"
-                                                                    class="btn btn-success btn-sm">{{ __('Editar') }}</button>
-                                                            </form>
-                                                            <form
-                                                                action="{{ route('postulacion.eliminar', $postulacion->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button type="submit"
-                                                                    class="btn btn-danger btn-sm">{{ __('Eliminar') }}</button>
-                                                            </form>
-                                                        </td>
-                                                    </tr>
+                                                <tr>
+                                                    <td>{{ $postulacion->IdPostulacion }}</td>
+                                                    <td>{{ $postulacion->FechaPostulacion }}</td>
+                                                    <td>{{ $postulacion->DescripOferta }}</td>
+                                                    <td>{{ $postulacion->PerfilPostulacion }}</td>
+                                                    <td>{{ $postulacion->IdDetallesOferta }}</td>
+                                                    <td>{{ $postulacion->IdEmpleado }}</td>
+                                                    <td>{{ $postulacion->IdEstadoPostulaciones }}</td>
+                                                    <td>
+                                                        <form action="{{ route('postulacion.edit', $postulacion->id) }}" method="post">
+                                                            @csrf
+
+                                                            <input type="hidden" name="idpostulacion" value="{{ $postulacion->IdPostulacion }}">
+                                                            <button type="submit" class="btn btn-success btn-sm">{{ __('Editar') }}</button>
+                                                        </form>
+                                                        <form action="{{ route('postulacion.eliminar') }}" method="POST">
+                                                            @csrf
+
+                                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                                <i class="fa fa-fw fa-trash"></i> {{ __('Eliminar') }}
+                                                            </button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
+
                             </div>
-                            {!! $postulaciones->links() !!}
+
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
+    <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"></script>
+    <script src="{{ asset ('https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('JS/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('JS/dataTables.bootstrap.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#tablas').DataTable();
+        });
 
+        function mostrarid() {
+            id = document.getElementById('idpostulacion').value;
+            alert(id);
+        }
+
+        function abrirmodal() {
+            $('#editar').show();
+        }
+    </script>
 </body>
 
 </html>

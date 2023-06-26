@@ -65,7 +65,7 @@
     <div class="col-10" id="contentd">
         <div class="card" id="cardash">
           <nav class="descrip-menu">
-          <a class="message-ubication" href="{{ url('postulaciones') }}">POSTULACIONES</a>
+          <a class="message-ubication" href="{{ url('postulacion') }}">POSTULACIONES</a>
           <a class="message-ubication" href="{{ url('produccion') }}">PRUEBAS</a>  
           </nav>   
           <div class="container mt-3">
