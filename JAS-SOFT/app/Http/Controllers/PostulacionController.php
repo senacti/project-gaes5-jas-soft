@@ -21,32 +21,38 @@ class PostulacionController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'FechaPostulacion' => 'required',
-            'DescripOferta' => 'required',
-            'PerfilPostulacion' => 'required',
-            'IdDetallesOferta' => 'required',
-            'IdEmpleado' => 'required',
-            'IdEstadoPostulaciones' => 'required',
-        ]);
+        /*$validatedData = $request->validate([
+            'fechapostulacion' => 'required',
+            'descripofertas' => 'required',
+            'perfilpostulacion' => 'required',
+            'iddetallesoferta' => 'required',
+            'idempleado' => 'required',
+            'idestadopostulaciones' => 'required',
+        ]);*/
 
         $postulaciones = new Postulacion;
-        $postulaciones->FechaPostulacion = $request->input('FechaPostulacion');
-        $postulaciones->DescripOferta = $request->input('DescripOferta');
-        $postulaciones->PerfilPostulacion = $request->input('PerfilPostulacion');
-        $postulaciones->IdDetallesOferta = $request->input('IdDetallesOferta');
-        $postulaciones->IdEmpleado = $request->input('IdEmpleado');
-        $postulaciones->IdEstadoPostulaciones = $request->input('IdEstadoPostulaciones');
+        $postulaciones->FechaPostulacion = $request->input('fechapostulacion');
+        $postulaciones->DescripOferta = $request->input('descripoferta');
+        $postulaciones->PerfilPostulacion = $request->input('perfilpostulacion');
+        $postulaciones->IdDetallesOferta = $request->input('iddetallesoferta');
+        $postulaciones->IdEmpleado = $request->input('idempleado');
+        $postulaciones->IdEstadoPostulaciones = $request->input('idestadopostulaciones');
 
         $postulaciones->save();
 
-        return redirect()->route('postulacion.index')->with('success', 'Postulacion creada correctamente');
+        return redirect()->route('postulacion.listar')->with('success', 'Postulacion creada correctamente');
+    }
+       /**
+     * Display the specified resource.
+     */
+    public function show()
+    {
+
     }
 
     public function update(Request $request)
     {
         $validatedData = $request->validate([
-            'IdPostulacion' => 'required',
             'FechaPostulacion' => 'required',
             'DescripOferta' => 'required',
             'PerfilPostulacion' => 'required',
@@ -55,14 +61,14 @@ class PostulacionController extends Controller
         $idPostulacion = $request->input('IdPostulacion');
         $postulacion = Postulacion::find($idPostulacion);
 
-        if ($postulacion) {
-            $postulacion->FechaPostulacion = $request->input('FechaPostulacion');
-            $postulacion->DescripOferta = $request->input('DescripOferta');
-            $postulacion->PerfilPostulacion = $request->input('PerfilPostulacion');
-            $postulacion->save();
 
-            return redirect()->route('postulacion.listar')->with('success', 'Postulacion actualizada con éxito');
-        }
+        $postulacion->FechaPostulacion = $request->input('FechaPostulacion');
+        $postulacion->DescripOferta = $request->input('DescripOferta');
+        $postulacion->PerfilPostulacion = $request->input('PerfilPostulacion');
+        $postulacion->save();
+
+
+
 
         return redirect()->back()->with('error', 'No se encontró la postulacion');
     }
@@ -80,4 +86,3 @@ class PostulacionController extends Controller
         return redirect()->back()->with('error', 'No se encontró la postulacion');
     }
 }
-

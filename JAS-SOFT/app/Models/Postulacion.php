@@ -26,8 +26,7 @@ class Postulacion extends Model
 {
     protected $table = 'postulacion';
     protected $primaryKey = 'IdPostulacion';
-    protected $fillable = [
-        'IdPostulacion',
+    protected $fillable = [        
         'FechaPostulacion' ,
         'DescripOferta' ,
         'PerfilPostulacion' ,
