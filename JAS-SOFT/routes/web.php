@@ -163,3 +163,7 @@ Route::get('/postulacion', [PostulacionController::class, 'index'])->name('postu
 Route::post('/postulacion/editar', [PostulacionController::class, 'edit'])->name('postulacion.edit');
 Route::post('/postulacion/eliminar', [PostulacionController::class, 'destroy'])->name('postulacion.eliminar');
 Route::post('/postulacion/actualizar', [PostulacionController::class, 'update'])->name('postulacion.actualizarpostulacion');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
