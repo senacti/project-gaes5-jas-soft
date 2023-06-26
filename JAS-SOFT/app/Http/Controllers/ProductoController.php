@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class ProductoController
@@ -21,6 +22,13 @@ class ProductoController extends Controller
         $productos = Producto::all();
         //dd($productos)
         return view('producto.index')->with('productos', $productos);
+    }
+
+    public function pdf()
+    {
+        $productos = Producto::all();
+        $pdf = PDF::loadView('producto.pdf', ['productos' => $productos]);
+        return $pdf->stream();
     }
 
     /**
