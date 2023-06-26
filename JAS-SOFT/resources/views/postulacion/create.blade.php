@@ -1,79 +1,100 @@
-@extends('layouts.app')
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
 
-@section('template_title')
-    {{ __('postulacion.create') }} Postulacion
-@endsection
-<form action="" class="flex-box needs-validation formpostu">
-    <h2>Nueva postulacion</h2>
-    <div class="row">
-        <div class="form-floating mt-3 mb-3 col-4">
-            <input type="text" class="form-control" id="cargo" placeholder="Cargo" required>
-            <label for="cargo">Cargo</label>
-        </div>
-        <div class="form-floating mt-3 mb-3 col-4">
-            <input type="text" class="form-control" id="Cantidad" placeholder="Cantidad de puestos" required name="Cantidad" maxlength="#" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
-            <label for="Cantidad">Cantidad de puesto</label>
-        </div>
-        <div class="form-floating mt-3 mb-3 col-4">
-            <input type="text" class="form-control" id="Puesto" placeholder="puesto" required>
-            <label for="Puesto">puesto</label>
-        </div>                
-        <div class="form-floating mt-3 mb-3 col-8">
-            <textarea type="textarea" class="form-control" id="descargo" placeholder="desciprcion del cargo" required> </textarea>
-            <label for="descargo">Descicion del cargo</label>    
-        </div>
-        <div class="form-floating mt-3 mb-3 col-4">
-            <input type="date" class="form-control" id="fechaoferta" placeholder="fechaoferta" required>
-            <label for="fechaoferta">Fecha publicacion de oferta</label>
-        </div>
-        <div class="form-floating mt-3 mb-3 col-4">
-            <input type="date" class="form-control" id="fechaoferta" placeholder="fechaoferta" required>
-            <label for="fechaoferta">Fecha cierre de oferta</label>
-        </div>
-        <div class="form-floating mt-3 mb-3 col-2">
-            <input type="number" class="form-control" id="experiencia" placeholder="experiencia" required name="Cantidad" maxlength="#" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
-            <label for="Experiencia">Experiencia años</label>
-        </div>
-        <div class="form-floating mt-3 mb-3 col-3">
-            <select class="form-select" id="sel1" name="Estudios">
-              <option>Tecnico</option>
-              <option>Tecnologo</option>      
-              <option>Profesional</option>  
-              <option>Bachiller</option>                           
-            </select>
-            <label for="sel1" class="form-label">Estudios</label>
-        </div> 
-        <div class="form-floating mt-3 mb-3 col-3">
-            <select class="form-select" id="sel1" name="tipocontrato">
-              <option>Termino definido</option>
-              <option>Termino definido</option>      
-              <option>Contrato por prestación de servicios</option>  
-              <option>Contrato de aprendizaje</option>                           
-            </select>
-            <label for="sel1" class="form-label">Estudios</label>
-        </div> 
-        <button type="submit" class="btn btn-primary">
-@section('content')
-    <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-
-                @includeif('partials.errors')
-
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Postulacion</span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('postulacions.store') }}"  role="form" enctype="multipart/form-data">
-                            @csrf
-
-                            @include('postulacion.form')
-
-                        </form>
-                    </div>
-                </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Nueva Postulacion</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="{{ route('postulacion.almacenar') }}" class="was-validated" method="POST">
+                    @csrf
+                    <div class="row">
+
+                    <input type="hidden" class="form-control" id="IdPostulacion" placeholder="Id Postulacion" 
+                    name="IdPostulacion" required value="{{ $postulaciones->IdPostulacion }}">
+
+                        <div class="col-md-6">
+                            <div class="form-floating mt-3 mb-3">
+                                <input type="datetime-local" required class="form-control" id="fechaPostulacion" placeholder="fecha Postulacion" name="fecha Postulacion" maxlength="20">
+                                <label for="fechaPostulacion">Fecha</label>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="DescripOferta" placeholder="descripcion oferta" name="DescripOferta" required>
+                                <label for="DescripOferta">Descripcion de Oferta</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">Complete el campo</div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="PerfilPostulacion" placeholder="Perfil Postulacion" name="PerfilPostulacion" required>
+                                <label for="PerfilPostulacion">Perfil de la Postulacion</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">Complete el campo</div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="PerfilPostulacion" placeholder="Perfil Postulacion" name="PerfilPostulacion" required>
+                                <label for="PerfilPostulacion">Perfil de la Postulacion</label>
+                                <div class="valid-feedback"></div>
+                                <div class="invalid-feedback">Complete el campo</div>
+                            </div>    
+
+                            <div class="form-floating mt-3 mb-3">
+                                <select class="form-select" id="IdDetallesOferta" placeholder="Estado" name="IdDetallesOferta">
+                                    <option value="0">Seleccione</option>
+                                    <option value="2">Organizar los productos</option>
+                                    <option value="8">Diseñar y modelar piezas y moldes para productos plásticos</option>
+                                    <option value="9">Elaborar procesos de fabricación de productos plásticos</option>
+                                    <option value="10">Coordinar y supervisar la producción de productos plásticos</option>
+                                    <option value="11">Investigar y desarrollar nuevos productos plásticos</option>
+                                    <option value="12">Realizar control de calidad en productos plásticos</option>
+                                </select>
+                                <label for="IdDetallesOferta" class="form-label">Detalles de Oferta</label>
+                            </div>  
+
+                            <div class="form-floating mt-3 mb-3">
+                                <select class="form-select" id="IdEstadoPostulaciones" placeholder="Estado" name="IdEstadoPostulaciones">
+                                    <option value="0">Seleccione</option>
+                                    <option value="1">Inscrito</option>
+                                    <option value="2">En Revisión</option>
+                                    <option value="3">En Proceso</option>
+                                    <option value="4">Rechazado</option>
+                                    <option value="5">Retiro Voluntario</option>
+                                    <option value="6">Proceso Concluido</option>
+                                </select>
+                                <label for="IdEstadoPostulaciones" class="form-label">Estado de la postulacion</label>
+                            </div>
+
+                            <div class="form-floating mt-3 mb-3">
+                                <select class="form-select" id="IdEmpleado" placeholder="Empleado" name="IdEmpleado">
+                                    <option value="0">Seleccione</option>
+                                    <option value="1">Pedro</option>
+                                    <option value="2">Santiago</option>
+                                    <option value="3">Valentina</option>
+                                    <option value="4">Osman</option>
+                                    <option value="5">Fulanito</option>
+                                    <option value="6">Oscar</option>
+                                    <option value="7">David</option>
+                                </select>
+                                <label for="IdEmpleado" class="form-label">Empleado</label>
+                            </div>
+                        </div>
+                    </div>
+                
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
+                <button type="submit" class="btn btn-primary btn-sm">Guardar</button>
+            </div>
+            </form>
         </div>
-    </section>
-@endsection
+    </div>
+</div>

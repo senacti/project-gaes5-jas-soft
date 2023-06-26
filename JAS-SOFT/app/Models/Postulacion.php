@@ -4,30 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class Postulacion
- *
- * @property $IdPostulacion
- * @property $FechaPostulacion
- * @property $DescripOferta
- * @property $PerfilPostulacion
- * @property $IdDetallesOferta
- * @property $IdEmpleado
- * @property $IdEstadoPostulaciones
- *
- * @property Agendamiento[] $agendamientos
- * @property Descripofertum $descripofertum
- * @property Empleado $empleado
- * @property Estadopostulacione $estadopostulacione
- * @package App
- * @mixin \Illuminate\Database\Eloquent\Builder
- */
-class Postulacion extends Model
+
+ class Postulacion extends Model
 {
     protected $table = 'postulacion';
-
-    static $rules = [
-        'IdPostulacion' => 'required',
+    protected $primaryKey = 'IdPostulacion';
+    protected $fillable = [
         'FechaPostulacion' => 'required',
         'DescripOferta' => 'required',
         'PerfilPostulacion' => 'required',
@@ -36,16 +18,13 @@ class Postulacion extends Model
         'IdEstadoPostulaciones' => 'required',
     ];
 
-    protected $perPage = 20;
-
+    public $timestamps = false;
     /**
      * Attributes that should be mass-assignable.
      *
      * @var array
      */
-    protected $fillable = ['IdPostulacion', 'FechaPostulacion', 'DescripOferta', 'PerfilPostulacion', 'IdDetallesOferta', 'IdEmpleado', 'IdEstadoPostulaciones'];
-
-
+    
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
