@@ -27,16 +27,16 @@ class VentumController extends Controller
 
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'fecha' => 'required',
-            'totalVenta' => 'required',
-            'subTotal' => 'required',
-            'cantidadDescuento' => 'required',
-            'totalIva' => 'required',
-            'IdCliente' => 'required',
-            'IdPagos' => 'required',
-            'IdEmpleado' => 'required',
-        ]);
+        // $validatedData = $request->validate([
+        //     'fecha' => 'required',
+        //     'totalVenta' => 'required',
+        //     'subTotal' => 'required',
+        //     'cantidadDescuento' => 'required',
+        //     'totalIva' => 'required',
+        //     'IdCliente' => 'required',
+        //     'IdPagos' => 'required',
+        //     'IdEmpleado' => 'required',
+        // ]);
 
         $venta = new Ventum();
         $venta->fecha = $request->input('fechaVenta');
@@ -45,8 +45,10 @@ class VentumController extends Controller
         $venta->cantidadDescuento = $request->input('descuento');
         $venta->totalIva = $request->input('totalIva');
         $venta->IdCliente = $request->input('idcliente');
-        $venta->IdPagos = $request->input('idpagos');
+        $venta->IdPagos = 31;
         $venta->IdEmpleado = $request->input('idempleado');
+        $venta->IdOrdenPedido = 20;
+        // dd($venta);
 
         $venta->save();
 
@@ -80,13 +82,13 @@ class VentumController extends Controller
         $validatedData = $request->validate([
             'totalventa' => 'required',
             'subTotal' => 'required',
-            'CantidadDescuento' => 'required',
-            'totalIva' => 'required',
+            'descuento' => 'required',
+            'totaliva' => 'required',
         ]);
 
         $venta = new Ventum();
         $venta->totalVenta = $request->input('totalventa');
-        $venta->subTotal = $request->input('subtotal');
+        $venta->subTotal = $request->input('subTotal');
         $venta->cantidadDescuento = $request->input('descuento');
         $venta->totalIva = $request->input('totaliva');
         $venta->update();

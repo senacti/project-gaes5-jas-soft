@@ -18,7 +18,7 @@
             </div> 
 
             <div class="form-floating mt-3 mb-3 col-6">
-                <input type="text" class="form-control" id="subtotal" placeholder="Subtotal" name="subTotal" required value="{{ $ventas->subTotal }}">
+                <input type="text" class="form-control" id="subTotal" placeholder="Subtotal" name="subTotal" required value="{{ $ventas->subTotal }}">
                 <label for="Subtotal">Subtotal</label>
             </div> 
 

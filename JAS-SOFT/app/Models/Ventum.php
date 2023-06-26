@@ -21,6 +21,7 @@ class Ventum extends Model
 		'IdEmpleado',
 		'IdOrdenPedido',
     ];
+    public $timestamps = false;
 
     /**
      * Attributes that should be mass-assignable.
