@@ -24,8 +24,8 @@
                                 <div class="col-md-6">
                                     <div>
                                         <input type="hidden" class="form-control" id="idpostulacion"
-                                            placeholder="id" name="idpostulacion" required
-                                            value="{{ $postulacion->IdPostulacion }}">
+                                            placeholder="id" name="idPostulacion" required
+                                            value="{{ $postulacion->idPostulacion }}">
                                     </div>
                                     <div class="form-floating mt-3 mb-3">
                                         <input type="datetime-local" required class="form-control" id="fechapostulacion"

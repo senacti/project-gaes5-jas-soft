@@ -110,7 +110,7 @@
                                                     <td>{{ $postulacion->IdEmpleado }}</td>
                                                     <td>{{ $postulacion->IdEstadoPostulaciones }}</td>
                                                     <td>
-                                                        <form action="{{ route('postulacion.edit', $postulacion->IdPostulacion) }}" method="post">
+                                                        <form action="{{ route('postulacion.edit') }}" method="post">
                                                             @csrf
                                                             <input type="hidden" name="idpostulacion" value="{{ $postulacion->IdPostulacion }}">
                                                             <button type="submit" class="btn btn-success btn-sm">{{ __('Editar') }}</button>

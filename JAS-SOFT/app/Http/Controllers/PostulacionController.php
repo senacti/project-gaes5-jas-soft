@@ -11,7 +11,7 @@ class PostulacionController extends Controller
     {
         $postulaciones = Postulacion::all();
 
-        return view('postulacion.index')->with('postulaciones', $postulaciones);
+        return view('postulacion.index')->with('Postulacion', $postulaciones);
     }
 
     public function create()
@@ -30,26 +30,40 @@ class PostulacionController extends Controller
             'idestadopostulaciones' => 'required',
         ]);*/
 
-        $postulaciones = new Postulacion;
-        $postulaciones->FechaPostulacion = $request->input('fechapostulacion');
-        $postulaciones->DescripOferta = $request->input('descripoferta');
-        $postulaciones->PerfilPostulacion = $request->input('perfilpostulacion');
-        $postulaciones->IdDetallesOferta = $request->input('iddetallesoferta');
-        $postulaciones->IdEmpleado = $request->input('idempleado');
-        $postulaciones->IdEstadoPostulaciones = $request->input('idestadopostulaciones');
-
-        $postulaciones->save();
+        $postulacion = new Postulacion;
+        $postulacion->FechaPostulacion = $request->input('fechapostulacion');
+        $postulacion->DescripOferta = $request->input('descripoferta');
+        $postulacion->PerfilPostulacion = $request->input('perfilpostulacion');
+        $postulacion->IdDetallesOferta = 2;
+        $postulacion->IdEmpleado = 3;
+        $postulacion->IdEstadoPostulaciones = $request->input('idestadopostulaciones');
+        //dd($postulacion);
+        $postulacion->save();
 
         return redirect()->route('postulacion.listar')->with('success', 'Postulacion creada correctamente');
     }
     /**
      * Display the specified resource.
      */
-    public function show()
+    public function show(Postulacion $postulacion)
     {
 
     }
+    public function edit(Request $request)
+    {
+        $idPostulacion = $request->input('idPostulacion');
+        //dd($idPostulacion);
+        $postulacion = Postulacion::find($idPostulacion);
+        return view('postulacion.edit', ['postulacion' => $postulacion]);
+    }
 
+    public function vistaedit(Request $request)
+    {
+        $idPostulacion = $request->input('idPostulacion');
+        $postulacion = Postulacion::find($idPostulacion);
+        //dd($postulacion);
+        return view('postulacion.edit')->with('postulacion', $postulacion);
+    }
     public function update(Request $request)
     {
         $validatedData = $request->validate([
@@ -57,39 +71,25 @@ class PostulacionController extends Controller
             'descripoferta' => 'required',
             'perfilpostulacion' => 'required',
         ]);
-
-        $idPostulacion = $request->input('idpostulacion');
-        $postulacion = Postulacion::find($idPostulacion);
-
-
+        $postulacion = new Postulacion();
         $postulacion->FechaPostulacion = $request->input('fechapostulacion');
         $postulacion->DescripOferta = $request->input('descripoferta');
         $postulacion->PerfilPostulacion = $request->input('perfilpostulacion');
-        $postulacion->save();
-
-
-
+        $postulacion->update();
 
         return redirect()->back()->with('error', 'No se encontró la postulacion');
     }
 
-    public function edit(Request $request)
-    {
-        $idPostulacion = $request->input('idPostulacion');
-        //dd($ordenpedidos);      
-        $postulacion = Postulacion::find($idPostulacion);
-        //dd($idordenpedido);
-        return view('postulacion.edit')->with('postulacion', $postulacion);
-    }
-
     public function destroy(Request $request)
     {
-        $idPostulacion = $request->input('idpostulacion');
+        $idPostulacion = $request->input('idPostulacion');
         $postulacion = Postulacion::find($idPostulacion);
-        $postulacion->delete();
-        return redirect()->back()->with('success', 'Postulacion eliminada con éxito');
 
+        if ($postulacion) {
+            $postulacion->delete();
+            return redirect()->back()->with('success', 'Venta eliminada correctamente');
+        }
 
-
+        return redirect()->back()->with('error', 'No se encontró la venta');
     }
 }
