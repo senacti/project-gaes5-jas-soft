@@ -69,7 +69,7 @@
 						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
+						<a class="nav-link" href="{% url 'GestionPersonal' %}">GESTION P.</a>
 					</li>
 				</ul>
 			</div>
@@ -97,11 +97,13 @@
 						-->
 						<nav class="descrip-menu">
 							<a class="message-ubication" href="@{/buzon/}">Buzon de sugerencias</a>
+							<a class="message-ubication" href="{% url 'Postulacion' %}">Postulaciones</a>
+
 						</nav>
 
 						<div class="button-new">
 							<button type="button" class="" data-bs-toggle="modal" data-bs-target="#myModal">
-								Nueva Venta
+								Nueva Postulación
 							</button>
 							<a class="button-excel" href="@{/ventum/exportar/excel}">
 								Exportar a Excel

@@ -1,5 +1,10 @@
 from django.shortcuts import render
     
+def Index(request):
+    return render(request,'index.html',{
+        #context
+    })
+ 
 def home(request):
     return render(request,'home.html',{
         #context
@@ -15,8 +20,13 @@ def ventas(request):
         #context
     })
 
-def rrhh(request):
-    return render(request,'rrhh.html',{
+def GestionPersonal(request):
+    return render(request,'GestionPersonal.html',{
+        #context
+    })
+
+def Postulacion(request):
+    return render(request,'Postulacion.html',{
         #context
     })
 
