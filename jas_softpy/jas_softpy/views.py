@@ -24,3 +24,13 @@ def ordenpedido(request):
     return render(request,'ordenpedido.html',{
         #context
     })
+    
+def sugerencias(request):
+    return render(request,'sugerencias.html',{
+        #context
+    })
+
+def index(request):
+    return render(request,'index.html',{
+        #context
+    })    
