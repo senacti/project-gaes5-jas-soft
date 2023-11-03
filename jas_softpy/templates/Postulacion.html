@@ -89,14 +89,11 @@
                                         onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
                                     <label for="Cantidad">Cantidad de puesto</label>
                                 </div>
-                                <div class="form-floating mt-3 mb-3 col-4">
-                                    <input type="text" class="form-control" id="Puesto" placeholder="puesto" required>
-                                    <label for="Puesto">puesto</label>
-                                </div>
+
                                 <div class="form-floating mt-3 mb-3 col-8">
                                     <textarea type="textarea" class="form-control" id="descargo"
                                         placeholder="desciprcion del cargo" required> </textarea>
-                                    <label for="descargo">Descicion del cargo</label>
+                                    <label for="descargo">Descripción del cargo</label>
                                 </div>
                                 <div class="form-floating mt-3 mb-3 col-4">
                                     <input type="date" class="form-control" id="fechaoferta" placeholder="fechaoferta"
@@ -130,13 +127,14 @@
                                         <option>Contrato por prestación de servicios</option>
                                         <option>Contrato de aprendizaje</option>
                                     </select>
-                                    <label for="sel1" class="form-label">Estudios</label>
+                                    <label for="sel1" class="form-label">Tipo de Contrato</label>
                                 </div>
                                 <button type="submit" class="btn btn-primary">
                                     Crear
                                 </button>
                                 <div class="text-end mt-3">
-                                    <a href="{% url 'GestionPersonal' %}" class="btn btn-secondary btn-block" style="width: 100px;">Volver</a>
+                                    <a href="{% url 'GestionPersonal' %}" class="btn btn-secondary btn-block"
+                                        style="width: 100px;">Volver</a>
                                 </div>
 
                             </div>
