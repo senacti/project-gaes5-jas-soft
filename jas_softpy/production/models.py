@@ -1,9 +1,9 @@
 from django.db import models
 from datetime import datetime
 
+
 class Supplies(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre") 
-    stock = models.IntegerField(verbose_name="Cantidad")
     stock = models.IntegerField(verbose_name="Cantidad")    
     size = models.CharField(max_length=12, verbose_name="Tamaño")
     color = models.CharField(max_length=20, verbose_name="Color")
