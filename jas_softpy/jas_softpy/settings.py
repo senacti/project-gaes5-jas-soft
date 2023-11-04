@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'production',
+    'inventory',
 ]
 
 MIDDLEWARE = [
@@ -76,7 +77,6 @@ WSGI_APPLICATION = 'jas_softpy.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = db.MYSQL
-pymysql.install_as_MySQLdb()
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
