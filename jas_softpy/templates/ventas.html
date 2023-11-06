@@ -23,6 +23,57 @@
 </head>
 
 <body>
+
+	<header class="dash-menu">
+		<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+		<a class="nav-link" href="@{/}">INICIO</a>
+		<ul class="list-menu-ul">
+			<li class="list-menu-dash" style="margin-right: -10px"> <img class="img-menu-dash"
+					src="{% static 'img/campana.png' %}" alt="Campana"> </li>
+			<li class="nav-item dropdown" style="margin-right: -200px;">
+				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false" v-pre>
+					<span sec:authentication="principal.username"></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+						Cerrar sesión
+					</a>
+
+					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
+					</form>
+				</div>
+			</li>
+		</ul>
+		<li class="list-menu-dash"> <img class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt="">
+		</li>
+	</header>
+	
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-2 barmenu">
+				<h3 class="mt-4">PROMOPLAST</h3>
+				<p></p>
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">MENU</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ordenpedido' %}">PRODUCCION</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
+					</li>
+				</ul>
+	</div>	
+
 	<!-- The Modal -->
 	<div class="modal" id="myModal">
 		<div class="modal-dialog">
@@ -71,7 +122,6 @@
 										placeholder="IVA" name="totalIva" required>
 									<label for="totalIva">IVA</label>
 									<div class="valid-feedback"></div>
-									<div class="invalid-feedback">Complete el campo</div>
 								</div>
 
 								<div class="form-floating mt-3 mb-3">
@@ -130,55 +180,7 @@
 		</div>
 	</div>
 
-	<header class="dash-menu">
-		<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
-		<a class="nav-link" href="@{/}">INICIO</a>
-		<ul class="list-menu-ul">
-			<li class="list-menu-dash" style="margin-right: -10px"> <img class="img-menu-dash"
-					src="{% static 'img/campana.png' %}" alt="Campana"> </li>
-			<li class="nav-item dropdown" style="margin-right: -200px;">
-				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false" v-pre>
-					<span sec:authentication="principal.username"></span>
-				</a>
-				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
-						Cerrar sesión
-					</a>
-
-					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
-					</form>
-				</div>
-			</li>
-		</ul>
-		<li class="list-menu-dash"> <img class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt="">
-		</li>
-	</header>
 	
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ordenpedido' %}">PRODUCCION</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
-					</li>
-				</ul>
-			</div>
 
 			<div class="col-10" id="contentd">
 				<div class="card" id="cardash">

@@ -34,3 +34,13 @@ def index(request):
     return render(request,'index.html',{
         #context
     })    
+
+def sales(request):
+    return render(request,'sales.html',{
+        #context
+    })   
+
+def login(request):
+    return render(request,'login.html',{
+        #context
+    })   
