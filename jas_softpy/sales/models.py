@@ -4,6 +4,8 @@ from itertools import product
 from django.db import models
 from datetime import datetime
 from inventory.models import Product
+from Postulation.models import Employed
+
 class Client(models.Model):
     
     def __str__(self):
@@ -52,12 +54,6 @@ class Pays(models.Model):
         verbose_name_plural = "Pagos"
         db_table = "pagos"
         ordering = ['id']
-
-        
-class Employed(models.Model):
-     
-     SaleDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha Venta")
-
 
 class Sales(models.Model):   
     
