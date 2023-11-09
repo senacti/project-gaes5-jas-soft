@@ -20,6 +20,11 @@ def rrhh(request):
         #context
     })
 
+def Postulacion(request):
+    return render(request,'Postulacion.html',{
+        #context
+    })
+
 def ordenpedido(request):
     return render(request,'ordenpedido.html',{
         #context
