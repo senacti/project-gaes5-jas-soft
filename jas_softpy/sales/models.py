@@ -3,7 +3,36 @@
 from itertools import product
 from django.db import models
 from datetime import datetime
+from inventory.models import Product
+class Client(models.Model):
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Cliente"
+        verbose_name_plural = "Clientes"
+        db_table = "cliente"
+        ordering = ['id']
 
+class PurchaseOrder(models.Model):   
+    
+    StockProduct = models.IntegerField(verbose_name="Cantidad Producto")
+    PurchaseOrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido")
+    State = models.CharField(max_length=50, verbose_name="Estado Pedido") 
+    
+    
+    Product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        verbose_name = "Orden pedido"
+        verbose_name_plural = "ordenpedidos"
+        db_table = "ordenpedido"
+        ordering = ['id']
 
 class Pays(models.Model):
     
@@ -24,36 +53,12 @@ class Pays(models.Model):
         db_table = "pagos"
         ordering = ['id']
 
-class Client(models.Model):
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Cliente"
-        verbose_name_plural = "Clientes"
-        db_table = "cliente"
-        ordering = ['id']
         
-class PurchaseOrder(models.Model):   
-    
-    StockProduct = models.IntegerField(verbose_name="Cantidad Producto")
-    PurchaseOrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido")
-    State = models.CharField(max_length=50, verbose_name="Estado Pedido") 
-    
-    
-    Product = models.ForeignKey(product,on_delete=models.CASCADE)
-    
-    
-    def __str__(self):
-        return self.name
-    
-    class Meta:
-        verbose_name = "Orden pedido"
-        verbose_name_plural = "ordenpedidos"
-        db_table = "ordenpedido"
-        ordering = ['id']
-        
+class Employed(models.Model):
+     
+     SaleDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha Venta")
+
+
 class Sales(models.Model):   
     
     SaleDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha Venta")
