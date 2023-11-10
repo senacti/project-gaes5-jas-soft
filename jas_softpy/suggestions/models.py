@@ -5,7 +5,7 @@ from django.db import models
 class Suggestions(models.Model):
     
     category = models.CharField(max_length=50, verbose_name="Categoria")
-
+    descriptCategory = models.CharField (max_length=50, verbose_name="Descripcion categoria")
 
     def  _str_(self):
         return self.category
