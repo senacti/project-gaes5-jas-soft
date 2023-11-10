@@ -21,8 +21,9 @@ class ProductionOrder(models.Model):
     
     Production_OrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido produccion")  
     supplies = models.ForeignKey(Supplies,on_delete=models.CASCADE)
+    
     def __str__(self):
-        return self.name
+        return str(self.Production_OrderDate)
     
     class Meta:
         verbose_name = "Orden producion"

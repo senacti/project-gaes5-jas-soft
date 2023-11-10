@@ -4,12 +4,12 @@ from itertools import product
 from django.db import models
 from datetime import datetime
 from inventory.models import Product
-from Postulation.models import Employed
+from postulation.models import Employed
 
 class Client(models.Model):
     
-    def __str__(self):
-        return self.name
+    #def __str__(self):
+    #    return self.name
     
     class Meta:
         verbose_name = "Cliente"
