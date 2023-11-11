@@ -35,6 +35,11 @@ def ordenpedido(request):
     return render(request,'ordenpedido.html',{
         #context
     })
+
+def insumo(request):
+    return render(request,'insumo.html',{
+        #context
+    })
     
 def sugerencias(request):
     return render(request,'sugerencias.html',{
