@@ -9,7 +9,7 @@ a:hover {
     color: #300e8c;
 }
 body {
-    background-image: url('/img/imgfondo.png');
+    background-image: url('/static/img/imgfondo.png');
     background-repeat: no-repeat;
     background-size: cover;
 }

@@ -16,7 +16,6 @@ class position (models.Model):
 class Employed(models.Model):
 
     name = models.CharField(max_length=250, verbose_name="Nombre")
-
     position = models.ForeignKey(position,on_delete=models.CASCADE)
 
     def __str__(self):
