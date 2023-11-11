@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+	<link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
+	<title>PromoPlast | Insumo</title>
+
+	<!-- Fonts -->
+	<link rel="dns-prefetch" href="//fonts.bunny.net">
+	<link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+	<!--<div insert="~{insumo/create}"></div>-->
+	<!-- The Modal -->
+	<div class="modal" id="create">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title" text="${titulocrear}">Crear Insumo</h4>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+				</div>
+
+				<!-- Modal body -->
+				<form action="@{/insumo/guardar}" object="${insumo}" class="was-validated" method="post">
+					<div class="modal-body">
+						<div class="row">
+							<div class="form-floating mb-3 mt-3">
+								<input type="hidden" value="1" class="form-control" field="*{idnombreinsumo}" id="idnombreinsumo"
+									placeholder="Nombre Insumo" name="idnombreinsumo" required>
+								<input type="text" value="1" class="form-control"  
+									placeholder="Nombre Insumos"  required>
+								<label for="nombre">Nombre Insumo</label>
+								<div class="valid-feedback"></div>
+								<div class="invalid-feedback">Porfavor complete el campo</div>
+							</div>
+							<div class="form-floating mt-3 mb-3 col-8">
+								<input type="text" required class="form-control" id="cantidad" placeholder="cantidad"
+									name="cantidad" maxlength="9" field="*{cantidad}"
+									onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+								<label for="cantidad">Cantidad</label>
+							</div>
+
+							<div class="form-floating mt-3 mb-3 col-4">
+								<select class="form-select" id="unidadmedida" field="*{idunidadmedida}"
+									name="unidadmedida" required>
+									<option value="1">Kg</option>
+									<option value="2">Gr</option>
+								</select>
+								<label for="unidadmedida" class="form-label">Unidad</label>
+							</div>
+							<div class="form-floating mt-3 mb-3 col-6">
+								<select class="form-select form-control" id="color" field="*{color}"
+									placeholder="color" name="color" required>
+									<option value="1">Rojo</option>
+									<option value="2">Verde</option>
+									<option value="3">Azul</option>
+									<option value="4">Amarillo</option>
+									<option value="4">Negro</option>
+								</select>
+								<label for="color" class="form-label">Color</label>
+							</div>
+							<div class="form-floating mt-3 mb-3 col-6">
+								<input type="text" class="form-control" id="tamanio" placeholder="Tamaño"
+									field="*{tamanio}" name="tamanio" required>
+								<label for="tamanio">Tamaño</label>
+							</div>
+						</div>
+						<button type="submit" id="submitInsumo" class="hidden"></button>
+					</div>
+				</form>
+
+
+				<!-- Modal footer -->
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+					<button type="button" onclick="document.getElementById('submitInsumo').click();return false;"
+						class="btn btn-primary">Guardar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<header class="dash-menu">
+		<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+		<a class="nav-link" href="@{/}">INICIO</a>
+		<ul class="list-menu-ul">
+			<li class="list-menu-dash" style="margin-right: -10px"> <img class="img-menu-dash"
+					src="{% static 'img/campana.png' %}" alt="Campana"> </li>
+			<li class="nav-item dropdown" style="margin-right: -200px;">
+				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+					aria-haspopup="true" aria-expanded="false" v-pre>
+					<span sec:authentication="principal.username"></span>
+				</a>
+				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
+                               document.getElementById('logout-form').submit();">
+						Cerrar sesión
+					</a>
+
+					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
+					</form>
+				</div>
+			</li>
+		</ul>
+		<li class="list-menu-dash"> <img class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt="">
+		</li>
+	</header>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-2 barmenu">
+                <h3 class="mt-4">PROMOPLAST</h3>
+                <p></p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">MENU</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ordenpedido' %}">PRODUCCION</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
+                    </li>
+                </ul>
+            </div>
+			<div class="col-10" id="contentd">
+				<div class="card" id="cardash">
+					<nav class="descrip-menu">
+						<a class="message-ubication" href="{% url 'ordenpedido' %}">Produccion</a>
+
+					</nav>
+					<div class="container mt-3">
+						<h2>INSUMOS</h2>
+						<!--
+                            <div if=${param.exito}>
+							<div class="alert alert-info" style="color: forestgreen;">Proceso del insumo correctamente
+							</div>
+						</div>
+						<div if=${param.error}>
+							<div class="alert alert-danger" style="color: red;">Hubo un problema en el proceso </div>
+						</div>
+						<div if=${param.exitoeliminar}>
+							<div class="alert alert-info" style="color: forestgreen;">eliminado Correctamente</div>
+						</div>
+						<div if=${param.erroreliminar}>
+							<div class="alert alert-danger" style="color: red;">Hubo un problema al eliminar </div>
+						</div>-->
+						<p></p>
+						<table class="table table-striped" id="tablas">
+							<thead>
+								<tr>
+									<th>Codigo Insumo</th>
+									<th>Cantidad</th>
+									<th>Unidad de medida</th>
+									<th>Color</th>
+									<th>Tamaño</th>
+									<th>Editar</th>
+									<th>Eliminar</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr each="in:${insumos}">
+									<td scope="row" class="align-middle" text="${in.idinsumo}"></td>
+									<td text="${in.cantidad}"></td>
+									<td text="${in.idunidadmedida}"></td>
+									<td text="${in.color}"></td>
+									<td text="${in.tamanio}"></td>
+									<td>
+										<a href="@{/insumo/editar/} + ${in.idinsumo}" >
+											<button type="button" class="btn btn-success" >
+												Editar
+											</button>
+										</a>
+										
+									</td>
+									<td>
+										
+										<a href="@{/insumo/eliminar/} + ${in.idinsumo}">
+											<button type="button" class="btn btn-danger" >
+												Eliminar
+											</button>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="d-flex justify-content-around bg mb-3">
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#create">
+								Nuevo Insumo
+							</button>
+							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+								data-bs-target="#ordenModal">
+								Crear orden de compra
+							</button>
+						</div>
+						<a href="" class="btn btn-success" target="_blank">PDF</a>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--<h1 text="${titulo}"></h1>
+	<p text="${insumos}"></p> -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+		integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+		integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+		crossorigin="anonymous"></script>
+	<script>
+		$(document).ready(function () {
+			var oTable = $("#tablas").dataTable({
+				dom: 'Bfrtip',
+
+				language: {
+					sProcessing: "Procesando...",
+					sLengthMenu: "Mostrar MENU",
+					sZeroRecords: "No se encontraron resultados",
+					sEmptyTable: "Ningún dato disponible en esta tabla",
+					sInfo: "Mostrando del START al END de TOTAL registros",
+					sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+					sInfoFiltered: "(filtrado de un total de MAX registros)",
+					sInfoPostFix: "",
+					sSearch: "Buscar:",
+					sUrl: "",
+					sInfoThousands: ",",
+					sLoadingRecords: "Cargando...",
+					oPaginate: {
+						sFirst: "Primero",
+						sLast: "Último",
+						sNext: "Siguiente",
+						sPrevious: "Anterior"
+					},
+					oAria: {
+						sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+						sSortDescending: ": Activar para ordenar la columna de manera descendente"
+					},
+				},
+			});
+
+		});
+
+		function mostrarid() {
+			id = document.getElementById('idinsumo').value;
+			alert(id);
+		}
+
+		function abrirmodal() {
+			$('#editar').show();
+		}
+	</script>
+
+</body>
+
+</html>

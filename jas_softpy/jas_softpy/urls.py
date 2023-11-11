@@ -27,6 +27,7 @@ urlpatterns = [
     path('Postulacion/', views.Postulacion, name='Postulacion'),
     path('sugerencias/', views.sugerencias, name='sugerencias'),
     path('ordenpedido/', views.ordenpedido, name='ordenpedido'),
+    path('insumo/', views.insumo, name='insumo'),
     path('sales/', views.sales, name='sales'),
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
