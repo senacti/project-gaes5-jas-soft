@@ -18,7 +18,7 @@ class Product(models.Model):
         verbose_name_plural = "Productos"
         db_table = "producto"
         ordering = ['id']
-        
+
 class Flow(models.Model):    
     FlowType = models.CharField(max_length=15, verbose_name="Tipo de flujo")
     DateFlow = models.DateTimeField(default=datetime.now,verbose_name="Fecha de flujo")
