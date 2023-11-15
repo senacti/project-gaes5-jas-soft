@@ -20,10 +20,26 @@
       <h4>Formulario Registro</h4>
 
     <div class="row mb-3">
-        <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
+        <label for="first_name" class="col-md-4 col-form-label text-md-end">{{ __('Nombre') }}</label>
 
         <div class="col-md-6">
-            <input id="name" type="name" class="form-control controls @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name">
+            <input id="first_name" type="first_name" class="form-control controls @error('name') is-invalid @enderror" name="first_name" value="{{ old('name') }}" required autocomplete="first_name">
+
+            @error('name')
+            <div class="error-message">
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <label for="last_name" class="col-md-4 col-form-label text-md-end">{{ __('Apellido') }}</label>
+
+        <div class="col-md-6">
+            <input id="last_name" type="last_name" class="form-control controls @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name">
 
             @error('name')
             <div class="error-message">
