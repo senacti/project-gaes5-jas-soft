@@ -65,7 +65,7 @@ class Postulation(models.Model):
     State_Postulations = models.ForeignKey(State_Postulations,on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.start_offers
+        return self.descrip_offer
     
     class Meta:
         verbose_name = "Postulación"

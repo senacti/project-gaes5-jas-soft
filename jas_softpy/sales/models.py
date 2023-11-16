@@ -70,7 +70,7 @@ class Sales(models.Model):
     PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.name
+        return self.SaleAmount
     
     class Meta:
         verbose_name = "Venta"
