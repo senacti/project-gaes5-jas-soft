@@ -17,16 +17,13 @@ class Employed(models.Model):
         ordering = ['id']
 
 class Postulation(models.Model):
-    start_offers = models.DateTimeField(verbose_name="Fecha de la oferta")
-    descrip_offer = models.TextField(max_length=250, verbose_name="Descripción de la Oferta")
-    profile_postulation = models.CharField(max_length=250, verbose_name="Perfil postulación")
-    State_Postulations = models.CharField(max_length=50, verbose_name="Estado Postulaciones")
-    
-    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE, verbose_name="Empleado")
+    startOffers = models.DateTimeField(verbose_name="Fecha de la oferta")
+    descripOffer = models.TextField(max_length=250, verbose_name="Descripción de la Oferta")
+    profilePostulation = models.CharField(max_length=250, verbose_name="Perfil postulación")
+    StatePostulations = models.CharField(max_length=50, verbose_name="Estado Postulaciones")  
    
-
     def __str__(self):
-        return self.descrip_offer
+        return self.descripOffer
     
     class Meta:
         verbose_name = "Postulación"
@@ -36,12 +33,11 @@ class Postulation(models.Model):
 
 class Scheduling(models.Model):
 
-    date_interview= models.DateTimeField(verbose_name="Fecha de la entrevista agendamiento")
-
+    dateInterview= models.DateTimeField(verbose_name="Fecha de la entrevista agendamiento")
     postulation = models.ForeignKey(Postulation, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.date_interview)
+        return str(self.dateInterview)
     
     class Meta:
         verbose_name = "Agendamiento"
@@ -51,7 +47,7 @@ class Scheduling(models.Model):
         
 class Contract(models.Model):
 
-    contract_date = models.DateField(verbose_name="Fecha del Contrato")
+    contractdate = models.DateField(verbose_name="Fecha del Contrato")
     TypeContract = models.CharField(max_length=50, verbose_name="Tipo de Contrato")
 
     Employed = models.ForeignKey(Employed, on_delete=models.CASCADE, verbose_name="Empleado")
