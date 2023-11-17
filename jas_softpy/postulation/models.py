@@ -1,22 +1,11 @@
 from django.db import models
 from datetime import datetime
 
-class position (models.Model):
-    descrip_position = models.CharField(max_length=250, verbose_name="Descripción del cargo")
-
-    def __str__(self):
-        return self.descrip_position
-    
-    class Meta:
-        verbose_name = "Cargo"
-        verbose_name_plural = "Cargos"
-        db_table = "cargo"
-        ordering = ['id']
 
 class Employed(models.Model):
 
     name = models.CharField(max_length=250, verbose_name="Nombre")
-    position = models.ForeignKey(position,on_delete=models.CASCADE)
+    position = models.CharField(max_length=55, verbose_name="Cargo")
 
     def __str__(self):
         return self.name
@@ -27,42 +16,14 @@ class Employed(models.Model):
         db_table = "empleado"
         ordering = ['id']
 
-class Details_Offer(models.Model):
-
-    salary = models.IntegerField(verbose_name="Salario")
-    funtions = models.CharField(max_length=250, verbose_name="Funciones")
-
-
-    def __str__(self):
-        return self.salary
-    
-    class Meta:
-        verbose_name = "Detalle de Oferta"
-        verbose_name_plural = "Detalles de Ofertas"
-        db_table = "descripoferta"
-        ordering = ['id']
-
-class State_Postulations(models.Model):
-
-    Descrip_State = models.CharField(max_length=250, verbose_name="Descripción Postulación")
-
-    def __str__(self):
-        return self.Descrip_State
-    
-    class Meta:
-        verbose_name = "Estado Postulación"
-        verbose_name_plural = "Estado Postulaciones"
-        db_table = "estadopostulaciones"
-        ordering = ['id'] 
-
 class Postulation(models.Model):
     start_offers = models.DateTimeField(verbose_name="Fecha de la oferta")
-    descrip_offer = models.CharField(max_length=250, verbose_name="Descripción de la Oferta")
+    descrip_offer = models.TextField(max_length=250, verbose_name="Descripción de la Oferta")
     profile_postulation = models.CharField(max_length=250, verbose_name="Perfil postulación")
+    State_Postulations = models.CharField(max_length=50, verbose_name="Estado Postulaciones")
     
-    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE)
-    Details_Offer = models.ForeignKey(Details_Offer,on_delete=models.CASCADE)
-    State_Postulations = models.ForeignKey(State_Postulations,on_delete=models.CASCADE)
+    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE, verbose_name="Empleado")
+   
 
     def __str__(self):
         return self.descrip_offer
@@ -88,28 +49,15 @@ class Scheduling(models.Model):
         db_table = "agendamiento"
         ordering = ['id']
         
-class TypeContract(models.Model):
-
-    descrip_contract = models.CharField(max_length=250, verbose_name="Descripción del Contrato")
-    
-    def __str__(self):
-        return self.descrip_contract
-    
-    class Meta:
-        verbose_name = "Tipo de Contrato"
-        verbose_name_plural = "Tipos de Contratos"
-        db_table = "tipocontrato"
-        ordering = ['id']
-
 class Contract(models.Model):
 
     contract_date = models.DateField(verbose_name="Fecha del Contrato")
-    
-    TypeContract = models.ForeignKey(TypeContract, on_delete=models.CASCADE)
-    Employed = models.ForeignKey(Employed, on_delete=models.CASCADE)
+    TypeContract = models.CharField(max_length=50, verbose_name="Tipo de Contrato")
+
+    Employed = models.ForeignKey(Employed, on_delete=models.CASCADE, verbose_name="Empleado")
 
     def __str__(self):
-        return self.contract_date
+        return self.TypeContract
     
     class Meta:
         verbose_name = "Contrato"
