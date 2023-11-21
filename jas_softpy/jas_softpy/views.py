@@ -4,6 +4,7 @@ from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
     
 def home(request):
@@ -77,3 +78,25 @@ def logout_view(request):
     logout(request)
     messages.success(request, 'Sesión finalizada')
     return redirect('login.html')
+
+
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')  
+    else:
+        form = UserCreationForm()
+
+    return render(request, 'register.html', {'form': form})
+
+
+
+
+
+
+
+
