@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'admin_interface',
+    'colorfield',   
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -43,9 +45,8 @@ INSTALLED_APPS = [
     'inventory',
     'sales',
     'postulation',
-    'suggestions',     
-    'admin_interface',
-    'colorfield',        
+    'suggestions',   
+    'import_export',  
 ]
 
 X_FRAME_OPTIONS = "SAMEORIGIN"
