@@ -11,7 +11,7 @@ from django.contrib.staticfiles import finders
 class ProductionInvoicePdfView(View):
     def get(self, request, *args, **kwargs):
         
-        template = get_template('product_invoice.html')
+        template = get_template('production/product_invoice.html')
         context = {'title': 'Mi primer pdf'}
         
         response = HttpResponse(content_type='application/pdf')
