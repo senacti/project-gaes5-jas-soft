@@ -19,7 +19,7 @@ class Supplies(models.Model):
         
 class ProductionOrder(models.Model):   
     
-    Production_OrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido produccion")  
+    Production_OrderDate = models.DateTimeField(auto_now_add=True,verbose_name="Fecha pedido produccion")  
     supplies = models.ForeignKey(Supplies,on_delete=models.CASCADE)
     
     def __str__(self):

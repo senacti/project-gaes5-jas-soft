@@ -6,11 +6,11 @@ from import_export.admin import ImportExportModelAdmin
 @admin.register(Postulation)
 class PostulationAdmin(ImportExportModelAdmin):
     list_display = ('startOffers', 'descripOffer','profilePostulation','StatePostulations',)
-    search_fields = ('descripOffer',)
+    search_fields = ('profilePostulation',)
     list_editable = ()
     list_filter = ('startOffers',)
 
-class SupplieResource(resources.ModelResource):
+class PostulationResource(resources.ModelResource):
     class Meta:
         model = Postulation
         fields = ('startOffers', 'descripOffer','StatePostulations','profilePostulation')
