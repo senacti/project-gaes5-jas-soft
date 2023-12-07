@@ -1,0 +1,11 @@
+body{
+    background-color: beige;
+}
+
+h2{
+    color: rgb(74, 115, 228);
+}
+
+.form-label{
+    font-weight: bold;
+}

@@ -1,0 +1,45 @@
+/* Estilo para el botón "Nueva Venta" */
+.button-new button {
+    background-color: #007BFF; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    padding: 10px 20px; /* Espaciado interno (ajusta según sea necesario) */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Borde redondeado */
+    cursor: pointer;
+    font-size: 16px; /* Tamaño de fuente */
+}
+
+.button-new button:hover {
+    background-color: #0056b3; /* Color de fondo al pasar el ratón */
+}
+
+/* Estilo para el botón "Exportar a Excel" */
+.button-excel {
+    background-color: #28a745; /* Color de fondo */
+    color: #fff; /* Color del texto */
+    height: 50px;
+    width: 200px;
+    padding: 10px 20px; /* Espaciado interno (ajusta según sea necesario) */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 5px; /* Borde redondeado */
+    font-size: 16px; /* Tamaño de fuente */
+    margin-top: 20px;
+}
+
+.button-excel:hover {
+    background-color: #1e7e34; /* Color de fondo al pasar el ratón */
+}
+.buttons-inline {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 260px;
+    height: 0px;
+    margin-top: 80px; /* Puedes ajustar el margen superior según tus preferencias */
+}
+
+.buttons-inline .btn {
+    margin: 0 10px; /* Espaciado horizontal entre los botones */
+}
+
+
