@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -37,9 +38,13 @@
 <img src="{{ icon }}" class="img-invoice">
 <p class="head">
     {{ comp.name|upper }}<br>
-    {{ comp.ruc }}<br>
+    {{ comp.proccess }}<br>
     {{ comp.address|upper }}
 </p>
+<p>
+    <b>REPORTE:</b> INSUMOS<br>
+    <b>FECHA DE REPORTE:</b></br>
+</p>    
 <table id="invoice">
     <thead>
     <tr>
@@ -50,12 +55,12 @@
     </tr>
     </thead>
     <tbody>
-    {% for suplie in supplies.detsupplie_sell.all %}
+    {% for suplie in supplies %}
         <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
-            <td class="text-center">{{ suplie.name }}</td>
-            <td class="text-center">{{ suplie.stock }}</td>
-            <td class="text-center">{{ suplie.size }}</td>
-            <td class="text-center">{{ suplie.color }}</td>       
+            <td class="text-left">{{ suplie.name }}</td>
+            <td class="text-left">{{ suplie.stock }}</td>
+            <td class="text-left">{{ suplie.size }}</td>
+            <td class="text-left">{{ suplie.color }}</td>       
         </tr>
     {% endfor %}    
     </tbody>
@@ -64,6 +69,9 @@
     <thead>
     <tr>
         <th>****REPORTE INSUMOS****</th>
+    </tr>
+    <tr>   
+        <th>JAS_SOFT</th>
     </tr> 
     </thead>
 </table>

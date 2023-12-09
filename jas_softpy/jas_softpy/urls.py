@@ -37,7 +37,7 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('', views.index, name='index'),      
     
-    path('production/product_invoice/<int:pk>/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
+    path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
 ]
 
 if settings.DEBUG:

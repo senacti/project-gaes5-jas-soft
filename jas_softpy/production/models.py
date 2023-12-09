@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import datetime
 
+
 from django.forms import model_to_dict
 
 
@@ -19,7 +20,7 @@ class Supplies(models.Model):
         item['stock'] = format(self.stock, '.2f')
         item['size'] =  self.size.toJSON()
         item['color'] = self.color.toJSON()
-        item['det'] = [i.toJSON() for i in self.detsupplie_sell.all()]
+        item['det'] = [i.toJSON() for i in self.detsupplie_set.all()]
         return item        
         
     class Meta:
