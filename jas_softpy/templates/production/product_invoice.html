@@ -50,12 +50,12 @@
     </tr>
     </thead>
     <tbody>
-    {% for d in supplies.detsupplie_set.all %}
+    {% for suplie in supplies.detsupplie_sell.all %}
         <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
-            <td class="text-center">{{ d.name }}</td>
-            <td class="text-center">{{ d.stock }}</td>
-            <td>{{ d.size }}</td>
-            <td>{{ d.color }}</td>            
+            <td class="text-center">{{ suplie.name }}</td>
+            <td class="text-center">{{ suplie.stock }}</td>
+            <td class="text-center">{{ suplie.size }}</td>
+            <td class="text-center">{{ suplie.color }}</td>       
         </tr>
     {% endfor %}    
     </tbody>

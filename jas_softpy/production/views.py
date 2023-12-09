@@ -49,16 +49,16 @@ class ProductionInvoicePdfView(View):
         context = {
             'supplies': Supplies.objects.get(pk=self.kwargs['pk']),
             'comp': {'name': 'PROMOPLAST S.A.S'},
-            'icon': '{}{}'.format(settings.STATIC_URL, 'img/logo.png')
+            # 'icon': '{}{}'.format(settings.STATIC_URL, 'img/logo.png')
             }
         
         response = HttpResponse(content_type='application/pdf')
-        #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+        #response['Content-Disposition'] = 'attachment; filename="suppliesreport.pdf"'
         
         html = template.render(context)
         pisa_status = pisa.CreatePDF(   
             html, dest=response,
-            link_callback=self.link_callback
+           # link_callback=self.link_callback
         )
         
         if pisa_status.err:

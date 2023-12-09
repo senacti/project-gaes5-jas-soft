@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import datetime
 
+from django.forms import model_to_dict
+
 
 class Supplies(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre") 
@@ -11,6 +13,15 @@ class Supplies(models.Model):
     def __str__(self):
         return self.name
     
+    def toJSON(self):
+        item = model_to_dict(self)
+        item['name'] = self.name.toJSON()
+        item['stock'] = format(self.stock, '.2f')
+        item['size'] =  self.size.toJSON()
+        item['color'] = self.color.toJSON()
+        item['det'] = [i.toJSON() for i in self.detsupplie_sell.all()]
+        return item        
+        
     class Meta:
         verbose_name = "Insumo"
         verbose_name_plural = "Insumos"
