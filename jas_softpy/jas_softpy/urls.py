@@ -20,6 +20,7 @@ from . import views
 from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView
+from inventory.views import InventoryInvoicePdfView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
@@ -35,8 +36,9 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_jas'),
     path('logout/', views.logout_view, name='logout'),
-    path('', views.index, name='index'),      
-    
+    path('', views.index, name='index'),   
+       
+    path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
 ]
 
