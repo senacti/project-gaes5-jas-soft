@@ -3,8 +3,10 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
+from .forms import RegisterForm
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm
+
 
     
 def home(request):
@@ -82,13 +84,26 @@ def logout_view(request):
 
 
 def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('home')  
-    else:
-        form = UserCreationForm()
+    
 
-    return render(request, 'register.html', {'form': form})
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            last_name = form.cleaned_data['last_name']
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+
+            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name)
+            if user:
+                login(request, user)
+                messages.success(request, 'Registro exitoso')
+                return redirect('login_jas')
+            
+    else:
+        form = RegisterForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'register.html', context)

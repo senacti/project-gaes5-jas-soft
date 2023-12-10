@@ -23,87 +23,18 @@
             {% csrf_token %}
             <img class="imglogin" src="{% static 'img/logo.png' %}" alt="Esta imagen no se puede visualizar">
             <h4>Formulario Registro</h4>
+            {% for field in form%}
+            <div clas="form-group">
+                                
+                {{ field.label_tag }}
+                {{ field }}
 
-            <div class="row mb-3">
-                <label for="first_name" class="col-md-4 col-form-label text-md-end">Nombre</label>
-
-
-                <div class="col-md-6">
-                    <input id="first_name" type="text" class="form-control controls" name="first_name"
-                        value="{{ request.POST.first_name }}" required autocomplete="first_name">
-
-                    <!-- Manejo de errores de Django para el nombre -->
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="last_name" class="col-md-4 col-form-label text-md-end">Apellido</label>
-
-                <div class="col-md-6">
-                    <input id="last_name" type="text"
-                        class="form-control controls {% if 'last_name' in errors %}is-invalid{% endif %}"
-                        name="last_name" value="{{ request.POST.last_name }}" required autocomplete="last_name">
-
-                    {% if 'last_name' in errors %}
-                    <div class="error-message">
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ errors.last_name }}</strong>
-                        </span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="email" class="col-md-4 col-form-label text-md-end">Correo</label>
-
-                <div class="col-md-6">
-                    <input id="email" type="email"
-                        class="form-control controls {% if 'email' in errors %}is-invalid{% endif %}" name="email"
-                        value="{{ request.POST.email }}" required autocomplete="email">
-
-                    {% if 'email' in errors %}
-                    <div class="error-message">
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ errors.email }}</strong>
-                        </span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="password" class="col-md-4 col-form-label text-md-end">Contraseña</label>
-
-                <div class="col-md-6">
-                    <input id="password" type="password"
-                        class="form-control controls {% if 'password' in errors %}is-invalid{% endif %}" name="password"
-                        required autocomplete="new-password">
-
-                    {% if 'password' in errors %}
-                    <div class="error-message">
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ errors.password }}</strong>
-                        </span>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label for="password-confirm" class="col-md-4 col-form-label text-md-end">Confirmar Contraseña</label>
-                <div class="col-md-6">
-                    <input id="password-confirm" type="password" class="form-control controls"
-                        name="password_confirmation" required autocomplete="new-password">
-                </div>
-
-                {% if 'password_confirmation' in errors %}
-                <div class="error-message">
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ errors.password_confirmation }}</strong>
-                    </span>
-                </div>
+                {% if field.erros %}
+                {{ field.erros }}
                 {% endif %}
+
             </div>
+            {% endfor %}
 
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
@@ -112,8 +43,8 @@
                     </button>
                 </div>
             </div>
-            
-            <p><a href="/login">¿Ya tengo Cuenta?</a></p>
+
+            <p><a href="{% url 'login_jas' %}">¿Ya tengo Cuenta?</a></p>
         </form>
     </section>
 </body>
