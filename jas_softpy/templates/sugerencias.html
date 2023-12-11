@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,6 +20,7 @@
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
     <title>PromoPlast | Buzón de sugerencias</title>
 </head>
+
 <body>
     <header class="dash-menu">
         <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
@@ -28,18 +30,19 @@
                 <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana">
             </li>
             <li class="nav-item dropdown" style="margin-right: -200px;">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false" v-pre>
                     <span>{{ user.username }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
+                    <a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();">
-						Cerrar sesión
-					</a>
+                        Cerrar sesión
+                    </a>
 
-					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
-					</form>
-				</div>
+                    <form id="logout-form" action="@{/logout}" method="POST" class="d-none">
+                    </form>
+                </div>
             </li>
         </ul>
         <li class="list-menu-dash">
@@ -74,7 +77,21 @@
                     <div class="container mt-3">
                         <h2>Gestion de personal | Buzon de sugerencias</h2>
                         <p></p>
-                        <nav class="descrip-menu">
+
+
+                        <div class="container mt-5">
+                            <h2>Enviar Correo</h2>
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="mail" class="form-label">Dirección de Correo</label>
+                                    <input type="text" class="form-control" id="mail" name="mail" required>
+                                </div>
+                                
+                                <button type="submit" class="btn btn-primary">Enviar</button>
+                            </form>
+                        </div>
+                        <!--<nav class="descrip-menu">
                             <a class="message-ubication" href="{% url 'rrhh' %}">Postulaciones</a>
                         </nav>
                         <table class="table table-striped" id="tablas">
@@ -139,7 +156,8 @@
                     });
                 </script>
             </div>
-        </div>
-    </div>
+        </div>-->
+                    </div>
 </body>
+
 </html>

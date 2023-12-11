@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correo de JAS_SOFT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #e8491d 3px solid;
+        }
+
+        header h1 {
+            padding: 5px 0;
+            font-size: 2em;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #333;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Correo de JAS_SOFT</h1>
+        </header>
+        <main>
+            <p>Hola {{ mail }},</p>
+            <p>Este es el primer correo creado con Django enviado desde el software JAS_SOFT.</p>
+            <p>Que tengas un bonito día.</p>
+        </main>
+        <footer>
+            <p>&copy;2023 JAS-SOFT - Todos los derechos reservados</p>
+        </footer>
+    </div>
+</body>
+
+</html>

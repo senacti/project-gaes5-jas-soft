@@ -3,6 +3,9 @@ from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
+from django.template.loader import get_template
+from django.conf import settings
+from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 from .forms import RegisterForm
 from django.contrib import messages
@@ -43,11 +46,30 @@ def insumo(request):
     return render(request,'insumo.html',{
         #context
     })
-    
+
+def send_email(mail):
+    context = {'mail': mail}
+
+    template = get_template('correo.html')
+    content = template.render(context)
+
+    email = EmailMultiAlternatives(
+        'Correo de prueba',
+        'Primer correo JAS_SOFT',
+        settings.EMAIL_HOST_USER,
+        [mail],
+    )
+
+    email.attach_alternative(content, 'text/html')
+    email.send()
+
 def sugerencias(request):
-    return render(request,'sugerencias.html',{
-        #context
-    })
+    if request.method == 'POST':
+        mail = request.POST.get('mail')
+
+        send_email(mail)
+        
+    return render(request,'sugerencias.html',{})
 
 def index(request):
     return render(request,'index.html',{

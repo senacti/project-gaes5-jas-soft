@@ -15,6 +15,9 @@ import pymysql
 import os
 
 
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -135,3 +138,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'index '
 LOGOUT_REDIRECT_URL = 'login_jas'
+
+
+
+EMAIL_HOST = 'smtp.googlemail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'cristiandeescobar2004@gmail.com'
+EMAIL_HOST_PASSWORD = ('czxcvqjrllpfnosm')
+EMAIL_USE_TLS = True
