@@ -143,6 +143,6 @@ LOGOUT_REDIRECT_URL = 'login_jas'
 
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'cristiandeescobar2004@gmail.com'
-EMAIL_HOST_PASSWORD = ('czxcvqjrllpfnosm')
+EMAIL_HOST_USER = 'jassoftadm@gmail.com'
+EMAIL_HOST_PASSWORD = ('diaikktdlqeeyfem')
 EMAIL_USE_TLS = True
