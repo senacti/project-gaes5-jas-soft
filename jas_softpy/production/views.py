@@ -53,7 +53,7 @@ class ProductionInvoicePdfView(View):
             }
         
         response = HttpResponse(content_type='application/pdf')
-        #response['Content-Disposition'] = 'attachment; filename="suppliesreport.pdf"'
+        response['Content-Disposition'] = 'attachment; filename="suppliesreport.pdf"'
         
         html = template.render(context)
         pisa_status = pisa.CreatePDF(   
