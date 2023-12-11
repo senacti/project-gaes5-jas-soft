@@ -3,16 +3,24 @@ from .models import Product
 from .models import Flow
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from django.utils.html import format_html
 
 #admin.site.register(Supplies)
 #admin.site.register(ProductionOrder)
 
 @admin.register(Product)
 class ProductAdmin(ImportExportModelAdmin):
+    change_list_template = "admin/custom_change_list.html"
+
     list_display = ('name', 'stock','fabricationDate','size','color','state',)
     search_fields = ('name',)
     list_editable = ('stock',)
     list_filter = ('fabricationDate',)
+
+    def changelist_view(self, request, extra_context=None):
+        extra_context = extra_context or {}
+        extra_context['custom_button'] = format_html('<a class="button" href="{}">Reporte pdf</a>', '/inventory/inventory_invoice/')
+        return super().changelist_view(request, extra_context=extra_context)
     
 @admin.register(Flow)
 class FlowAdmin(ImportExportModelAdmin):
