@@ -21,6 +21,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView
 from inventory.views import InventoryInvoicePdfView
+from sales.views import SaleInvoicePdfView
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
@@ -40,6 +41,7 @@ urlpatterns = [
        
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
+    path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
 ]
 
 if settings.DEBUG:

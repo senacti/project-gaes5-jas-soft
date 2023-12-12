@@ -1,0 +1,89 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+    .img-invoice {
+        width: 50px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .head {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #invoice thead tr th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-top: 4px;
+    }
+
+    #invoice thead tr {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    #invoice tbody tr {
+        padding: 0;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+</style>
+<body>
+<img src="{{ icon }}" class="img-invoice">
+<p class="head">
+    {{ comp.name|upper }}<br>
+    {{ comp.proccess }}<br>
+    {{ comp.address|upper }}
+</p>
+<p>
+    <b>REPORTE:</b> INSUMOS<br>
+    <b>FECHA DE REPORTE:</b></br>
+</p>    
+<table id="invoice">
+    <thead>
+    <tr>
+        <th style="width: 25%;">FECHA DE VENTA</th>
+        <th style="width: 25%;">VALOR VENTA</th>
+        <th style="width: 25%;">SUBTOTAL VENTA</th>
+        <th style="width: 25%;">DESCUENTO VENTA</th>
+        <th style="width: 25%;">IVA VENTA</th> 
+        <th style="width: 25%;">EMPLEADO</th> 
+        <th style="width: 25%;">CLIENTE</th> 
+        <th style="width: 25%;">PAGO</th> 
+        <th style="width: 25%;">ORDEN DE PAGO</th>         
+    </tr>
+    </thead>
+    <tbody>
+    {% for sale in sales %}
+        <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
+            <td class="text-left">{{ sale.SaleDate }}</td>
+            <td class="text-left">{{ sale.SaleAmount }}</td>
+            <td class="text-left">{{ sale.SaleSubAmount }}</td>
+            <td class="text-left">{{ sale.SaleDisAmount }}</td>
+            <td class="text-left">{{ sale.SaleIvaAmount }}</td>  
+            <td class="text-left">{{ sale.Employed }}</td>  
+            <td class="text-left">{{ sale.Client }}</td>  
+            <td class="text-left">{{ sale.Pays }}</td>  
+            <td class="text-left">{{ sale.PurchaseOrder }}</td>         
+        </tr>
+    {% endfor %}    
+    </tbody>
+</table>
+<table style="margin-top: 250px;">
+    <thead>
+    <tr>
+        <th>****REPORTE INSUMOS****</th>
+    </tr>
+    <tr>   
+        <th>JAS_SOFT</th>
+    </tr> 
+    </thead>
+</table>
+</body>
+</html>

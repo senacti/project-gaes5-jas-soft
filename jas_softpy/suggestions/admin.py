@@ -1,4 +1,5 @@
 from django.contrib import admin
+from import_export import resources
 
 # Register your models here.
 
@@ -10,3 +11,4 @@ class SuggestionsAdmin(admin.ModelAdmin):
     search_fields = ('category',)
     list_editable = ()
     list_filter = ('category',)
+
