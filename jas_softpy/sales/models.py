@@ -6,16 +6,6 @@ from datetime import datetime
 from inventory.models import Product
 from postulation.models import Employed
 
-class Client(models.Model):
-    
-    #def __str__(self):
-    #    return self.name
-    
-    class Meta:
-        verbose_name = "Cliente"
-        verbose_name_plural = "Clientes"
-        db_table = "cliente"
-        ordering = ['id']
 
 class PurchaseOrder(models.Model):   
     
@@ -28,7 +18,7 @@ class PurchaseOrder(models.Model):
     
     
     def __str__(self):
-        return self.name
+        return self.State
     
     class Meta:
         verbose_name = "Orden pedido"
@@ -47,7 +37,7 @@ class Pays(models.Model):
     
     
     def __str__(self):
-        return self.name
+        return self.payTipe
     
     class Meta:
         verbose_name = "Pago"
@@ -64,13 +54,12 @@ class Sales(models.Model):
     SaleIvaAmount = models.FloatField(verbose_name="Valor IVA")
     
     
-    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE)  
-    Client = models.ForeignKey(Client,on_delete=models.CASCADE)  
+    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE)   
     Pays = models.ForeignKey(Pays,on_delete=models.CASCADE)  
     PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.SaleAmount
+        return str(self.SaleAmount)
     
     class Meta:
         verbose_name = "Venta"
