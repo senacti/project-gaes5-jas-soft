@@ -47,7 +47,7 @@ class SaleInvoicePdfView(View):
         
     def get(self, request, *args, **kwargs):
         
-        template = get_template('/sales/sale_invoice/')
+        template = get_template('sales/sale_invoice.html')
         context = {
             'sales': Sales.objects.all(),
             'comp': {'name': 'PROMOPLAST S.A.S', 'addres' : 'Bogotá, Colombia'},
