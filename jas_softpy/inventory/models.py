@@ -21,10 +21,10 @@ class Product(models.Model):
 
 class Flow(models.Model):    
     FlowType = models.CharField(max_length=15, verbose_name="Tipo de flujo")
-    DateFlow = models.DateTimeField(default=datetime.now,verbose_name="Fecha de flujo")
-    Product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE)
-    
+    DateFlow = models.DateTimeField(auto_now_add=True,verbose_name="Fecha de flujo")
+    Product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE, blank=True, null=True)
+                
     def __str__(self):
         return self.FlowType
     

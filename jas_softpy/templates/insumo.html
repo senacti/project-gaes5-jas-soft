@@ -184,6 +184,7 @@
 							</thead>
 							<tbody>
 								<tr each="in:${insumos}">
+									{% csrf_token %}
 									<td scope="row" class="align-middle" text="${in.idinsumo}"></td>
 									<td text="${in.cantidad}"></td>
 									<td text="${in.idunidadmedida}"></td>

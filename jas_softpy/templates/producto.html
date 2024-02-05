@@ -22,7 +22,7 @@
         <title>PromoPlast | Inventario</title>
     </head>
 
-    <body>
+    <body onload="obtenerFechaActual()">
         <!-- The Modal -->
         <div class="modal" id="create">
             <div class="modal-dialog modal-lg">
@@ -102,8 +102,7 @@
                                     <label for="tamaño">Tamaño</label>
                                 </div>
                                 <div class="form-floating mt-3 mb-9">
-                                    <input type="datetime-local" required class="form-control" id="fechafabricacion"
-                                                placeholder="fecha Venta"  field="*{fechafabricacion}" maxlength="20">
+                                    <input type="datetime-local" required class="form-control" id="fechafabricacion" placeholder="fecha Venta"  field="*{fechafabricacion}" maxlength="20">
                                     <label for="fechafabricacion">Fecha de fabricacion</label>
                                 </div>
                                 <!--<div class="form-floating mt-3 mb-3 col-9">
@@ -176,7 +175,7 @@
                 <div class="col-10" id="contentd">
                     <div class="card" id="cardash">
                         <div class="container mt-3">
-                            <h2>INVENTARIO</h2>
+                            <h2>{{ message }}</h2>
                             <!--
                             <div if=${param.exito}>
                                 <div class="alert alert-info" style="color: forestgreen;">Proceso Exitoso
@@ -195,30 +194,25 @@
                             <p></p>
                             <table class="table table-striped" id="tablas">
                                 <thead class="thead">
-                                    <tr>
-                                        <th>Idproducto</th>
+                                    <tr>                                        
+                                        <th>Nombre</th>
                                         <th>Cantidad</th>
+                                        <th>Fecha Fabricación</th>
                                         <th>Tamaño</th>
-                                        <th>Fechafabricacion</th>
                                         <th>Color</th>
-                                        <th>Empleado</th>
-                                        <th>Unidadmedida</th>
-                                        <th>Estadoproducto</th>
-                                        <th>Producto</th>
+                                        <th>Estado</th>                                        
                                         <td >Acciones</td>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr each="in:${productos}">
-                                        <td text="${in.idproducto}"></td>
-                                        <td text="${in.cantidadproducto}"></td>
-                                        <td text="${in.valorunidadmedidaproducto}"></td>
-                                        <td text="${in.fechafabricacion}"></td>
-                                        <td text="${in.idcolor}"></td>
-                                        <td text="${in.idempleado}"></td>
-                                        <td text="${in.idunidadmedida}">0</td>
-                                        <td text="${in.idestadoproducto}"></td>
-                                        <td text="${in.idnombreproducto}"></td>
+                                    {% for Product in object_list %}
+                                    <tr>                                        
+                                        <td>{{Product.name}}</td>
+                                        <td>{{Product.stock}}</td>
+                                        <td>{{Product.fabricationDate}}</td>
+                                        <td>{{Product.size}}</td>
+                                        <td>{{Product.color}}</td>
+                                        <td>{{Product.state}}</td>                                        
                                         <td>
                                             <a href="@{/producto/editar/} + ${in.idproducto}" >
                                                 <button type="button" class="btn btn-success" >
@@ -232,6 +226,7 @@
                                             </a>
                                         </td>
                                     </tr>
+                                    {% endfor %}
                                 </tbody>
                             </table>
                             <div class="button-new">
@@ -292,6 +287,11 @@
 
             function abrirmodal() {
                 $('#editar').show();
+            }
+
+            function obtenerFechaActual() {
+                const fechaActual = new Date().toISOString().split('T')[0];
+                document.getElementById('fechafabricacion').min = fechaActual;
             }
         </script>
     </body>

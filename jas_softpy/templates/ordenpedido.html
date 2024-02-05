@@ -79,43 +79,39 @@
 						<a class="message-ubication" href="@{/insumo/}">Insumos</a>
 					</nav>
 					<div class="container mt-3">
-						<h2>PRODUCCION | ORDEN DE PEDIDO</h2>
+						<h2>{{ message }}</h2>
 						<p></p>
 						<table class="table table-striped" id="tablas">
 							<thead>
-								<tr>
-									<th>Codigo produccion</th>
-									<th>Cantidadproducto</th>
-									<th>Fechapedido</th>
-									<th>Idproducto</th>
-									<th>Idestadopedido</th>
+								<tr>									
+									<th>Orden Produccion</th>
+									<th>Cantidad</th>									
+									<th>Insumos</th>									
 									<th>Funciones</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr each="in:${OrdenPedido}">
-						
-									<td text="${in.IdOrdenPedido}"></td>
-                                    <td text="${in.cantidadProducto}"></td>
-                                    <td text="${in.fechaPedido}"></td>
-                                    <td text="${in.IdProducto}"></td>
-                                    <td text="${in.IdEstadopedido}"></td>
-
-									<td>
-											
-											<a href="@{/ordenpedido/editar/} + ${in.IdOrdenPedido}" >
-												<button type="button" class="btn btn-success" >
+								{% for OP in object_list %}
+									<tr>												
+										<td>{{ OP.Production_OrderDate }}</td>
+										<td>{{ OP.quantity_used }}</td>
+										<td>{{ OP.supplies }}</td> 
+										<td>		
+											{% comment  %}
+											<a href="{% url 'editar_orden_pedido' OP.id %}">
+												<button type="button" class="btn btn-success">
 													Editar
 												</button>
-											</a>
-										
-											<a href="@{/ordenpedido/eliminar/} + ${in.IdOrdenPedido}" >
-												<button type="button" class="btn btn-danger" >
+											</a>										
+											<a href="{% url 'eliminar_orden_pedido' OP.id %}">
+												<button type="button" class="btn btn-danger">
 													Eliminar
 												</button>
-											</a>
-									</td>
-								</tr>
+											</a>{% endcomment %}					
+										
+										</td>
+									</tr>
+								{% endfor %}
 							</tbody>
 						</table>
 						<div class="button-new">

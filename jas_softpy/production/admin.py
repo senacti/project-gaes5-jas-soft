@@ -30,12 +30,13 @@ class SupplieResource(resources.ModelResource):
     
 @admin.register(ProductionOrder)
 class ProductionOrderAdmin(ImportExportModelAdmin):
-    list_display = ('Production_OrderDate', 'supplies',)
+    list_display = ('Production_OrderDate', 'supplies', 'quantity_used',)
+    list_filter = ('Production_OrderDate',)
     #list_display_links = ('name')
     
 class ProductionOrderResource(resources.ModelResource):
     class Meta:
         model = ProductionOrder
-        fields = ('Production_OrderDate', 'supplies')
+        fields = ('Production_OrderDate', 'supplies', 'quantity_used',)
         #export_order = ('name', 'price', 'category')    
     
