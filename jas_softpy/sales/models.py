@@ -11,7 +11,15 @@ class PurchaseOrder(models.Model):
     
     StockProduct = models.IntegerField(verbose_name="Cantidad Producto")
     PurchaseOrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido")
-    State = models.CharField(max_length=50, verbose_name="Estado Pedido") 
+    
+    STATE_CHOICES = [
+        ('Recibido', 'Recibido'),
+        ('EnProduccion', 'En producción'),
+        ('EnCamino', 'En camino'),
+        ('Finalizado', 'Finalizado'),
+    ]
+    
+    State = models.CharField(max_length=50, choices=STATE_CHOICES, verbose_name="Estado Pedido") 
     
     
     Product = models.ForeignKey(Product,on_delete=models.CASCADE)
@@ -29,9 +37,14 @@ class PurchaseOrder(models.Model):
 class Pays(models.Model):
     
     payAmount = models.FloatField(verbose_name="Valor Pago")
-    payMetod = models.CharField(max_length=50, verbose_name="Medio Pago")
-    payTipe = models.CharField(max_length=50, verbose_name="Tipo pago")
     
+    
+    PAYTIPE_CHOICES = [
+        ('Total', 'Total'),
+        ('Parcial', 'Parcial'),
+    ]
+    
+    payTipe = models.CharField(max_length=50, choices=PAYTIPE_CHOICES, verbose_name="Tipo de Pago")
     
     PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE)
     
@@ -46,17 +59,25 @@ class Pays(models.Model):
         ordering = ['id']
 
 class Sales(models.Model):   
-    
     SaleDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha Venta")
+    
     SaleAmount = models.FloatField(verbose_name="Valor Venta")
     SaleSubAmount = models.FloatField(verbose_name="Valor Subtotal")
-    SaleDisAmount = models.FloatField(verbose_name="Valor Descuento")
-    SaleIvaAmount = models.FloatField(verbose_name="Valor IVA")
+    
+    IVA_CHOICES = [
+        (0, '0%'),
+        (5, '5%'),
+        (10, '10%'),
+        (19, '19%'),
+        
+    ]
+    
+    SaleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")
     
     
-    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE)   
-    Pays = models.ForeignKey(Pays,on_delete=models.CASCADE)  
-    PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE)
+    Employed = models.ForeignKey(Employed,on_delete=models.CASCADE,verbose_name="Empleado")   
+    Pays = models.ForeignKey(Pays,on_delete=models.CASCADE,verbose_name="Pago")  
+    PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE,verbose_name="Orden de pedido")
     
     def __str__(self):
         return str(self.SaleAmount)

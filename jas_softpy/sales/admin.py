@@ -15,7 +15,7 @@ class SalesAdmin(ImportExportModelAdmin):
 
     change_list_template = "admin/custom_change_list.html"
 
-    list_display = ('SaleDate', 'SaleAmount','SaleSubAmount','SaleDisAmount','SaleIvaAmount','Employed','Pays','PurchaseOrder')
+    list_display = ('SaleDate', 'SaleAmount','SaleSubAmount','SaleIvaAmount','Employed','Pays','PurchaseOrder')
     search_fields = ('Employed',)
     list_editable = ()
     list_filter = ('SaleDate',)
@@ -28,7 +28,7 @@ class SalesAdmin(ImportExportModelAdmin):
 
 @admin.register(Pays)
 class PaysAdmin(admin.ModelAdmin):
-    list_display = ('payAmount','payMetod','payTipe','PurchaseOrder')
+    list_display = ('payAmount','payTipe','PurchaseOrder')
     search_fields = ('payAmount',)
     list_editable = ()
     list_filter = ('payAmount',)
