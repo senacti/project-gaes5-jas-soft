@@ -1,3 +1,37 @@
-.img-login {
-    width: 20px;
+.login-container {
+    display: flex;
+    justify-content: flex-end;
 }
+
+.img-login {
+    background-color: transparent;
+    width: 40px;
+    transform: translate(50%, -10%);
+}
+.img-sales {
+    background-color: transparent;
+    width: 40px;
+    transform: translate(-100%, -5%);
+}
+.btn-ingresar{
+    background-color: transparent;
+    width: 40px;
+    transform: translate(-20%, -5%);
+}
+
+.dash-menu {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    align-items: center;
+}
+
+.catalog-container {
+    grid-column: 2 / span 2; 
+    transform: translate(50%, -5%);
+}
+
+.catalog-container a {
+    display: block;
+    text-align: center; 
+}
+

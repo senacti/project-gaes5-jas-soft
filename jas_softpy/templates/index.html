@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/imglogin.css' %}">
         
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
-	  <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}">
 	  <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
 
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel='stylesheet'>
@@ -24,14 +23,21 @@
 
 <body>
   <header class="dash-menu">
-    <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+    <div class="login-container">
+      <ul class="list-menu-ul">          
+          <li><a href="{% url 'login_jas' %}"><img class="img-login" src="{% static 'img/usuario-de-perfil.png' %}" alt="ingresar"></a></li>
+      </ul>
+    </div>
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Mision" data-bs-content="Nuestra mision es liderar la industria del plastico al proporcionar soluciones innovadoras y sostenibles que satisfagan las necesidades de nuestros clientes.">Mision</button></li>
-    <li class="d-flex justify-content-center"><a class="nav-link" href="{% url 'sales' %}">Catalogo</a>
+    <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Vision" data-bs-content="Nos visualizamos como la empresa lider en la industria del pastico, reconocida por nuestra capacidad de adaptacion a los desafios camnbiantes y nuestro enfoque en la sostenibilidad">Vision</button></li>
-    <ul class="list-menu-ul">          
-        <li><a href="{% url 'login_jas' %}" class="btn-ingresar" ><img class="img-login" src="{% static 'img/usuario (2).png' %}" alt="ingresar"></a></li>
-    </ul>
+    <div class="catalog-container">
+      <ul class="list-menu-ul">          
+          <li><a href="{% url 'sales' %}"><img class="img-sales" src="{% static 'img/carrito-de-compras.png' %}" alt="ventas"></a></li>
+      </ul>
+    </div>
   </header>
+  
     <center>
       <div class="body1">
         <div class="content">
@@ -76,7 +82,7 @@
           
                   <div class="producto">
                       <img class="img-productos" src="{% static 'img/producto3.PNG' %}" alt="producto3">
-                      <p class="texto-categorias"> DISPENSADORES Y VALVULAS </p>
+                      <p  class="texto-categorias"> DISPENSADORES Y VALVULAS </p>
                   </div>
           
                   <div class="producto">
@@ -90,25 +96,7 @@
     </center>
 
     <footer>
-        <div class="pie_pagina">
-            <div class="group1">
-                <div class="box box ">
-                    <h2>SIGUENOS</h2>
-                    <div class="redsocical">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-instagram"></a>
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-gmail"></a>
-                    </div>
-                </div>
-                <div class="box box1">
-                    <h2>SOBRE NOSOSTROS</h2>    
-                    <p>Promoplast es una compañía especializada en plasticos como:tapper, atomizadores, jarras, mugs, productos promocionales, entre otros. Tenemos más de 500 referencias. SOLICITA NUESTROS CATALOGOS!</p>                                 
-                </div>               
-                <div class="box">
-                    <h2>JAS-SOFT</h2>                    
-                </div>                
-            </div>          
+        <div class="pie_pagina">        
             <div class="group2">
                 <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
             </div>
