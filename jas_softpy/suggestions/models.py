@@ -1,18 +1,21 @@
 from django.db import models
 
-# Create your models here.
-
 class Suggestions(models.Model):
-    
-    category = models.CharField(max_length=50, verbose_name="Categoria")
-    descriptCategory = models.CharField(max_length=50, verbose_name="Descripcion categoria") 
+    CATEGORY_CHOICES = [
+        ('mobiliario', 'Mobiliario'),
+        ('violencia_laboral', 'Violencia Laboral'),
+        ('acoso_laboral', 'Acoso Laboral'),
+        ('festividades', 'Festividades'),
+    ]
 
+    category = models.CharField(max_length=50, verbose_name="Categoría", choices=CATEGORY_CHOICES)
+    descriptCategory = models.CharField(max_length=50, verbose_name="Descripción de la Categoría") 
 
-    def  _str_(self):
+    def __str__(self):
         return self.category
     
     class Meta:
-        verbose_name = "Sugerencias"
+        verbose_name = "Sugerencia"
         verbose_name_plural = "Sugerencias"
         db_table = "buzonsugerencias"
         ordering = ['id']
