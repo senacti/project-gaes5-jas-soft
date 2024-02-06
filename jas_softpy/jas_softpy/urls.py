@@ -35,7 +35,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_jas'),
     path('logout/', views.logout_view, name='logout'),
-    path('', views.index, name='index'),          
+    path('', views.index, name='index'),
+    path('catalogo/', views.sales, name='Catalogo'),          
        
    
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
