@@ -28,7 +28,7 @@ class SalesAdmin(ImportExportModelAdmin):
 
 @admin.register(Pays)
 class PaysAdmin(admin.ModelAdmin):
-    list_display = ('payAmount','payTipe','PurchaseOrder')
+    list_display = ('payAmount', 'payTipe', 'payMethod', 'PurchaseOrder')
     search_fields = ('payAmount',)
     list_editable = ()
     list_filter = ('payAmount',)

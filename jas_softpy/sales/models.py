@@ -35,23 +35,27 @@ class PurchaseOrder(models.Model):
         ordering = ['id']
 
 class Pays(models.Model):
-    
     payAmount = models.FloatField(verbose_name="Valor Pago")
-    
     
     PAYTIPE_CHOICES = [
         ('Total', 'Total'),
         ('Parcial', 'Parcial'),
     ]
+
+    PAYMETHOD_CHOICES = [
+        ('Efectivo', 'Efectivo'),
+        ('TarjetaDeCredito', 'Tarjeta de crédito'),
+        ('TarjetaDebito', 'Tarjeta débito'),
+    ]
     
     payTipe = models.CharField(max_length=50, choices=PAYTIPE_CHOICES, verbose_name="Tipo de Pago")
+    payMethod = models.CharField(max_length=50, choices=PAYMETHOD_CHOICES, default='Efectivo', verbose_name="Metodo de Pago")
     
-    PurchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE)
-    
+    PurchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE)
     
     def __str__(self):
         return self.payTipe
-    
+
     class Meta:
         verbose_name = "Pago"
         verbose_name_plural = "Pagos"
