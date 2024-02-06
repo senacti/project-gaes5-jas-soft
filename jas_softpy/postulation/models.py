@@ -5,7 +5,15 @@ from datetime import datetime
 class Employed(models.Model):
 
     name = models.CharField(max_length=250, verbose_name="Nombre")
-    position = models.CharField(max_length=55, verbose_name="Cargo")
+    
+    POSITION_CHOICES = [
+        ('Administrador', 'Administrador'),
+        ('JefeDeVentas', 'Jefe de ventas'),
+        ('JefeDeProduccion', 'Jefe de produccion'),
+        ('Secretaria', 'Secretaria'),
+    ]
+
+    position = models.CharField(max_length=55, choices=POSITION_CHOICES, verbose_name="Cargo")
 
     def __str__(self):
         return self.name
