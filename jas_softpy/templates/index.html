@@ -25,7 +25,7 @@
   <header class="dash-menu">
     <div class="login-container">
       <ul class="list-menu-ul">          
-          <li><a href="{% url 'login_jas' %}"><img class="img-login" src="{% static 'img/usuario-de-perfil.png' %}" alt="ingresar"></a></li>
+          <li><a href="{% url 'login_jas' %}"><img class="img-login" src="{% static 'img/usuariob.png' %}" alt="ingresar"></a></li>
       </ul>
     </div>
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Mision" data-bs-content="Nuestra mision es liderar la industria del plastico al proporcionar soluciones innovadoras y sostenibles que satisfagan las necesidades de nuestros clientes.">Mision</button></li>
@@ -33,7 +33,7 @@
     <li class="d-flex justify-content-center"><button type="button" class="btn" data-bs-toggle="popover" title="Vision" data-bs-content="Nos visualizamos como la empresa lider en la industria del pastico, reconocida por nuestra capacidad de adaptacion a los desafios camnbiantes y nuestro enfoque en la sostenibilidad">Vision</button></li>
     <div class="catalog-container">
       <ul class="list-menu-ul">          
-          <li><a href="{% url 'sales' %}"><img class="img-sales" src="{% static 'img/carrito-de-compras.png' %}" alt="ventas"></a></li>
+          <li><a href="{% url 'sales' %}"><img class="img-sales" src="{% static 'img/carrito.png' %}" alt="ventas"></a></li>
       </ul>
     </div>
   </header>
@@ -67,30 +67,31 @@
             </div>   
 
             <div class="categorias">
-                <section class="informativo">
+              <section class="informativo">
                   <p class="titulo-principal"> CATEGORIAS DE PRODUCTOS </p> 
           
                   <div class="producto">
                       <img class="img-productos" src="{% static 'img/producto1.PNG' %}" alt="producto1">
-                      <p class="texto-categorias"> ENVASES PLASTICOS </p>
+                      <button class="boton-categoria" onclick="location.href='{% url 'sales' %}'">ENVASES PLASTICOS</button>
                   </div>
-                  
+          
                   <div class="producto">
                       <img class="img-productos" src="{% static 'img/producto2.PNG' %}" alt="producto2">
-                      <p class="texto-categorias"> POTES PLASTICOS </p>
+                      <button class="boton-categoria" onclick="location.href='{% url 'sales' %}'">POTES PLASTICOS</button>
                   </div>
           
                   <div class="producto">
                       <img class="img-productos" src="{% static 'img/producto3.PNG' %}" alt="producto3">
-                      <p  class="texto-categorias"> DISPENSADORES Y VALVULAS </p>
+                      <button class="boton-categoria" onclick="location.href='{% url 'sales' %}'">ATOMIZADORES</button>
                   </div>
           
                   <div class="producto">
                       <img class="img-productos" src="{% static 'img/producto4.PNG' %}" alt="producto4">
-                      <p class="texto-categorias"> GANCHOS </p>
+                      <button class="boton-categoria" onclick="location.href='{% url 'sales' %}'">GANCHOS</button>
                   </div>        
-                </section>
-            </div>           
+              </section>
+          </div>
+                   
         </div>               
       </div> 
     </center>

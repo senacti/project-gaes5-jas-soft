@@ -5,9 +5,9 @@
 }
 
 body {
-	background-image: url('/img/HD-wallpaper-note-iii-texture-blue-galaxy-gnote-samsung.jpg');
-    background-repeat: no-repeat; 
-    background-size: cover;
+  background-repeat: no-repeat; 
+  background-size: cover;
+  
 }
 a {
   text-decoration: none;
@@ -141,4 +141,8 @@ header a,h2{
 .form-register span {
     display: block; 
     margin-top: 10px; 
+}
+
+.back-link{
+  transform: translateY(20%);
 }

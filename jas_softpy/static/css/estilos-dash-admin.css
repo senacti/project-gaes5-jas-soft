@@ -83,7 +83,10 @@
     border: 1px solid black;
 }.img-moduls {
     height: 3rem;
-}.contenedor {
+}
+
+
+.contenedor {
     display: flex;
     flex-wrap: wrap;
     width: 80%;
