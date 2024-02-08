@@ -9,10 +9,10 @@
     height: 150%;
     transform: translate(40%, -5%);
 }
-.img-sales {
+.img-post {
     background-color: transparent;
     width: 40px;
-    transform: translate(-100%, -5%);
+    transform: translate(-50%, -5%);
 }
 .btn-ingresar{
     background-color: transparent;
