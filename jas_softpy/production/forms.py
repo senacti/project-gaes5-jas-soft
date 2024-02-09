@@ -1,10 +1,10 @@
 from django import forms
-from .models import ProductionOrder
+from .models import ProductionOrder,Supplies
 
 class CreateProductionOrderForm(forms.ModelForm):
     
     stock = forms.IntegerField(required=True, widget=forms.NumberInput(attrs={'class': 'form-control'}))
-    supplies = forms.CharField(required=True, widget=forms.CharField(required=True, min_length=4, max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'})))                              
+    supplies = forms.ModelChoiceField(queryset=Supplies.objects.all(), required=True)                          
 
 
     class Meta:

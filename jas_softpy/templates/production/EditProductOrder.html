@@ -9,7 +9,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
 				</div>
 				
-				<form action="{% url 'editar_orden_pedido' %}" class="was-validated" method="post">
+				<form action="{% 'editProductionOrder' %}" class="was-validated" method="post">
 					{% csrf_token %}
 					<div class="modal-body">
 						<div class = "form-group">
