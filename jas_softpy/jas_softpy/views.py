@@ -47,6 +47,11 @@ def insumo(request):
         #context
     })
 
+def ofertas(request):
+    return render(request,'ofertas.html',{
+        #context
+    })
+
 def send_email(mail):
     context = {'mail': mail}
 
