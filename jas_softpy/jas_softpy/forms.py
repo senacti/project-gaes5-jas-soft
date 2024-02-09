@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from production.models import ProductionOrder
+
+
 class RegisterForm(forms.Form):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
@@ -51,7 +54,3 @@ class RegisterForm(forms.Form):
 
     
    
-class CreateProductionOrderForm(forms.ModelForm):
-    
-    stock = forms.IntegerField(required=True, widget=forms.IntegerField)
-    supplies = forms.CharField(required=True)
