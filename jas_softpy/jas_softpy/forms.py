@@ -51,3 +51,7 @@ class RegisterForm(forms.Form):
 
     
    
+class CreateProductionOrderForm(forms.ModelForm):
+    
+    stock = forms.IntegerField(required=True, widget=forms.IntegerField)
+    supplies = forms.CharField(required=True)

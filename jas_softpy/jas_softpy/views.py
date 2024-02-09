@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -7,8 +7,13 @@ from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
+
+from production.models import ProductionOrder, Supplies
+from production.forms import CreateProductionOrderForm
 from .forms import RegisterForm
 from django.contrib import messages
+
+from .forms import CreateProductionOrderForm
 
 
     
@@ -103,8 +108,6 @@ def logout_view(request):
     messages.success(request, 'Sesión finalizada')
     return redirect('login.html')
 
-
-
 def register(request):
     
 
@@ -129,3 +132,53 @@ def register(request):
         'form': form,
     }
     return render(request, 'register.html', context)
+
+def create_production_order(request):
+    if request.method == 'POST':
+        form = CreateProductionOrderForm(request.POST)
+        if form.is_valid():
+                
+            production_order_instance = form.save(commit=False)                
+            quantity_used = form.cleaned_data['quantity_used']
+            supplies_id = form.cleaned_data['supplies']
+                
+            supplies_instance = Supplies.objects.get(id=supplies_id)
+            supplies_instance.stock -= quantity_used
+            supplies_instance.save()
+
+            production_order_instance.save()
+
+            messages.success(request, '¡Orden de producción creada exitosamente!')
+            return redirect('ordenpedido')  
+        else:
+            form = CreateProductionOrderForm()
+        return render(request, 'production/create_productionorder.html', {'form': form})
+
+def edit_production_order(request, id):
+        productionorder = ProductionOrder.objects.get(id=id)
+        return render(request, "EditProductOrder.html", {"id": id})
+
+
+def editProductionOrder(request):
+    quantity_used = request.POST['quantity_used']
+    supplies = request.POST['supplies']    
+
+    productionorder = ProductionOrder.objects.get(id=id)
+    productionorder.quantity_used = quantity_used
+    productionorder.supplies = supplies
+    productionorder.save()
+
+    messages.success(request, '¡Orden de producción actualizado!')
+
+    return redirect('ordenpedido')
+
+
+def deleteProductionOrder(request, id):
+    
+    id = get_object_or_404(ProductionOrder, id=id)
+    id.delete()
+
+    messages.success(request, 'Orden de producción eliminado!')
+
+    return redirect('ordenpedido')         
+        

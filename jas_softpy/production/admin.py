@@ -12,7 +12,7 @@ from django.utils.html import format_html
 class SupplieAdmin(ImportExportModelAdmin):
     change_list_template = "admin/custom_change_list.html"
     
-    list_display = ('name', 'stock','size','color',)
+    list_display = ('name', 'stock','size','color','supplies_Code')
     search_fields = ('name',)
     list_editable = ('stock',)
     list_filter = ('size',)
@@ -25,18 +25,18 @@ class SupplieAdmin(ImportExportModelAdmin):
 class SupplieResource(resources.ModelResource):
     class Meta:
         model = Supplies
-        fields = ('name', 'stock','size','color')
+        fields = ('name', 'stock','size','color','supplies_Code')
         #export_order = ('name', 'price', 'category')
     
 @admin.register(ProductionOrder)
 class ProductionOrderAdmin(ImportExportModelAdmin):
-    list_display = ('Production_OrderDate', 'supplies', 'quantity_used',)
+    list_display = ('Production_OrderDate', 'supplies', 'quantity_used','production_OrderCode',)
     list_filter = ('Production_OrderDate',)
     #list_display_links = ('name')
     
 class ProductionOrderResource(resources.ModelResource):
     class Meta:
         model = ProductionOrder
-        fields = ('Production_OrderDate', 'supplies', 'quantity_used',)
+        fields = ('Production_OrderDate', 'supplies', 'quantity_used','production_OrderCode',)
         #export_order = ('name', 'price', 'category')    
     

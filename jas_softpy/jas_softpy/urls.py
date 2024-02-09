@@ -19,9 +19,10 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-from production.views import ProductionInvoicePdfView, ProductionListView
+from production.views import ProductionInvoicePdfView, ProductionListView, DeleteProductionOrderView
 from inventory.views import InventoryInvoicePdfView, ProductListView
 from sales.views import SaleInvoicePdfView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
@@ -41,13 +42,16 @@ urlpatterns = [
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
     
     path('producto/', ProductListView.as_view(), name='producto'),
-     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
+    path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     
     path('ordenpedido/', ProductionListView.as_view(), name='ordenpedido'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
-    #path('production/editar/<int:pk>/', editar_orden_pedido, name='editar_orden_pedido'),
-    #path('production/eliminar/<int:pk>/', eliminar_orden_pedido, name='eliminar_orden_pedido'),
+    path('production/create_production_order/', views.create_production_order, name='create_production_order'),
+    path('production/editar/<int:pk>', views.editProductionOrder, name='editar_orden_pedido'),
+    path('production/eliminar/<int:pk>/', DeleteProductionOrderView.as_view(), name='eliminar_orden_pedido'),
 ]
+
+
 
 if settings.DEBUG:
       urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

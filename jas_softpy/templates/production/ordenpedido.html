@@ -96,24 +96,16 @@
 										<td>{{ OP.Production_OrderDate }}</td>
 										<td>{{ OP.quantity_used }}</td>
 										<td>{{ OP.supplies }}</td> 
-										<td>		
-											{% comment  %}
-											<a href="{% url 'editar_orden_pedido' OP.id %}">
-												<button type="button" class="btn btn-success">
-													Editar
-												</button>
-											</a>										
-											<a href="{% url 'eliminar_orden_pedido' OP.id %}">
-												<button type="button" class="btn btn-danger">
-													Eliminar
-												</button>
-											</a>{% endcomment %}					
-										
+										<td>
+											<a href="production/editar/{{ OP.id }} "><button type="button" class="btn btn-success">Editar</button></a>										
+											<a href="production/eliminar/{{ OP.id }}"><button type="button" class="btn btn-danger">Eliminar</button></a>											
 										</td>
 									</tr>
 								{% endfor %}
 							</tbody>
 						</table>
+						{% include 'production/create_productionorder.html' %}
+
 						<div class="button-new">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#create">
@@ -126,70 +118,19 @@
 					</div>
 				</div>
 			</div>
+
+			
 		</div>
+
+		
 	</div>
 	
-		<div class="modal" id="create">
-	    <div class="modal-dialog">
-	       <div class="modal-content">
-	
-	            <!-- Modal Header -->
-	            <div class="modal-header">
-	                <h4 class="modal-title">Agregar Produccion</h4>
-	                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-	            </div>
-	
-	            <!-- Modal body -->
-	            <form action="@{/ordenpedido/guardar}" class="was-validated" object="${ordenpedido}" method="post">
-	                <div class="modal-body">
-	                    <div class="row">
-	                        <div class="form-floating mb-3 mt-3 col-4">
-	                            <input type="text" class="form-control" id="cantidadProducto"
-	                                placeholder="cantidadProducto"name="cantidadProducto" maxlength="30" required>
-	                            <label for="cantidadProducto">Cantidad</label>
-	                        </div>
-	                        <div class="form-floating mt-3 mb-3 col-7">
-	                            <input type="datetime-local" required class="form-control" id="fechaPedido"
-	                                placeholder="fechaPedido" name="fechaPedido" maxlength="20">
-	                            <label for="fechaPedido">fecha</label>
-	                        </div>
-	                        <div class="form-floating mt-3 mb-3 col-6">
-	                            <select class="form-select" id="IdProducto" name="IdProducto">
-	                                <option value="1">botellas de plasticos</option>
-	                                <option value="2">Ganchos plasticos</option>
-	                                <option value="3">Tubo de plastico</option>
-	                                <option value="4">Contenedor de plastico</option>
-	                                <option value="5">Tapon de plastico</option>
-	                            </select>
-	                            <label for="IdProducto" class="form-label">Producto</label>
-	                        </div>
-	                        <div class="form-floating mt-4 mb-3 col-6">
-	                            <select class="form-select" id="IdEstadopedido" name="IdEstadopedido">
-	                                <option value="1">En produccion</option>
-	                                <option value="2">En espera</option>
-	                                <option value="3">En alistamiento</option>
-	                            </select>
-	                            <label for="IdEstadopedido" class="form-label">Estado</label>
-	                        </div>
-	                    </div>
-	                    <button type="submit" id="submitordenpedido" class="hidden"></button>
-	            </form>
-	        </div>
-	
-	        <!-- Modal footer -->
-	        <div class="modal-footer">
-	            <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-	            <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;"
-	                class="btn btn-primary">Guardar</button>
-	        </div>
-	    </div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
     <script type="text/javascript" src="{% static 'js/validaciones.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/slidebar.js' %}"></script>
 
@@ -234,6 +175,10 @@
         function abrirmodal() {
             $('#editar').show();
         }
+
+		function submitForm() {			
+			document.getElementById('submitordenpedido').click();
+		}
     </script>
 </body>
 

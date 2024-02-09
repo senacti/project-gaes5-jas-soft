@@ -1,24 +1,55 @@
+from pyexpat.errors import messages
 from typing import Any
+from django.shortcuts import render
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.views.generic.list import ListView
 import os
+from django.views.generic.edit import DeleteView
 
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
 from django.template.loader import get_template
+
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+
+from django import forms
 from .models import Supplies,ProductionOrder
 
 
+class CreateProductionOrderForm(forms.ModelForm):
+    class Meta:
+        model = ProductionOrder
+        fields = ['quantity_used', 'supplies']
+        stock = forms.IntegerField(required=True, widget=forms.IntegerField)
+        supplies = forms.CharField(required=True)
+
+class DeleteProductionOrderView(DeleteView):
+    model = ProductionOrder
+    template_name = 'production/ordenpedido.html'  # Ajusta según tu aplicación
+    success_url = reverse_lazy('eliminar_orden_pedido')  # Ajusta según tu aplicación
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(self.request, 'Orden de producción eliminada exitosamente.')
+        return super().delete(request, *args, **kwargs)
+
+class ProductionListView(ListView):
+        
+        template_name = "production/ordenpedido.html"
+        queryset = ProductionOrder.objects.all().order_by('-Production_OrderDate')
+        
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data(**kwargs)
+                context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'                
+                return context
+        
         
 class ProductionInvoicePdfView(View):
     
         def link_callback(self, uri, rel):
-                """
-                Convert HTML URIs to absolute system paths so xhtml2pdf can access those
-                resources
-                """
+               
                 result = finders.find(uri)
                 if result:
                         if not isinstance(result, (list, tuple)):
@@ -26,10 +57,10 @@ class ProductionInvoicePdfView(View):
                         result = list(os.path.realpath(path) for path in result)
                         path=result[0]
                 else:
-                        sUrl = settings.STATIC_URL        # Typically /static/
-                        sRoot = settings.STATIC_ROOT      # Typically /home/userX/project_static/
-                        mUrl = settings.MEDIA_URL         # Typically /media/
-                        mRoot = settings.MEDIA_ROOT       # Typically /home/userX/project_static/media/
+                        sUrl = settings.STATIC_URL        
+                        sRoot = settings.STATIC_ROOT     
+                        mUrl = settings.MEDIA_URL         
+                        mRoot = settings.MEDIA_ROOT       
 
                         if uri.startswith(mUrl):
                                 path = os.path.join(mRoot, uri.replace(mUrl, ""))
@@ -37,8 +68,7 @@ class ProductionInvoicePdfView(View):
                                 path = os.path.join(sRoot, uri.replace(sUrl, ""))
                         else:
                                 return uri
-
-                # make sure that file exists
+                
                 if not os.path.isfile(path):
                         raise RuntimeError(
                                 'media URI must start with %s or %s' % (sUrl, mUrl)
@@ -60,25 +90,14 @@ class ProductionInvoicePdfView(View):
                 html = template.render(context)
                 pisa_status = pisa.CreatePDF(   
                 html, dest=response,
-                #link_callback=self.link_callback
                 )
                         
                 
                 if pisa_status.err:
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-                return response        
+                return response    
+        
 
-class ProductionListView(ListView):
-        
-        template_name = "ordenpedido.html"
-        queryset = ProductionOrder.objects.all().order_by('-Production_OrderDate')
-        
-        def get_context_data(self, **kwargs):
-                context = super().get_context_data(**kwargs)
-                context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
-                print(context)
-                return context
-        
 """      
 def editar_orden_pedido(request, pk):
     orden_pedido = get_object_or_404(ProductionOrder, pk=pk)
@@ -103,4 +122,3 @@ def eliminar_orden_pedido(request, pk):
 
     return render(request, 'ordenpedido.html', {'orden_pedido': orden_pedido})
 """
-    
