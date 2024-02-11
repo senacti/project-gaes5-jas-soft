@@ -8,7 +8,7 @@
     {% load static %}
 	<link rel="stylesheet" type="text/css" href="{% static 'css/Style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">v
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
 
@@ -76,7 +76,7 @@
 			<div class="col-10" id="contentd">
 				<div class="card" id="cardash">
 					<nav class="descrip-menu">
-						<a class="message-ubication" href="@{/insumo/}">Insumos</a>
+						<a class="message-ubication" href="{% url 'insumo' %}">Insumos</a>
 					</nav>
 					<div class="container mt-3">
 						<h2>{{ message }}</h2>
@@ -97,8 +97,11 @@
 										<td>{{ OP.quantity_used }}</td>
 										<td>{{ OP.supplies }}</td> 
 										<td>
-											<a href="production/editar/{{ OP.id }} "><button type="button" class="btn btn-success">Editar</button></a>										
-											<a href="production/eliminar/{{ OP.id }}"><button type="button" class="btn btn-danger">Eliminar</button></a>											
+											<input type="hidden" id="idordenpedido" name="idordenpedido" value="{{ OP.IdOrdenPedido }}">
+											<button type="submit" class="btn btn-danger btn-sm">
+												<i class="fa fa-fw fa-trash"></i> {{ _('Delete') }}
+											<a href="production/editar/{{ OP.id }}/"><button type="button" class="btn btn-success">Editar</button></a>										
+																					
 										</td>
 									</tr>
 								{% endfor %}
@@ -108,7 +111,7 @@
 						
 						<div class="button-new">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#create">
+                                data-bs-target="#create">								
                                 Agregar Produccion
                             </button>
 							<a class="button-excel" href="@{/ordenpedido/exportar/excel}">

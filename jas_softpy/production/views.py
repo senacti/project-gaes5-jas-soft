@@ -15,7 +15,6 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 
-from production.forms import CreateProductionOrderForm
 from .models import Supplies,ProductionOrder
 
 class DeleteProductionOrderView(DeleteView):
@@ -88,59 +87,5 @@ class ProductionInvoicePdfView(View):
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
                 return response    
         
-def create_production_order(request):
-        if request.method == 'POST':
-                form = CreateProductionOrderForm(request.POST)
 
-                if form.is_valid():
-                        production_order_instance = form.save(commit=False)
-                        quantity_used = form.cleaned_data['stock']
-                        supplies_id = form.cleaned_data['supplies']
-
-                        supplies_instance = Supplies.objects.get(id=supplies_id)
-                        supplies_instance.stock -= quantity_used
-                        supplies_instance.save()
-
-                        production_order_instance.save()
-                        messages.success(request, '¡Orden de producción creada exitosamente!')
-                        return redirect('ordenpedido')
-                else:
-                        print(form.errors)
-        else:
-                form = CreateProductionOrderForm()
-
-        supplies = Supplies.objects.all()
-
-        return render(request, 'production/create_productionorder.html', {'form': form})
-
-def edit_production_order(request, id):
-        productionorder = ProductionOrder.objects.get(id=id)
-        return render(request, "EditProductOrder.html", {"id": id})
-
-
-def editProductionOrder(request):
-    form = CreateProductionOrderForm(request.GET)
-    if form.is_valid():
-        quantity_used = form.cleaned_data['quantity_used']
-        supplies = form.cleaned_data['supplies']
-
-        productionorder = ProductionOrder.objects.get(id=id)
-        productionorder.quantity_used = quantity_used
-        productionorder.supplies = supplies
-        productionorder.save()
-
-        messages.success(request, '¡Orden de producción actualizada!')
-        return redirect('ordenpedido')
-    else:
-        print(form.errors)
-
-
-def deleteProductionOrder(request, id):
-    
-    id = get_object_or_404(ProductionOrder, id=id)
-    id.delete()
-
-    messages.success(request, 'Orden de producción eliminado!')
-
-    return redirect('ordenpedido')         
         

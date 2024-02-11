@@ -7,7 +7,6 @@ from production.views import ProductionInvoicePdfView, ProductionListView, Delet
 from inventory.views import InventoryInvoicePdfView, ProductListView
 from sales.views import SaleInvoicePdfView
 from . import views
-from production import views as production_views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
@@ -30,9 +29,9 @@ urlpatterns = [
     
     path('ordenpedido/', ProductionListView.as_view(), name='ordenpedido'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
-    path('production/create_production_order/', production_views.create_production_order, name='create_production_order'),
-    path('production/editar/<int:pk>', production_views.editProductionOrder, name='editar_orden_pedido'),
-    path('production/eliminar/<int:pk>/', DeleteProductionOrderView.as_view(), name='eliminar_orden_pedido')
+    path('production/create_production_order/', views.create_production_order, name='create_production_order'),
+    path('production/editar/<int:id>', views.editProductionOrder, name='editar_orden_pedido'),
+    path('production/eliminar/<id>/', views.deleteProductionOrder, name='eliminar_orden_pedido')
 ]
 
 if settings.DEBUG:
