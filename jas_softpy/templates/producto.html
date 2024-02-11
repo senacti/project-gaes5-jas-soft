@@ -199,7 +199,10 @@
                                         <th>Fecha Fabricación</th>
                                         <th>Tamaño</th>
                                         <th>Color</th>
-                                        <th>Estado</th>                                        
+                                        <th>Estado</th>     
+                                        <th>Categoria</th>
+                                        <th>Código</th>
+                                        <th>Imagen producto</th>                                   
                                         <td >Acciones</td>
                                     </tr>
                                 </thead>
@@ -211,7 +214,10 @@
                                         <td>{{Product.fabricationDate}}</td>
                                         <td>{{Product.size}}</td>
                                         <td>{{Product.color}}</td>
-                                        <td>{{Product.state}}</td>                                        
+                                        <td>{{Product.state}}</td> 
+                                        <td>{{Product.category}}</td>
+                                        <td>{{Product.productCode}}</td> 
+                                        <td>{{Product.show_image}}</td>                                
                                         <td>
                                             <a href="@{/producto/editar/} + ${in.idproducto}" >
                                                 <button type="button" class="btn btn-success" >
