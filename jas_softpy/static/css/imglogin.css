@@ -5,13 +5,14 @@
 
 .img-login {
     background-color: transparent;
-    width: 40px;
-    transform: translate(50%, -10%);
+    width: 150%;
+    height: 150%;
+    transform: translate(40%, -5%);
 }
-.img-sales {
+.img-post {
     background-color: transparent;
     width: 40px;
-    transform: translate(-100%, -5%);
+    transform: translate(-50%, -5%);
 }
 .btn-ingresar{
     background-color: transparent;
@@ -35,3 +36,33 @@
     text-align: center; 
 }
 
+.boton-categoria {
+    background-color: #092CA0;
+    color: white;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px; 
+    cursor: pointer; 
+    width: 250px;
+    height: 70px;
+    transform:translate(-5%, 0);
+}
+
+#demo {
+    height: 100%;
+    width: 80%;
+}
+
+.boton-categoria {
+    background-color: #300e8c; 
+    border: 1px solid #4f9c30; 
+    color: #ffffff; 
+    padding: 10px 20px; 
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.boton-categoria:hover {
+    background-color: #4f9c30;
+    color: #ffffff;
+}

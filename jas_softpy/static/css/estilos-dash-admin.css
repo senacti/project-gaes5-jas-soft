@@ -8,7 +8,7 @@
 .dash-menu {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     padding: 0.3rem;
     text-decoration: none;
     background-color: #092CA0;
@@ -83,7 +83,10 @@
     border: 1px solid black;
 }.img-moduls {
     height: 3rem;
-}.contenedor {
+}
+
+
+.contenedor {
     display: flex;
     flex-wrap: wrap;
     width: 80%;

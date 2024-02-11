@@ -28,12 +28,27 @@ class FlowAdmin(ImportExportModelAdmin):
     search_fields = ('FlowType',)
     list_filter = ('DateFlow',)
 
-# Register your models here.
+    def productCode(self, obj):
+        if obj.Product:
+            return obj.Product.productCode
+        return None
+
+    productCode.short_description = 'Código de Producto'
+
+    def supplieCode(self, obj):
+        if obj.Supplies:
+            return obj.Supplies.supplieCode
+        return None
+
+    supplieCode.short_description = 'Código de Producto'
+    
+
+
 
 class  ProductResource(resources.ModelResource):
     class Meta:
         model = Product
-        fields = ('name', 'stock','fabricationDate','size','color','state',)
+        fields = ('name', 'stock','fabricationDate','size','color','state','productCode')
         #export_order = ('name
         # ', 'price', 'category')    
         

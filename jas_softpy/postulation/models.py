@@ -28,8 +28,16 @@ class Postulation(models.Model):
     startOffers = models.DateTimeField(verbose_name="Fecha de la oferta")
     descripOffer = models.TextField(max_length=250, verbose_name="Descripción de la Oferta")
     profilePostulation = models.CharField(max_length=250, verbose_name="Perfil postulación")
-    StatePostulations = models.CharField(max_length=50, verbose_name="Estado Postulaciones")  
    
+    STATEPOSTULATIONS_CHOICES = [
+        ('Activa', 'Activa'),
+        ('EnRevision', 'En Revisión'),
+        ('Seleccionado', 'Seleccionado'),
+        ('Declinada', 'Declinada'),
+    ]
+
+    StatePostulations = models.CharField(max_length=50, choices=STATEPOSTULATIONS_CHOICES, verbose_name="Estado de Postulaciones")
+
     def __str__(self):
         return self.descripOffer
     
@@ -56,7 +64,15 @@ class Scheduling(models.Model):
 class Contract(models.Model):
 
     contractdate = models.DateField(verbose_name="Fecha del Contrato")
-    TypeContract = models.CharField(max_length=50, verbose_name="Tipo de Contrato")
+
+    TYPECONTRACT_CHOICES = [
+        ('TerminoFijo', 'Término Fijo'),
+        ('Indefinido', 'Indefinido'),
+        ('ObraoLabor', 'Obra o labor'),
+        ('Temporal', 'Temporal'),
+    ]
+
+    TypeContract = models.CharField(max_length=50, choices=TYPECONTRACT_CHOICES, verbose_name="Tipo de Contrato")
 
     Employed = models.ForeignKey(Employed, on_delete=models.CASCADE, verbose_name="Empleado")
 

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/sales.css' %}">
+    <link rel="stylesheet" href="{% static  'css/Prod.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/offer-table.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
+    
+    <title>Promoplast | Catalogo</title>
+
+
+    <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
+</head>
+
+<body>
+
+    <header>
+        <img class="logo-compania" src="{% static 'img/logo.png'%}" alt="logo">
+        <h1>Ofertas de Empleo</h1>
+        <a href="/" class="btn-ingresar"><img class="img-login" src="/static/img/icons8-atr%C3%A1s-64.png"
+                alt="ingresar"></a>
+    </header>
+
+    <div class="container">
+
+        {% if ofertas_laborales %}
+            <table class="custom-table">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha Oferta</th>
+                        <th>Estado de la Oferta</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for oferta in ofertas_laborales %}
+                        <tr>
+                            <td>{{ oferta.id }}</td>
+                            <td>{{ oferta.fecha_publicacion|date:"d/m/Y" }}</td>
+                            <td>{{ oferta.estado_oferta }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No hay ofertas laborales disponibles en este momento.</p>
+        {% endif %}
+    </div>
+
+</body>
+<footer>
+        <div class="pie_pagina">
+            <div class="group2">
+                <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
+            </div>
+        </div>
+    </footer>
+</html>
