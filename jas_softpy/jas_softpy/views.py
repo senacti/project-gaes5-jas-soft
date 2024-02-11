@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from datetime import datetime
+from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth import login
 from django.contrib.auth import logout
@@ -7,6 +8,9 @@ from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
+
+from production.models import ProductionOrder, Supplies
+
 from .forms import RegisterForm
 from django.contrib import messages
 
@@ -108,10 +112,7 @@ def logout_view(request):
     messages.success(request, 'Sesión finalizada')
     return redirect('login.html')
 
-
-
-def register(request):
-    
+def register(request):    
 
     if request.method == 'POST':
         form = RegisterForm(request.POST)
@@ -134,3 +135,59 @@ def register(request):
         'form': form,
     }
     return render(request, 'register.html', context)
+
+def create_production_order(request):
+   
+    quantity_used = int(request.POST['stock'])
+    supplies_id = request.POST['supplies_id']
+    
+    current_datetime = datetime.now()
+    
+    productionorder = ProductionOrder.objects.create(
+        quantity_used=quantity_used, 
+        supplies_id=supplies_id, 
+        Production_OrderDate=current_datetime
+    )
+       
+    supplies_instance = Supplies.objects.get(id=supplies_id)
+    supplies_instance.stock -= quantity_used
+    supplies_instance.save()
+
+    messages.success(request, '¡Orden de producción creada exitosamente!')
+    return redirect('ordenpedido')
+                        
+def edit_production_order(request, id):
+        productionorder = ProductionOrder.objects.get(id=id)
+        return render(request, "EditProductOrder.html", {"productionorder": productionorder})
+
+
+def editProductionOrder(request):
+    
+    quantity_used = int(request.POST['stock'])
+    
+    
+    current_datetime = datetime.now()    
+    roductionorder = ProductionOrder.objects.update(
+        quantity_used=quantity_used, 
+        
+        Production_OrderDate=current_datetime
+    )
+    
+    supplies_instance = Supplies.objects.get(id)
+    supplies_instance.stock -= quantity_used
+    supplies_instance.save()
+
+    messages.success(request, '¡Orden de producción actualizada!')
+    return redirect('ordenpedido')
+    
+        
+
+
+def deleteProductionOrder(request, pk):
+    
+    productionorder = ProductionOrder.objects.get(pk=pk)
+    productionorder.delete()
+    
+    messages.success(request, 'Orden de producción eliminado!')
+
+    return redirect('ordenpedido')         

@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from production.models import ProductionOrder, Supplies
+
+
 class RegisterForm(forms.Form):
     username = forms.CharField(required=True, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
@@ -49,5 +52,3 @@ class RegisterForm(forms.Form):
         if cleaned_data.get('password2') != cleaned_data.get('password'):
             self.add_error('password2', 'La contraseña no coincide')
 
-    
-   
