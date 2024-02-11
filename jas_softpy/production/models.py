@@ -1,5 +1,7 @@
 
 
+from typing import Self
+from django import forms
 from django.db import models
 from datetime import datetime
 
@@ -7,11 +9,13 @@ from datetime import datetime
 from django.forms import model_to_dict
 
 
+
 class Supplies(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre") 
-    stock = models.IntegerField(verbose_name="Cantidad")    
+    stock = models.PositiveSmallIntegerField(verbose_name="Cantidad")    
     size = models.CharField(max_length=12, verbose_name="Tamaño")
-    color = models.CharField(max_length=20, verbose_name="Color")
+    color = models.CharField(max_length=20, verbose_name="Color")       
+
     supplieCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
 
     def save(self, *args, **kwargs):
@@ -21,8 +25,8 @@ class Supplies(models.Model):
                 self.supplieCode = last_object.supplieCode + 1
             else:
                 self.supplieCode = 100001
-        super(Supplies, self).save(*args, **kwargs) 
-    
+        super(Supplies, self).save(*args, **kwargs)     
+
     def __str__(self):
         return f"{self.name} - {self.supplieCode}"
     
@@ -43,12 +47,11 @@ class Supplies(models.Model):
 
 class ProductionOrder(models.Model):   
     Production_OrderDate = models.DateTimeField(auto_now_add=True, verbose_name="Fecha pedido produccion") 
-    quantity_used = models.PositiveIntegerField(verbose_name="Cantidad utilizada") 
-    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE, verbose_name="Insumos")
-    
-    
+    quantity_used = models.PositiveIntegerField(verbose_name="Cantidad utilizada")    
+    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE, verbose_name="Insumos")    
+
     def save(self, *args, **kwargs):        
-        if self.id is None:
+        if self.pk is None:
             if self.quantity_used <= self.supplies.stock:
                 self.supplies.stock -= self.quantity_used
                 self.supplies.save()
@@ -64,3 +67,4 @@ class ProductionOrder(models.Model):
         verbose_name_plural = "ordenesproducciones"        
         db_table = "ordenproduccion"
         ordering = ['id']
+        

@@ -70,7 +70,7 @@ class ProductionInvoicePdfView(View):
 
 class ProductionListView(ListView):
         
-        template_name = "ordenpedido.html"
+        template_name = "production/ordenpedido.html"
         queryset = ProductionOrder.objects.all().order_by('-Production_OrderDate')
         
         def get_context_data(self, **kwargs):
