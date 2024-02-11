@@ -14,7 +14,7 @@ class ProductAdmin(ImportExportModelAdmin):
 
     list_display = ('name', 'stock','fabricationDate','size','color','state', 'productCode','category','show_image')
     search_fields = ('name',)
-    list_editable = ('stock',)
+    list_editable = ('stock','state',)
     list_filter = ('fabricationDate',)
 
 
