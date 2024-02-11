@@ -1,15 +1,42 @@
 from django.db import models
 from datetime import datetime
 from production.models import Supplies
+from django.utils.html import format_html
 
 class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre")   
     stock = models.IntegerField(verbose_name="Cantidad")
-    fabricationDate = models.DateField(verbose_name="Fecha de fabricacion")
+    fabricationDate = models.DateField(auto_now_add=True,verbose_name="Fecha de fabricación")
     size = models.CharField(max_length=12, verbose_name="Tamaño")
     color = models.CharField(max_length=20, verbose_name="Color")
-    state = models.CharField(max_length=12, verbose_name="Estado")
     productCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
+
+
+    STATE_CHOICES = [
+        ('Selecciona', 'Selecciona'),
+        ('producción', 'En producción'),
+        ('alistamiento', 'En alistamiento'),
+        ('stock', 'En stock'),
+        ('Agotado', 'Agotado'),
+    ]
+
+    state = models.CharField(default='Selecciona', max_length=40, choices=STATE_CHOICES, help_text='Seleccione el estado', verbose_name="Estado")
+
+    CATEGORY_CHOICES = [
+            ('selecciona', 'selecciona'),
+            ('Portacomidas', 'Portacomidas'),
+            ('Ganchos', 'Ganchos'),
+            ('Envases', 'Envases'),
+            ('Atomizadores', 'Atomizadores'),
+    ]
+    category = models.CharField( default='selecciona',  max_length=20, choices=CATEGORY_CHOICES, help_text='Seleccione la categoría', verbose_name="Categoría")
+
+    image = models.ImageField(upload_to='media',verbose_name="Imagen producto")
+    def show_image(self):
+        
+        return format_html('<img src={} width = "50">', self.image.url)
+    
+    show_image.short_description = "Imagen producto"
 
     def save(self, *args, **kwargs):
         if not self.id:
