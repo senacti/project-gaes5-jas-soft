@@ -160,7 +160,6 @@ def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
         return render(request, "EditProductOrder.html", {"productionorder": productionorder})
 
-
 def editProductionOrder(request):
     
     quantity_used = int(request.POST['stock'])
@@ -180,9 +179,6 @@ def editProductionOrder(request):
     messages.success(request, '¡Orden de producción actualizada!')
     return redirect('ordenpedido')
     
-        
-
-
 def deleteProductionOrder(request, pk):
     
     productionorder = ProductionOrder.objects.get(pk=pk)
@@ -191,3 +187,53 @@ def deleteProductionOrder(request, pk):
     messages.success(request, 'Orden de producción eliminado!')
 
     return redirect('ordenpedido')         
+
+def save(self, *args, **kwargs):
+        if not self.id:
+            last_object = Supplies.objects.last()
+            if last_object:
+                self.supplieCode = last_object.supplieCode + 1
+            else:
+                self.supplieCode = 100001
+        super(Supplies, self).save(*args, **kwargs) 
+
+def createsupplies(request):
+   
+    name = request.POST['name']
+    stock = int(request.POST['stock'])
+    size = request.POST['size']
+    color = request.POST['color']    
+
+    supplies = Supplies.objects.create(
+        name = name, 
+        stock = stock, 
+        size = size,
+        color = color,
+    )
+    
+    messages.success(request, '¡el isumo se registro exitosamente!')
+    return redirect('insumo')
+                        
+def editsupplies(request, id):
+        supplies = Supplies.objects.get(id=id)
+        return render(request, "EditProductOrder.html", {"supplies": supplies})
+
+def EditSupplies(request):
+    
+    stock = int(request.POST['stock'])
+    
+    supplies = ProductionOrder.objects.update(
+        stock=stock, 
+    )
+
+    messages.success(request, '¡El insumo se ha actualizado!')
+    return redirect('insumo')
+    
+def deleteSupplies(request, pk):
+    
+    supplies = Supplies.objects.get(pk=pk)
+    supplies.delete()
+    
+    messages.success(request, 'Orden de producción eliminado!')
+
+    return redirect('insumo')         

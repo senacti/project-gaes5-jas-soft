@@ -79,6 +79,18 @@ class ProductionListView(ListView):
                 print(context)
                 return context
         
+class SuppliesListView(ListView):
+        
+        template_name = "supplies/insumo.html"
+        queryset = Supplies.objects.all().order_by('-name')
+        
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data(**kwargs)
+                context['message'] = 'PRODUCCION | INSUMOS'
+                print(context)
+                return context
+        
+        
 """      
 def editar_orden_pedido(request, pk):
     orden_pedido = get_object_or_404(ProductionOrder, pk=pk)

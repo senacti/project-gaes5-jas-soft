@@ -27,78 +27,6 @@
 
 <body>
 
-	<!--<div insert="~{insumo/create}"></div>-->
-	<!-- The Modal -->
-	<div class="modal" id="create">
-		<div class="modal-dialog">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title" text="${titulocrear}">Crear Insumo</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-
-				<!-- Modal body -->
-				<form action="@{/insumo/guardar}" object="${insumo}" class="was-validated" method="post">
-					<div class="modal-body">
-						<div class="row">
-							<div class="form-floating mb-3 mt-3">
-								<input type="hidden" value="1" class="form-control" field="*{idnombreinsumo}" id="idnombreinsumo"
-									placeholder="Nombre Insumo" name="idnombreinsumo" required>
-								<input type="text" value="1" class="form-control"  
-									placeholder="Nombre Insumos"  required>
-								<label for="nombre">Nombre Insumo</label>
-								<div class="valid-feedback"></div>
-								<div class="invalid-feedback">Porfavor complete el campo</div>
-							</div>
-							<div class="form-floating mt-3 mb-3 col-8">
-								<input type="text" required class="form-control" id="cantidad" placeholder="cantidad"
-									name="cantidad" maxlength="9" field="*{cantidad}"
-									onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
-								<label for="cantidad">Cantidad</label>
-							</div>
-
-							<div class="form-floating mt-3 mb-3 col-4">
-								<select class="form-select" id="unidadmedida" field="*{idunidadmedida}"
-									name="unidadmedida" required>
-									<option value="1">Kg</option>
-									<option value="2">Gr</option>
-								</select>
-								<label for="unidadmedida" class="form-label">Unidad</label>
-							</div>
-							<div class="form-floating mt-3 mb-3 col-6">
-								<select class="form-select form-control" id="color" field="*{color}"
-									placeholder="color" name="color" required>
-									<option value="1">Rojo</option>
-									<option value="2">Verde</option>
-									<option value="3">Azul</option>
-									<option value="4">Amarillo</option>
-									<option value="4">Negro</option>
-								</select>
-								<label for="color" class="form-label">Color</label>
-							</div>
-							<div class="form-floating mt-3 mb-3 col-6">
-								<input type="text" class="form-control" id="tamanio" placeholder="Tamaño"
-									field="*{tamanio}" name="tamanio" required>
-								<label for="tamanio">Tamaño</label>
-							</div>
-						</div>
-						<button type="submit" id="submitInsumo" class="hidden"></button>
-					</div>
-				</form>
-
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-					<button type="button" onclick="document.getElementById('submitInsumo').click();return false;"
-						class="btn btn-primary">Guardar</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<header class="dash-menu">
 		<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
 		<a class="nav-link" href="@{/}">INICIO</a>
@@ -127,7 +55,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-2 barmenu">
-                <h3 class="mt-4">PROMOPLAST</h3>
+                <h2>{{message}}</h2>
                 <p></p>
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item">
@@ -151,55 +79,39 @@
 				<div class="card" id="cardash">
 					<nav class="descrip-menu">
 						<a class="message-ubication" href="{% url 'ordenpedido' %}">Produccion</a>
-
 					</nav>
+					
 					<div class="container mt-3">
-						<h2>INSUMOS</h2>
-						<!--
-                            <div if=${param.exito}>
-							<div class="alert alert-info" style="color: forestgreen;">Proceso del insumo correctamente
-							</div>
-						</div>
-						<div if=${param.error}>
-							<div class="alert alert-danger" style="color: red;">Hubo un problema en el proceso </div>
-						</div>
-						<div if=${param.exitoeliminar}>
-							<div class="alert alert-info" style="color: forestgreen;">eliminado Correctamente</div>
-						</div>
-						<div if=${param.erroreliminar}>
-							<div class="alert alert-danger" style="color: red;">Hubo un problema al eliminar </div>
-						</div>-->
+						<h2>{{ message }}</h2>
 						<p></p>
 						<table class="table table-striped" id="tablas">
 							<thead>
-								<tr>
-									<th>Codigo Insumo</th>
+								<tr>									
+									<th>Nombre</th>
 									<th>Cantidad</th>
-									<th>Unidad de medida</th>
-									<th>Color</th>
 									<th>Tamaño</th>
+									<th>Color</th>
+									<th>Codigo Insumo</th>
 									<th>Editar</th>
 									<th>Eliminar</th>
 								</tr>
 							</thead>
 							<tbody>
-								<tr each="in:${insumos}">
-									{% csrf_token %}
-									<td scope="row" class="align-middle" text="${in.idinsumo}"></td>
-									<td text="${in.cantidad}"></td>
-									<td text="${in.idunidadmedida}"></td>
-									<td text="${in.color}"></td>
-									<td text="${in.tamanio}"></td>
+								{% for insumo in object_list %}
+								<tr>																	
+									<td>{{insumo.name}}</td>
+									<td>{{insumo.stock}}</td>
+									<td>{{insumo.size}}</td>
+									<td>{{insumo.color}}</td>
+									<td>{{insumo.color}}</td>
 									<td>
 										<a href="@{/insumo/editar/} + ${in.idinsumo}" >
 											<button type="button" class="btn btn-success" >
 												Editar
 											</button>
-										</a>
-										
+										</a>										
 									</td>
-									<td>
-										
+									<td>										
 										<a href="@{/insumo/eliminar/} + ${in.idinsumo}">
 											<button type="button" class="btn btn-danger" >
 												Eliminar
@@ -207,8 +119,10 @@
 										</a>
 									</td>
 								</tr>
+								{% endfor %}
 							</tbody>
 						</table>
+						{% include 'supplies/CreateSupplies.html' %}
 						<div class="d-flex justify-content-around bg mb-3">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#create">
