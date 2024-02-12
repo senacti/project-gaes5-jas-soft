@@ -23,7 +23,7 @@ class Product(models.Model):
     state = models.CharField(default='Selecciona', max_length=40, choices=STATE_CHOICES, help_text='Seleccione el estado', verbose_name="Estado")
 
     CATEGORY_CHOICES = [
-            ('selecciona', 'selecciona'),
+            ('selecciona', 'Selecciona'),
             ('Portacomidas', 'Portacomidas'),
             ('Ganchos', 'Ganchos'),
             ('Envases', 'Envases'),

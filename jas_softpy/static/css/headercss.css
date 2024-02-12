@@ -1,0 +1,19 @@
+.dash{
+    background-color: #092CA0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title-index{
+    font-size: 250%;
+    font-weight: bold;
+    color: #ffffff;
+    margin-right: 5%;
+}
+
+.logo-index{
+    margin-left: 5%;
+    width: 7%;
+    height: 7%;
+}
