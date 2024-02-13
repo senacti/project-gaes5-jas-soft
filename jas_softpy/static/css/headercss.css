@@ -17,3 +17,21 @@
     width: 7%;
     height: 7%;
 }
+
+.navbar-nav {
+    margin: auto;
+    margin-left: 20%;
+}
+
+.nav-link {
+    white-space: nowrap;
+    color: #ffffff; /* Color blanco por defecto */
+}
+
+.nav-link:hover {
+    color: #ffff00; /* Color amarillo al pasar el mouse */
+}
+
+.navbar-nav > li {
+    margin-right: 400px;
+}
