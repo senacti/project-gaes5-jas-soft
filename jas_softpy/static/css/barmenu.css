@@ -1,0 +1,16 @@
+.barmenu {
+    background-color: #092CA0; /* Color de fondo */
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.barmenu h3 {
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.nav-link {
+    color: #ffffff; /* Color de texto blanco */
+}
+
+.nav-link:hover {
+    color: #000; /* Cambiar color al pasar el mouse */
+}

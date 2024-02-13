@@ -27,12 +27,6 @@ a {
     width: 150px;
 }
 
-.cabecera {
-    padding: 15px;
-    display: flex;
-    justify-content: space-between;
-}
-
 .barra-busqueda {
     width: 45rem;
     height: 2rem;
@@ -182,4 +176,33 @@ a {
 .imglogin{
     width: 100px;
     height: 200px;
+}
+
+.cabecera {
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #092CA0 !important;
+
+}
+
+.logo-container {
+    margin-right: 20px; /* Ajusta el margen como desees */
+}
+
+.otros-elementos {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo para el texto del usuario */
+#navbarDropdown span {
+    color: #ffffff; /* Color blanco */
+    font-size: 24px; /* Tamaño de fuente más grande */
+}
+
+/* Cambiar color del texto al pasar el mouse por encima */
+#navbarDropdown:hover span {
+    color: #000000; /* Cambiar a color rojo al pasar el mouse */
 }

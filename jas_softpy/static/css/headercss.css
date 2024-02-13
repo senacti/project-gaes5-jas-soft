@@ -6,7 +6,7 @@
 }
 
 .title-index{
-    font-size: 250%;
+    font-size: 250% !important;
     font-weight: bold;
     color: #ffffff;
     margin-right: 5%;
@@ -16,4 +16,26 @@
     margin-left: 5%;
     width: 7%;
     height: 7%;
+}
+
+.navbar-nav {
+    margin: auto;
+    margin-left: 20%;
+}
+
+.nav-link {
+    white-space: nowrap;
+    color: #ffffff !important; 
+}
+
+.nav-link:hover {
+    color: #092CA0 !important; 
+}
+
+.dropdown-item:hover {
+    color: #092CA0 !important;
+}
+
+.navbar-nav > li {
+    margin-right: 400px;
 }
