@@ -1,6 +1,6 @@
 from typing import Any
 from django.views.generic.list import ListView
-from django.db.models.functions import TruncDate
+from django.db.models.functions import TruncDate,TruncMonth
 from django.template.loader import get_template
 
 import os
@@ -81,12 +81,19 @@ class ProductionListView(ListView):
 
                 daily_production = ProductionOrder.objects.annotate(date=TruncDate('Production_OrderDate')).values('date').annotate(total_quantity=Sum('quantity_used'))
 
-                labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
-                data = [entry['total_quantity'] for entry in daily_production]
+                daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
+                daily_data = [entry['total_quantity'] for entry in daily_production]
 
-                context['chart_labels'] = labels
-                context['chart_data'] = data
-                
+                monthly_production = ProductionOrder.objects.annotate(month=TruncMonth('Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
+
+                monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
+                monthly_data = [entry['total_quantity'] for entry in monthly_production]
+
+                context['daily_chart_labels'] = daily_labels
+                context['daily_chart_data'] = daily_data
+                context['monthly_chart_labels'] = monthly_labels
+                context['monthly_chart_data'] = monthly_data
+
                 return context
                        
 class SuppliesListView(ListView):
