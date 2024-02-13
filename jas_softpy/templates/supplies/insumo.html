@@ -9,6 +9,7 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/barmenu.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,53 +27,52 @@
 
 <body>
 
-	<header class="dash-menu">
-		<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
-		<a class="nav-link" href="@{/}">INICIO</a>
+	<header class="cabecera">
+		<div class="logo-container">
+			<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+		</div>
 		<ul class="list-menu-ul">
-			<li class="list-menu-dash" style="margin-right: -10px"> <img class="img-menu-dash"
-					src="{% static 'img/campana.png' %}" alt="Campana"> </li>
-			<li class="nav-item dropdown" style="margin-right: -200px;">
+			<li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana"> </li>
+			
+			<li class="nav-item dropdown">
 				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-					aria-haspopup="true" aria-expanded="false" v-pre>
-					<span sec:authentication="principal.username"></span>
-				</a>
+				aria-haspopup="true" aria-expanded="false" v-pre>
+				<span>{{ user.username }}</span>
+			</a>
 				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
 					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
+									document.getElementById('logout-form').submit();">
 						Cerrar sesión
 					</a>
-
 					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
 					</form>
 				</div>
 			</li>
 		</ul>
-		<li class="list-menu-dash"> <img class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt="">
-		</li>
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-2 barmenu">                
-                <p></p>
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'home' %}">MENU</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ordenpedido' %}">PRODUCCION</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
-                    </li>
-                </ul>
-            </div>
+			<div class="col-2 barmenu">
+				<h3 class="mt-4">PROMOPLAST</h3>
+				<p></p>
+				<ul class="nav nav-pills flex-column">
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'home' %}">MENU</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ordenpedido' %}">PRODUCCION</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="{% url 'rrhh' %}">GESTION P.</a>
+					</li>
+				</ul>
+			</div>
 			<div class="col-10" id="contentd">
 				<div class="card" id="cardash">
 					<nav class="descrip-menu">

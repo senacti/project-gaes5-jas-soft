@@ -183,7 +183,8 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #092CA0;
+    background-color: #092CA0 !important;
+
 }
 
 .logo-container {
@@ -193,4 +194,15 @@ a {
 .otros-elementos {
     display: flex;
     align-items: center;
+}
+
+/* Estilo para el texto del usuario */
+#navbarDropdown span {
+    color: #ffffff; /* Color blanco */
+    font-size: 24px; /* Tamaño de fuente más grande */
+}
+
+/* Cambiar color del texto al pasar el mouse por encima */
+#navbarDropdown:hover span {
+    color: #000000; /* Cambiar a color rojo al pasar el mouse */
 }
