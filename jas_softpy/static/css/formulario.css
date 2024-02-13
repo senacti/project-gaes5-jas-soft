@@ -93,7 +93,7 @@ header a,h2{
 }
 
 .form-register a:hover {
-  color: #300e8c;
+  color: #092CA0;
   text-decoration: underline;
 }
 
@@ -107,7 +107,7 @@ header a,h2{
   font-size: 16px;
 }.form-register button[type="submit"]{
       border: 0;
-      background: #300e8c;
+      background: #092CA0;
       border: 2px solid #000;
       border-radius: 15px;
       cursor: pointer;

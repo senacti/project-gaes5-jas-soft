@@ -15,7 +15,7 @@ body{
     padding: 15px;
     display: flex;
     justify-content: space-between;
-    background-color: #30508c;
+    background-color: #092CA0;
     color: #fff;
 }h1{
     margin-top: 1%;
@@ -37,7 +37,7 @@ body{
     max-width: 210px;
     padding: 30px;
     height: 250px;
-    border: 2px solid #30508c;
+    border: 2px solid #092CA0;
     text-align: center;
     margin: 0 10px;
     cursor: pointer;
@@ -93,7 +93,7 @@ body{
 .info .precio{
     font-size: 30px;
     font-weight: bold;
-    color: #30508c;
+    color: #092CA0;
     margin-bottom: 10px;
     display: block;
 }
@@ -116,7 +116,7 @@ body{
     border: none;
     padding: 0 10px;
     color: #fff;
-    background-color: #30508c;
+    background-color: #092CA0;
 }.logo-compania{
     height: 80px;
     width: 150px;
