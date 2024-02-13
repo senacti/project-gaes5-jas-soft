@@ -6,7 +6,7 @@
 }
 
 .title-index{
-    font-size: 250%;
+    font-size: 250% !important;
     font-weight: bold;
     color: #ffffff;
     margin-right: 5%;
@@ -25,11 +25,15 @@
 
 .nav-link {
     white-space: nowrap;
-    color: #ffffff; /* Color blanco por defecto */
+    color: #ffffff !important; 
 }
 
 .nav-link:hover {
-    color: #ffff00; /* Color amarillo al pasar el mouse */
+    color: #092CA0 !important; 
+}
+
+.dropdown-item:hover {
+    color: #092CA0 !important;
 }
 
 .navbar-nav > li {
