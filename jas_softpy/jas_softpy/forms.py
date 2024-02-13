@@ -3,31 +3,31 @@ from django.contrib.auth.models import User
 
 
 class RegisterForm(forms.Form):
-    username = forms.CharField(required=True, widget=forms.TextInput(attrs={
+    username = forms.CharField(label='Usuario', required=True, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'username',
-        'placeholder': 'Nombre'
+        'placeholder': 'Usuario20P'
     }))
-    last_name = forms.CharField(required=True, min_length=4, max_length=50, widget=forms.TextInput(attrs={
+    last_name = forms.CharField(label='Apellido', required=True, min_length=4, max_length=50, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'last_name',
-        'placeholder': 'Apellido'
+        'placeholder': 'Rodriguez'
     }))
-    email = forms.CharField(required=True, widget=forms.EmailInput(attrs={
+    email = forms.CharField(label='Correo', required=True, widget=forms.EmailInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'email',
-        'placeholder': 'Correo'
+        'placeholder': 'usuario@gmail.com'
     }))
-    password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={
+    password = forms.CharField(label='Contraseña', required=True, widget=forms.PasswordInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'password',
-        'placeholder': 'Contraseña'
+        'placeholder': '*********'
     }))
 
-    password2 = forms.CharField(label='Confirmar password', required=True, widget=forms.PasswordInput(attrs={
+    password2 = forms.CharField(label='Confirmar contraseña', required=True, widget=forms.PasswordInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'password-confirm',
-        'placeholder': 'Confirmar contraseña'
+        'placeholder': '*********'
     }))
 
     def clean_username(self):

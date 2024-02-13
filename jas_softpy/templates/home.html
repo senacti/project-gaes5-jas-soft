@@ -25,9 +25,9 @@
                 
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false" v-pre>
-                        <span sec:authentication="principal.username"></span>
-                    </a>
+                    aria-haspopup="true" aria-expanded="false" v-pre>
+                    <span>{{ user.username }}</span>
+                </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
                         <a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
                                         document.getElementById('logout-form').submit();">
@@ -37,7 +37,6 @@
                         </form>
                     </div>
                 </li>
-                <li class="list-menu-dash"> <img style="margin-left: -60px;" class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt=""> </li>
             </ul>
         </header>
         <nav class="descrip-menu">
