@@ -1,11 +1,14 @@
 from typing import Any
 from django.views.generic.list import ListView
+from django.db.models.functions import TruncDate
+from django.template.loader import get_template
+
 import os
 
+from django.db.models import Sum
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
-from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from .models import Supplies,ProductionOrder
@@ -62,8 +65,7 @@ class ProductionInvoicePdfView(View):
                 html, dest=response,
                 #link_callback=self.link_callback
                 )
-                        
-                
+                                        
                 if pisa_status.err:
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
                 return response        
@@ -76,13 +78,21 @@ class ProductionListView(ListView):
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
-                print(context)
+
+                daily_production = ProductionOrder.objects.annotate(date=TruncDate('Production_OrderDate')).values('date').annotate(total_quantity=Sum('quantity_used'))
+
+                labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
+                data = [entry['total_quantity'] for entry in daily_production]
+
+                context['chart_labels'] = labels
+                context['chart_data'] = data
+                
                 return context
-        
+                       
 class SuppliesListView(ListView):
         
         template_name = "supplies/insumo.html"
-        queryset = Supplies.objects.all().order_by('-name')
+        queryset = Supplies.objects.all().order_by('supplieCode')
         
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)

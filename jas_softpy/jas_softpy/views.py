@@ -179,9 +179,9 @@ def editProductionOrder(request):
     messages.success(request, '¡Orden de producción actualizada!')
     return redirect('ordenpedido')
     
-def deleteProductionOrder(request, pk):
+def deleteProductionOrder(request, id):
     
-    productionorder = ProductionOrder.objects.get(pk=pk)
+    productionorder = ProductionOrder.objects.get(pk=id)
     productionorder.delete()
     
     messages.success(request, 'Orden de producción eliminado!')
@@ -215,25 +215,24 @@ def createsupplies(request):
     return redirect('insumo')
                         
 def editsupplies(request, id):
-        supplies = Supplies.objects.get(id=id)
-        return render(request, "EditProductOrder.html", {"supplies": supplies})
+        supplies = Supplies.objects.get(pk=id)
+        return render(request, "supplies/EditSupplies.html", {"supplies": supplies})
 
 def EditSupplies(request):
     
-    stock = int(request.POST['stock'])
-    
-    supplies = ProductionOrder.objects.update(
-        stock=stock, 
-    )
+    stock = int(request.POST['stock'])    
+    supplies_id = int(request.POST['id'])
+        
+    supplies = Supplies.objects.get(id=supplies_id)
+    supplies.stock = stock
+    supplies.save()
 
     messages.success(request, '¡El insumo se ha actualizado!')
     return redirect('insumo')
     
-def deleteSupplies(request, pk):
+def deleteSupplies(request, id):
     
-    supplies = Supplies.objects.get(pk=pk)
-    supplies.delete()
-    
+    supplies = Supplies.objects.get(pk=id)
+    supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
-
     return redirect('insumo')         

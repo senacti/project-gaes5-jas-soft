@@ -21,7 +21,7 @@
 						<label for="supplies_id">Suministros</label>
 						<select id="supplies_id" name="supplies_id" class="form-control" required style="width: 50%;">
 							{% for supply in object_list %}
-								<option value="{{ supply.id }}" {% if ordenpedido.supply == supply.id %}selected{% endif %}>{{ supply.nombre }}</option>
+								<option value="{{ supply.nombre }}" {% if ordenpedido.supply == supply.id %}selected{% endif %}>{{ supply.nombre }}</option>
 							{% endfor %}
 						</select>
 					</div>	

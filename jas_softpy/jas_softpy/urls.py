@@ -29,14 +29,14 @@ urlpatterns = [
     
     path('insumo/', SuppliesListView.as_view() ,name='insumo'),
     path('supplies/create_supplies/', views.createsupplies, name='create_supplies'),
-    path('supplies/editar/<int:id>', views.editsupplies, name='edits_upplies'),
-    path('supplies/eliminar/<id>/', views.deleteSupplies, name='eliminar_orden_pedido'),
-
-    path('ordenpedido/', ProductionListView.as_view(), name='ordenpedido'),
+    path('supplies/edit/<id>/', views.editsupplies, name='edit_supplies'),
+    path('supplies/delete/<id>/', views.deleteSupplies, name='delete_supplies'),
+    
+    path('ordenpedido/', ProductionListView.as_view() ,name='ordenpedido'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
     path('production/create_production_order/', views.create_production_order, name='create_production_order'),
-    path('production/editar/<int:id>', views.editProductionOrder, name='editar_orden_pedido'),
-    path('production/eliminar/<id>/', views.deleteProductionOrder, name='eliminar_orden_pedido')
+    path('production/editar/<id>', views.editProductionOrder, name='edit_production_order'),
+    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order')
 ]
 
 if settings.DEBUG:
