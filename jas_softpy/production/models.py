@@ -48,13 +48,15 @@ class Supplies(models.Model):
 class ProductionOrder(models.Model):   
     Production_OrderDate = models.DateTimeField(auto_now_add=True, verbose_name="Fecha pedido produccion") 
     quantity_used = models.PositiveIntegerField(verbose_name="Cantidad utilizada")    
-    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE, verbose_name="Insumos")    
+    supplies = models.ManyToManyField(Supplies, verbose_name="Insumos")
 
     def save(self, *args, **kwargs):        
         if self.pk is None:
-            if self.quantity_used <= self.supplies.stock:
-                self.supplies.stock -= self.quantity_used
-                self.supplies.save()
+            total_quantity_used = sum(supply.stock for supply in self.supplies.all())
+            if total_quantity_used <= self.quantity_used:
+                for supply in self.supplies.all():
+                    supply.stock -= self.quantity_used
+                    supply.save()
             else:                
                 raise ValueError("La cantidad utilizada es mayor que el stock de insumos.")
         super().save(*args, **kwargs)

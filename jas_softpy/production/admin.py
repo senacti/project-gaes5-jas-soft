@@ -30,9 +30,18 @@ class SupplieResource(resources.ModelResource):
     
 @admin.register(ProductionOrder)
 class ProductionOrderAdmin(ImportExportModelAdmin):
-    list_display = ('Production_OrderDate', 'supplies', 'quantity_used',)
+    list_display = ('Production_OrderDate', 'display_supplies', 'quantity_used',)
     list_filter = ('Production_OrderDate',)
+    
+    def display_supplies(self, obj):
+        return ", ".join([supply.name and supply.id for supply in obj.supplies.all()])
+
+    display_supplies.short_description = 'Supplies'
     #list_display_links = ('name')
+    
+    def save_model(self, request, obj, form, change):
+        super().save_model(request, obj, form, change)        
+        obj.save()
     
 class ProductionOrderResource(resources.ModelResource):
     class Meta:

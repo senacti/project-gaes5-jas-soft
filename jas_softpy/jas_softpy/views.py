@@ -9,13 +9,18 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 
+from django.contrib.auth import logout
+from django.shortcuts import redirect
+
 from production.models import ProductionOrder, Supplies
 
 from .forms import RegisterForm
 from django.contrib import messages
 
-
-    
+def logout_view(request):
+    logout(request)
+    return redirect('index')
+        
 def home(request):
     return render(request,'home.html',{
         #context
@@ -110,7 +115,7 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     messages.success(request, 'Sesión finalizada')
-    return redirect('login.html')
+    return redirect('index')
 
 def register(request):    
 
@@ -138,23 +143,32 @@ def register(request):
 
 def create_production_order(request):
    
-    quantity_used = int(request.POST['stock'])
-    supplies_id = request.POST['supplies_id']
-    
-    current_datetime = datetime.now()
-    
-    productionorder = ProductionOrder.objects.create(
-        quantity_used=quantity_used, 
-        supplies_id=supplies_id, 
-        Production_OrderDate=current_datetime
-    )
-       
-    supplies_instance = Supplies.objects.get(id=supplies_id)
-    supplies_instance.stock -= quantity_used
-    supplies_instance.save()
+    if request.method == 'POST':
+        quantity_used = int(request.POST['quantity_used'])
+        supplies_ids = request.POST.getlist('supplies')
 
-    messages.success(request, '¡Orden de producción creada exitosamente!')
-    return redirect('ordenpedido')
+        current_datetime = datetime.now()
+
+        for supplies_id in supplies_ids:
+            supplies_instance = Supplies.objects.get(id=supplies_id)
+
+            if quantity_used <= supplies_instance.stock:
+                ProductionOrder.objects.create(
+                    quantity_used=quantity_used,
+                    supplies=supplies_instance,
+                    Production_OrderDate=current_datetime
+                )
+
+                supplies_instance.stock -= quantity_used
+                supplies_instance.save()
+            else:
+                messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
+                return redirect('ordenpedido') 
+
+        messages.success(request, '¡Orden de producción creada exitosamente!')
+        return redirect('ordenpedido') 
+
+    return render(request, 'ordenpedido')
                         
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)

@@ -3,6 +3,7 @@ from django.views.generic.list import ListView
 from django.db.models.functions import TruncDate,TruncMonth
 from django.template.loader import get_template
 
+
 import os
 
 from django.db.models import Sum
@@ -14,7 +15,6 @@ from django.contrib.staticfiles import finders
 from .models import Supplies,ProductionOrder
 
 
-        
 class ProductionInvoicePdfView(View):
     
         def link_callback(self, uri, rel):
