@@ -26,6 +26,9 @@ urlpatterns = [
     
     path('producto/', ProductListView.as_view(), name='producto'),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
+    path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
+    path('inventory/edit_inventory/<id>', views.editinventory, name = 'edit_inventory'),
+    path('inventory/delete_inventory/<id>', views.deleteinventory, name = 'delete_inventory'),
     
     path('insumo/', SuppliesListView.as_view() ,name='insumo'),
     path('supplies/create_supplies/', views.createsupplies, name='create_supplies'),

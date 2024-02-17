@@ -66,7 +66,7 @@ class InventoryInvoicePdfView(View):
 
 class ProductListView(ListView):
         
-        template_name = "producto.html"
+        template_name = "inventory/producto.html"
         queryset = Product.objects.all().order_by('-fabricationDate')
         
         def get_context_data(self, **kwargs):

@@ -9,10 +9,12 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 
+
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
 from production.models import ProductionOrder, Supplies
+from inventory.models import Product
 
 from .forms import RegisterForm
 from django.contrib import messages
@@ -249,4 +251,56 @@ def deleteSupplies(request, id):
     supplies = Supplies.objects.get(pk=id)
     supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
-    return redirect('insumo')         
+    return redirect('insumo')    
+
+def createinventory(request):
+   
+    name = request.POST['name']
+    stock = int(request.POST['stock'])
+    current_datetime = datetime.now()
+    size = request.POST['size']
+    color = request.POST['color']  
+    state = request.POST['state'] 
+    category = request.POST['category'] 
+    image = request.FILES.get('image')
+
+    inventory = Product.objects.create(
+        name = name, 
+        stock = stock, 
+        size = size,
+        color = color,
+        state = state,
+        category = category,
+        image = image,
+        fabricationDate = current_datetime 
+    )
+
+
+    
+    messages.success(request, '¡el producto se registro exitosamente!')
+    return redirect('producto')
+
+def editinventory(request, id):
+        inventory = Product.objects.get(pk=id)
+        return render(request, "inventory/editInventory.html", {"inventory": inventory})
+
+def EditInventory(request):
+    
+    stock = int(request.POST['stock'])    
+    producto_id = int(request.POST['id'])
+    state = request.POST['state']
+        
+    producto = Product.objects.get(id=producto_id)
+    producto.stock = stock
+    producto.state = state
+    producto.save()
+
+    messages.success(request, '¡El producto se ha actualizado!')
+    return redirect('producto')
+
+def deleteinventory(request, id):
+    
+    producto = Product.objects.get(pk=id)
+    producto.delete()    
+    messages.success(request, 'Producto eliminado!')
+    return redirect('producto')  
