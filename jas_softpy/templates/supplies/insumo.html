@@ -114,6 +114,7 @@
 									<td>{{insumo.color}}</td>
 									<td>{{insumo.supplieCode}}</td>
 									<td>
+										{% csrf_token %}
 										<a href="{% url 'edit_supplies' id=insumo.id %}">
 											<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit">
 												Editar
@@ -131,15 +132,15 @@
 								{% endfor %}
 							</tbody>
 						</table>
-						{% include 'supplies/CreateSupplies.html' %}
+						{% include 'supplies/CreateSupplies.html' %}						
 						
 						<div class="d-flex justify-content-around bg mb-3">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
 								data-bs-target="#create">
 								Nuevo Insumo
-							</button>							
-						</div>
-						<a href="" class="btn btn-success" target="_blank">PDF</a>
+							</button>		
+							<a href="" class="btn btn-success" target="_blank">PDF</a>					
+						</div>						
 					</div>
 				</div>
 			</div>

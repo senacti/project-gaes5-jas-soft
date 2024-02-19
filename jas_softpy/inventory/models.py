@@ -7,7 +7,7 @@ class Product(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre")   
     stock = models.IntegerField(verbose_name="Cantidad")
     fabricationDate = models.DateField(auto_now_add=True,verbose_name="Fecha de fabricación")
-    size = models.CharField(max_length=12, verbose_name="Tamaño")
+    size = models.CharField(max_length=12, verbose_name="Tamaño", help_text="1L - 25x25CM")
     color = models.CharField(max_length=20, verbose_name="Color")
     productCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
 

@@ -9,7 +9,6 @@ from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 
-
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 
@@ -178,17 +177,16 @@ def edit_production_order(request, id):
 
 def editProductionOrder(request):
     
-    quantity_used = int(request.POST['stock'])
-    
+    quantity_used = int(request.POST['stock'])    
     
     current_datetime = datetime.now()    
-    roductionorder = ProductionOrder.objects.update(
-        quantity_used=quantity_used, 
-        
+    productionorder = ProductionOrder.objects.update(
+        quantity_used=quantity_used,         
         Production_OrderDate=current_datetime
+        
     )
     
-    supplies_instance = Supplies.objects.get(id)
+    supplies_instance = Supplies.objects.get(id=id)
     supplies_instance.stock -= quantity_used
     supplies_instance.save()
 
@@ -251,7 +249,7 @@ def deleteSupplies(request, id):
     supplies = Supplies.objects.get(pk=id)
     supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
-    return redirect('insumo')    
+    return redirect('insumo')         
 
 def createinventory(request):
    

@@ -68,23 +68,26 @@ class ProductionInvoicePdfView(View):
                                         
                 if pisa_status.err:
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-                return response        
+                return response         
 
 class ProductionListView(ListView):
-        
         template_name = "production/ordenpedido.html"
-        queryset = ProductionOrder.objects.all().order_by('-Production_OrderDate')
-        
+        model = ProductionOrder
+        context_object_name = 'production_orders'
+
+        def get_queryset(self):
+                return ProductionOrder.objects.annotate(max_date=Max('supplieproduction__Production_OrderDate')).order_by('-max_date')
+
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
 
-                daily_production = ProductionOrder.objects.annotate(date=TruncDate('Production_OrderDate')).values('date').annotate(total_quantity=Sum('quantity_used'))
+                daily_production = ProductionOrder.objects.annotate(date=TruncDate('supplieproduction__Production_OrderDate')).values('date').annotate(total_quantity=Sum('quantity_used'))
 
                 daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
                 daily_data = [entry['total_quantity'] for entry in daily_production]
 
-                monthly_production = ProductionOrder.objects.annotate(month=TruncMonth('Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
+                monthly_production = ProductionOrder.objects.annotate(month=TruncMonth('supplieproduction__Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
 
                 monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
                 monthly_data = [entry['total_quantity'] for entry in monthly_production]
@@ -93,6 +96,17 @@ class ProductionListView(ListView):
                 context['daily_chart_data'] = daily_data
                 context['monthly_chart_labels'] = monthly_labels
                 context['monthly_chart_data'] = monthly_data
+
+                production_orders = context['production_orders']
+                supplies_info = []
+
+                for production_order in production_orders:
+                        supplies_info.append({
+                                'order_id': production_order.id,
+                                'supplies': production_order.supplies.all(), 
+                        })
+
+                context['supplies_info'] = supplies_info
 
                 return context
                        

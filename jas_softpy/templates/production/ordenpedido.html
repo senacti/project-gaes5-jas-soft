@@ -105,7 +105,8 @@
 										<td>{{ OP.supplies }}</td> 
 										<td>
 											<a href="{% url 'edit_production_order' OP.id %}">
-												<button type="button" class="btn btn-success">
+												<button type="button" class="btn btn-success" data-bs-toggle="modal"
+												data-bs-target="#edit">
 													Editar
 												</button>
 											</a>
@@ -120,7 +121,7 @@
 							</tbody>
 						</table>
 						{% include 'production/create_productionorder.html' %}
-						
+						{% include 'production/EditProductOrder.html' %}
 						<div class="button-new">
 							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                 data-bs-target="#create">								
