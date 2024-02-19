@@ -5,7 +5,8 @@ from typing import Self
 from django import forms
 from django.db import models
 from datetime import datetime
-
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from django.forms import model_to_dict
 
@@ -67,25 +68,21 @@ class ProductionOrder(models.Model):
         db_table = "ordenproduccion"
         ordering = ['id']
         
-class SupplieProduction(models.Model):
-    production_order = models.ForeignKey(ProductionOrder, on_delete=models.CASCADE)
-    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE)
+class SupplieProduction(models.Model):        
     Production_OrderDate = models.DateTimeField(auto_now_add=True, verbose_name="Orden de produccion")     
     quantity = models.IntegerField(default=1)
-    
-    def save(self, *args, **kwargs):
-        print("Entro al método save de SupplieProduction --------------------------------------------------------")
-        if not self.pk:
-            total_quantity_used = SupplieProduction.objects.filter(production_order=self.production_order).aggregate(total_quantity=models.Sum('quantity'))['total_quantity'] or 0
-            print(f"Total quantity used: {total_quantity_used}")
-            print(f"Quantity to be used: {self.quantity}")
-            print(f"Total supplies count: {self.production_order.supplies.count()}")
-            print("Entro al if --------------------------------------------------------")
-            if total_quantity_used + self.quantity <= self.production_order.supplies.count():
-                print("Antes de decrease_stock")
-                self.supplies.decrease_stock(self.quantity)
-                print("Después de decrease_stock")
-            else:
-                raise ValueError(f"La cantidad utilizada ({total_quantity_used + self.quantity}) es mayor que la cantidad total en insumos ({self.production_order.supplies.count()}).")
+    production_order = models.ForeignKey(ProductionOrder, on_delete=models.CASCADE)
+    supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE)
 
-        super().save(*args, **kwargs)
+@receiver(post_save, sender=SupplieProduction)
+def decrease_stock(sender, instance, **kwargs):
+
+    supplies = instance.supplies
+    quantity = instance.quantity
+
+    try:
+        supplies.decrease_stock(quantity)
+    except ValueError as e:
+        # Handle the exception as needed (e.g., log or raise a ValidationError)
+        print(e)     
+    

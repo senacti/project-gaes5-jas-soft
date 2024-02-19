@@ -260,7 +260,7 @@ def createinventory(request):
     color = request.POST['color']  
     state = request.POST['state'] 
     category = request.POST['category'] 
-    image = request.FILES.get('image')
+    show_image = request.FILES.get('show_image')
 
     inventory = Product.objects.create(
         name = name, 
@@ -269,11 +269,9 @@ def createinventory(request):
         color = color,
         state = state,
         category = category,
-        image = image,
+        show_image = show_image,
         fabricationDate = current_datetime 
     )
-
-
     
     messages.success(request, '¡el producto se registro exitosamente!')
     return redirect('producto')
