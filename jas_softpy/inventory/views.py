@@ -65,16 +65,14 @@ class InventoryInvoicePdfView(View):
                 return response
 
 class ProductListView(ListView):
-        
-        template_name = "inventory/producto.html"
-        queryset = Product.objects.all().order_by('-fabricationDate')
-        
-        def get_context_data(self, **kwargs):
-                context = super().get_context_data(**kwargs)
-                context['message'] = 'INVENTARIO | PRODUCTOS'
-                print(context)
-                return context
+    template_name = "inventory/producto.html"
+    queryset = Product.objects.exclude(image__isnull=True).order_by('-fabricationDate')
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'INVENTARIO | PRODUCTOS'
+        print(context)
+        return context
 # Create your views here.
 
 

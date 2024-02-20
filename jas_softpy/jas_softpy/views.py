@@ -252,26 +252,26 @@ def deleteSupplies(request, id):
     return redirect('insumo')         
 
 def createinventory(request):
-   
-    name = request.POST['name']
-    stock = int(request.POST['stock'])
-    current_datetime = datetime.now()
-    size = request.POST['size']
-    color = request.POST['color']  
-    state = request.POST['state'] 
-    category = request.POST['category'] 
-    show_image = request.FILES.get('show_image')
+    if request.method == 'POST':     
+        name = request.POST.get('name')
+        stock = request.POST.get('stock')
+        current_datetime = datetime.now()
+        size = request.POST.get('size')
+        color = request.POST.get('color')
+        state = request.POST.get('state')
+        category = request.POST.get('category')
+        image = request.FILES.get('image')
 
-    inventory = Product.objects.create(
-        name = name, 
-        stock = stock, 
-        size = size,
-        color = color,
-        state = state,
-        category = category,
-        show_image = show_image,
-        fabricationDate = current_datetime 
-    )
+        inventory = Product.objects.create(
+            name = name, 
+            stock = stock, 
+            size = size,
+            color = color,
+            state = state,
+            category = category,
+            image = image,
+            fabricationDate = current_datetime 
+        )
     
     messages.success(request, '¡el producto se registro exitosamente!')
     return redirect('producto')

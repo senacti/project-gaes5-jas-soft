@@ -128,9 +128,14 @@
                                         <td>{{Product.state}}</td> 
                                         <td>{{Product.category}}</td>
                                         <td>{{Product.productCode}}</td> 
-                                        <td>{{Product.show_image}}</td>                                
+                                        <td>{% if Product.image %}
+                                            {{ Product.show_image }}
+                                            {% else %}
+                                                Sin imagen
+                                            {% endif %}
+                                        </td>                                
                                         <td>
-                                            <a href="@{/producto/editar/} + ${in.idproducto}" >
+                                            <a href="{% url 'edit_inventory' Product.id %}" >
                                                 <button type="button" class="btn btn-success" >
                                                     Editar
                                                 </button>
