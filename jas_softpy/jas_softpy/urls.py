@@ -13,17 +13,18 @@ urlpatterns = [
     path('home/', views.home, name='home'),   
     path('ventas/', views.ventas, name='ventas'),
     path('rrhh/', views.rrhh, name='rrhh'),
-    path('Postulacion/', views.Postulacion, name='Postulacion'),
     path('sugerencias/', views.sugerencias, name='sugerencias'),        
     path('sales/', views.sales, name='sales'),
     path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_jas'),
     path('logout/', views.logout_view, name='logout'),
-    path('', views.index, name='index'),          
-       
+    path('', views.index, name='index'),     
+
+    path('Postulacion/', views.postulacion, name='Postulacion'),  
+
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
-    
+   
     path('producto/', ProductListView.as_view(), name='producto'),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),

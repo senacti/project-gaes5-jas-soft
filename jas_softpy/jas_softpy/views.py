@@ -42,8 +42,8 @@ def rrhh(request):
         #context
     })
 
-def Postulacion(request):
-    return render(request,'Postulacion.html',{
+def postulacion(request):
+    return render(request,'postulation/Postulacion.html',{
         #context
     })
 
