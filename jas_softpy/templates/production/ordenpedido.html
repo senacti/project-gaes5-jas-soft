@@ -98,23 +98,22 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for OP in object_list %}
-									<tr>												
-										<td>{{ OP.Production_OrderDate }}</td>
-										<td>{{ OP.quantity_used }}</td>
-										<td>{{ OP.supplies }}</td> 
+								{% for sup_production in object_list %}
+									<tr>                                                            
+										<td>{{ sup_production.production_order.Production_OrderDate }}</td>
+										<td>{{ sup_production.production_order.quantity }}</td>
+										<td>{{ sup_production.supplies.name }}</td>
 										<td>
-											<a href="{% url 'edit_production_order' OP.id %}">
-												<button type="button" class="btn btn-success" data-bs-toggle="modal"
-												data-bs-target="#edit">
+											<a href="{% url 'edit_production_order' sup_production.production_order.id %}">
+												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit">
 													Editar
 												</button>
 											</a>
-											<a href="{% url 'delete_production_order' OP.id %}">
+											<a href="{% url 'delete_production_order' sup_production.production_order.id %}">
 												<button type="button" class="btn btn-danger">
 													Eliminar
 												</button>
-											</a>								
+											</a>                                
 										</td>
 									</tr>
 								{% endfor %}

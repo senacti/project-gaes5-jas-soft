@@ -18,7 +18,7 @@ class Supplies(models.Model):
     size = models.CharField(max_length=12, verbose_name="Tamaño")
     color = models.CharField(max_length=20, verbose_name="Color")       
 
-    supplieCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
+    supplieCode = models.CharField(max_length=20, null=True, blank=True, editable=False, verbose_name="Código")
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -44,11 +44,11 @@ class Supplies(models.Model):
     def toJSON(self):
         item = model_to_dict(self)
         item['name'] = self.name.toJSON()
-        item['stock'] = format(self.stock, '.2f')
-        item['size'] =  self.size.toJSON()
+        item['stock'] = self.stock
+        item['size'] = self.size.toJSON()
         item['color'] = self.color.toJSON()
         item['det'] = [i.toJSON() for i in self.detsupplie_set.all()]
-        return item        
+        return item   
         
     class Meta:
         verbose_name = "Insumo"

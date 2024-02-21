@@ -3,16 +3,15 @@ from django.views.generic.list import ListView
 from django.db.models.functions import TruncDate,TruncMonth
 from django.template.loader import get_template
 
-
 import os
 
-from django.db.models import Sum
+from django.db.models import Sum,Max
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
-from .models import Supplies,ProductionOrder
+from .models import Supplies,ProductionOrder,SupplieProduction
 
 
 class ProductionInvoicePdfView(View):
@@ -72,22 +71,22 @@ class ProductionInvoicePdfView(View):
 
 class ProductionListView(ListView):
         template_name = "production/ordenpedido.html"
-        model = ProductionOrder
+        model = SupplieProduction
         context_object_name = 'production_orders'
 
-        def get_queryset(self):
-                return ProductionOrder.objects.annotate(max_date=Max('supplieproduction__Production_OrderDate')).order_by('-max_date')
-
+        def get_queryset(self):                
+                return SupplieProduction.objects.annotate(max_date=Max('supplieproduction__Production_OrderDate')).order_by('-max_date')    
+                
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
 
-                daily_production = ProductionOrder.objects.annotate(date=TruncDate('supplieproduction__Production_OrderDate')).values('date').annotate(total_quantity=Sum('quantity_used'))
+                daily_production = SupplieProduction.objects.annotate(date=TruncDate('supplieproduction__Production_OrderDate')).values('date').annotate(total_quantity=Sum('supplieproduction__quantity'))               
 
                 daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
                 daily_data = [entry['total_quantity'] for entry in daily_production]
 
-                monthly_production = ProductionOrder.objects.annotate(month=TruncMonth('supplieproduction__Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
+                monthly_production = SupplieProduction.objects.annotate(month=TruncMonth('supplieproduction__Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
 
                 monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
                 monthly_data = [entry['total_quantity'] for entry in monthly_production]

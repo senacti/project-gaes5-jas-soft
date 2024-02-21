@@ -14,7 +14,7 @@ urlpatterns = [
     path('ventas/', views.ventas, name='ventas'),
     path('rrhh/', views.rrhh, name='rrhh'),
     path('sugerencias/', views.sugerencias, name='sugerencias'),        
-    path('sales/', views.sales, name='sales'),
+    
     path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_jas'),
@@ -22,8 +22,9 @@ urlpatterns = [
     path('', views.index, name='index'),     
 
     path('Postulacion/', views.postulacion, name='Postulacion'),  
-
-    path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
+    
+    path('sales/', views.sales, name='sales'),
+    path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),    
    
     path('producto/', ProductListView.as_view(), name='producto'),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   

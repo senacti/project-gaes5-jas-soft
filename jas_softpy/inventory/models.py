@@ -71,10 +71,10 @@ class Flow(models.Model):
     
     def __str__(self):
         product_Code = self.Product.productCode if self.Product else None
-        supplies_code = self.supplies.suppliesCode if self.supplies else None
+        supplies_code = self.supplies.supplieCode if self.supplies else None
 
-        return f"{self.FlowType} - Producto: {product_Code}, Suministro: {supplies_code}"            
-    
+        return f"{self.FlowType} - Producto: {product_Code}, Suministro: {supplies_code}"
+
     class Meta:
         verbose_name = "Flujo"
         verbose_name_plural = "Flujos"
