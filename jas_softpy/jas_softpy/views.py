@@ -8,9 +8,12 @@ from django.template.loader import get_template
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
+from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from production.views import SuppliesListView
 
 from production.models import ProductionOrder, Supplies
 from inventory.models import Product
@@ -175,8 +178,7 @@ def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
         return render(request, "EditProductOrder.html", {"productionorder": productionorder})
 
-def editProductionOrder(request):
-    
+def editProductionOrder(request):    
     quantity_used = int(request.POST['stock'])    
     
     current_datetime = datetime.now()    
@@ -227,21 +229,24 @@ def createsupplies(request):
     
     messages.success(request, '¡el isumo se registro exitosamente!')
     return redirect('insumo')
-                        
+
 def editsupplies(request, id):
-        supplies = Supplies.objects.get(pk=id)
-        return render(request, "supplies/EditSupplies.html", {"supplies": supplies})
-
-def EditSupplies(request):
+    supplies = Supplies.objects.get(id=id)
+    return render(request, "supplies/EditSupplies.html", {"Supplies":supplies})
     
-    stock = int(request.POST['stock'])    
-    supplies_id = int(request.POST['id'])
-        
-    supplies = Supplies.objects.get(id=supplies_id)
-    supplies.stock = stock
-    supplies.save()
+@require_POST
+def EditSupplies(request, id):
+    if request.method == 'POST':
+        supplies = get_object_or_404(Supplies, id=id)
+        supplies.name = request.POST.get('name', '')
+        supplies.stock = int(request.POST.get('stock', 0))
+        supplies.size = request.POST.get('size', '')
+        supplies.color = request.POST.get('color', '')       
+        supplies.save()
+        messages.success(request, '¡El insumo se ha actualizado!')
+    else:
+        messages.error(request, 'La solicitud no es válida.')
 
-    messages.success(request, '¡El insumo se ha actualizado!')
     return redirect('insumo')
     
 def deleteSupplies(request, id):
@@ -277,21 +282,24 @@ def createinventory(request):
     return redirect('producto')
 
 def editinventory(request, id):
-        inventory = Product.objects.get(pk=id)
-        return render(request, "inventory/editInventory.html", {"inventory": inventory})
+    producto = Product.objects.get(id=id)    
+    return render(request, "inventory/editInventory.html", {"Product":producto})
 
-def EditInventory(request):
+@require_POST
+def EditInventory(request, id):       
+    if request.method == 'POST':
+        producto = get_object_or_404(Product, id=id)
+        producto.name = request.POST.get('name','')
+        producto.stock = int(request.POST.get('stock', 0)) 
+        producto.size = request.POST.get('size', '')
+        producto.color = request.POST.get('color', '')
+        producto.state = request.POST.get('state', '')
+        producto.category = request.POST.get('category', '')     
+        producto.save()
+        messages.success(request, '¡El producto se ha actualizado!')
+    else:
+        messages.error(request, '¡La solicitud no es valida!')
     
-    stock = int(request.POST['stock'])    
-    producto_id = int(request.POST['id'])
-    state = request.POST['state']
-        
-    producto = Product.objects.get(id=producto_id)
-    producto.stock = stock
-    producto.state = state
-    producto.save()
-
-    messages.success(request, '¡El producto se ha actualizado!')
     return redirect('producto')
 
 def deleteinventory(request, id):

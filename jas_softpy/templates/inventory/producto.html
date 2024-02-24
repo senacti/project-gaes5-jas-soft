@@ -135,8 +135,10 @@
                                             {% endif %}
                                         </td>                                
                                         <td>
+                                            {% include 'inventory/editInventory.html' %}
+                                            {% csrf_token %}
                                             <a href="{% url 'edit_inventory' Product.id %}" >
-                                                <button type="button" class="btn btn-success" >
+                                                <button type="button" onclick="abrirmodal('{{ Product.id }}')" class="btn btn-success"  data-bs-target="#editarProductModal_{{ Product.id }}">
                                                     Editar
                                                 </button>
                                             </a>
@@ -207,8 +209,8 @@
                 alert(id);
             }
 
-            function abrirmodal() {
-                $('#editar').show();
+            function abrirmodal(id) {
+                $('#editarProductModal' + id).modal('show');
             }
 
             function obtenerFechaActual() {
