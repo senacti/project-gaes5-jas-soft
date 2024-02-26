@@ -106,9 +106,15 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            login(request, user)
-            messages.success(request, 'Bienvenido {}'.format(user.username))
-            return redirect('admin:index')
+            if user.is_staff:
+                login(request, user)
+                messages.success(request, 'Bienvenido {}'.format(user.username))
+                return redirect('admin:index')
+            else:
+                es_staff = user.is_staff
+                login(request, user)
+                messages.success(request, 'Bienvenido {}'.format(user.username))
+                return render(request, 'home.html', {'es_staff': es_staff})
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
@@ -127,11 +133,12 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
+            first_name = form.cleaned_data['name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name)
+            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name )
             if user:
                 login(request, user)
                 messages.success(request, 'Registro exitoso')
