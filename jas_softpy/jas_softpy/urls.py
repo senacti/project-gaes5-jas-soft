@@ -42,8 +42,8 @@ urlpatterns = [
     path('ordenpedido/', ProductionListView.as_view() ,name='ordenpedido'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),
     path('production/create_production_order/', views.create_production_order, name='create_production_order'),
-    path('production/editar/<id>', views.editProductionOrder, name='edit_production_order'),
-    
+    path('production/editar/<int:id>', views.edit_production_order, name='edit_production_order'),
+    path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
     path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order')
 ]
 

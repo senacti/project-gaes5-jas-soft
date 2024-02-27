@@ -91,25 +91,32 @@
 						<table class="table table-striped" id="tablas">
 							<thead>
 								<tr>									
-									<th>Orden Produccion</th>
-									<th>Cantidad</th>									
+									<th>Fecha de Produccion</th>																		
 									<th>Insumos</th>									
+									<th>Cantidad</th>
 									<th>Funciones</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-								{% for sup_production in object_list %}
-									<tr>                                                            
-										<td>{{ sup_production.production_order.Production_OrderDate }}</td>
-										<td>{{ sup_production.production_order.quantity }}</td>
-										<td>{{ sup_production.supplies.name }}</td>
+								{% for production_order in object_list %}
+									<tr>                                                          								
+										<td>{{ production_order.order_date }}</td>
+										<td>{{ production_order.supplies }}</td>
+										<td>{{ production_order.total_quantity }}										
+											<ul>
+												{% for production_order in production_order.supplies.all %}
+													<li>{{ production_order.supplies }}</li>
+												{% endfor %}
+											</ul>
+										</td>
 										<td>
-											<a href="{% url 'edit_production_order' sup_production.production_order.id %}">
-												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit">
+											<a href="{% url 'edit_production_order' production_order.id %}">
+												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editOrderProduction">
 													Editar
 												</button>
 											</a>
-											<a href="{% url 'delete_production_order' sup_production.production_order.id %}">
+											<a href="{% url 'delete_production_order' production_order.id %}">
 												<button type="button" class="btn btn-danger">
 													Eliminar
 												</button>
@@ -202,7 +209,7 @@
         }
 
         function abrirmodal() {
-            $('#editar').show();
+            $('#editOrderProduction' + id).modal('show');
         }
 
 		function submitForm() {			

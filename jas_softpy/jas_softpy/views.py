@@ -176,21 +176,13 @@ def create_production_order(request):
                         
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
-        return render(request, "EditProductOrder.html", {"productionorder": productionorder})
+        return render(request, "EditProductOrder.html", {"ProductionOrder": productionorder})
 
-def editProductionOrder(request):    
-    quantity_used = int(request.POST['stock'])    
+def editProductionOrder(request,id):  
+    if request.metthod == 'POST':
+        productionorder = get_object_or_404(ProductionOrder, id=id)
+        productionorder.quantity_used = int(request.POST.get('quantity_used',0))
     
-    current_datetime = datetime.now()    
-    productionorder = ProductionOrder.objects.update(
-        quantity_used=quantity_used,         
-        Production_OrderDate=current_datetime
-        
-    )
-    
-    supplies_instance = Supplies.objects.get(id=id)
-    supplies_instance.stock -= quantity_used
-    supplies_instance.save()
 
     messages.success(request, '¡Orden de producción actualizada!')
     return redirect('ordenpedido')

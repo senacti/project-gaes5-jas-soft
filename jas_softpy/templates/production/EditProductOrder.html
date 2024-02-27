@@ -6,24 +6,25 @@
         <div class="modal-content">
             
             <div class="modal-header">
-                <h2>Crear Insumo</h2>
+                <h2>Crear Orden Producción</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
-            <form action="{% url 'edit_inventory' %}" class="was-validated" method="post">
+            <form action="{% if ordenpedido.id %}{% url 'create_production_order' id=ordenpedido.id%}{%endif%}" class="was-validated" method="post">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ ordenpedido.id }}"> 
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
-                        <label for="stock">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Supplies.name }}" class="form-control" placeholder="Nombre" required style="width: 50%;">
                         <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Supplies.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
+                        <input type="number" id="stock" name="stock" value="{{ ordenpedido.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
                     </div>
                     <div class="form-group">
-						<label for="stock">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Supplies.size }}" class="form-control" placeholder="Tamaño" required style="width: 50%;">
-                        <label for="stock">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Supplies.color }}" class="form-control" placeholder="color" required style="width: 50%;">
+						<label for="supplies_id">Suministros</label>
+						<select id="supplies_id" name="supplies_id" class="form-control" required style="width: 50%;">
+							{% for supply in object_list %}
+								<option value="{{ supply.id }}" {% if ordenpedido.supply == supply.id %}selected{% endif %}>{{ supply.nombre }}</option>
+							{% endfor %}
+						</select>
 					</div>	
                 </div>
                 <button type="submit" id="submitordenpedido" class="hidden"></button>
