@@ -1,8 +1,8 @@
 env/
 jas_softpy/jas_softpy/__pycache__/
 db.sqlite3
-jas_softpy/inventory/migrations/000*
-jas_softpy/postulation/migrations/000*
-jas_softpy/production/migrations/000*
-jas_softpy/sales/migrations/000*
-jas_softpy/suggestions/migrations/000*
+/jas_softpy/inventory/migrations/000*
+/jas_softpy/postulation/migrations/000*
+/jas_softpy/production/migrations/000*
+/jas_softpy/sales/migrations/000*
+/jas_softpy/suggestions/migrations/000*
