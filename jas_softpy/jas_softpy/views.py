@@ -10,10 +10,12 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from production.views import SuppliesListView
+from django.contrib.auth.models import User, Permission
+from itertools import groupby
 
 from production.models import ProductionOrder, Supplies
 from inventory.models import Product
@@ -99,7 +101,17 @@ def sales(request):
         #context
     })   
 
-def login_view(request):    
+def login_view(request):
+    ids_produccion = [29, 30, 31, 32, 37, 38, 39, 40]
+    ids_inventario = [41, 42, 43, 44, 45, 46, 47, 48]
+    ids_venta      = [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
+    ids_gestion    = [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76]
+
+    moduloProduccion = False
+    moduloInventario = False
+    moduloVenta      = False
+    moduloGestion    = False
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -111,10 +123,23 @@ def login_view(request):
                 messages.success(request, 'Bienvenido {}'.format(user.username))
                 return redirect('admin:index')
             else:
-                es_staff = user.is_staff
                 login(request, user)
-                messages.success(request, 'Bienvenido {}'.format(user.username))
-                return render(request, 'home.html', {'es_staff': es_staff})
+                permisos = obtenerPermisosUsuarioPorModulo(request)
+                
+                for permiso in permisos:
+                    if permiso in ids_produccion:
+                        moduloProduccion = True
+                        
+                    if permiso in ids_inventario:
+                        moduloInventario = True
+
+                    if permiso in ids_venta:
+                        moduloVenta = True
+
+                    if permiso in ids_gestion:
+                        moduloGestion = True
+
+                return render(request, 'home.html', {'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion})
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
@@ -314,4 +339,15 @@ def deleteinventory(request, id):
     producto = Product.objects.get(pk=id)
     producto.delete()    
     messages.success(request, 'Producto eliminado!')
-    return redirect('producto')  
+    return redirect('producto')
+
+def obtenerPermisosUsuarioPorModulo(request):
+    usuario_actual = request.user
+    permisos_usuario = usuario_actual.user_permissions.all()
+    ids_permisos = permisos_usuario.values_list('id', flat=True)
+    # Obtener los objetos Permission correspondientes a los IDs
+    permisos = Permission.objects.filter(id__in=ids_permisos)
+    # Obtener los IDs de los permisos
+    ids_permisos = permisos.values_list('id', flat=True)
+
+    return ids_permisos
