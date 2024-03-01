@@ -40,8 +40,8 @@ class ProductionOrderAdmin(ImportExportModelAdmin):
     inlines = [SupplieProductionInline]
 
     def get_production_order_date(self, obj):
-        productionorder_date = obj.supplieproduction_set.all()
-        return ", ".join([f"{productorder.Production_OrderDate}" for productorder in productionorder_date])
+        productionorder_date = obj.supplieproduction_set.first()  
+        return productionorder_date.Production_OrderDate if productionorder_date else None
 
     get_production_order_date.short_description = 'Fecha orden de produccion'
     

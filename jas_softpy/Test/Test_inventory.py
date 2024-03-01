@@ -4,7 +4,6 @@ import django
 import pytest
 from inventory.models import Product
 
-
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jas_softpy.settings')
 django.setup()
 
