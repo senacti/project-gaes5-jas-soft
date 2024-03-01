@@ -14,6 +14,7 @@ from django.shortcuts import redirect
 
 from production.models import ProductionOrder, Supplies
 from inventory.models import Product
+from postulation.models import Postulation
 
 from .forms import RegisterForm
 from django.contrib import messages
@@ -225,7 +226,7 @@ def createsupplies(request):
         color = color,
     )
     
-    messages.success(request, '¡el isumo se registro exitosamente!')
+    messages.success(request, '¡el insumo se registro exitosamente!')
     return redirect('insumo')
                         
 def editsupplies(request, id):
@@ -299,4 +300,23 @@ def deleteinventory(request, id):
     producto = Product.objects.get(pk=id)
     producto.delete()    
     messages.success(request, 'Producto eliminado!')
-    return redirect('producto')  
+    return redirect('producto')
+
+
+
+def create_postulation(request):
+
+    if request.method == 'POST':
+        start_offers = datetime.now()
+        descrip_offer = request.POST['descripOffer']
+        profile_postulation = request.POST['profilePostulation']
+        state_postulations = request.POST['StatePostulations']    
+
+        postulation = Postulation.objects.create(
+            startOffers=start_offers, 
+            descripOffer=descrip_offer, 
+            profilePostulation=profile_postulation,
+            StatePostulations=state_postulations,
+        )
+        messages.success(request, '¡La postulación se registró exitosamente!')
+        return redirect('Postulacion')

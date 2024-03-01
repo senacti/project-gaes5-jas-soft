@@ -6,168 +6,199 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/barmenu.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
-    <title>PromoPlast | Postulación</title>
+    <title>PromoPlast | Postulaciones</title>
+
+    <link rel="dns-prefetch" href="//fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+
+
 </head>
 
 <body>
 
-    <header class="dash-menu">
-        <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+    <header class="cabecera">
+        <div class="logo-container">
+            <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+        </div>
         <ul class="list-menu-ul">
-            <li class="list-menu-dash" style="margin-right: -10px"> <img class="img-menu-dash"
-                    src="{% static 'img/campana.png' %}" alt="Campana"> </li>
-            <li class="nav-item dropdown" style="margin-right: -200px;">
+            <li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana">
+            </li>
+
+            <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" v-pre>
-                    <span sec:authentication="principal.username"></span>
+                    <span>{{ user.username }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-                    <a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
-                               document.getElementById('logout-form').submit();">
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         Cerrar sesión
                     </a>
-
-                    <form id="logout-form" action="@{/logout}" method="POST" class="d-none">
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
+                        {% csrf_token %}
                     </form>
                 </div>
             </li>
         </ul>
-        <li class="list-menu-dash"> <img class="img-menu-dash-users" src="{% static 'img/usuario.png' %}" alt="">
-        </li>
     </header>
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-							<li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-							<li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-
+                <h3 class="mt-4">PROMOPLAST</h3>
+                <p></p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">MENU</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">PRODUCCIÓN</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">GESTIÓN P.</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
+                            <li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
             <div class="col-10" id="contentd">
-				<div class="card" id="cardash">
-					<div class="container mt-3">
-						<h2>{{ message }}</h2>
-						<p></p>
-						<table class="table table-striped" id="tablas">
-							<thead>
-								<tr>									
-									<th>Fecha de Oferta</th>
-									<th>Perfil de postulación</th>									
-									<th>Estado</th>									
-								</tr>
-							</thead>
-							<tbody>
-								{% for OP in object_list %}
-									<tr>												
-										<td>{{ OP.startOffers }}</td>
-										<td>{{ OP.profilePostulation }}</td>
-										<td>{{ OP.StatePostulations }}</td> 
-										<td>		
-											{% comment  %}
-											<a href="{% url 'editar_orden_pedido' OP.id %}">
-												<button type="button" class="btn btn-success">
-													Editar
-												</button>
-											</a>										
-											</a>{% endcomment %}					
-										
-										</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-						<div class="button-new">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#create">
-                                Agregar Postulación
+                <div class="card" id="cardash">
+
+                    <div class="container mt-3">
+                        <h2>Gestion de personal | Postulaciones </h2>
+                        <p></p>
+                        <h2>{{ message }}</h2>
+                        <p></p>
+                        <table class="table table-striped" id="tablas">
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Descripción Oferta</th>
+                                    <th>Perfil</th>
+                                    <th>Estado</th>
+                                    <th>Editar</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% include 'postulation/edit_postulation.html' %}
+                                {% for Postulacion in object_list %}
+                                <tr>
+                                    <td>{{Postulacion.startOffers }}</td>
+                                    <td>{{Postulacion.descripOffer }}</td>
+                                    <td>{{Postulacion.profilePostulation}}</td>
+                                    <td>{{Postulacion.StatePostulations}}</td>
+                                    <td>
+                                        {% csrf_token %}
+                                        <a href="{% url 'edit_supplies' id=postulacion.id %}">
+                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#edit">
+                                                Editar
+                                            </button>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="{% url 'delete_supplies' postulacion.id %}">
+                                            <button type="button" class="btn btn-danger">
+                                                Eliminar
+                                            </button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                        {% include 'postulation/createPostulation.html' %}
+
+                        <div class="d-flex justify-content-around bg mb-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#create_postulation">
+                                Nueva Postulación
                             </button>
-							<a class="button-excel" href="@{/postulacion/exportar/excel}">
-								Exportar a Excel
-							</a>
-						</div>
-                        <div class="text-end mt-3">
-                            <a href="{% url 'rrhh' %}" class="btn btn-secondary btn-block"
-                                style="width: 100px;">Volver</a>
+                            <a href="" class="btn btn-success" target="_blank">PDF</a>
                         </div>
-					</div>
-				</div>
-			</div>
-
-
-            <script src="{% static 'jquery-3.6.0.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'JS/jquery.dataTables.min.js' %}"></script>
-            <script type="text/javascript" src="{% static 'JS/dataTables.bootstrap.min.js' %}"></script>
-
-            <script>
-                $(document).ready(function () {
-                    $('#tablaspostu').DataTable({
-                        "language": {
-                            "lengthMenu": "Mostrar _MENU_ registros por pagina",
-                            "zeroRecords": "No se encontraron resultados en su busqueda",
-                            "searchPlaceholder": "Buscar registros",
-                            "info": "Mostrando registros de _START_ al _END_ de un total de _TOTAL_ registros",
-                            "infoEmpty": "No existen registros",
-                            "infoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "search": "Buscar:",
-                            "paginate": {
-                                "first": "Primero",
-                                "last": "Último",
-                                "next": "Siguiente",
-                                "previous": "Anterior"
-                            },
-                        }
-                    });
-                });
-            </script>
-        </div>
-    </div>
-    <footer class="footer">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12 text-center">
-                    <p class="text-light">2023 &copy; PromoPlast</p>
+                    </div>
                 </div>
             </div>
+
         </div>
-    </footer>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
+        crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function () {
+            var oTable = $("#tablas").dataTable({
+                dom: 'Bfrtip',
+
+                language: {
+                    sProcessing: "Procesando...",
+                    sLengthMenu: "Mostrar MENU",
+                    sZeroRecords: "No se encontraron resultados",
+                    sEmptyTable: "Ningún dato disponible en esta tabla",
+                    sInfo: "Mostrando del inicio al fin de total registros",
+                    sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+                    sInfoFiltered: "(filtrado de un total de MAX registros)",
+                    sInfoPostFix: "",
+                    sSearch: "Buscar:",
+                    sUrl: "",
+                    sInfoThousands: ",",
+                    sLoadingRecords: "Cargando...",
+                    oPaginate: {
+                        sFirst: "Primero",
+                        sLast: "Último",
+                        sNext: "Siguiente",
+                        sPrevious: "Anterior"
+                    },
+                    oAria: {
+                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                        sSortDescending: ": Activar para ordenar la columna de manera descendente"
+                    },
+                },
+            });
+
+        });
+
+        function mostrarid() {
+            id = document.getElementById('idpostulacion').value;
+            alert(id);
+        }
+
+        function abrirmodal() {
+            $('#edit').show();
+        }
+    </script>
 
 </body>
 
