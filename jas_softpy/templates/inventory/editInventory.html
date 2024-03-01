@@ -1,31 +1,32 @@
 <!DOCTYPE html>
 {% load static %}
 
-<div class="modal" id="create">
+<div class="modal" id="editarProductModal">
     <div class="modal-dialog">
         <div class="modal-content">
             
             <div class="modal-header">
-                <h2>Crear Producto</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h2>Crear Producto</h2>                
             </div>
             
-            <form action="{% url 'edit_inventory' Product.id %}" class="was-validated" method="post">
+            <form action="{% if Product.id %}{% url 'update_inventory' id=Product.id %}{% endif %}" class="was-validated" method="post">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Product.id }}">
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Product.name }}" class="form-control" placeholder="Nombre" required style="width: 50%;">
+                        <input type="text" id="name" name="name" value="{{ Product.name }}" readonly class="form-control" placeholder="Nombre" required style="width: 50%;">
                         <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
+                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}"  class="form-control" placeholder="Cantidad" required style="width: 50%;">
                         <label for="size">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Product.size }}" class="form-control" placeholder="Tamaño" required style="width: 50%;">
+                        <input type="text" id="size" name="size" value="{{ Product.size }}" readonly class="form-control" placeholder="Tamaño" required style="width: 50%;">
                         <label for="size">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Product.color }}" class="form-control" placeholder="Color" required style="width: 50%;">
+                        <input type="text" id="color" name="color" value="{{ Product.color }}" readonly class="form-control" placeholder="Color" required style="width: 50%;">
                     </div>
                     <div class="form-group">
 						<label for="state">Estado</label>
 						<select id="state" name="state" class="form-control" required style="width: 50%;">
+                            <option value="{{ Product.state }}">{{ Product.state }}</option>
                             <option value="selecciona">Selecciona</option>
                             <option value="Producción">Producción</option>
                             <option value="Alistamiento">Alistamiento</option>
@@ -35,23 +36,21 @@
 
                         <label for="category">Categoría</label>
 						<select id="category" name="category" class="form-control" required style="width: 50%;">
+                            <option value="{{ Product.category }}">{{ Product.category }}</option>
                             <option value="selecciona">Selecciona</option>
                             <option value="Portacomidas">Portacomidas</option>
                             <option value="Ganchos">Ganchos</option>
                             <option value="Envases">Envases</option>
                             <option value="Atomizadores">Atomizadores</option>
-						</select>
-                        <label for="id_image">Imagen producto:</label>
-                        <input type="file" name="image" id="id_image" accept="image/*" required>                      
+						</select>                                        
 					</div>	
-
                     
                 </div>
                 <button type="submit" id="submitproducto" class="hidden"></button>
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
+                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
             </form>
             

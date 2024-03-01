@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
     var dailyCtx = document.getElementById("dailyChart").getContext("2d");
-    var dailyChart = new Chart(dailyCtx, {
+    var dailyChartData = new Chart(dailyCtx, {
         type: "line",
         data: {
             labels: dailyChartLabels,
@@ -15,6 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {
@@ -39,6 +41,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }]
         },
         options: {
+            responsive: true,
+            maintainAspectRatio: false,
             scales: {
                 yAxes: [{
                     ticks: {

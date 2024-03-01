@@ -14,8 +14,8 @@
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ ordenpedido.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
+                        <label for="quantity_used">Cantidad</label>
+                        <input type="number" id="quantity_used" name="quantity_used" value="{{ ordenpedido.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
                     </div>
                     <div class="form-group">
 						<label for="supplies_id">Suministros</label>

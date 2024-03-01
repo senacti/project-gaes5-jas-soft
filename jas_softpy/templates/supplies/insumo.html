@@ -104,8 +104,7 @@
 									<th>Eliminar</th>
 								</tr>
 							</thead>
-							<tbody>
-								{% include 'supplies/EditSupplies.html' %}
+							<tbody>								
 								{% for insumo in object_list %}
 								<tr>																	
 									<td>{{insumo.name}}</td>
@@ -114,9 +113,10 @@
 									<td>{{insumo.color}}</td>
 									<td>{{insumo.supplieCode}}</td>
 									<td>
+										{% include 'supplies/EditSupplies.html' %}
 										{% csrf_token %}
-										<a href="{% url 'edit_supplies' id=insumo.id %}">
-											<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit">
+										<a href="{% url 'edit_supplies' insumo.id %}">											
+											<button type="button" onclick="abrirmodal('{{ insumo.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editSuppliesModal_{{ insumo.id }}">
 												Editar
 											</button>
 										</a>										
@@ -195,8 +195,8 @@
 			alert(id);
 		}
 
-		function abrirmodal() {
-			$('#edit').show();
+		function abrirmodal(id) {
+			$('#editSuppliesModal_' + id).modal('show');
 		}
 	</script>
 
