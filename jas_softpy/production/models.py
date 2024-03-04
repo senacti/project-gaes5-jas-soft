@@ -69,10 +69,19 @@ class ProductionOrder(models.Model):
         ordering = ['id']
         
 class SupplieProduction(models.Model):        
-    Production_OrderDate = models.DateTimeField(auto_now_add=True, verbose_name="Orden de produccion")     
+    Production_OrderDate = models.DateField(auto_now_add=True, verbose_name="Orden de produccion")       
     quantity = models.IntegerField(default=1)
     production_order = models.ForeignKey(ProductionOrder, on_delete=models.CASCADE)
     supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return str(self.id)
+    
+    class Meta:
+        verbose_name = "Insumo producción"
+        verbose_name_plural = "insumosproducciones"        
+        db_table = "insumoproduccion"
+        ordering = ['id']
 
 @receiver(post_save, sender=SupplieProduction)
 def decrease_stock(sender, instance, **kwargs):
@@ -82,7 +91,6 @@ def decrease_stock(sender, instance, **kwargs):
 
     try:
         supplies.decrease_stock(quantity)
-    except ValueError as e:
-        # Handle the exception as needed (e.g., log or raise a ValidationError)
+    except ValueError as e:        
         print(e)     
     

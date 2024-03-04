@@ -15,7 +15,7 @@ from django.contrib.auth import logout
 from django.shortcuts import redirect
 from production.views import SuppliesListView
 
-from production.models import ProductionOrder, Supplies
+from production.models import ProductionOrder, SupplieProduction, Supplies
 from inventory.models import Product
 from postulation.models import Postulation
 
@@ -147,33 +147,40 @@ def register(request):
     return render(request, 'register.html', context)
 
 def create_production_order(request):
-   
     if request.method == 'POST':
-        quantity_used = int(request.POST['quantity_used'])
-        supplies_ids = request.POST.getlist('supplies')
+        try:
+            quantity_used = int(request.POST['quantity_used[]'])
+            supplies_ids = request.POST.getlist('supplies_id[]')
 
-        current_datetime = datetime.now()
+            current_datetime = datetime.now()
 
-        for supplies_id in supplies_ids:
-            supplies_instance = Supplies.objects.get(id=supplies_id)
+            for supplies_id in supplies_ids:
+                supplies_instance = Supplies.objects.get(id=supplies_id)
 
-            if quantity_used <= supplies_instance.stock:
-                ProductionOrder.objects.create(
-                    quantity_used=quantity_used,
-                    supplies=supplies_instance,
-                    Production_OrderDate=current_datetime
-                )
+                if quantity_used <= supplies_instance.stock:
+                    production_order = ProductionOrder.objects.create()
 
-                supplies_instance.stock -= quantity_used
-                supplies_instance.save()
-            else:
-                messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
-                return redirect('ordenpedido') 
+                    SupplieProduction.objects.create(
+                        quantity=quantity_used,
+                        Production_OrderDate=current_datetime,
+                        production_order=production_order,
+                        supplies=supplies_instance
+                    )
 
-        messages.success(request, '¡Orden de producción creada exitosamente!')
-        return redirect('ordenpedido') 
+                    supplies_instance.stock -= quantity_used
+                    supplies_instance.save()
+                else:
+                    messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
+                    return redirect('ordenpedido') 
 
-    return render(request, 'ordenpedido')
+            messages.success(request, '¡Orden de producción creada exitosamente!')
+            return redirect('ordenpedido') 
+
+        except Exception as e:
+            messages.error(request, f'Error al procesar el formulario: {str(e)}')
+            return redirect('ordenpedido') 
+    else:
+        return render(request, 'ordenpedido.html')
                         
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
@@ -184,18 +191,15 @@ def editProductionOrder(request,id):
         productionorder = get_object_or_404(ProductionOrder, id=id)
         productionorder.quantity_used = int(request.POST.get('quantity_used',0))
     
-
     messages.success(request, '¡Orden de producción actualizada!')
     return redirect('ordenpedido')
     
-def deleteProductionOrder(request, id):
-    
-    productionorder = ProductionOrder.objects.get(pk=id)
+def deleteProductionOrder(request, id):    
+    productionorder = get_object_or_404(ProductionOrder, id=id)
     productionorder.delete()
+    messages.success(request, 'Orden de producción eliminada!')
     
-    messages.success(request, 'Orden de producción eliminado!')
-
-    return redirect('ordenpedido')         
+    return redirect('ordenpedido')   
 
 def save(self, *args, **kwargs):
         if not self.id:

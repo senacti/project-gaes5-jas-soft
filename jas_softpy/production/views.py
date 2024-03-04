@@ -1,11 +1,13 @@
 from typing import Any
 from django.views.generic.list import ListView
 from django.db.models.functions import TruncDate,TruncMonth
+from django.db.models import DateField
+from django.db.models.functions import Cast
+from django.db.models import Sum,Max,Count
 from django.template.loader import get_template
 
 import os
 
-from django.db.models import Sum,Max,Count
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
@@ -80,12 +82,51 @@ class ProductionListView(ListView):
                         total_quantity=Sum('quantity'),
                         supplies_count=Count('supplies'),
                 ).order_by('-order_date')
-                
+        
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data(**kwargs)
+                context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
+
+                daily_production = SupplieProduction.objects.annotate(
+                        date=TruncDate('Production_OrderDate')
+                ).values('date').annotate(
+                        total_quantity=Sum('quantity')
+                )
+
+                daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
+                daily_data = [entry['total_quantity'] for entry in daily_production]
+
+                monthly_production = SupplieProduction.objects.annotate(
+                        month=TruncMonth('Production_OrderDate')
+                ).values('month').annotate(
+                        total_quantity=Sum('quantity')
+                )
+
+                monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
+                monthly_data = [entry['total_quantity'] for entry in monthly_production]
+
+                context['daily_chart_labels'] = daily_labels
+                context['daily_chart_data'] = daily_data
+                context['monthly_chart_labels'] = monthly_labels
+                context['monthly_chart_data'] = monthly_data
+
+                production_orders = context['production_orders']
+                supplies_info = []
+
+                for production_order in production_orders:
+                        supplies_info.append({
+                                'order_id': production_order.id,
+                                'supplies': production_order.supplies.all()
+                        })
+                        
+                context['supplies_info'] = supplies_info
+                return context
         
                        
 class SuppliesListView(ListView):        
         template_name = "supplies/insumo.html"
         queryset = Supplies.objects.all().order_by('supplieCode')
+        context_object_name = 'production_orders'
         
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
@@ -107,42 +148,7 @@ class SuppliesListView(ListView):
                 context['supplies_info'] = supplies_info
 
                 return context
+
         
-        def get_context_data(self, **kwargs):
-                context = super().get_context_data(**kwargs)
-                context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
-
-                daily_production = SupplieProduction.objects.values('Production_OrderDate__date').annotate(
-                        total_quantity=Sum('quantity')
-                )
-
-                daily_labels = [entry['Production_OrderDate__date'].strftime('%Y-%m-%d') for entry in daily_production]
-                daily_data = [entry['total_quantity'] for entry in daily_production]
-
-
-                monthly_production = SupplieProduction.objects.values('Production_OrderDate__month').annotate(
-                        total_quantity=Sum('quantity')
-                )
-
-                monthly_labels = [entry['Production_OrderDate__month'].strftime('%Y-%m') for entry in monthly_production]
-                monthly_data = [entry['total_quantity'] for entry in monthly_production]
-
-                context['daily_chart_labels'] = daily_labels
-                context['daily_chart_data'] = daily_data
-                context['monthly_chart_labels'] = monthly_labels
-                context['monthly_chart_data'] = monthly_data
-
-                production_orders = context['production_orders']
-                supplies_info = []
-
-                for production_order in production_orders:
-                        supplies_info.append({
-                        'order_id': production_order.id,
-                        'supplies': production_order.supplies.all(),
-                        })
-
-                context['supplies_info'] = supplies_info
-
-                return context
+                
         
-    
