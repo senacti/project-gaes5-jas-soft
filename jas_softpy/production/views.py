@@ -1,11 +1,13 @@
 from typing import Any
 from django.views.generic.list import ListView
 from django.db.models.functions import TruncDate,TruncMonth
+from django.db.models import DateField
+from django.db.models.functions import Cast
+from django.db.models import Sum,Max,Count
 from django.template.loader import get_template
 
 import os
 
-from django.db.models import Sum,Max
 from django.views import View
 from django.http import HttpResponse
 from django.conf import settings
@@ -73,20 +75,32 @@ class ProductionListView(ListView):
         template_name = "production/ordenpedido.html"
         model = SupplieProduction
         context_object_name = 'production_orders'
-
-        def get_queryset(self):                
-                return SupplieProduction.objects.annotate(max_date=Max('supplieproduction__Production_OrderDate')).order_by('-max_date')    
-                
+        
+        def get_queryset(self):
+                return SupplieProduction.objects.annotate(
+                        order_date=TruncDate('Production_OrderDate'),
+                        total_quantity=Sum('quantity'),
+                        supplies_count=Count('supplies'),
+                ).order_by('-order_date')
+        
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
 
-                daily_production = SupplieProduction.objects.annotate(date=TruncDate('supplieproduction__Production_OrderDate')).values('date').annotate(total_quantity=Sum('supplieproduction__quantity'))               
+                daily_production = SupplieProduction.objects.annotate(
+                        date=TruncDate('Production_OrderDate')
+                ).values('date').annotate(
+                        total_quantity=Sum('quantity')
+                )
 
                 daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
                 daily_data = [entry['total_quantity'] for entry in daily_production]
 
-                monthly_production = SupplieProduction.objects.annotate(month=TruncMonth('supplieproduction__Production_OrderDate')).values('month').annotate(total_quantity=Sum('quantity_used'))
+                monthly_production = SupplieProduction.objects.annotate(
+                        month=TruncMonth('Production_OrderDate')
+                ).values('month').annotate(
+                        total_quantity=Sum('quantity')
+                )
 
                 monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
                 monthly_data = [entry['total_quantity'] for entry in monthly_production]
@@ -102,47 +116,39 @@ class ProductionListView(ListView):
                 for production_order in production_orders:
                         supplies_info.append({
                                 'order_id': production_order.id,
-                                'supplies': production_order.supplies.all(), 
+                                'supplies': production_order.supplies.all()
                         })
-
+                        
                 context['supplies_info'] = supplies_info
-
                 return context
-                       
-class SuppliesListView(ListView):
         
+                       
+class SuppliesListView(ListView):        
         template_name = "supplies/insumo.html"
         queryset = Supplies.objects.all().order_by('supplieCode')
+        context_object_name = 'production_orders'
         
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | INSUMOS'
-                print(context)
+                
+                production_orders = context['production_orders']
+                supplies_info = []
+
+                for production_order in production_orders:
+                        insumos = production_order.supplies.all()
+                        insumos_info = [{'nombre': insumo.name, 'cantidad': insumo.pivot.quantity} for insumo in insumos]
+
+                        supplies_info.append({                        
+                        'insumos': insumos_info,
+                        'order_date': production_order.order_date,
+                        'total_quantity': production_order.total_quantity,
+                        })                        
+
+                context['supplies_info'] = supplies_info
+
                 return context
+
         
+                
         
-"""      
-def editar_orden_pedido(request, pk):
-    orden_pedido = get_object_or_404(ProductionOrder, pk=pk)
-
-    if request.method == 'POST':
-        form = TuFormulario(request.POST, instance=orden_pedido)
-        if form.is_valid():
-            form.save()
-            # Puedes redirigir a alguna página de éxito o mostrar un mensaje aquí
-    else:
-        form = TuFormulario(instance=orden_pedido)
-
-    return render(request, 'production/ordenpedido.html', {'form': form})
-
-def eliminar_orden_pedido(request, pk):
-    orden_pedido = get_object_or_404(ProductionOrder, pk=pk)
-
-    if request.method == 'POST':
-        orden_pedido.delete()
-        # Puedes redirigir a alguna página de éxito o mostrar un mensaje aquí
-        return redirect('tu_nombre_de_url')  # Cambia 'tu_nombre_de_url' por la URL a la que deseas redirigir
-
-    return render(request, 'ordenpedido.html', {'orden_pedido': orden_pedido})
-"""
-    

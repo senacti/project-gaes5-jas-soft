@@ -32,8 +32,8 @@ class Product(models.Model):
     category = models.CharField( default='selecciona',  max_length=20, choices=CATEGORY_CHOICES, help_text='Seleccione la categoría', verbose_name="Categoría")
 
     image = models.ImageField(null=True, blank=True,upload_to='media',verbose_name="Imagen producto")
-    def show_image(self):
-        
+    
+    def show_image(self):        
         return format_html('<img src={} width = "50" />', self.image.url)
     
     show_image.short_description = "Imagen producto"

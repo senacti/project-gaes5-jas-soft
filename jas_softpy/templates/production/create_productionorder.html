@@ -2,7 +2,7 @@
 {% load static %}
 
 <div class="modal" id="create">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             
             <div class="modal-header">
@@ -10,22 +10,29 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
-            <form action="{% url 'create_production_order' %}" class="was-validated" method="post">
+            <form action="{% url 'create_production_order' %}" class="was-validated" method="post" id="ordenForm">
                 {% csrf_token %}
-                <div class="form-container">
-                    <div class="form-group">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ ordenpedido.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
+                <div class="form-container row">
+                    <div id="insumosContainer">                        
+                        <div class="form-group insumo-container col-4">
+                            <label for="quantity_used">Cantidad</label>
+                            <input type="number" name="quantity_used[]" class="form-control" placeholder="Cantidad" required >
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="supplies_id">Suministros</label>
+                            <select name="supplies_id[]" class="form-control" required >
+                                {% for supply in object_list %}
+                                    <option value="{{ supply.id }}">{{ supply.nombre }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-						<label for="supplies_id">Suministros</label>
-						<select id="supplies_id" name="supplies_id" class="form-control" required style="width: 50%;">
-							{% for supply in object_list %}
-								<option value="{{ supply.id }}" {% if ordenpedido.supply == supply.id %}selected{% endif %}>{{ supply.nombre }}</option>
-							{% endfor %}
-						</select>
-					</div>	
+
+                    <button type="button" onclick="agregarInsumo()">
+                        <img src="{% static 'img/agregar.png' %}"> 
+                    </button>
                 </div>
+                
                 <button type="submit" id="submitordenpedido" class="hidden"></button>
                 
                 <div class="modal-footer">
@@ -33,6 +40,31 @@
                     <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
                 </div>
             </form>
+
+            <script>
+                function agregarInsumo() {
+                    var container = document.getElementById('insumosContainer');
+                    var div = document.createElement('div');
+                    div.className = 'form-group insumo-container';
+
+                    div.innerHTML = `
+                    <div class="form-group insumo-container col-4">
+                        <label for="quantity_used">Cantidad</label>
+                        <input type="number" name="quantity_used[]" class="form-control" placeholder="Cantidad" required >
+                    </div>
+                    <div class="form-group insumo-container col-4">
+                        <label for="supplies_id">Suministros</label>
+                        <select name="supplies_id[]" class="form-control" required >
+                            {% for supply in object_list %}
+                                <option value="{{ supply.id }}">{{ supply.nombre }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    `;
+
+                    container.appendChild(div);
+                }
+            </script>
             
         </div>
     </div>
