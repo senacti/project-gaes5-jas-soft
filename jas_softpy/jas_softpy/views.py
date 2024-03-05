@@ -23,13 +23,51 @@ from inventory.models import Product
 from .forms import RegisterForm
 from django.contrib import messages
 
+# Se declaran variables globales
+MODULO_PRODUCCION = ['add_productionorder', 'change_productionorder', 'delete_productionorder', 'view_productionorder', 
+                         'add_supplies', 'change_supplies', 'delete_supplies', 'view_supplies',
+                         'add_supplieproduction', 'change_supplieproduction', 'delete_supplieproduction', 'view_supplieproduction']
+    
+MODULO_INVENTARIO = ['add_product', 'change_product', 'delete_product', 'view_product', 
+                        'add_flow', 'change_flow', 'delete_flow', 'view_flow']
+
+MODULO_VENTA      = ['add_purchaseorder', 'change_purchaseorder', 'delete_purchaseorder', 'view_purchaseorder', 
+                        'add_pays', 'change_pays', 'delete_pays', 'view_pays', 
+                        'add_sales', 'change_sales', 'delete_sales', 'view_sales']
+
+MODULO_GESTION    = ['add_employed', 'change_employed', 'delete_employed', 'view_employed',
+                        'add_postulation', 'change_postulation', 'delete_postulation', 'view_postulation',  
+                        'add_contract', 'change_contract', 'delete_contract', 'view_contract', 
+                        'add_scheduling', 'change_scheduling', 'delete_scheduling', 'view_scheduling']
+
 def logout_view(request):
     logout(request)
     return redirect('index')
         
 def home(request):
-    return render(request,'home.html',{
-        #context
+
+    moduloProduccion = False
+    moduloInventario = False
+    moduloVenta      = False
+    moduloGestion    = False
+
+    nombres_permisos = obtenerPermisosUsuarioPorModulo(request)
+    
+    for nombre_permiso in nombres_permisos:
+        if nombre_permiso in MODULO_PRODUCCION:
+            moduloProduccion = True
+            
+        if nombre_permiso in MODULO_INVENTARIO:
+            moduloInventario = True
+
+        if nombre_permiso in MODULO_VENTA:
+            moduloVenta = True
+
+        if nombre_permiso in MODULO_GESTION:
+            moduloGestion = True
+
+    return render(request, 'home.html', {
+        'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion
     })
 
 def producto(request):
@@ -102,16 +140,6 @@ def sales(request):
     })   
 
 def login_view(request):
-    ids_produccion = [29, 30, 31, 32, 37, 38, 39, 40]
-    ids_inventario = [41, 42, 43, 44, 45, 46, 47, 48]
-    ids_venta      = [49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60]
-    ids_gestion    = [61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76]
-
-    moduloProduccion = False
-    moduloInventario = False
-    moduloVenta      = False
-    moduloGestion    = False
-
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -124,22 +152,8 @@ def login_view(request):
                 return redirect('admin:index')
             else:
                 login(request, user)
-                permisos = obtenerPermisosUsuarioPorModulo(request)
+                return home(request)
                 
-                for permiso in permisos:
-                    if permiso in ids_produccion:
-                        moduloProduccion = True
-                        
-                    if permiso in ids_inventario:
-                        moduloInventario = True
-
-                    if permiso in ids_venta:
-                        moduloVenta = True
-
-                    if permiso in ids_gestion:
-                        moduloGestion = True
-
-                return render(request, 'home.html', {'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion})
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
@@ -344,10 +358,7 @@ def deleteinventory(request, id):
 def obtenerPermisosUsuarioPorModulo(request):
     usuario_actual = request.user
     permisos_usuario = usuario_actual.user_permissions.all()
-    ids_permisos = permisos_usuario.values_list('id', flat=True)
-    # Obtener los objetos Permission correspondientes a los IDs
-    permisos = Permission.objects.filter(id__in=ids_permisos)
-    # Obtener los IDs de los permisos
-    ids_permisos = permisos.values_list('id', flat=True)
-
-    return ids_permisos
+    # Obtener los nombres de los permisos asociados al usuario
+    nombres_permisos = permisos_usuario.values_list('codename', flat=True)
+    
+    return nombres_permisos
