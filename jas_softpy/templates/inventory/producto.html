@@ -49,55 +49,13 @@
         
         <div class="container-fluid">
             <div class="row">
-                <div class="col-2 barmenu">
-                    <h3 class="mt-4">PROMOPLAST</h3>
-                    <p></p>
-                    <ul class="nav nav-pills flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'home' %}">MENU</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-                                <li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-                                <li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
+                
+                {% include 'menumodulos.html' %}
 
                 <div class="col-10" id="contentd">
                     <div class="card" id="cardash">
                         <div class="container mt-3">
                             <h2>{{ message }}</h2>
-                            <!--
-                            <div if=${param.exito}>
-                                <div class="alert alert-info" style="color: forestgreen;">Proceso Exitoso
-                                </div>
-                            </div>
-                            <div if=${param.error}>
-                                <div class="alert alert-danger" style="color: red;">Hubo un problema en el proceso </div>
-                            </div>
-                            <div if=${param.exitoeliminar}>
-                                <div class="alert alert-info" style="color: forestgreen;">eliminado Correctamente</div>
-                            </div>
-                            <div if=${param.erroreliminar}>
-                                <div class="alert alert-danger" style="color: red;">Hubo un problema al eliminar </div>
-                            </div>
-                            -->
                             <p></p>
                             <table class="table table-striped" id="tablas">
                                 <thead class="thead">
@@ -137,7 +95,7 @@
                                             <a href="{% url 'edit_inventory' Product.id %}" >
                                                 {% if user_permissions %}
                                                     {% for permiso in user_permissions %} 
-                                                        {% if 'change_product' == permiso %}
+                                                        {% if permiso == 'change_product' %}
                                                             <button type="button" onclick="abrirmodal('{{ Product.id }}')" class="btn btn-success"  data-bs-target="#editarProductModal_{{ Product.id }}">
                                                                 Editar
                                                             </button>
@@ -146,9 +104,15 @@
                                                 {% endif %}
                                             </a>
                                             <a href="{% url 'delete_inventory' Product.id %}">
-                                                <button type="button" class="btn btn-danger">
-                                                    Eliminar
-                                                </button>
+                                                {% if user_permissions %}
+                                                    {% for permiso in user_permissions %} 
+                                                        {% if permiso == 'delete_product' %}
+                                                            <button type="button" class="btn btn-danger">
+                                                                Eliminar
+                                                            </button>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
                                             </a>
                                         </td>
                                     </tr>
@@ -159,9 +123,8 @@
                             <div class="button-new">
                                 {% if user_permissions %}
                                     {% for permiso in user_permissions %} 
-                                        {% if 'add_product' == permiso %}
-                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                                data-bs-target="#create">
+                                        {% if permiso == 'add_product' %}
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#create">
                                                 Agregar Productos
                                             </button>
                                         {% endif %}
