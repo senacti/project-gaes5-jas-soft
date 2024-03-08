@@ -51,35 +51,8 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-							<li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-							<li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+            
+            {% include 'menumodulos.html' %}
 
             <div class="col-10" id="contentd">
 				<div class="card" id="cardash">
