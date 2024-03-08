@@ -23,51 +23,14 @@ from inventory.models import Product
 from .forms import RegisterForm
 from django.contrib import messages
 
-# Se declaran variables globales
-MODULO_PRODUCCION = ['add_productionorder', 'change_productionorder', 'delete_productionorder', 'view_productionorder', 
-                         'add_supplies', 'change_supplies', 'delete_supplies', 'view_supplies',
-                         'add_supplieproduction', 'change_supplieproduction', 'delete_supplieproduction', 'view_supplieproduction']
-    
-MODULO_INVENTARIO = ['add_product', 'change_product', 'delete_product', 'view_product', 
-                        'add_flow', 'change_flow', 'delete_flow', 'view_flow']
-
-MODULO_VENTA      = ['add_purchaseorder', 'change_purchaseorder', 'delete_purchaseorder', 'view_purchaseorder', 
-                        'add_pays', 'change_pays', 'delete_pays', 'view_pays', 
-                        'add_sales', 'change_sales', 'delete_sales', 'view_sales']
-
-MODULO_GESTION    = ['add_employed', 'change_employed', 'delete_employed', 'view_employed',
-                        'add_postulation', 'change_postulation', 'delete_postulation', 'view_postulation',  
-                        'add_contract', 'change_contract', 'delete_contract', 'view_contract', 
-                        'add_scheduling', 'change_scheduling', 'delete_scheduling', 'view_scheduling']
-
 def logout_view(request):
     logout(request)
     return redirect('index')
         
 def home(request):
 
-    moduloProduccion = False
-    moduloInventario = False
-    moduloVenta      = False
-    moduloGestion    = False
-
-    nombres_permisos = obtenerPermisosUsuarioPorModulo(request)
-    
-    for nombre_permiso in nombres_permisos:
-        if nombre_permiso in MODULO_PRODUCCION:
-            moduloProduccion = True
-            
-        if nombre_permiso in MODULO_INVENTARIO:
-            moduloInventario = True
-
-        if nombre_permiso in MODULO_VENTA:
-            moduloVenta = True
-
-        if nombre_permiso in MODULO_GESTION:
-            moduloGestion = True
-
     return render(request, 'home.html', {
-        'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion
+        #context
     })
 
 def producto(request):
@@ -349,16 +312,7 @@ def EditInventory(request, id):
     return redirect('producto')
 
 def deleteinventory(request, id):
-    
     producto = Product.objects.get(pk=id)
     producto.delete()    
     messages.success(request, 'Producto eliminado!')
     return redirect('producto')
-
-def obtenerPermisosUsuarioPorModulo(request):
-    usuario_actual = request.user
-    permisos_usuario = usuario_actual.user_permissions.all()
-    # Obtener los nombres de los permisos asociados al usuario
-    nombres_permisos = permisos_usuario.values_list('codename', flat=True)
-    
-    return nombres_permisos
