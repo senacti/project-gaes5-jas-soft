@@ -80,6 +80,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'jas_softpy.context_processors.user_permissions',
+                'jas_softpy.context_processors.obtenerPermisosUsuarioPorModulo',
             ],
         },
     },
