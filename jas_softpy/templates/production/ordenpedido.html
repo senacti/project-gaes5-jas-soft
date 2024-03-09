@@ -90,9 +90,15 @@
 												</button>
 											</a>-->
 											<a href="{% url 'delete_production_order' production_order.id %}">
-												<button type="button" class="btn btn-danger">
-													Eliminar
-												</button>
+												{% if user_permissions %}
+													{% for permiso in user_permissions %} 
+														{% if permiso == 'change_purchaseorder' %}
+															<button type="button" class="btn btn-danger">
+																Eliminar
+															</button>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
 											</a>                                
 										</td>
 									</tr>
@@ -102,10 +108,16 @@
 						{% include 'production/create_productionorder.html' %}
 						{% include 'production/EditProductOrder.html' %}
 						<div class="button-new">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#create">								
-                                Agregar Produccion
-                            </button>
+							{% if user_permissions %}
+								{% for permiso in user_permissions %} 
+									{% if permiso == 'add_purchaseorder' %}
+										<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+											data-bs-target="#create">								
+											Agregar Produccion
+										</button>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
 							<a class="button-excel" href="@{/ordenpedido/exportar/excel}">
 								Exportar a Excel
 							</a>
