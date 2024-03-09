@@ -6,12 +6,17 @@ class RegisterForm(forms.Form):
     username = forms.CharField(label='Usuario', required=True, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'username',
-        'placeholder': 'Usuario20P'
+        'placeholder': 'Usuario'
+    }))
+    name = forms.CharField(label='Nombre', required=True, min_length=4, max_length=50, widget=forms.TextInput(attrs={
+        'class': 'form-control controls col-md-4 col-form-label text-md-end',
+        'id': 'name',
+        'placeholder': 'Nombres'
     }))
     last_name = forms.CharField(label='Apellido', required=True, min_length=4, max_length=50, widget=forms.TextInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
         'id': 'last_name',
-        'placeholder': 'Rodriguez'
+        'placeholder': 'Apellidos'
     }))
     email = forms.CharField(label='Correo', required=True, widget=forms.EmailInput(attrs={
         'class': 'form-control controls col-md-4 col-form-label text-md-end',
