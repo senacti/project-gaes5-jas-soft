@@ -72,23 +72,17 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for production_order in object_list %}
+								{% for production_order in orden_pedido %}
 									<tr>                                                          								
 										<td>{{ production_order.order_date }}</td>
 										<td>{{ production_order.supplies }}</td>
-										<td>{{ production_order.total_quantity }}										
-											<ul>
-												{% for production_order in production_order.supplies.all %}
-													<li>{{ production_order.supplies }}</li>
-												{% endfor %}
-											</ul>
-										</td>
+										<td>{{ production_order.quantity }}</td>
 										<td>
 											<!--<a href="{% url 'edit_production_order' production_order.id %}">
 												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editOrderProduction">
 													Editar
 												</button>
-											</a>-->
+											</a>-->										
 											<a href="{% url 'delete_production_order' production_order.id %}">
 												{% if user_permissions %}
 													{% for permiso in user_permissions %} 

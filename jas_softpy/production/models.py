@@ -10,8 +10,6 @@ from django.db.models.signals import post_save
 
 from django.forms import model_to_dict
 
-
-
 class Supplies(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre") 
     stock = models.PositiveSmallIntegerField(verbose_name="Cantidad")    

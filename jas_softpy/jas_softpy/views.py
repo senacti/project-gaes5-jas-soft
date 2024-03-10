@@ -10,12 +10,10 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.urls import reverse
-from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from production.views import SuppliesListView
-from django.contrib.auth.models import User, Permission
-from itertools import groupby
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
 from inventory.models import Product
@@ -29,8 +27,7 @@ def logout_view(request):
     return redirect('index')
         
 def home(request):
-
-    return render(request, 'home.html', {
+    return render(request,'home.html',{
         #context
     })
 
@@ -103,21 +100,16 @@ def sales(request):
         #context
     })   
 
-def login_view(request):
+def login_view(request):    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
 
         user = authenticate(username=username, password=password)
         if user:
-            if user.is_staff:
-                login(request, user)
-                messages.success(request, 'Bienvenido {}'.format(user.username))
-                return redirect('admin:index')
-            else:
-                login(request, user)
-                return home(request)
-                
+            login(request, user)
+            messages.success(request, 'Bienvenido {}'.format(user.username))
+            return redirect('admin:index')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
@@ -136,12 +128,11 @@ def register(request):
         form = RegisterForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data['username']
-            first_name = form.cleaned_data['name']
             last_name = form.cleaned_data['last_name']
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
 
-            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name, first_name=first_name )
+            user = User.objects.create_user(username=username, email=email, password=password, last_name=last_name)
             if user:
                 login(request, user)
                 messages.success(request, 'Registro exitoso')
@@ -163,12 +154,12 @@ def create_production_order(request):
 
             current_datetime = datetime.now()
 
+            production_order = ProductionOrder.objects.create()
+
             for supplies_id in supplies_ids:
                 supplies_instance = Supplies.objects.get(id=supplies_id)
 
                 if quantity_used <= supplies_instance.stock:
-                    production_order = ProductionOrder.objects.create()
-
                     SupplieProduction.objects.create(
                         quantity=quantity_used,
                         Production_OrderDate=current_datetime,
@@ -178,7 +169,7 @@ def create_production_order(request):
 
                     supplies_instance.stock -= quantity_used
                     supplies_instance.save()
-                else:
+                else:                    
                     messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
                     return redirect('ordenpedido') 
 
@@ -189,7 +180,9 @@ def create_production_order(request):
             messages.error(request, f'Error al procesar el formulario: {str(e)}')
             return redirect('ordenpedido') 
     else:
+        print('llegaste')
         return render(request, 'ordenpedido.html')
+
                         
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
@@ -309,10 +302,13 @@ def EditInventory(request, id):
     return redirect('producto')
 
 def deleteinventory(request, id):
+    
     producto = Product.objects.get(pk=id)
     producto.delete()    
     messages.success(request, 'Producto eliminado!')
     return redirect('producto')
+
+
 
 def create_postulation(request):
 
