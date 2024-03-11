@@ -1,13 +1,12 @@
-import sys
-sys.path.append('/jas_softpy/jas_softpy/production')
+
 
 import os
 from django.test import TestCase
 import django
-import pytest
-from jas_softpy.production.models import Supplies
+from production.models import Supplies
 
-#os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jas_softpy.settings')
+
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'jas_softpy.jas_softpy.settings')
 django.setup()
 
 class TestSupplies(TestCase):
