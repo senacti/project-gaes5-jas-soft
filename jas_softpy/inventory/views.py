@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Product
 from django.views import View
@@ -95,6 +96,23 @@ class ProductDeatilView(DetailView):
                 print(context)
         
                 return context
+        
+class ProductSearchListView(ListView):
+        template_name = 'inventory/search.html'
+        
+        def get_queryset(self):
+                return Product.objects.filter(name__icontains=self.query())
+        
+        def query(self):
+                return self.request.GET.get('q')
+        
+        def get_context_data(self, **kwargs):
+                 context = super().get_context_data(**kwargs)
+                 context['query'] = self.query()
+                 context['count'] = context['product_list'].count() if 'product_list' in context else 0
+                 return context
+
+        
         
 # Create your views here.
 
