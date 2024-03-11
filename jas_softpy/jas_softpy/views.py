@@ -225,8 +225,8 @@ def createsupplies(request):
         size = size,
         color = color,
     )
-    
-    messages.success(request, '¡el insumo se registro exitosamente!')
+
+    messages.success(request, '¡el isumo se registro exitosamente!')
     return redirect('insumo')
 
 def editsupplies(request, id):

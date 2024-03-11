@@ -121,8 +121,10 @@ class SuppliesListView(ListView):
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
                 context['message'] = 'PRODUCCION | INSUMOS'
+                print(context)
+                return context
 
-                daily_production = SupplieProduction.objects.annotate(
+                """daily_production = SupplieProduction.objects.annotate(
                         day=TruncDate('Production_OrderDate')
                 ).values('day').annotate(
                         total_quantity=Sum('quantity')
@@ -154,7 +156,7 @@ class SuppliesListView(ListView):
 
                 context['production_orders'] = production_orders
 
-                return context
+                return context"""
 
        
                 
