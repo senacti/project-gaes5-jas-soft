@@ -13,6 +13,7 @@ from django.urls import reverse
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from jas_softpy.context_processors import MODULO_GESTION, MODULO_INVENTARIO, MODULO_PRODUCCION, MODULO_VENTA, obtenerPermisosUsuarioPorModulo
 from production.views import SuppliesListView
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -27,8 +28,28 @@ def logout_view(request):
     return redirect('index')
         
 def home(request):
-    return render(request,'home.html',{
-        #context
+    moduloProduccion = False
+    moduloInventario = False
+    moduloVenta      = False
+    moduloGestion    = False
+
+    nombres_permisos = obtenerPermisosUsuarioPorModulo(request)
+
+    for nombre_permiso in nombres_permisos:
+        if nombre_permiso in MODULO_PRODUCCION:
+            moduloProduccion = True
+
+        if nombre_permiso in MODULO_INVENTARIO:
+            moduloInventario = True
+
+        if nombre_permiso in MODULO_VENTA:
+            moduloVenta = True
+
+        if nombre_permiso in MODULO_GESTION:
+            moduloGestion = True
+
+    return render(request, 'home.html', {
+        'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion
     })
 
 def producto(request):
@@ -107,15 +128,20 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            login(request, user)
-            messages.success(request, 'Bienvenido {}'.format(user.username))
-            return redirect('admin:index')
+            if user.is_staff:
+                login(request, user)
+                messages.success(request, 'Bienvenido {}'.format(user.username))
+                return redirect('admin:index')
+            else:
+                login(request, user)
+                return home(request)
+
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
     return render(request, 'login.html',{
         
-    })
+})
 
 def logout_view(request):
     logout(request)

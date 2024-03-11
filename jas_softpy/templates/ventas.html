@@ -39,13 +39,13 @@
                     <span>{{ user.username }}</span>
                 </a>
 				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-					<a class="dropdown-item" href="@{/logout}" onclick="event.preventDefault();
-									document.getElementById('logout-form').submit();">
+					<a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 						Cerrar sesión
 					</a>
-					<form id="logout-form" action="@{/logout}" method="POST" class="d-none">
+					<form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
+						{% csrf_token %}
 					</form>
-				</div>
+				</div>	
 			</li>
 		</ul>
 	</header>
