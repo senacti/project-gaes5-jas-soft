@@ -86,6 +86,19 @@ def ofertas(request):
     return render(request,'ofertas.html',{
         #context
     })
+    
+def catalogo(request):
+    
+    inventory = Product.objects.all().order_by('-id')
+
+    return render(request, 'catalogo.html', {
+        'message': 'Nuevo',
+        'title': 'Productos',  # Agregada coma aquí
+        'products': inventory,
+           
+        
+    })
+
 
 def send_email(mail):
     context = {'mail': mail}

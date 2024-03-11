@@ -1,10 +1,11 @@
 from django import views
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
-from inventory.views import InventoryInvoicePdfView, ProductListView
+from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
 from sales.views import SaleInvoicePdfView
 from postulation.views import PostulationInvoicePdfView
 from . import views
@@ -14,7 +15,8 @@ urlpatterns = [
     path('home/', views.home, name='home'),   
     path('ventas/', views.ventas, name='ventas'),
     path('rrhh/', views.rrhh, name='rrhh'),
-    path('sugerencias/', views.sugerencias, name='sugerencias'),        
+    path('sugerencias/', views.sugerencias, name='sugerencias'),
+    #path('catalogo/', views.catalogo, name='catalogo'),       
     
     path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
@@ -29,7 +31,9 @@ urlpatterns = [
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),
    
-    path('producto/', ProductListView.as_view(), name='producto'),
+    path('producto/', ProductListViewInventory.as_view(), name='producto'),
+    path('catalogo/', ProductListViewCatalogo.as_view(), name='catalogo'),
+    path('product/', include('inventory.urls')),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
     path('inventory/edit/<int:id>', views.editinventory, name = 'edit_inventory'),
