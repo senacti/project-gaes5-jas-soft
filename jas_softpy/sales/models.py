@@ -9,8 +9,8 @@ from postulation.models import Employed
 
 class PurchaseOrder(models.Model):   
     
-    StockProduct = models.IntegerField(verbose_name="Cantidad Producto")
-    PurchaseOrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido")
+    stockProduct = models.IntegerField(verbose_name="Cantidad Producto")
+    purchaseOrderDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha pedido")
     
     STATE_CHOICES = [
         ('Recibido', 'Recibido'),
@@ -19,14 +19,14 @@ class PurchaseOrder(models.Model):
         ('Finalizado', 'Finalizado'),
     ]
     
-    State = models.CharField(max_length=50, choices=STATE_CHOICES, verbose_name="Estado Pedido") 
+    state = models.CharField(max_length=50, choices=STATE_CHOICES, verbose_name="Estado Pedido") 
     
     
-    Product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
     
     
     def __str__(self):
-        return self.State
+        return self.state
     
     class Meta:
         verbose_name = "Orden pedido"

@@ -14,6 +14,7 @@ from django.urls import reverse
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from jas_softpy.context_processors import MODULO_GESTION, MODULO_INVENTARIO, MODULO_PRODUCCION, MODULO_VENTA, obtenerPermisosUsuarioPorModulo
+from jas_softpy.sales.models import PurchaseOrder
 from production.views import SuppliesListView
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -28,28 +29,8 @@ def logout_view(request):
     return redirect('index')
         
 def home(request):
-    moduloProduccion = False
-    moduloInventario = False
-    moduloVenta      = False
-    moduloGestion    = False
-
-    nombres_permisos = obtenerPermisosUsuarioPorModulo(request)
-
-    for nombre_permiso in nombres_permisos:
-        if nombre_permiso in MODULO_PRODUCCION:
-            moduloProduccion = True
-
-        if nombre_permiso in MODULO_INVENTARIO:
-            moduloInventario = True
-
-        if nombre_permiso in MODULO_VENTA:
-            moduloVenta = True
-
-        if nombre_permiso in MODULO_GESTION:
-            moduloGestion = True
-
     return render(request, 'home.html', {
-        'permission_production': moduloProduccion, 'permission_inventory': moduloInventario, 'permission_venta': moduloVenta, 'permission_gestion': moduloGestion
+        #context
     })
 
 def producto(request):
@@ -98,7 +79,6 @@ def catalogo(request):
            
         
     })
-
 
 def send_email(mail):
     context = {'mail': mail}
@@ -221,8 +201,7 @@ def create_production_order(request):
     else:
         print('llegaste')
         return render(request, 'ordenpedido.html')
-
-                        
+                       
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
         return render(request, "EditProductOrder.html", {"ProductionOrder": productionorder})
@@ -347,8 +326,6 @@ def deleteinventory(request, id):
     messages.success(request, 'Producto eliminado!')
     return redirect('producto')
 
-
-
 def create_postulation(request):
 
     if request.method == 'POST':
@@ -365,3 +342,29 @@ def create_postulation(request):
         )
         messages.success(request, '¡La postulación se registró exitosamente!')
         return redirect('Postulacion')
+    
+def create_purchaseorder(request):
+    stockProduct = request.POST['stockProduct']
+    purchaseOrderDate = request.POST['purchaseOrderDate']
+    state = request.POST['state']
+    product = request.POST['product']
+
+    purchaseorder = PurchaseOrder.objects.create(
+        stockProduct = stockProduct,
+        purchaseOrderDate = purchaseOrderDate,
+        state = state,
+        product = product,
+    )
+
+    messages.success(request, '¡La Orden de compra fue creada con exito!')
+    return redirect('sales')
+
+def editpurchaseorder(request, id):
+    if request.method == 'POST':
+        purchaseorder = get_object_or_404(PurchaseOrder, id=id)
+        purchaseorder.stockProduct = int(request.POST.get('stockProduct', '0'))
+        purchaseorder.state = request.POST.get('state', '')
+        purchaseorder.product = request.POST.get('product','')
+        purchaseorder.save()
+        messages.success(request, '¡Se ah actulizado la orden de compra!')
+    else:
