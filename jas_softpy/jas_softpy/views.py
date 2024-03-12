@@ -14,7 +14,7 @@ from django.urls import reverse
 from django.contrib.auth import logout
 from django.shortcuts import redirect
 from jas_softpy.context_processors import MODULO_GESTION, MODULO_INVENTARIO, MODULO_PRODUCCION, MODULO_VENTA, obtenerPermisosUsuarioPorModulo
-from jas_softpy.sales.models import PurchaseOrder
+from sales.models import PurchaseOrder, Sales
 from production.views import SuppliesListView
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -266,8 +266,7 @@ def EditSupplies(request, id):
 
     return redirect('insumo')
     
-def deleteSupplies(request, id):
-    
+def deleteSupplies(request, id):    
     supplies = Supplies.objects.get(pk=id)
     supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
@@ -343,7 +342,7 @@ def create_postulation(request):
         messages.success(request, '¡La postulación se registró exitosamente!')
         return redirect('Postulacion')
     
-def create_purchaseorder(request):
+"""def create_purchaseorder(request):
     stockProduct = request.POST['stockProduct']
     purchaseOrderDate = request.POST['purchaseOrderDate']
     state = request.POST['state']
@@ -357,9 +356,14 @@ def create_purchaseorder(request):
     )
 
     messages.success(request, '¡La Orden de compra fue creada con exito!')
-    return redirect('sales')
+    return redirect('ventas')
 
 def editpurchaseorder(request, id):
+    purchaseorder = PurchaseOrder.objects.get(id=id)
+    return render(request, "",{"PurchaseOrder": purchaseorder})
+
+@require_POST
+def Edit_PurchaseOrder(request, id):
     if request.method == 'POST':
         purchaseorder = get_object_or_404(PurchaseOrder, id=id)
         purchaseorder.stockProduct = int(request.POST.get('stockProduct', '0'))
@@ -368,3 +372,61 @@ def editpurchaseorder(request, id):
         purchaseorder.save()
         messages.success(request, '¡Se ah actulizado la orden de compra!')
     else:
+        messages.error(request,'La solicitud no es valida.')
+
+    return redirect('ventas')
+
+def deletePurchaseOrder(request, id):
+    purchaseorder = PurchaseOrder.objects.get(pk=id)
+    purchaseorder.delete()
+    messages.success(request, 'Orden de compra elimimada')
+    return redirect('ventas')"""
+
+def create_sales(request):
+    current_datetime = datetime.now()
+    saleAmount = request.POST['SaleAmount']
+    saleSubAmount = request.POST['SaleSubAmount']
+    saleIvaAmount = request.POST['SaleIvaAmount']    
+    employed = request.POST['Employed']
+    pays = request.POST['Pays']
+    purchaseOrder = request.POST['PurchaseOrder']
+
+    sales = Sales.objects.create(
+        saleDate = current_datetime,
+        saleAmount = saleAmount,
+        saleSubAmount = saleSubAmount,
+        saleIvaAmount = saleIvaAmount,
+        employed = employed,
+        pays = pays,
+        purchaseOrder = purchaseOrder,
+    )
+
+    messages.success(request, '¡La venta fue creada con exito!')
+    return redirect('ventas')
+
+def editsales(request, id):
+    sales = Sales.objects.get(id=id)
+    return render(request, "sales/editSales.html",{"Sales": sales})
+
+@require_POST
+def Edit_Sales(request, id):
+    if request.method == 'POST':
+        sales = get_object_or_404(Sales, id=id)
+        sales.saleAmount = int(request.POST.get('saleAmount', '0'))
+        sales.saleSubAmount = int(request.POST.get('saleSubAmount', '0'))
+        sales.saleIvaAmount = int(request.POST.get('product','0'))
+        sales.employed = request.POST.get('employed','')
+        sales.pays = request.POST.get('pays', '')
+        sales.purchaseOrder = request.POST.get('purchaseOrder','')
+        sales.save()
+        messages.success(request, '¡Se ha actulizado la ve de compra!')
+    else:
+        messages.error(request,'La solicitud no es valida.')
+
+    return redirect('ventas')
+
+def deleteSales(request, id):
+    sales = Sales.objects.get(pk=id)
+    sales.delete()
+    messages.success(request, 'Venta elimimada')
+    return redirect('ventas')

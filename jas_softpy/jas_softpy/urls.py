@@ -12,8 +12,7 @@ from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
-    path('home/', views.home, name='home'),   
-    path('ventas/', views.ventas, name='ventas'),
+    path('home/', views.home, name='home'),      
     path('rrhh/', views.rrhh, name='rrhh'),
     path('sugerencias/', views.sugerencias, name='sugerencias'),
     #path('catalogo/', views.catalogo, name='catalogo'),       
@@ -52,7 +51,18 @@ urlpatterns = [
     path('production/create_production_order/', views.create_production_order, name='create_production_order'),
     path('production/editar/<int:id>', views.edit_production_order, name='edit_production_order'),
     path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
-    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order')
+    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order'),
+
+    path('ventas/', views.ventas, name='ventas'),
+    # path('ventas/create_production_order/', views.create_purchaseorder, name='create_purchaseorder'),
+    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
+    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
+    # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
+
+     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
+    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
+    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
+    # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
 ]
 
 if settings.DEBUG:

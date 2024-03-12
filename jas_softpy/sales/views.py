@@ -7,13 +7,13 @@ from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
-from .models import Sales
+from django.views.generic.list import ListView
+from .models import PurchaseOrder, Sales
 
 # Create your views here.
 
 class SaleInvoicePdfView(View):
-     
-     
+          
     def link_callback(self, uri, rel):
             """
             Convert HTML URIs to absolute system paths so xhtml2pdf can access those
@@ -67,3 +67,13 @@ class SaleInvoicePdfView(View):
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
+    
+class PurchaseOrderListViewInventory(ListView):
+    template_name = "sales/ordenpedido.html"
+    queryset = PurchaseOrder.objects.exclude
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'VENTAS | PRODUCTOS'
+        print(context)
+        return context
