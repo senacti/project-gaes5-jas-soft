@@ -34,6 +34,7 @@ urlpatterns = [
     path('producto/', ProductListViewInventory.as_view(), name='producto'),
     path('catalogo/', ProductListViewCatalogo.as_view(), name='catalogo'),
     path('product/', include('inventory.urls')),
+    path('carrito/', include('carts.urls')),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
     path('inventory/edit/<int:id>', views.editinventory, name = 'edit_inventory'),
