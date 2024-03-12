@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     'inventory',
     'sales',
     'postulation',
-    'suggestions',   
+    'suggestions',
+    'categories',   
     'import_export',  
 ]
 

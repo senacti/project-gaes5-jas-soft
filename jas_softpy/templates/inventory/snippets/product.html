@@ -6,7 +6,7 @@
 <div class="card-body">
     <h5 class="card-title">Nombre: {{ product.name }}</h5>
     <p class="card-text">Cantidad: {{ product.stock }}</p>
-    <a href="#" class="btn btn-primary">Ver mas</a>
+    <a href="{% url 'inventory:product' product.slug %}" class="btn btn-primary">Ver mas</a>
 </div>
 
 </div>
