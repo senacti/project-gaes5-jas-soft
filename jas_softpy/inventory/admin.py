@@ -12,10 +12,11 @@ from django.utils.html import format_html
 class ProductAdmin(ImportExportModelAdmin):
     change_list_template = "admin/custom_change_list.html"
 
-    list_display = ('name', 'stock','fabricationDate','size','color','state', 'productCode','category','show_image')
+    list_display = ('name', 'stock','fabricationDate','size','color','state', 'productCode','category','show_image', 'slug',)
     search_fields = ('name',)
     list_editable = ('stock','state',)
     list_filter = ('fabricationDate',)
+    exclude = ('slug',)
 
 
     def changelist_view(self, request, extra_context=None):
@@ -50,6 +51,7 @@ class  ProductResource(resources.ModelResource):
     class Meta:
         model = Product
         fields = ('name', 'stock','fabricationDate','size','color','state','productCode','show_image')
+        
         #export_order = ('name
         # ', 'price', 'category')    
         
