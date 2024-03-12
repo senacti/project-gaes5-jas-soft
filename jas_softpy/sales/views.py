@@ -68,7 +68,7 @@ class SaleInvoicePdfView(View):
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
     
-class PurchaseOrderListViewInventory(ListView):
+class PurchaseOrderListView(ListView):
     template_name = "sales/ordenpedido.html"
     queryset = PurchaseOrder.objects.exclude
 
@@ -76,4 +76,18 @@ class PurchaseOrderListViewInventory(ListView):
         context = super().get_context_data(**kwargs)
         context['message'] = 'VENTAS | PRODUCTOS'
         print(context)
+        return context
+
+class SalesListView(ListView):
+    template_name = "sales/ventas.html"
+    model = Sales
+    context_object_name = 'sales'
+    queryset = Sales.objects.exclude
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'VENTAS '
+        
+
+        context['lista_state'] = 
         return context
