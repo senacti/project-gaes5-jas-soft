@@ -1,15 +1,39 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
+
+from inventory.models import Product
+
+from .models import Cart
+from .utils import get_or_create_cart
 
 
 def cart(request):
     
-    #request.session['cart_id'] = '123'
+    cart =  get_or_create_cart(request)
     
-    valor = request.session.get('cart_id')
-    print(valor)
-    
-    request.session['cart_id'] = None
-    
+
     return render(request, 'carts/cart.html', {
-        
+        'cart':cart
     })
+
+
+def add(request):
+    
+    cart =  get_or_create_cart(request)
+    product = Product.objects.get(pk=request.POST.get('product_id'))
+    
+    cart.products.add(product)
+    
+    return render(request, 'carts/add.html',{
+        'product': product,
+    })
+    
+def remove(request):
+    
+    cart =  get_or_create_cart(request)
+    product = get_object_or_404(Product, pk=request.POST.get('product_id'))
+    
+    cart.products.remove(product)
+    
+    return redirect('carts:cart')
