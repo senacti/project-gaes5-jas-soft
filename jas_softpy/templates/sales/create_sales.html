@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% load static %}
+
+<div class="modal" id="create">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h2>Crear Orden de pedido</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <form action="{% url 'create_purchaseorder' %}" class="was-validated" method="post" id="ordenForm">
+                {% csrf_token %}
+                <div class="form-container row">
+                    <div id="insumosContainer">                        
+                        <div class="form-group insumo-container col-4">
+                            <label for="saleAmount">valor de la venta</label>
+                            <input type="number" name="saleAmount" class="form-control" placeholder="Valor de la venta" required >
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="saleSubAmount">Subtotal</label>
+                            <input type="number" name="saleSubAmount" class="form-control" placeholder="Subtotal" required >
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="saleIvaAmount">IVA</label>
+                            <select name="saleIvaAmount" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for sales in lista_iva %}
+                                    <option value="{{ sales.id }}">{{ sales.saleIvaAmount }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="employed">Suministros</label>
+                            <select name="employed" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for sales in lista_iva %}
+                                    <option value="{{ sales.id }}">{{ sales.employed }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="pays">Suministros</label>
+                            <select name="pays" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for sales in lista_iva %}
+                                    <option value="{{ sales.id }}">{{ sales.pays }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="purchaseOrder">Suministros</label>
+                            <select name="purchaseOrder" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for sales in lista_iva %}
+                                    <option value="{{ sales.id }}">{{ sales.purchaseOrder }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        
+                    </div>
+
+                </div>                
+                <button type="submit" id="submitordenpedido" class="hidden"></button>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

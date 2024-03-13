@@ -15,10 +15,10 @@ class SalesAdmin(ImportExportModelAdmin):
 
     change_list_template = "admin/custom_change_list.html"
 
-    list_display = ('SaleDate', 'SaleAmount','SaleSubAmount','SaleIvaAmount','Employed','Pays','PurchaseOrder')
-    search_fields = ('Employed',)
+    list_display = ('saleDate', 'saleAmount','saleSubAmount','saleIvaAmount','employed','pays','purchaseOrder')
+    search_fields = ('employed',)
     list_editable = ()
-    list_filter = ('SaleDate',)
+    list_filter = ('saleDate',)
 
     def changelist_view(self, request, extra_context=None):
         extra_context = extra_context or {}
@@ -28,15 +28,15 @@ class SalesAdmin(ImportExportModelAdmin):
 
 @admin.register(Pays)
 class PaysAdmin(admin.ModelAdmin):
-    list_display = ('payAmount', 'payTipe', 'payMethod', 'PurchaseOrder')
+    list_display = ('payAmount', 'payTipe', 'payMethod', 'purchaseOrder')
     search_fields = ('payAmount',)
     list_editable = ()
     list_filter = ('payAmount',)
 
 @admin.register(PurchaseOrder)
 class PurchaseOrderAdmin(admin.ModelAdmin):
-    list_display = ('StockProduct','PurchaseOrderDate','State','Product')
-    search_fields = ('State',)
+    list_display = ('stockProduct','purchaseOrderDate','state','product')
+    search_fields = ('state',)
     list_editable = ()
-    list_filter = ('State',)
+    list_filter = ('state',)
 

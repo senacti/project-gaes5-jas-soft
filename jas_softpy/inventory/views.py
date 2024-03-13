@@ -10,6 +10,7 @@ from django.contrib.staticfiles import finders
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.db.models import Q
 
 class InventoryInvoicePdfView(View):
     
@@ -98,19 +99,21 @@ class ProductDeatilView(DetailView):
                 return context
         
 class ProductSearchListView(ListView):
-        template_name = 'inventory/search.html'
-        
-        def get_queryset(self):
-                return Product.objects.filter(name__icontains=self.query())
-        
-        def query(self):
-                return self.request.GET.get('q')
-        
-        def get_context_data(self, **kwargs):
-                 context = super().get_context_data(**kwargs)
-                 context['query'] = self.query()
-                 context['count'] = context['product_list'].count() if 'product_list' in context else 0
-                 return context
+    template_name = 'inventory/search.html'
+    
+    def get_queryset(self):
+        query = self.query()
+        filters = Q(name__icontains=query) | Q(categories__title__icontains=query)
+        return Product.objects.filter(filters)
+    
+    def query(self):
+        return self.request.GET.get('q')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query()
+        context['count'] = context['product_list'].count() if 'product_list' in context else 0
+        return context
 
         
         

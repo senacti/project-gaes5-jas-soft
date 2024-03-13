@@ -245,7 +245,9 @@
 							{% if user_permissions %}
 								{% for permiso in user_permissions %} 
 									{% if permiso == 'add_sales' %}
-										<button type="button" class="" data-bs-toggle="modal" data-bs-target="#myModal">
+										{% include 'sales/create_sales.html' %}
+										{% include 'production/EditProductOrder.html' %}
+										<button type="button" class="" data-bs-toggle="modal" data-bs-target="#create">
 											Nueva Venta
 										</button>
 									{% endif %}

@@ -16,9 +16,6 @@ class Product(models.Model):
     slug = models.SlugField(null=False, blank=False, unique=True)
     productCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
     
-
-
-
     STATE_CHOICES = [
         ('Selecciona', 'Selecciona'),
         ('producción', 'En producción'),
@@ -102,7 +99,7 @@ def set_slug(sender, instance, *args, **kwargs):
 
         while Product.objects.filter(slug=slug).exists():
             slug = f"{base_slug}-{unique_id}"
-            unique_id = str(uuid.uuid4())[:8]
+            unique_id = str(uuid.uuid4())[:8] 
 
         instance.slug = slug
 
