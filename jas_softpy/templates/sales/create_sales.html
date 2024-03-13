@@ -26,7 +26,7 @@
                             <label for="saleIvaAmount">IVA</label>
                             <select name="saleIvaAmount" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_iva %}
+                                {% for sales in lista_sales %}
                                     <option value="{{ sales.id }}">{{ sales.saleIvaAmount }}</option>
                                 {% endfor %}
                             </select>                            
@@ -44,7 +44,7 @@
                             <label for="pays">Suministros</label>
                             <select name="pays" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_iva %}
+                                {% for sales in lista_sales %}
                                     <option value="{{ sales.id }}">{{ sales.pays }}</option>
                                 {% endfor %}
                             </select>                            

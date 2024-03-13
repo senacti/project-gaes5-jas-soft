@@ -5,14 +5,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
 from inventory.views import InventoryInvoicePdfView, ProductDeatilView
-from sales.views import SaleInvoicePdfView
+from sales.views import SaleInvoicePdfView, SalesListView
 from postulation.views import PostulationInvoicePdfView
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
     path('home/', views.home, name='home'),   
-    path('ventas/', views.ventas, name='ventas'),
     path('rrhh/', views.rrhh, name='rrhh'),
     path('sugerencias/', views.sugerencias, name='sugerencias'),        
     
@@ -50,7 +49,18 @@ urlpatterns = [
     path('production/create_production_order/', views.create_production_order, name='create_production_order'),
     path('production/editar/<int:id>', views.edit_production_order, name='edit_production_order'),
     path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
-    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order')
+    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order'),
+    
+    # path('ventas/create_production_order/', views.create_purchaseorder, name='create_purchaseorder'),
+    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
+    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
+    # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
+    
+    path('ventas/', SalesListView.as_view(), name='ventas'),
+    path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
+    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
+    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
+    path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
 ]
 
 if settings.DEBUG:

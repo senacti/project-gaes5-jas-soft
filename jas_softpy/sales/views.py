@@ -8,7 +8,7 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from django.views.generic.list import ListView
-from .models import PurchaseOrder, Sales
+from .models import PurchaseOrder, Sales, Employed
 
 # Create your views here.
 
@@ -89,5 +89,6 @@ class SalesListView(ListView):
         context['message'] = 'VENTAS '
         
 
-        context['lista_state'] 
+        context['lista_sales'] = Sales.objects.annotate()
+        context['lista_employes'] = Employed.objects.annotate()
         return context

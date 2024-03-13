@@ -72,7 +72,6 @@ class Sales(models.Model):
         (5, '5%'),
         (10, '10%'),
         (19, '19%'),
-        
     ]
     
     saleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")   
@@ -81,7 +80,7 @@ class Sales(models.Model):
     purchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE,verbose_name="Orden de pedido")
     
     def __str__(self):
-        return str(self.SaleAmount)
+        return str(self.saleAmount)
     
     class Meta:
         verbose_name = "Venta"

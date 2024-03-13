@@ -55,115 +55,6 @@
 			
 			{% include 'menumodulos.html' %}
 			
-
-	<!-- The Modal -->
-	<div class="modal" id="myModal">
-		<div class="modal-dialog">
-			<div class="modal-content">
-
-				<!-- Modal Header -->
-				<div class="modal-header">
-					<h4 class="modal-title">Crear venta</h4>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-				</div>
-
-				<!-- Modal body -->
-				<div class="modal-body">
-					<form action="@{/ventum/guardar}" class="was-validated" object="${ventum}" method="POST">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-floating mt-3 mb-3">
-									<input type="date" required class="form-control" id="fecha"
-										placeholder="fecha Venta" field="*{fecha}" maxlength="20">
-									<label for="fechaVenta">Fecha</label>
-								</div>
-
-								<div class="form-floating mb-3">
-									<input type="text" class="form-control" id="totalventa" placeholder="Total"
-										field="*{totalventa}" name="totalventa" required>
-									<label for="totalVenta">Total</label>
-								</div>
-
-								<div class="form-floating mb-3">
-									<input type="text" class="form-control" id="subtotal" field="*{subtotal}"
-										placeholder="subtotal" name="subtotal" required>
-									<label for="subtotal">Subtotal</label>
-								</div>
-
-								<div class="form-floating mb-3">
-									<input type="text" class="form-control" id="descuento"
-										field="*{cantidaddescuento}" placeholder="Descuento" name="descuento"
-										required>
-									<label for="descuento">Descuento</label>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-floating mb-3">
-									<input type="text" class="form-control" field="*{totaliva}" id="totalIva"
-										placeholder="IVA" name="totalIva" required>
-									<label for="totalIva">IVA</label>
-									<div class="valid-feedback"></div>
-								</div>
-
-								<div class="form-floating mt-3 mb-3">
-									<select class="form-select" id="idcliente" placeholder="Estado"
-										field="*{idcliente}" name="idcliente">
-										<option value="0">Seleccione</option>
-										<option value="Cliente Frecuente">Cliente Frecuente</option>
-										<option value="Cliente Potencial">Cliente Potencial</option>
-										<option value="Cliente Nuevo">Cliente Nuevo</option>
-										<option value="Cliente Inactivo">Cliente Inactivo</option>
-										<option value="Cliente VIP">Cliente VIP</option>
-									</select>
-									<label for="idcliente" class="form-label">Cliente</label>
-								</div>
-
-								<div class="form-floating mt-3 mb-3">
-									<select class="form-select" id="idpagos" placeholder="Estado" field="*{idpagos}"
-										name="idpagos">
-										<option value="0">Seleccione</option>
-										<option value="Parcial">Parcial</option>
-										<option value="Total">Total</option>
-									</select>
-									<label for="idpagos" class="form-label">Pagos</label>
-								</div>
-
-								<div class="form-floating mt-3 mb-3">
-									<select class="form-select" id="idempleado" field="*{idempleado}"
-										placeholder="Empleado" name="idempleado">
-										<option value="0">Seleccione</option>
-										<option value="Pedro">Pedro</option>
-										<option value="Santiago">Santiago</option>
-										<option value="Valentina">Valentina</option>
-										<option value="Osman">Osman</option>
-										<option value="Fulanito">Fulanito</option>
-										<option value="Oscar">Oscar</option>
-										<option value="David">David</option>
-									</select>
-									<label for="idempleado" class="form-label">Empleado</label>
-								</div>
-								
-								<input type="hidden" class="form-control" field="*{idordenpedido}" value="10"
-									placeholder="idordenpedido" name="idordenpedido" required>
-
-							</div>
-						</div>
-
-				</div>
-
-				<!-- Modal footer -->
-				<div class="modal-footer">
-					<button type="button" class="btn btn-danger btn-sm" data-bs-dismiss="modal">Cerrar</button>
-					<button type="submit" class="btn btn-primary btn-sm">Guardar</button>
-				</div>
-				</form>
-			</div>
-		</div>
-	</div>
-
-	
-
 			<div class="col-10" id="contentd">
 				<div class="card" id="cardash">
 					<div class="container mt-3">
@@ -196,49 +87,42 @@
                         -->
 						<table class="table table-striped" id="tablas">
 							<thead class="thead">
-								<tr>
-									<th>Idventa</th>
+								<tr>									
 									<th>Fecha</th>
 									<th>Total</th>
-									<th>Subtotal</th>
-									<th>Descuento</th>
-									<th>IVA</th>
-									<th>Cliente</th>
-									<th>Pagos</th>
+									<th>Subtotal</th>									
+									<th>IVA</th>									
 									<th>Empleado</th>
+									<th>Pago</th>
 									<th>Ordenpedido</th>
-									<td>Editar</td>
-									<td>Eliminar</td>
+									<td>funciones</td>									
 								</tr>
 							</thead>
 							<tbody>
-								<tr each="in:${ventums}">
-									<td text="${in.idventa}"></td>
-									<td text="${in.fecha}"></td>
-									<td text="${in.totalventa}"></td>
-									<td text="${in.subtotal}"></td>
-									<td text="${in.cantidaddescuento}"></td>
-									<td text="${in.totaliva}"></td>
-									<td text="${in.idcliente}"></td>
-									<td text="${in.idpagos}"></td>
-									<td text="${in.idempleado}"></td>
-									<td text="${in.idordenpedido}"></td>
-									<td>
-										<a href="@{/ventum/editar/} + ${in.idventa}">
-											<button type="button" class="btn btn-success">
-												Editar
-											</button>
-										</a>
-
-									</td>
-									<td>
-										<a href="@{/ventum/eliminar/} + ${in.idventa}">
-											<button type="button" class="btn btn-danger">
-												Eliminar
-											</button>
-										</a>
-									</td>
-								</tr>
+								{% for sale in sales %}
+									<tr>
+										<td>{{ sale.saleDate }}</td>
+										<td>{{ sale.saleAmount }}</td>
+										<td>{{ sale.saleSubAmount }}</td>
+										<td>{{ sale.saleIvaAmount }}</td>
+										<td>{{ sale.employed }}</td>
+										<td>{{ sale.pays }}</td>
+										<td>{{ sale.purchaseOrder }}</td>
+										<td>
+											<a href="{% url 'deletesales' sale.id %}">
+												{% if user_permissions %}
+													{% for permiso in user_permissions %} 
+														{% if permiso == 'change_purchaseorder' %}
+															<button type="button" class="btn btn-danger">
+																Eliminar
+															</button>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
+											</a>    
+										</td>
+									</tr>
+								{% endfor %}
 							</tbody>
 						</table>
 						<div class="button-new">

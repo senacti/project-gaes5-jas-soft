@@ -13,7 +13,7 @@ from django.urls import reverse
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from production.views import SuppliesListView
+from sales.models import Sales
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
 from inventory.models import Product
@@ -33,11 +33,6 @@ def home(request):
 
 def producto(request):
     return render(request,'producto.html',{
-        #context
-    })
-
-def ventas(request):
-    return render(request,'ventas.html',{
         #context
     })
 
@@ -96,7 +91,7 @@ def index(request):
     })    
 
 def sales(request):
-    return render(request,'sales.html',{
+    return render(request,'sales/ventas.html',{
         #context
     })   
 
@@ -306,8 +301,6 @@ def deleteinventory(request, id):
     messages.success(request, 'Producto eliminado!')
     return redirect('producto')
 
-
-
 def create_postulation(request):
 
     if request.method == 'POST':
@@ -349,3 +342,57 @@ def deletepostulation(request, id):
     postulacion.delete()    
     messages.success(request, 'Postulación eliminada!')
     return redirect('postulacion')
+
+def create_sales(request):
+
+    if request.method == 'POST':
+        saleDate = datetime.now()
+        saleAmount = request.POST['saleAmount']
+        saleSubAmount = request.POST['saleSubAmount']
+        saleIvaAmount = request.POST['saleIvaAmount']
+        employed = request.POST['employed']
+        pays = request.POST['pays']
+        purchaseOrder = request.POST['purchaseOrder']
+
+        sales = Sales.objects.create(
+            saleDate=saleDate,
+            saleAmount=saleAmount,
+            saleSubAmount=saleSubAmount,
+            saleIvaAmount=saleIvaAmount,
+            employed=employed,
+            pays=pays,
+            purchaseOrder=purchaseOrder,
+        )
+        messages.success(request, '¡La venta se registró exitosamente!')
+        return redirect('sales')
+    else:
+        # Define las opciones del select
+        iva_choices = Sales.IVA_CHOICES
+        return render(request, 'tu_template.html', {'iva_choices': iva_choices})
+def editsales(request, id):
+    sales = Sales.objects.get(id=id)    
+    return render(request, "Sales/editSales.html", {"Sales":sales})
+
+@require_POST
+def EditSales(request, id):       
+    if request.method == 'POST':
+        sales = get_object_or_404(Sales, id=id)
+        sales.saleAmount = int(request.POST.get('saleAmount', ''))
+        sales.saleSubAmount = int(request.POST.get('saleSubAmount', ''))
+        sales.saleIvaAmount = request.POST.get('saleIvaAmount', '')
+        sales.pays = request.POST.get('pays', '')
+        sales.employed = request.POST.get('employed', '')
+        sales.purchaseOrder = request.POST.get('purchaseOrder', '')
+        sales.save()
+        messages.success(request, '¡La venta se ha actualizado!')
+    else:
+        messages.error(request, '¡La solicitud no es valida!')
+    
+    return redirect('sales')
+
+def deletesales(request, id):
+    
+    sales = Sales.objects.get(pk=id)
+    sales.delete()    
+    messages.success(request, 'Postulación eliminada!')
+    return redirect('sales')
