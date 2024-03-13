@@ -89,5 +89,5 @@ class SalesListView(ListView):
         context['message'] = 'VENTAS '
         
 
-        context['lista_state'] = 
+        context['lista_state'] 
         return context

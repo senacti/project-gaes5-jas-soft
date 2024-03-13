@@ -1,21 +1,20 @@
 from django import views
 from django.contrib import admin
 from django.urls import path
-from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
-from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
-from sales.views import SaleInvoicePdfView, SalesListView
+from inventory.views import InventoryInvoicePdfView, ProductDeatilView
+from sales.views import SaleInvoicePdfView
 from postulation.views import PostulationInvoicePdfView
 from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
-    path('home/', views.home, name='home'),      
+    path('home/', views.home, name='home'),   
+    path('ventas/', views.ventas, name='ventas'),
     path('rrhh/', views.rrhh, name='rrhh'),
-    path('sugerencias/', views.sugerencias, name='sugerencias'),
-    #path('catalogo/', views.catalogo, name='catalogo'),       
+    path('sugerencias/', views.sugerencias, name='sugerencias'),        
     
     path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
@@ -29,11 +28,11 @@ urlpatterns = [
     path('Postulacion/', views.postulacion, name='Postulacion'),  
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),
-   
-    path('producto/', ProductListViewInventory.as_view(), name='producto'),
-    path('catalogo/', ProductListViewCatalogo.as_view(), name='catalogo'),
-    path('product/', include('inventory.urls')),
-    path('carrito/', include('carts.urls')),
+    path('postulation/edit/<int:id>', views.editpostulation, name = 'edit_postulation'),
+    path('postulation/update/<int:id>/', views.EditPostulation, name='update_postulation'),
+    path('postulation/delete_postulation/<id>', views.deletepostulation, name = 'delete_postulation'),
+
+    path('producto/', ProductDeatilView.as_view(), name='producto'),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
     path('inventory/edit/<int:id>', views.editinventory, name = 'edit_inventory'),
@@ -51,18 +50,7 @@ urlpatterns = [
     path('production/create_production_order/', views.create_production_order, name='create_production_order'),
     path('production/editar/<int:id>', views.edit_production_order, name='edit_production_order'),
     path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
-    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order'),
-
-    path('ventas/', SalesListView.as_view(), name='ventas'),
-    # path('ventas/create_production_order/', views.create_purchaseorder, name='create_purchaseorder'),
-    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
-    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
-    # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
-
-     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
-    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
-    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
-    # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
+    path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order')
 ]
 
 if settings.DEBUG:

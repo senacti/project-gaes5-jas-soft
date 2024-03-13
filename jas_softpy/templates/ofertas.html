@@ -8,20 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="{% static 'css/sales.css' %}">
-    <link rel="stylesheet" href="{% static  'css/Prod.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/offer-table.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
-    
-    <title>Promoplast | Catalogo</title>
+    <!--<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">-->
+
+    <title>Promoplast | Empleo</title>
 
 
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
 </head>
 
 <body>
-
     <header>
         <img class="logo-compania" src="{% static 'img/logo.png'%}" alt="logo">
         <h1>Ofertas de Empleo</h1>
@@ -29,38 +27,40 @@
                 alt="ingresar"></a>
     </header>
 
-    <div class="container">
-
-        {% if ofertas_laborales %}
-            <table class="custom-table">
+    <main class="table">
+         <section class="table_header">
+            <h1>Ofertas Disponibles</h1>
+         </section>
+         <section class="table_body">
+            <table>
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Fecha Oferta</th>
-                        <th>Estado de la Oferta</th>
+                        <th>id</th>
+                        <th>Fecha Publicación</th>
+                        <th>Descripción Oferta</th>
+                        <th>Perfil</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for oferta in ofertas_laborales %}
-                        <tr>
-                            <td>{{ oferta.id }}</td>
-                            <td>{{ oferta.fecha_publicacion|date:"d/m/Y" }}</td>
-                            <td>{{ oferta.estado_oferta }}</td>
-                        </tr>
-                    {% endfor %}
+                    <td>1</td>
+                    <td>12/02/2003</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vel officiis molestias et at. At, impedit quas molestias aliquam reiciendis doloremque modi ab, dolorem voluptates iure sequi temporibus cupiditate ducimus.</td>
+                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum deserunt, incidunt necessitatibus esse ad aut animi quo odit earum excepturt</td>
+                    <td>En Revisión</td>
                 </tbody>
             </table>
-        {% else %}
-            <p>No hay ofertas laborales disponibles en este momento.</p>
-        {% endif %}
-    </div>
+         </section>
+    </main>
 
+ 
 </body>
 <footer>
-        <div class="pie_pagina">
-            <div class="group2">
-                <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
-            </div>
+    <div class="pie_pagina">
+        <div class="group2">
+            <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
         </div>
-    </footer>
+    </div>
+</footer>
+
 </html>

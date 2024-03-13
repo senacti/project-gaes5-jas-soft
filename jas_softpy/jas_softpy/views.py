@@ -13,8 +13,6 @@ from django.urls import reverse
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from jas_softpy.context_processors import MODULO_GESTION, MODULO_INVENTARIO, MODULO_PRODUCCION, MODULO_VENTA, obtenerPermisosUsuarioPorModulo
-from sales.models import PurchaseOrder, Sales
 from production.views import SuppliesListView
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -29,7 +27,7 @@ def logout_view(request):
     return redirect('index')
         
 def home(request):
-    return render(request, 'home.html', {
+    return render(request,'home.html',{
         #context
     })
 
@@ -66,18 +64,6 @@ def insumo(request):
 def ofertas(request):
     return render(request,'ofertas.html',{
         #context
-    })
-    
-def catalogo(request):
-    
-    inventory = Product.objects.all().order_by('-id')
-
-    return render(request, 'catalogo.html', {
-        'message': 'Nuevo',
-        'title': 'Productos',  # Agregada coma aquí
-        'products': inventory,
-           
-        
     })
 
 def send_email(mail):
@@ -121,20 +107,15 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            if user.is_staff:
-                login(request, user)
-                messages.success(request, 'Bienvenido {}'.format(user.username))
-                return redirect('admin:index')
-            else:
-                login(request, user)
-                return home(request)
-
+            login(request, user)
+            messages.success(request, 'Bienvenido {}'.format(user.username))
+            return redirect('admin:index')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 
     return render(request, 'login.html',{
         
-})
+    })
 
 def logout_view(request):
     logout(request)
@@ -173,12 +154,12 @@ def create_production_order(request):
 
             current_datetime = datetime.now()
 
-            production_order = ProductionOrder.objects.create()
-
             for supplies_id in supplies_ids:
                 supplies_instance = Supplies.objects.get(id=supplies_id)
 
                 if quantity_used <= supplies_instance.stock:
+                    production_order = ProductionOrder.objects.create()
+
                     SupplieProduction.objects.create(
                         quantity=quantity_used,
                         Production_OrderDate=current_datetime,
@@ -188,7 +169,7 @@ def create_production_order(request):
 
                     supplies_instance.stock -= quantity_used
                     supplies_instance.save()
-                else:                    
+                else:
                     messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
                     return redirect('ordenpedido') 
 
@@ -199,9 +180,8 @@ def create_production_order(request):
             messages.error(request, f'Error al procesar el formulario: {str(e)}')
             return redirect('ordenpedido') 
     else:
-        print('llegaste')
         return render(request, 'ordenpedido.html')
-                       
+                        
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
         return render(request, "EditProductOrder.html", {"ProductionOrder": productionorder})
@@ -243,8 +223,8 @@ def createsupplies(request):
         size = size,
         color = color,
     )
-
-    messages.success(request, '¡el isumo se registro exitosamente!')
+    
+    messages.success(request, '¡el insumo se registro exitosamente!')
     return redirect('insumo')
 
 def editsupplies(request, id):
@@ -266,7 +246,8 @@ def EditSupplies(request, id):
 
     return redirect('insumo')
     
-def deleteSupplies(request, id):    
+def deleteSupplies(request, id):
+    
     supplies = Supplies.objects.get(pk=id)
     supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
@@ -325,6 +306,8 @@ def deleteinventory(request, id):
     messages.success(request, 'Producto eliminado!')
     return redirect('producto')
 
+
+
 def create_postulation(request):
 
     if request.method == 'POST':
@@ -334,99 +317,35 @@ def create_postulation(request):
         state_postulations = request.POST['StatePostulations']    
 
         postulation = Postulation.objects.create(
-            startOffers=start_offers, 
-            descripOffer=descrip_offer, 
-            profilePostulation=profile_postulation,
-            StatePostulations=state_postulations,
+            startOffers = start_offers, 
+            descripOffer = descrip_offer, 
+            profilePostulation = profile_postulation,
+            StatePostulations = state_postulations,
         )
         messages.success(request, '¡La postulación se registró exitosamente!')
         return redirect('Postulacion')
+
+def editpostulation(request, id):
+    postulacion = Postulation.objects.get(id=id)    
+    return render(request, "postulation/editPostulation.html", {"Postulation":postulacion})
+
+@require_POST
+def EditPostulation(request, id):       
+    if request.method == 'POST':
+        postulacion = get_object_or_404(Postulation, id=id)
+        postulacion.descripOffer = request.POST.get('descripOffer', '')
+        postulacion.profilePostulation = request.POST.get('profilePostulation', '')
+        postulacion.StatePostulations = request.POST.get('StatePostulations', '')
+        postulacion.save()
+        messages.success(request, '¡La postulación se ha actualizado!')
+    else:
+        messages.error(request, '¡La solicitud no es valida!')
     
-"""def create_purchaseorder(request):
-    stockProduct = request.POST['stockProduct']
-    purchaseOrderDate = request.POST['purchaseOrderDate']
-    state = request.POST['state']
-    product = request.POST['product']
+    return redirect('postulacion')
 
-    purchaseorder = PurchaseOrder.objects.create(
-        stockProduct = stockProduct,
-        purchaseOrderDate = purchaseOrderDate,
-        state = state,
-        product = product,
-    )
-
-    messages.success(request, '¡La Orden de compra fue creada con exito!')
-    return redirect('ventas')
-
-def editpurchaseorder(request, id):
-    purchaseorder = PurchaseOrder.objects.get(id=id)
-    return render(request, "",{"PurchaseOrder": purchaseorder})
-
-@require_POST
-def Edit_PurchaseOrder(request, id):
-    if request.method == 'POST':
-        purchaseorder = get_object_or_404(PurchaseOrder, id=id)
-        purchaseorder.stockProduct = int(request.POST.get('stockProduct', '0'))
-        purchaseorder.state = request.POST.get('state', '')
-        purchaseorder.product = request.POST.get('product','')
-        purchaseorder.save()
-        messages.success(request, '¡Se ah actulizado la orden de compra!')
-    else:
-        messages.error(request,'La solicitud no es valida.')
-
-    return redirect('ventas')
-
-def deletePurchaseOrder(request, id):
-    purchaseorder = PurchaseOrder.objects.get(pk=id)
-    purchaseorder.delete()
-    messages.success(request, 'Orden de compra elimimada')
-    return redirect('ventas')"""
-
-def create_sales(request):
-    current_datetime = datetime.now()
-    saleAmount = request.POST['SaleAmount']
-    saleSubAmount = request.POST['SaleSubAmount']
-    saleIvaAmount = request.POST['SaleIvaAmount']    
-    employed = request.POST['Employed']
-    pays = request.POST['Pays']
-    purchaseOrder = request.POST['PurchaseOrder']
-
-    sales = Sales.objects.create(
-        saleDate = current_datetime,
-        saleAmount = saleAmount,
-        saleSubAmount = saleSubAmount,
-        saleIvaAmount = saleIvaAmount,
-        employed = employed,
-        pays = pays,
-        purchaseOrder = purchaseOrder,
-    )
-
-    messages.success(request, '¡La venta fue creada con exito!')
-    return redirect('ventas')
-
-def editsales(request, id):
-    sales = Sales.objects.get(id=id)
-    return render(request, "sales/editSales.html",{"Sales": sales})
-
-@require_POST
-def Edit_Sales(request, id):
-    if request.method == 'POST':
-        sales = get_object_or_404(Sales, id=id)
-        sales.saleAmount = int(request.POST.get('saleAmount', '0'))
-        sales.saleSubAmount = int(request.POST.get('saleSubAmount', '0'))
-        sales.saleIvaAmount = int(request.POST.get('product','0'))
-        sales.employed = request.POST.get('employed','')
-        sales.pays = request.POST.get('pays', '')
-        sales.purchaseOrder = request.POST.get('purchaseOrder','')
-        sales.save()
-        messages.success(request, '¡Se ha actulizado la ve de compra!')
-    else:
-        messages.error(request,'La solicitud no es valida.')
-
-    return redirect('ventas')
-
-def deleteSales(request, id):
-    sales = Sales.objects.get(pk=id)
-    sales.delete()
-    messages.success(request, 'Venta elimimada')
-    return redirect('ventas')
+def deletepostulation(request, id):
+    
+    postulacion = Postulation.objects.get(pk=id)
+    postulacion.delete()    
+    messages.success(request, 'Postulación eliminada!')
+    return redirect('postulacion')

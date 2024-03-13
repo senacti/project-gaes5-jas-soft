@@ -15,6 +15,7 @@ class Product(models.Model):
     color = models.CharField(max_length=20, verbose_name="Color")
     slug = models.SlugField(null=False, blank=False, unique=True)
     productCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
+    price = models.DecimalField(max_digits=8, decimal_places=2,default=0.0 )
     
     STATE_CHOICES = [
         ('Selecciona', 'Selecciona'),

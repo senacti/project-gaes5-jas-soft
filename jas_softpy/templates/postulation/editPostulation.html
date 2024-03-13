@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<div class="modal" id="editPostulationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Crear Postulación</h2>
+            </div>
+
+            <form action="{% if Postulation.id %}{% url 'update_postulation' id=Postulation.id %}{% endif %}"
+                class="was-validated" method="post">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Postulation.id }}">
+                {% csrf_token %}
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="descripOffer">Descripción Oferta</label>
+                        <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulacion.descripOffer }}"
+                            readonly class="form-control" placeholder="Descripción" required style="width: 50%;">
+                        <label for="profilePostulation">Perfil de Postulación</label>
+                        <input type="text" id="profilePostulation" name="profilePostulation"
+                            value="{{ Postulacion.profilePostulation }}" class="form-control" placeholder="Perfil"
+                            required style="width: 50%;">
+                    </div>
+                    <div class="form-group">
+                        <label for="StatePostulations">Estado</label>
+                        <select id="StatePostulations" name="StatePostulations" class="form-control" required
+                            style="width: 50%;">
+                            <option value="{{ Postulacion.StatePostulations }}">{{ Postulacion.StatePostulations }}
+                            </option>
+                            <option value="activa">Activa</option>
+                            <option value="enrevision">En Revisión</option>
+                            <option value="seleccionado">seleccionado</option>
+                            <option value="Declinada">Declinada</option>
+                        </select>
+                    </div>
+
+                </div>
+                <button type="submit" id="submitpostulacion" class="hidden"></button>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="document.getElementById('submitpostulacion').click();return false;"
+                        class="btn btn-primary">{{ 'Guardar' }}</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
