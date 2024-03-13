@@ -1,14 +1,14 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
+from django.contrib.auth.models import User
 
-class CustomUser(AbstractBaseUser):
-    
-    email = models.EmailField(unique=True)
-    name = models.CharField(max_length=150, null=True, blank=True)
-    last_name = models.CharField(max_length=150, null=True, blank=True)
-    
+class Customer(User):
+    class Meta:
+        proxy = True
+        
+    def get_products(self):
+        return []
 
+class Profile(models.Model):
     
-    USERNAME_FIELD = 'email'
-
-   
-    objects = BaseUserManager()
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    bio = models.TextField()

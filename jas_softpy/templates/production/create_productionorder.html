@@ -21,10 +21,11 @@
                         <div class="form-group insumo-container col-4">
                             <label for="supplies_id">Suministros</label>
                             <select name="supplies_id[]" class="form-control" required >
-                                {% for supply in object_list %}
-                                    <option value="{{ supply.id }}">{{ supply.nombre }}</option>
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for supply in lista_insumos %}
+                                    <option value="{{ supply.id }}">{{ supply.name }}</option>
                                 {% endfor %}
-                            </select>
+                            </select>                            
                         </div>
                     </div>
 
@@ -55,8 +56,8 @@
                     <div class="form-group insumo-container col-4">
                         <label for="supplies_id">Suministros</label>
                         <select name="supplies_id[]" class="form-control" required >
-                            {% for supply in object_list %}
-                                <option value="{{ supply.id }}">{{ supply.nombre }}</option>
+                            {% for supply in lista_insumos %}
+                                <option value="{{ supply.id }}">{{ supply.name }}</option>
                             {% endfor %}
                         </select>
                     </div>

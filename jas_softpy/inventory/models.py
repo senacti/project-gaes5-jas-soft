@@ -1,6 +1,10 @@
+import uuid
+
 from django.db import models
 from datetime import datetime
 from production.models import Supplies
+from django.utils.text import slugify
+from django.db.models.signals import pre_save
 from django.utils.html import format_html
 
 class Product(models.Model):
@@ -9,9 +13,9 @@ class Product(models.Model):
     fabricationDate = models.DateField(auto_now_add=True,verbose_name="Fecha de fabricación")
     size = models.CharField(max_length=12, verbose_name="Tamaño", help_text="1L - 25x25CM")
     color = models.CharField(max_length=20, verbose_name="Color")
+    slug = models.SlugField(null=False, blank=False, unique=True)
     productCode = models.IntegerField(null=True, blank=True,editable=False, verbose_name="Código")
-
-
+    
     STATE_CHOICES = [
         ('Selecciona', 'Selecciona'),
         ('producción', 'En producción'),
@@ -31,7 +35,7 @@ class Product(models.Model):
     ]
     category = models.CharField( default='selecciona',  max_length=20, choices=CATEGORY_CHOICES, help_text='Seleccione la categoría', verbose_name="Categoría")
 
-    image = models.ImageField(null=True, blank=True,upload_to='media',verbose_name="Imagen producto")
+    image = models.ImageField(null=True, blank=True, upload_to='media', verbose_name="Imagen producto")
     
     def show_image(self):        
         return format_html('<img src={} width = "50" />', self.image.url)
@@ -39,6 +43,8 @@ class Product(models.Model):
     show_image.short_description = "Imagen producto"
 
     def save(self, *args, **kwargs):
+        
+        
         if not self.id:
             last_object = Product.objects.last()
             if last_object:
@@ -50,6 +56,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.productCode}"
+    
+    
+    
     
     class Meta:
         verbose_name = "Producto"
@@ -80,3 +89,18 @@ class Flow(models.Model):
         verbose_name_plural = "Flujos"
         db_table = "flujo"
         ordering = ['id']
+
+
+def set_slug(sender, instance, *args, **kwargs):
+    if instance.name and not instance.slug:
+        base_slug = slugify(instance.name)
+        unique_id = str(uuid.uuid4())[:8]
+        slug = base_slug
+
+        while Product.objects.filter(slug=slug).exists():
+            slug = f"{base_slug}-{unique_id}"
+            unique_id = str(uuid.uuid4())[:8] 
+
+        instance.slug = slug
+
+pre_save.connect(set_slug, sender=Product)

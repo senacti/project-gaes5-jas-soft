@@ -1,3 +1,4 @@
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Product
 from django.views import View
@@ -8,6 +9,8 @@ from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
+from django.db.models import Q
 
 class InventoryInvoicePdfView(View):
     
@@ -64,7 +67,7 @@ class InventoryInvoicePdfView(View):
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
                 return response
 
-class ProductListView(ListView):
+class ProductListViewInventory(ListView):
     template_name = "inventory/producto.html"
     queryset = Product.objects.exclude(image__isnull=True).order_by('-fabricationDate')
 
@@ -73,6 +76,47 @@ class ProductListView(ListView):
         context['message'] = 'INVENTARIO | PRODUCTOS'
         print(context)
         return context
+
+class ProductListViewCatalogo(ListView):
+    template_name = "catalogo.html"
+    queryset = Product.objects.all().order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'Listado de productos'
+        
+        return context
+
+class ProductDeatilView(DetailView):
+        model = Product
+        template_name = 'inventory/product.html'
+        
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data( **kwargs)
+        
+                print(context)
+        
+                return context
+        
+class ProductSearchListView(ListView):
+    template_name = 'inventory/search.html'
+    
+    def get_queryset(self):
+        query = self.query()
+        filters = Q(name__icontains=query) | Q(categories__title__icontains=query)
+        return Product.objects.filter(filters)
+    
+    def query(self):
+        return self.request.GET.get('q')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['query'] = self.query()
+        context['count'] = context['product_list'].count() if 'product_list' in context else 0
+        return context
+
+        
+        
 # Create your views here.
 
 

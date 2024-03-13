@@ -10,8 +10,6 @@ from django.db.models.signals import post_save
 
 from django.forms import model_to_dict
 
-
-
 class Supplies(models.Model):
     name = models.CharField(max_length=50, verbose_name="Nombre") 
     stock = models.PositiveSmallIntegerField(verbose_name="Cantidad")    
@@ -24,11 +22,10 @@ class Supplies(models.Model):
         if not self.id:
             last_object = Supplies.objects.last()
             if last_object:
-                self.supplieCode = str(last_object.supplieCode + 1)
+                self.supplieCode = str(int(last_object.supplieCode) + 1)
             else:
-                self.supplieCode = str(100001)
-        super(Supplies, self).save(*args, **kwargs)            
-
+                self.supplieCode = "100001"
+        super(Supplies, self).save(*args, **kwargs)         
     def __str__(self):
         return f"{self.name} - {self.supplieCode}"
     

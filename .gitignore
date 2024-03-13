@@ -1,3 +1,14 @@
 env/
 jas_softpy/jas_softpy/__pycache__/
 db.sqlite3
+/jas_softpy/inventory/migrations/
+/jas_softpy/postulation/migrations/
+/jas_softpy/production/migrations/
+/jas_softpy/sales/migrations/
+/jas_softpy/suggestions/migrations/
+/jas_softpy/inventory/__pycache__/
+/jas_softpy/postulation/__pycache__/
+/jas_softpy/production/__pycache__/
+/jas_softpy/sales/__pycache__/
+/jas_softpy/suggestions/__pycache__/
+/jas_softpy/media/media

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<div class="modal" id="create">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <h2>Crear Orden de pedido</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            
+            <form action="{% url 'create_purchaseorder' %}" class="was-validated" method="post" id="ordenForm">
+                {% csrf_token %}
+                <div class="form-container row">
+                    <div id="insumosContainer">                        
+                        <div class="form-group insumo-container col-4">
+                            <label for="stockProduct">Cantidad</label>
+                            <input type="number" name="stockProduct" class="form-control" placeholder="Cantidad" required >
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="state">Suministros</label>
+                            <select name="state" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for supply in lista_ventas %}
+                                    <option value="{{ supply.id }}">{{ supply.state }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                        <div class="form-group insumo-container col-4">
+                            <label for="product">Suministros</label>
+                            <select name="product" class="form-control" required >
+                                <option value="" selected disabled>Selecciona</option>
+                                {% for supply in lista_ventas %}
+                                    <option value="{{ supply.id }}">{{ supply.product }}</option>
+                                {% endfor %}
+                            </select>                            
+                        </div>
+                    </div>
+
+                </div>                
+                <button type="submit" id="submitordenpedido" class="hidden"></button>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

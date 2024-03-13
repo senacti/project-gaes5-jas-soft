@@ -71,8 +71,38 @@ class ProductionInvoicePdfView(View):
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
                 return response         
 
-class ProductionListView(ListView):
+class ProductionListView(ListView):        
+      
         template_name = "production/ordenpedido.html"
+        model = SupplieProduction
+        context_object_name = 'name'
+
+        def get_context_data(self, **kwargs):
+                context = super().get_context_data(**kwargs)
+                
+                context['lista_insumos'] = Supplies.objects.annotate()
+                context['orden_pedido']  = SupplieProduction.objects.annotate(
+                        order_date=TruncDate('Production_OrderDate'),
+                        total_quantity=Sum('quantity'),
+                        supplies_count=Count('supplies'),
+                )
+                return context
+                       
+               
+                #paso 1 recorrer el objeto 
+                #paso 2 -obtener production_order_id, nombre
+                #paso 3 -obtener recorrer nuevamene el objeto
+                #paso 4 -condiciona si production_order_id es igual al array 2
+                #paso 5 -guardar el  un objeto con fecha nombre cantidad etc, como se vera visualizado en la vista 
+                
+                #i= {id=1,order_date=01/01/2023,supplies ='nombre,nombre2',total_quantity=cantidad1 + cantidad2 =4},{id=1,fecha=01/01/2023,nombre,nombre2},{id=1,fecha=01/01/2023,nombre,nombre2},{id=1,fecha=01/01/2023,nombre,nombre2},{id=1,fecha=01/01/2023,nombre,nombre2}
+                
+                #context['orden_pedido'] = 1
+                
+
+                #return Supplies.objects.annotate()   
+                
+        """template_name = "production/ordenpedido.html"
         model = SupplieProduction
         context_object_name = 'production_orders'
         
@@ -81,20 +111,28 @@ class ProductionListView(ListView):
                         order_date=TruncDate('Production_OrderDate'),
                         total_quantity=Sum('quantity'),
                         supplies_count=Count('supplies'),
-                ).order_by('-order_date')
+                ).order_by('-order_date')     """
+                       
+class SuppliesListView(ListView):        
+        template_name = "supplies/insumo.html"
+        queryset = Supplies.objects.all().order_by('supplieCode')
+        context_object_name = 'supplies'
         
         def get_context_data(self, **kwargs):
                 context = super().get_context_data(**kwargs)
-                context['message'] = 'PRODUCCION | ORDEN DE PEDIDO'
+                context['message'] = 'PRODUCCION | INSUMOS'
+                print(context)
+                return context
 
-                daily_production = SupplieProduction.objects.annotate(
-                        date=TruncDate('Production_OrderDate')
-                ).values('date').annotate(
+                """daily_production = SupplieProduction.objects.annotate(
+                        day=TruncDate('Production_OrderDate')
+                ).values('day').annotate(
                         total_quantity=Sum('quantity')
                 )
 
-                daily_labels = [entry['date'].strftime('%Y-%m-%d') for entry in daily_production]
+                daily_labels = [entry['day'].strftime('%Y-%m-%d') for entry in daily_production]
                 daily_data = [entry['total_quantity'] for entry in daily_production]
+
 
                 monthly_production = SupplieProduction.objects.annotate(
                         month=TruncMonth('Production_OrderDate')
@@ -102,53 +140,31 @@ class ProductionListView(ListView):
                         total_quantity=Sum('quantity')
                 )
 
-                monthly_labels = [entry['month'].strftime('%Y-%m') for entry in monthly_production]
+                monthly_labels = [str(entry['month']) for entry in monthly_production]
                 monthly_data = [entry['total_quantity'] for entry in monthly_production]
 
                 context['daily_chart_labels'] = daily_labels
                 context['daily_chart_data'] = daily_data
                 context['monthly_chart_labels'] = monthly_labels
                 context['monthly_chart_data'] = monthly_data
-
-                production_orders = context['production_orders']
-                supplies_info = []
-
-                for production_order in production_orders:
-                        supplies_info.append({
-                                'order_id': production_order.id,
-                                'supplies': production_order.supplies.all()
-                        })
-                        
-                context['supplies_info'] = supplies_info
-                return context
-        
-                       
-class SuppliesListView(ListView):        
-        template_name = "supplies/insumo.html"
-        queryset = Supplies.objects.all().order_by('supplieCode')
-        context_object_name = 'production_orders'
-        
-        def get_context_data(self, **kwargs):
-                context = super().get_context_data(**kwargs)
-                context['message'] = 'PRODUCCION | INSUMOS'
                 
-                production_orders = context['production_orders']
-                supplies_info = []
+                production_orders = context['object_list']
+                production_orders = []
+                
+                for supply in production_orders:
+                        production_orders.extend(list(SupplieProduction.objects.filter(supplies=supply).all()))
 
-                for production_order in production_orders:
-                        insumos = production_order.supplies.all()
-                        insumos_info = [{'nombre': insumo.name, 'cantidad': insumo.pivot.quantity} for insumo in insumos]
+                context['production_orders'] = production_orders
 
-                        supplies_info.append({                        
-                        'insumos': insumos_info,
-                        'order_date': production_order.order_date,
-                        'total_quantity': production_order.total_quantity,
-                        })                        
+                return context"""
 
-                context['supplies_info'] = supplies_info
+       
+                
 
-                return context
+        
+        
 
         
                 
         
+

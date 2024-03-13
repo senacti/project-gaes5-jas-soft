@@ -52,35 +52,8 @@
 	</header>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-							<li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-							<li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+			
+			{% include 'menumodulos.html' %}
 
 
 			<div class="col-10" id="contentd">
@@ -115,18 +88,31 @@
 									<td>
 										{% include 'supplies/EditSupplies.html' %}
 										{% csrf_token %}
-										<a href="{% url 'edit_supplies' insumo.id %}">											
-											<button type="button" onclick="abrirmodal('{{ insumo.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editSuppliesModal_{{ insumo.id }}">
-												Editar
-											</button>
-										</a>										
+
+										{% if user_permissions %}
+											{% for permiso in user_permissions %} 
+												{% if permiso == 'change_supplies' %}
+													<a href="{% url 'edit_supplies' insumo.id %}">											
+														<button type="button" onclick="abrirmodal('{{ insumo.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editSuppliesModal_{{ insumo.id }}">
+															Editar
+														</button>
+													</a>
+												{% endif %}
+											{% endfor %}
+										{% endif %}									
 									</td>
 									<td>
-										<a href="{% url 'delete_supplies' insumo.id %}">
-											<button type="button" class="btn btn-danger">
-												Eliminar
-											</button>
-										</a>
+										{% if user_permissions %}
+											{% for permiso in user_permissions %} 
+												{% if permiso == 'delete_supplies' %}
+													<a href="{% url 'delete_supplies' insumo.id %}">
+														<button type="button" class="btn btn-danger">
+															Eliminar
+														</button>
+													</a>
+												{% endif %}
+											{% endfor %}
+										{% endif %}	
 									</td>
 								</tr>
 								{% endfor %}
@@ -135,10 +121,16 @@
 						{% include 'supplies/CreateSupplies.html' %}						
 						
 						<div class="d-flex justify-content-around bg mb-3">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-								data-bs-target="#create">
-								Nuevo Insumo
-							</button>		
+							{% if user_permissions %}
+								{% for permiso in user_permissions %} 
+									{% if permiso == 'add_supplies' %}
+										<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+											data-bs-target="#create">
+											Nuevo Insumo
+										</button>
+									{% endif %}
+								{% endfor %}
+							{% endif %}	
 							<a href="" class="btn btn-success" target="_blank">PDF</a>					
 						</div>						
 					</div>
@@ -197,6 +189,10 @@
 
 		function abrirmodal(id) {
 			$('#editSuppliesModal_' + id).modal('show');
+		}
+
+		function submitForm() {			
+			document.getElementById('submitsupplies').click();
 		}
 	</script>
 

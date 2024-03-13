@@ -50,35 +50,8 @@
 	
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-							<li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-							<li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+			
+			{% include 'menumodulos.html' %}
 
 			<div class="col-10" id="contentd">
 				<div class="card" id="cardash">
@@ -99,27 +72,27 @@
 								</tr>
 							</thead>
 							<tbody>
-								{% for production_order in object_list %}
+								{% for production_order in orden_pedido %}
 									<tr>                                                          								
 										<td>{{ production_order.order_date }}</td>
 										<td>{{ production_order.supplies }}</td>
-										<td>{{ production_order.total_quantity }}										
-											<ul>
-												{% for production_order in production_order.supplies.all %}
-													<li>{{ production_order.supplies }}</li>
-												{% endfor %}
-											</ul>
-										</td>
+										<td>{{ production_order.quantity }}</td>
 										<td>
 											<!--<a href="{% url 'edit_production_order' production_order.id %}">
 												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editOrderProduction">
 													Editar
 												</button>
-											</a>-->
+											</a>-->										
 											<a href="{% url 'delete_production_order' production_order.id %}">
-												<button type="button" class="btn btn-danger">
-													Eliminar
-												</button>
+												{% if user_permissions %}
+													{% for permiso in user_permissions %} 
+														{% if permiso == 'change_purchaseorder' %}
+															<button type="button" class="btn btn-danger">
+																Eliminar
+															</button>
+														{% endif %}
+													{% endfor %}
+												{% endif %}
 											</a>                                
 										</td>
 									</tr>
@@ -129,10 +102,16 @@
 						{% include 'production/create_productionorder.html' %}
 						{% include 'production/EditProductOrder.html' %}
 						<div class="button-new">
-							<button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                data-bs-target="#create">								
-                                Agregar Produccion
-                            </button>
+							{% if user_permissions %}
+								{% for permiso in user_permissions %} 
+									{% if permiso == 'add_purchaseorder' %}
+										<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+											data-bs-target="#create">								
+											Agregar Produccion
+										</button>
+									{% endif %}
+								{% endfor %}
+							{% endif %}
 							<a class="button-excel" href="@{/ordenpedido/exportar/excel}">
 								Exportar a Excel
 							</a>
