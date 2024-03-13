@@ -28,7 +28,10 @@ urlpatterns = [
     path('Postulacion/', views.postulacion, name='Postulacion'),  
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),
-   
+    path('postulation/edit/<int:id>', views.editpostulation, name = 'edit_postulation'),
+    path('postulation/update/<int:id>/', views.EditPostulation, name='update_postulation'),
+    path('postulation/delete_postulation/<id>', views.deletepostulation, name = 'delete_postulation'),
+
     path('producto/', ProductListView.as_view(), name='producto'),
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),

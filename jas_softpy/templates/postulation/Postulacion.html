@@ -105,7 +105,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% include 'postulation/edit_postulation.html' %}
+                                    
                                 {% for Postulacion in object_list %}
                                 <tr>
                                     <td>{{Postulacion.startOffers }}</td>
@@ -113,16 +113,17 @@
                                     <td>{{Postulacion.profilePostulation}}</td>
                                     <td>{{Postulacion.StatePostulations}}</td>
                                     <td>
+                                        {% include 'postulation/editPostulation.html' %}
                                         {% csrf_token %}
-                                        <a href="{% url 'edit_supplies' id=postulacion.id %}">
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#edit">
+                                        <a href="{% url 'edit_postulation' postulacion.id %}">
+                                            <button type="button" onclick="abrirmodal('{{ postulacion.id }}')" class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#editPostulationModal_{{ postulacion.id }}">
                                                 Editar
                                             </button>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'delete_supplies' postulacion.id %}">
+                                        <a href="{% url 'delete_postulations' postulacion.id %}">
                                             <button type="button" class="btn btn-danger">
                                                 Eliminar
                                             </button>
@@ -196,7 +197,7 @@
         }
 
         function abrirmodal() {
-            $('#edit').show();
+            $('#editPostulationModal' + id ).modal('show');
         }
     </script>
 

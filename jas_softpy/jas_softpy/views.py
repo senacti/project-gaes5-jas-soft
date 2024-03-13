@@ -317,10 +317,35 @@ def create_postulation(request):
         state_postulations = request.POST['StatePostulations']    
 
         postulation = Postulation.objects.create(
-            startOffers=start_offers, 
-            descripOffer=descrip_offer, 
-            profilePostulation=profile_postulation,
-            StatePostulations=state_postulations,
+            startOffers = start_offers, 
+            descripOffer = descrip_offer, 
+            profilePostulation = profile_postulation,
+            StatePostulations = state_postulations,
         )
         messages.success(request, '¡La postulación se registró exitosamente!')
         return redirect('Postulacion')
+
+def editpostulation(request, id):
+    postulacion = Postulation.objects.get(id=id)    
+    return render(request, "postulation/editPostulation.html", {"Postulation":postulacion})
+
+@require_POST
+def EditPostulation(request, id):       
+    if request.method == 'POST':
+        postulacion = get_object_or_404(Postulation, id=id)
+        postulacion.descripOffer = request.POST.get('descripOffer', '')
+        postulacion.profilePostulation = request.POST.get('profilePostulation', '')
+        postulacion.StatePostulations = request.POST.get('StatePostulations', '')
+        postulacion.save()
+        messages.success(request, '¡La postulación se ha actualizado!')
+    else:
+        messages.error(request, '¡La solicitud no es valida!')
+    
+    return redirect('postulacion')
+
+def deletepostulation(request, id):
+    
+    postulacion = Postulation.objects.get(pk=id)
+    postulacion.delete()    
+    messages.success(request, 'Postulación eliminada!')
+    return redirect('postulacion')
