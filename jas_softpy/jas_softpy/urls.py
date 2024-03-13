@@ -58,8 +58,8 @@ urlpatterns = [
     
     path('ventas/', SalesListView.as_view(), name='ventas'),
     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
-    # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),
-    # path('ventas/editar/<int:id>', views.Edit_PurchaseOrder, name='Edit_PurchaseOrder'),    
+    path('ventas/editar/<int:id>', views.editsales, name='editsales'),
+    path('ventas/editar/<int:id>', views.EditSales, name='EditSales'),    
     path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
 ]
 
