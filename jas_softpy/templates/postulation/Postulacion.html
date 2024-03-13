@@ -54,7 +54,7 @@
     </header>
     <div class="container-fluid">
         <div class="row">
-            
+
             {% include 'menumodulos.html' %}
 
             <div class="col-10" id="contentd">
@@ -77,7 +77,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                    
+
                                 {% for Postulacion in object_list %}
                                 <tr>
                                     <td>{{Postulacion.startOffers }}</td>
@@ -87,21 +87,22 @@
                                     <td>
                                         {% include 'postulation/editPostulation.html' %}
                                         {% csrf_token %}
-                                        <a href="{% url 'edit_postulation' postulacion.id %}">
-                                            <button type="button" onclick="abrirmodal('{{ postulacion.id }}')" class="btn btn-success" data-bs-toggle="modal"
-                                                data-bs-target="#editPostulationModal_{{ postulacion.id }}">
+                                        <a href="{% url 'edit_postulation' Postulacion.id %}">
+                                            <button type="button" onclick="abrirmodal('{{ Postulacion.id }}')"
+                                                class="btn btn-success" data-bs-toggle="modal"
+                                                data-bs-target="#editPostulationModal_{{ Postulacion.id }}">
                                                 Editar
                                             </button>
                                         </a>
                                     </td>
                                     <td>
-                                        <a href="{% url 'delete_postulations' postulacion.id %}">
+                                        <a href="{% url 'delete_postulations' Postulacion.id %}">
                                             <button type="button" class="btn btn-danger">
                                                 Eliminar
                                             </button>
                                         </a>
                                     </td>
-                                </tr>
+                                </tr>                    
                                 {% endfor %}
                             </tbody>
                         </table>
@@ -169,7 +170,7 @@
         }
 
         function abrirmodal() {
-            $('#editPostulationModal' + id ).modal('show');
+            $('#editPostulationModal' + id).modal('show');
         }
     </script>
 

@@ -4,46 +4,48 @@
 <div class="modal" id="editPostulationModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            
+
             <div class="modal-header">
-                <h2>Crear Postulación</h2>                
+                <h2>Crear Postulación</h2>
             </div>
-            
-            <form action="{% if Postulation.id %}{% url 'update_postulation' id=Postulation.id %}{% endif %}" class="was-validated" method="post">
-                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ postulacion.id }}">
+
+            <form action="{% if Postulation.id %}{% url 'update_postulation' id=Postulation.id %}{% endif %}"
+                class="was-validated" method="post">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Postulation.id }}">
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
-                        <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Product.name }}" readonly class="form-control" placeholder="Nombre" required style="width: 50%;">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}"  class="form-control" placeholder="Cantidad" required style="width: 50%;">
-                        <label for="size">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Product.size }}" readonly class="form-control" placeholder="Tamaño" required style="width: 50%;">
-                        <label for="size">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Product.color }}" readonly class="form-control" placeholder="Color" required style="width: 50%;">
+                        <label for="descripOffer">Descripción Oferta</label>
+                        <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulacion.descripOffer }}"
+                            readonly class="form-control" placeholder="Descripción" required style="width: 50%;">
+                        <label for="profilePostulation">Perfil de Postulación</label>
+                        <input type="text" id="profilePostulation" name="profilePostulation"
+                            value="{{ Postulacion.profilePostulation }}" class="form-control" placeholder="Perfil"
+                            required style="width: 50%;">
                     </div>
                     <div class="form-group">
-						<label for="state">Estado</label>
-						<select id="state" name="state" class="form-control" required style="width: 50%;">
-                            <option value="{{ Product.state }}">{{ Product.state }}</option>
-                            <option value="selecciona">Selecciona</option>
-                            <option value="Producción">Producción</option>
-                            <option value="Alistamiento">Alistamiento</option>
-                            <option value="Stock">Stock</option>
-                            <option value="Agotado">Agotado</option>
-						</select>                                     
-					</div>	
-                    
+                        <label for="StatePostulations">Estado</label>
+                        <select id="StatePostulations" name="StatePostulations" class="form-control" required
+                            style="width: 50%;">
+                            <option value="{{ Postulacion.StatePostulations }}">{{ Postulacion.StatePostulations }}
+                            </option>
+                            <option value="activa">Activa</option>
+                            <option value="enrevision">En Revisión</option>
+                            <option value="seleccionado">seleccionado</option>
+                            <option value="Declinada">Declinada</option>
+                        </select>
+                    </div>
+
                 </div>
-                <button type="submit" id="submitproducto" class="hidden"></button>
-                
+                <button type="submit" id="submitpostulacion" class="hidden"></button>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
+                    <button type="button" onclick="document.getElementById('submitpostulacion').click();return false;"
+                        class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
             </form>
-            
+
         </div>
     </div>
 </div>
