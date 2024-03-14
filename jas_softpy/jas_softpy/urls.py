@@ -1,11 +1,12 @@
 from django import views
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
-from inventory.views import InventoryInvoicePdfView, ProductDeatilView
-from sales.views import SaleInvoicePdfView, SalesListView
+from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
+from sales.views import SaleInvoicePdfView,  SalesListView
 from postulation.views import PostulationInvoicePdfView
 from . import views
 
@@ -31,7 +32,11 @@ urlpatterns = [
     path('postulation/update/<int:id>/', views.EditPostulation, name='update_postulation'),
     path('postulation/delete_postulation/<id>', views.deletepostulation, name = 'delete_postulation'),
 
-    path('producto/', ProductDeatilView.as_view(), name='producto'),
+    path('producto/', ProductListViewInventory.as_view(), name='producto'),
+    path('catalogo/', ProductListViewCatalogo.as_view(), name='catalogo'),
+    path('product/', include('inventory.urls')),
+    path('carrito/', include('carts.urls')),
+    
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
     path('inventory/edit/<int:id>', views.editinventory, name = 'edit_inventory'),
