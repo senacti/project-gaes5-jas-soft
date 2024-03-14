@@ -51,7 +51,7 @@ class Pays(models.Model):
     purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.payTipe
+        return f"{self.payTipe} - {self.purchaseOrder}"
 
     class Meta:
         verbose_name = "Pago"

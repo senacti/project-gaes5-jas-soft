@@ -31,10 +31,10 @@
                             <label for="employed">Empleado</label>
                             <select name="employed" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_employes %}
-                                    <option value="{{ sales.id }}">{{ sales.employed }}</option>
+                                {% for employed in lista_employes %}
+                                    <option value="{{ employed.id }}">{{ employed.name }}</option>
                                 {% endfor %}
-                            </select>                            
+                            </select>                        
                         </div>
                         <div class="form-group insumo-container col-4">
                             <label for="pays">Tipo pago</label>
@@ -49,8 +49,8 @@
                             <label for="purchaseOrder">Orden de pedido</label>
                             <select name="purchaseOrder" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in purchase_orders %}
-                                    <option value="{{ sales.id }}">{{ sales.purchaseOrder }}</option>
+                                {% for order in purchase_orders %}
+                                    <option value="{{ order.id }}">{{ order.purchaseOrder }}</option>
                                 {% endfor %}
                             </select>                            
                         </div>

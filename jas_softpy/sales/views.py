@@ -81,8 +81,7 @@ class PurchaseOrderListView(ListView):
 class SalesListView(ListView):
     template_name = "sales/ventas.html"
     model = Sales
-    context_object_name = 'sales'
-    queryset = Sales.objects.exclude
+    context_object_name = 'sales'    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -92,4 +91,5 @@ class SalesListView(ListView):
         context['lista_sales'] = Sales.objects.all()
         context['purchase_orders'] = PurchaseOrder.objects.all()
         context['lista_employes'] = Employed.objects.annotate()
+
         return context
