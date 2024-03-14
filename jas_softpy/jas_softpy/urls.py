@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
 from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
 from sales.views import SaleInvoicePdfView,  SalesListView
-from postulation.views import PostulationInvoicePdfView
+from postulation.views import PostulationInvoicePdfView, PostulationListView
 from . import views
 
 urlpatterns = [
@@ -25,7 +25,7 @@ urlpatterns = [
     path('sales/', views.sales, name='sales'),
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
 
-    path('Postulacion/', views.postulacion, name='Postulacion'),  
+    path('Postulacion/', PostulationListView.as_view(), name='Postulacion'),
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),
     path('postulation/edit/<int:id>', views.editpostulation, name = 'edit_postulation'),

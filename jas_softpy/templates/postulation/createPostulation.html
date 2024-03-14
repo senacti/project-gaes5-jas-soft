@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             
-            <form action="{% url 'create_postulation' %}" class="was-validated" method="post">
+            <form action="{% url 'create_postulation' %}" class="was-validated" method="POST">
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
