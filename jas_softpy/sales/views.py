@@ -89,6 +89,7 @@ class SalesListView(ListView):
         context['message'] = 'VENTAS '
         
 
-        context['lista_sales'] = Sales.objects.annotate()
+        context['lista_sales'] = Sales.objects.all()
+        context['purchase_orders'] = PurchaseOrder.objects.all()
         context['lista_employes'] = Employed.objects.annotate()
         return context
