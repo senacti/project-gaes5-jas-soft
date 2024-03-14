@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-{% load static %}
-
 <div class="modal" id="create">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            
             <div class="modal-header">
                 <h2>Crear Orden de pedido</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -15,16 +11,16 @@
                 <div class="form-container row">
                     <div id="insumosContainer">                        
                         <div class="form-group insumo-container col-4">
-                            <label for="saleAmount">valor de la venta</label>
-                            <input type="number" name="saleAmount" class="form-control" placeholder="Valor de la venta" required >
-                        </div>
+                            <label for="saleAmount">Valor de la venta</label>
+                            <input type="text" name="saleAmount" id="saleAmount" class="form-control" placeholder="Valor de la venta" readonly >
+                        </div>                 
                         <div class="form-group insumo-container col-4">
                             <label for="saleSubAmount">Subtotal</label>
-                            <input type="number" name="saleSubAmount" class="form-control" placeholder="Subtotal" required >
+                            <input type="number" name="saleSubAmount" id="saleSubAmount" class="form-control" placeholder="Subtotal" required >
                         </div>
                         <div class="form-group insumo-container col-4">
                             <label for="saleIvaAmount">IVA</label>
-                            <select name="saleIvaAmount" class="form-control" required >
+                            <select name="saleIvaAmount" id="saleIvaAmount" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
                                 {% for sales in lista_sales %}
                                     <option value="{{ sales.id }}">{{ sales.saleIvaAmount }}</option>
@@ -32,16 +28,16 @@
                             </select>                            
                         </div>
                         <div class="form-group insumo-container col-4">
-                            <label for="employed">Suministros</label>
+                            <label for="employed">Empleado</label>
                             <select name="employed" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_iva %}
-                                    <option value="{{ sales.id }}">{{ sales.employed }}</option>
+                                {% for employed in lista_employes %}
+                                    <option value="{{ employed.id }}">{{ employed.name }}</option>
                                 {% endfor %}
-                            </select>                            
+                            </select>                        
                         </div>
                         <div class="form-group insumo-container col-4">
-                            <label for="pays">Suministros</label>
+                            <label for="pays">Tipo pago</label>
                             <select name="pays" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
                                 {% for sales in lista_sales %}
@@ -50,17 +46,15 @@
                             </select>                            
                         </div>
                         <div class="form-group insumo-container col-4">
-                            <label for="purchaseOrder">Suministros</label>
+                            <label for="purchaseOrder">Orden de pedido</label>
                             <select name="purchaseOrder" class="form-control" required >
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_iva %}
-                                    <option value="{{ sales.id }}">{{ sales.purchaseOrder }}</option>
+                                {% for order in purchase_orders %}
+                                    <option value="{{ order.id }}">{{ order.purchaseOrder }}</option>
                                 {% endfor %}
                             </select>                            
                         </div>
-                        
                     </div>
-
                 </div>                
                 <button type="submit" id="submitordenpedido" class="hidden"></button>
                 
@@ -68,6 +62,35 @@
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
                 </div>
+
+                <script>                    
+                    document.addEventListener("DOMContentLoaded", function() {
+                        function calcularTotal() {
+                            var saleSubAmount = parseFloat(document.getElementById('saleSubAmount').value.replace(/[^\d.]/g, ''));
+                            var saleIvaAmount = parseFloat(document.getElementById('saleIvaAmount').value);
+                            
+                            var saleAmount = saleSubAmount * (1 + saleIvaAmount / 100);
+                
+                            var formatter = new Intl.NumberFormat('es-CO', {
+                                style: 'currency',
+                                currency: 'COP'
+                            });
+                            var saleAmountFormatted = formatter.format(saleAmount);                
+                            
+                            document.getElementById('saleAmount').value = saleAmountFormatted;
+                        }                  
+                
+                        document.getElementById('saleSubAmount').addEventListener('input', function() {
+                            var formattedValue = this.value.replace(/[^\d.]/g, '').replace(/(\..*)\./g, '$1');
+                            this.value = formattedValue;
+                            calcularTotal();
+                        });
+                        
+                        document.getElementById('saleIvaAmount').addEventListener('change', calcularTotal);
+                    });
+                </script>
+                
+                
             </form>
         </div>
     </div>
