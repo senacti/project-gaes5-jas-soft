@@ -13,11 +13,11 @@ from django.urls import reverse
 
 from django.contrib.auth import logout
 from django.shortcuts import redirect
-from sales.models import Sales
+from sales.models import Pays, PurchaseOrder, Sales
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
 from inventory.models import Product
-from postulation.models import Postulation
+from postulation.models import Employed, Postulation
 
 from .forms import RegisterForm
 from django.contrib import messages
@@ -344,31 +344,55 @@ def deletepostulation(request, id):
     return redirect('postulacion')
 
 def create_sales(request):
-
-    if request.method == 'POST':
+    if request.method == 'POST':        
         saleDate = datetime.now()
         saleAmount = request.POST['saleAmount']
         saleSubAmount = request.POST['saleSubAmount']
         saleIvaAmount = request.POST['saleIvaAmount']
-        employed = request.POST['employed']
-        pays = request.POST['pays']
-        purchaseOrder = request.POST['purchaseOrder']
+        employed_id = request.POST.get('employed')
+        pays_id = request.POST.get('pays')
+        purchaseOrder_id = request.POST.get('purchaseOrder')
 
-        sales = Sales.objects.create(
+        employed_instance = Employed.objects.get(id=employed_id)
+        pays_instance = Pays.objects.get(id=pays_id)
+        purchaseOrder_instance = PurchaseOrder.objects.get(id=purchaseOrder_id)
+
+        sale_instance = Sales.objects.create(
             saleDate=saleDate,
             saleAmount=saleAmount,
             saleSubAmount=saleSubAmount,
             saleIvaAmount=saleIvaAmount,
-            employed=employed,
-            pays=pays,
-            purchaseOrder=purchaseOrder,
+            employed=employed_instance,  
+            pays=pays_instance,
+            purchaseOrder=purchaseOrder_instance,
         )
+
+        try:
+            
+            product_id = request.POST.get('product')
+            product_instance = Product.objects.get(id=product_id)
+
+            quantity_sold = int(request.POST.get('stockProduct'))
+
+            if product_instance.stock >= quantity_sold:
+                product_instance.stock -= quantity_sold
+                product_instance.save()
+            else:
+                messages.error(request, f"No hay suficiente stock disponible para el producto {product_instance.name}")
+                sale_instance.delete()
+                return redirect('ventas')  
+
+        except Product.DoesNotExist:            
+            messages.error(request, "El producto asociado a la venta no existe")            
+            sale_instance.delete()
+            return redirect('ventas')  
+
         messages.success(request, '¡La venta se registró exitosamente!')
-        return redirect('sales')
-    else:
-        # Define las opciones del select
+        return redirect('ventas')
+    else:        
         iva_choices = Sales.IVA_CHOICES
         return render(request, 'tu_template.html', {'iva_choices': iva_choices})
+    
 def editsales(request, id):
     sales = Sales.objects.get(id=id)    
     return render(request, "Sales/editSales.html", {"Sales":sales})

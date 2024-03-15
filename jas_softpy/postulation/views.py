@@ -7,6 +7,9 @@ from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
+
+from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Postulation
 
 class PostulationInvoicePdfView(View):
@@ -65,3 +68,13 @@ class PostulationInvoicePdfView(View):
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
+
+class PostulationListView(ListView):
+    template_name = "postulation/Postulacion.html"
+    queryset = Postulation.objects.all().order_by('-id')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'Listado Postulaciones'
+        print(context)
+        return context

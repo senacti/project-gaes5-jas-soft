@@ -14,19 +14,17 @@ class PurchaseOrder(models.Model):
     
     STATE_CHOICES = [
         ('Recibido', 'Recibido'),
-        ('EnProduccion', 'En producción'),
-        ('EnCamino', 'En camino'),
+        ('En Produccion', 'En producción'),
+        ('En Camino', 'En camino'),
         ('Finalizado', 'Finalizado'),
     ]
     
-    state = models.CharField(max_length=50, choices=STATE_CHOICES, verbose_name="Estado Pedido") 
-    
-    
+    state = models.CharField(max_length=50, choices=STATE_CHOICES, verbose_name="Estado Pedido")     
     product = models.ForeignKey(Product,on_delete=models.CASCADE)
     
     
     def __str__(self):
-        return self.state
+        return f"{self.state} - {self.product}"
     
     class Meta:
         verbose_name = "Orden pedido"
@@ -49,12 +47,11 @@ class Pays(models.Model):
     ]
     
     payTipe = models.CharField(max_length=50, choices=PAYTIPE_CHOICES, verbose_name="Tipo de Pago")
-    payMethod = models.CharField(max_length=50, choices=PAYMETHOD_CHOICES, default='Efectivo', verbose_name="Metodo de Pago")
-    
+    payMethod = models.CharField(max_length=50, choices=PAYMETHOD_CHOICES, default='Efectivo', verbose_name="Metodo de Pago")    
     purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE)
     
     def __str__(self):
-        return self.payTipe
+        return f"{self.payTipe} - {self.purchaseOrder}"
 
     class Meta:
         verbose_name = "Pago"
@@ -63,7 +60,7 @@ class Pays(models.Model):
         ordering = ['id']
 
 class Sales(models.Model):   
-    saleDate = models.DateTimeField(default=datetime.now,verbose_name="Fecha Venta")    
+    saleDate = models.DateTimeField(default=datetime.now, verbose_name="Fecha Venta")    
     saleAmount = models.FloatField(verbose_name="Valor Venta")
     saleSubAmount = models.FloatField(verbose_name="Valor Subtotal")
     
@@ -75,9 +72,15 @@ class Sales(models.Model):
     ]
     
     saleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")   
-    employed = models.ForeignKey(Employed,on_delete=models.CASCADE,verbose_name="Empleado")   
-    pays = models.ForeignKey(Pays,on_delete=models.CASCADE,verbose_name="Pago")  
-    purchaseOrder = models.ForeignKey(PurchaseOrder,on_delete=models.CASCADE,verbose_name="Orden de pedido")
+    employed = models.ForeignKey(Employed, on_delete=models.CASCADE, verbose_name="Empleado")   
+    pays = models.ForeignKey(Pays, on_delete=models.CASCADE, verbose_name="Pago")  
+    purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, verbose_name="Orden de pedido")
+    
+    def calculate_total(self):
+        iva_percentage = self.saleIvaAmount / 100.0
+        iva_amount = self.saleSubAmount * iva_percentage
+        total = self.saleSubAmount + iva_amount
+        return total
     
     def __str__(self):
         return str(self.saleAmount)
@@ -87,4 +90,3 @@ class Sales(models.Model):
         verbose_name_plural = "Ventas"
         db_table = "ventas"
         ordering = ['id']
-        

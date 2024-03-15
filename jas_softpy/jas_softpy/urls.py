@@ -1,12 +1,13 @@
 from django import views
 from django.contrib import admin
 from django.urls import path
+from django.urls import include
 from django.conf import settings
 from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
-from inventory.views import InventoryInvoicePdfView, ProductDeatilView
-from sales.views import SaleInvoicePdfView, SalesListView
-from postulation.views import PostulationInvoicePdfView
+from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
+from sales.views import SaleInvoicePdfView,  SalesListView
+from postulation.views import PostulationInvoicePdfView, PostulationListView
 from . import views
 
 urlpatterns = [
@@ -24,14 +25,18 @@ urlpatterns = [
     path('sales/', views.sales, name='sales'),
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
 
-    path('Postulacion/', views.postulacion, name='Postulacion'),  
+    path('Postulacion/', PostulationListView.as_view(), name='Postulacion'),
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),
     path('postulation/edit/<int:id>', views.editpostulation, name = 'edit_postulation'),
     path('postulation/update/<int:id>/', views.EditPostulation, name='update_postulation'),
     path('postulation/delete_postulation/<id>', views.deletepostulation, name = 'delete_postulation'),
 
-    path('producto/', ProductDeatilView.as_view(), name='producto'),
+    path('producto/', ProductListViewInventory.as_view(), name='producto'),
+    path('catalogo/', ProductListViewCatalogo.as_view(), name='catalogo'),
+    path('product/', include('inventory.urls')),
+    path('carrito/', include('carts.urls')),
+    
     path('inventory/inventory_invoice/', InventoryInvoicePdfView.as_view(), name='inventory_invoice_pdf'),   
     path('inventory/create_inventory/', views.createinventory, name = 'create_inventory'),
     path('inventory/edit/<int:id>', views.editinventory, name = 'edit_inventory'),
