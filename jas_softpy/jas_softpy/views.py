@@ -148,12 +148,21 @@ def create_production_order(request):
             supplies_ids = request.POST.getlist('supplies_id[]')
 
             current_datetime = datetime.now()
+           
+            last_production_order = ProductionOrder.objects.last()
+            if last_production_order and last_production_order.supplieProductionCode:
+                last_code = int(last_production_order.supplieProductionCode)
+                supplie_production_code = str(last_code + 1).zfill(5)
+            else:
+                supplie_production_code = "00001"
 
             for supplies_id in supplies_ids:
                 supplies_instance = Supplies.objects.get(id=supplies_id)
 
                 if quantity_used <= supplies_instance.stock:
-                    production_order = ProductionOrder.objects.create()
+                    production_order = ProductionOrder.objects.create(
+                        supplieProductionCode=supplie_production_code  
+                    )
 
                     SupplieProduction.objects.create(
                         quantity=quantity_used,

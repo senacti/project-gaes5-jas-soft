@@ -6,7 +6,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/Style.css' %}">
+	
 	<link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
@@ -65,8 +65,9 @@
 							<thead>
 								<tr>									
 									<th>Fecha de Produccion</th>																		
-									<th>Insumos</th>									
-									<th>Cantidad</th>
+									<th>Codigo Orden de Produccion</th>		
+									<th>Cantidad</th>		
+									<th>Insumo</th>				
 									<th>Funciones</th>
 									<th></th>
 								</tr>
@@ -75,14 +76,15 @@
 								{% for production_order in orden_pedido %}
 									<tr>                                                          								
 										<td>{{ production_order.order_date }}</td>
-										<td>{{ production_order.supplies }}</td>
+										<td>{{ production_order.production_order }}</td>
 										<td>{{ production_order.quantity }}</td>
+										<td>{{ production_order.supplies }}</td>
 										<td>
-											<!--<a href="{% url 'edit_production_order' production_order.id %}">
+											<a href="{% url 'edit_production_order' production_order.id %}">
 												<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editOrderProduction">
 													Editar
 												</button>
-											</a>-->										
+											</a>									
 											<a href="{% url 'delete_production_order' production_order.id %}">
 												{% if user_permissions %}
 													{% for permiso in user_permissions %} 
@@ -99,6 +101,7 @@
 								{% endfor %}
 							</tbody>
 						</table>
+						
 						{% include 'production/create_productionorder.html' %}
 						{% include 'production/EditProductOrder.html' %}
 						<div class="button-new">
@@ -150,37 +153,38 @@
 		var monthlyChartLabels = {{ monthly_chart_labels|safe }};
 		var monthlyChartData = {{ monthly_chart_data|safe }};
 
+
         $(document).ready(function () {
-            var oTable = $("#tablas").dataTable({
-                dom: 'Bfrtip',
-
-                language: {
-                    sProcessing: "Procesando...",
-                    sLengthMenu: "Mostrar MENU",
-                    sZeroRecords: "No se encontraron resultados",
-                    sEmptyTable: "Ningún dato disponible en esta tabla",
-                    sInfo: "Mostrando del inicio al fin de un total registros",
-                    sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
-                    sInfoFiltered: "(filtrado de un total de MAX registros)",
-                    sInfoPostFix: "",
-                    sSearch: "Buscar:",
-                    sUrl: "",
-                    sInfoThousands: ",",
-                    sLoadingRecords: "Cargando...",
-                    oPaginate: {
-                        sFirst: "Primero",
-                        sLast: "Último",
-                        sNext: "Siguiente",
-                        sPrevious: "Anterior"
-                    },
-                    oAria: {
-                        sSortAscending: ": Activar para ordenar la columna de manera ascendente",
-                        sSortDescending: ": Activar para ordenar la columna de manera descendente"
-                    },
-                },
-            });
-
-        });
+			var oTable = $("#tablas").dataTable({
+				dom: 'Bfrtip',
+				language: {
+					sProcessing: "Procesando...",
+					sLengthMenu: "Mostrar MENU",
+					sZeroRecords: "No se encontraron resultados",
+					sEmptyTable: "Ningún dato disponible en esta tabla",
+					sInfo: "Mostrando del inicio al fin de un total registros",
+					sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
+					sInfoFiltered: "(filtrado de un total de MAX registros)",
+					sInfoPostFix: "",
+					sSearch: "Buscar:", // Esta es la opción para activar el campo de búsqueda
+					sUrl: "",
+					sInfoThousands: ",",
+					sLoadingRecords: "Cargando...",
+					oPaginate: {
+						sFirst: "Primero",
+						sLast: "Último",
+						sNext: "Siguiente",
+						sPrevious: "Anterior"
+					},
+					oAria: {
+						sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+						sSortDescending: ": Activar para ordenar la columna de manera descendente"
+					},
+				},
+				// Aquí habilitamos la funcionalidad de búsqueda en todas las columnas
+				searching: true
+			});
+		});
 
         function mostrarid() {
             id = document.getElementById('IdOrdenPedido').value;

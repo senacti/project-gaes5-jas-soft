@@ -35,10 +35,16 @@ class SupplieProductionInline(admin.TabularInline):
     
 @admin.register(ProductionOrder)
 class ProductionOrderAdmin(ImportExportModelAdmin):
-    list_display = ('get_production_order_date', 'display_supplies','get_stock')
+    list_display = ('get_production_order_date', 'display_supplies','get_stock','productionOrderCode')
     list_filter = ()
     inlines = [SupplieProductionInline]
+    
+    def productionOrderCode(self, obj):
+        return obj.supplieProductionCode
+    productionOrderCode.short_description = 'Código de Producto'
 
+
+    
     def get_production_order_date(self, obj):
         productionorder_date = obj.supplieproduction_set.first()  
         return productionorder_date.Production_OrderDate if productionorder_date else None
