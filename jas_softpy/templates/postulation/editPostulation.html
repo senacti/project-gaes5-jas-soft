@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 {% load static %}
-
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/StyleEdit.css' %}">
+</head>
 <div class="modal" id="editPostulationModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -17,7 +22,7 @@
                     <div class="form-group">
                         <label for="descripOffer">Descripción Oferta</label>
                         <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulacion.descripOffer }}"
-                            readonly class="form-control" placeholder="Descripción" required style="width: 50%;">
+                            class="form-control" placeholder="Descripción" required style="width: 50%;">
                         <label for="profilePostulation">Perfil de Postulación</label>
                         <input type="text" id="profilePostulation" name="profilePostulation"
                             value="{{ Postulacion.profilePostulation }}" class="form-control" placeholder="Perfil"
@@ -31,7 +36,7 @@
                             </option>
                             <option value="activa">Activa</option>
                             <option value="enrevision">En Revisión</option>
-                            <option value="seleccionado">seleccionado</option>
+                            <option value="Seleccionado">seleccionado</option>
                             <option value="Declinada">Declinada</option>
                         </select>
                     </div>

@@ -348,14 +348,14 @@ def EditPostulation(request, id):
     else:
         messages.error(request, '¡La solicitud no es valida!')
     
-    return redirect('postulacion')
+    return redirect('Postulacion')
 
 def deletepostulation(request, id):
     
-    postulacion = Postulation.objects.get(pk=id)
+    postulacion = get_object_or_404(Postulation, pk=id)
     postulacion.delete()    
     messages.success(request, 'Postulación eliminada!')
-    return redirect('postulacion')
+    return redirect('Postulacion')
 
 def create_sales(request):
     if request.method == 'POST':        
