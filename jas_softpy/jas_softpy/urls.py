@@ -11,7 +11,12 @@ from postulation.views import PostulationInvoicePdfView, PostulationListView
 from . import views
 from django.contrib.auth import views as auth_views
 
+
+
 urlpatterns = [
+     path('orden/', include('sales.urls')),
+    
+    
     path('admin/', admin.site.urls, name='admin:index'),
     path('home/', views.home, name='home'),   
     path('rrhh/', views.rrhh, name='rrhh'),
@@ -20,7 +25,7 @@ urlpatterns = [
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="password/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="password/password_reset_sent.html"), name="password_reset_done"),   
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="password/reset.html"), name="password_reset_confirm"),
-    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"), name="password_reset_complete"),
+    path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"), name="password_reset_complete"),      
     
     path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
@@ -68,6 +73,7 @@ urlpatterns = [
     # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
     
     path('ventas/', SalesListView.as_view(), name='ventas'),
+   
     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
     path('ventas/editar/<int:id>', views.editsales, name='editsales'),
     path('ventas/editar/<int:id>', views.EditSales, name='EditSales'),    

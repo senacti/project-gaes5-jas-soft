@@ -9,8 +9,25 @@ from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from django.views.generic.list import ListView
 from .models import PurchaseOrder, Sales, Employed
+from .utils import breadcrumb
+from .utils import get_or_create_order
+from .models import Order
+from carts.utils import get_or_create_cart
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+
+@login_required(login_url='login_jas')
+def order(request):
+        cart = get_or_create_cart(request)
+        order = get_or_create_order(cart, request)
+                
+        return render(request,'sales/orders/orden.html',{
+                'cart': cart,
+                'order': order,
+                'breadcrum':breadcrumb()
+        })
+
 
 class SaleInvoicePdfView(View):
           
