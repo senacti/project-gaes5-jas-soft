@@ -14,8 +14,8 @@ from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-     path('orden/', include('sales.urls')),
-    
+    path('orden/', include('sales.urls')),
+    path('direcciones/', include('shipping_addresses.urls')),
     
     path('admin/', admin.site.urls, name='admin:index'),
     path('home/', views.home, name='home'),   

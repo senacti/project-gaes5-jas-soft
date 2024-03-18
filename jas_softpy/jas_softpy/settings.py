@@ -52,7 +52,8 @@ INSTALLED_APPS = [
     'sales',
     'postulation',
     'suggestions',
-    'categories',   
+    'categories',
+    'shipping_addresses',   
     'import_export',  
 ]
 
