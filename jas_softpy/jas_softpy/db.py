@@ -25,9 +25,9 @@ MYSQL = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'db',
         'USER': 'root',
-        'PASSWORD': '123456789',
+        'PASSWORD': '123456',
         'HOST': 'localhost',
-        'PORT': '3308'
+        'PORT': '3306'
     }
 }
 

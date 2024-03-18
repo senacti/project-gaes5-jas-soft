@@ -11,6 +11,9 @@ from postulation.views import PostulationInvoicePdfView, PostulationListView
 from . import views
 
 urlpatterns = [
+     path('orden/', include('sales.urls')),
+    
+    
     path('admin/', admin.site.urls, name='admin:index'),
     path('home/', views.home, name='home'),   
     path('rrhh/', views.rrhh, name='rrhh'),
@@ -62,6 +65,7 @@ urlpatterns = [
     # path('ventas/eliminar/<id>/', views.deletePurchaseOrder, name='deletePurchaseOrder'),
     
     path('ventas/', SalesListView.as_view(), name='ventas'),
+   
     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
     path('ventas/editar/<int:id>', views.editsales, name='editsales'),
     path('ventas/editar/<int:id>', views.EditSales, name='EditSales'),    

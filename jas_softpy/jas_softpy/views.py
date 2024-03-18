@@ -1,4 +1,5 @@
 from datetime import datetime
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth import login
@@ -104,6 +105,10 @@ def login_view(request):
         if user:
             login(request, user)
             messages.success(request, 'Bienvenido {}'.format(user.username))
+            
+            if request.GET.get('next'):
+                return HttpResponseRedirect(request.GET['next'])
+            
             return redirect('admin:index')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')

@@ -7,8 +7,10 @@ from .models import Pays
 from .models import PurchaseOrder
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from .models import Order
 from django.utils.html import format_html
 
+admin.site.register(Order)
 
 @admin.register(Sales)
 class SalesAdmin(ImportExportModelAdmin):
