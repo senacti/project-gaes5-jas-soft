@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inicio Sesion</title>    
+  <title>Promoplast | Inicio Sesion</title>    
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/css2.css' %}">
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">   
@@ -46,6 +46,7 @@
       </div>
       {% endif %}
 
+
       <div class="header">
        <a href="{% url 'index' %}" class="back-link">&#8592; Volver</a>
         <h3>Ingreso</h3>
@@ -65,6 +66,9 @@
         </div>
         <div class="mb-3">
           <a href="{% url 'register' %}" class="forward-link"> ¿No tienes cuenta?</a>
+        </div>
+        <div class="mb-3">
+          <a href="{% url 'reset_password' %}" class="forward-link"> ¿Olvidaste tu contraseña?</a>
         </div>
 
         <button type="submit" class="btn btn-primary">Iniciar sesión</button>
