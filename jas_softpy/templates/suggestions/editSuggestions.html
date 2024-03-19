@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/StyleEdit.css' %}">
+</head>
+<div class="modal" id="editPostulationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h2>Crear sugerencia</h2>
+            </div>
+
+            <form action="{% if Sugerencia.id %}{% url 'update_sugerencias' id=Sugerencia.id %}{% endif %}"
+                class="was-validated" method="post">
+                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Sugerencia.id }}">
+                {% csrf_token %}
+                <div class="form-container">
+
+                    <div class="form-group">
+                        <label for="category">Categoría</label>
+						<select id="category" name="category" class="form-control" required style="width: 50%;">
+                            <option value="mobiliario">Mobiliario</option>
+                            <option value="violencia_laboral">Violencia laboral</option>
+                            <option value="acoso_laboral">Acoso laboral</option>
+                            <option value="festividades">Festividades</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripOffer">Descripción Oferta</label>
+                        <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulacion.descripOffer }}"
+                            class="form-control" placeholder="Descripción" required style="width: 50%;">
+                    </div>
+
+                </div>
+                <button type="submit" id="submitpostulacion" class="hidden"></button>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" onclick="document.getElementById('submitpostulacion').click();return false;"
+                        class="btn btn-primary">{{ 'Guardar' }}</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

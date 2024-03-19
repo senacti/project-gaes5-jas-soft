@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import redirect
 from django.contrib.auth import login
@@ -19,6 +19,7 @@ from sales.models import Pays, PurchaseOrder, Sales
 from production.models import ProductionOrder, SupplieProduction, Supplies
 from inventory.models import Product
 from postulation.models import Employed, Postulation
+from suggestions.models import Suggestions
 
 from .forms import RegisterForm
 from django.contrib import messages
@@ -434,3 +435,40 @@ def deletesales(request, id):
     sales.delete()    
     messages.success(request, 'Postulación eliminada!')
     return redirect('sales')
+
+
+from django.contrib import messages
+
+def create_suggestion(request):
+    if request.method == 'POST':
+        category = request.POST.get('category')
+        descriptCategory = request.POST.get('descriptCategory')
+        
+        suggestion = Suggestions.objects.create(
+            category=category,
+            descriptCategory=descriptCategory
+        )
+        
+        messages.success(request, '¡La sugerencia se registró exitosamente!')
+        return redirect('sugerencias')
+    
+
+
+def editsuggestion(request, id):
+    sugerencia = get_object_or_404(Suggestions, id=id)    
+    return render(request, "suggestions/editSuggestions.html", {"Sugerencia": sugerencia})
+
+@require_POST
+def EditSuggestion(request, id):
+    sugerencia = get_object_or_404(Suggestions, id=id)
+    sugerencia.category = request.POST.get('category', '')
+    sugerencia.descriptCategory = request.POST.get('descriptCategory', '')
+    sugerencia.save()
+    messages.success(request, '¡La sugerencia se ha actualizado!')
+    return redirect('Sugerencia')
+
+def deletesuggestion(request, id):
+    sugerencia = get_object_or_404(Suggestions, pk=id)
+    sugerencia.delete()    
+    messages.success(request, 'Sugerencia eliminada!')
+    return redirect('Sugerencia')

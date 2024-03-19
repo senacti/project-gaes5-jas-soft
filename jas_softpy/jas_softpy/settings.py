@@ -72,6 +72,8 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'jas_softpy.urls'
 
+
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

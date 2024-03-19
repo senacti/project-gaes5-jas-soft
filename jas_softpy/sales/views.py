@@ -27,6 +27,20 @@ def order(request):
                 'order': order,
                 'breadcrum':breadcrumb()
         })
+        
+@login_required(login_url='login_jas')      
+def address(request):
+        cart = get_or_create_cart(request)
+        order = get_or_create_order(cart, request)
+        
+        shipping_address =  order.get_or_set_shipping_address() 
+        
+        return render(request, 'sales/address.html',{
+                'cart':cart,
+                'order':order,
+                'breadcrum':breadcrumb(address=True)
+        })
+        
 
 
 class SaleInvoicePdfView(View):

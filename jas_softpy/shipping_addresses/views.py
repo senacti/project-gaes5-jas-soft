@@ -93,6 +93,7 @@ def default(request, pk):
     if request.user.id != shipping_address.user_id:
         return redirect ('carts:cart')
     
+    request.user.shipping_address.update(default=False)
     shipping_address.update_default(True)
     
     return redirect('shipping_addresses:shipping_addresses')

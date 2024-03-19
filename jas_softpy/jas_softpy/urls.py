@@ -8,6 +8,7 @@ from production.views import ProductionInvoicePdfView, ProductionListView, Suppl
 from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
 from sales.views import SaleInvoicePdfView,  SalesListView
 from postulation.views import PostulationInvoicePdfView, PostulationListView
+from suggestions.views import SuggestionsListView
 from . import views
 from django.contrib.auth import views as auth_views
 
@@ -20,7 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls, name='admin:index'),
     path('home/', views.home, name='home'),   
     path('rrhh/', views.rrhh, name='rrhh'),
-    path('sugerencias/', views.sugerencias, name='sugerencias'),  
+    
     
     path('reset_password/', auth_views.PasswordResetView.as_view(template_name="password/password_reset.html"), name="reset_password"),
     path('reset_password_sent/', auth_views.PasswordResetDoneView.as_view(template_name="password/password_reset_sent.html"), name="password_reset_done"),   
@@ -66,6 +67,12 @@ urlpatterns = [
     path('production/editar/<int:id>', views.edit_production_order, name='edit_production_order'),
     path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
     path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order'),
+    
+    path('sugerencias/', SuggestionsListView.as_view(), name='sugerencias'),  
+    path('sugerencias/create_sugerencias/', views.create_suggestion, name='create_sugerencias'),
+    path('sugerencias/edit/<int:id>', views.editsuggestion, name = 'edit_sugerencias'),
+    path('sugerencias/update/<int:id>/', views.EditSuggestion, name='update_sugerencias'),
+    path('sugerencias/delete_sugerencias/<id>', views.deletesuggestion, name = 'delete_sugerencias'),
     
     # path('ventas/create_production_order/', views.create_purchaseorder, name='create_purchaseorder'),
     # path('ventas/editar/<int:id>', views.editpurchaseorder, name='editpurchaseorder'),

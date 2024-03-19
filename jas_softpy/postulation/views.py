@@ -69,6 +69,8 @@ class PostulationInvoicePdfView(View):
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
 
+
+
 class PostulationListView(ListView):
     template_name = "postulation/Postulacion.html"
     queryset = Postulation.objects.all().order_by('-id')
