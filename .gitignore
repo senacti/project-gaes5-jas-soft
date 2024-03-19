@@ -12,3 +12,4 @@ db.sqlite3
 /jas_softpy/sales/__pycache__/
 /jas_softpy/suggestions/__pycache__/
 /jas_softpy/media/media
+/jas_softpy/jas_softpy/db
