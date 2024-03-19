@@ -34,3 +34,11 @@ class PaysAdmin(admin.ModelAdmin):
     search_fields = ('payAmount',)
     list_editable = ()
     list_filter = ('payAmount',)
+
+
+@admin.register(PurchaseOrder)
+class PurchaseOrderAdmin(admin.ModelAdmin):
+    list_display = ('stockProduct','purchaseOrderDate','state','product')
+    search_fields = ('state',)
+    list_editable = ()
+    list_filter = ('state',)
