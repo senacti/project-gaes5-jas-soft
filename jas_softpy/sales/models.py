@@ -100,7 +100,8 @@ class Pays(models.Model):
     ]
     
     payTipe = models.CharField(max_length=50, choices=PAYTIPE_CHOICES, verbose_name="Tipo de Pago")
-    payMethod = models.CharField(max_length=50, choices=PAYMETHOD_CHOICES, default='Efectivo', verbose_name="Metodo de Pago")    
+    payMethod = models.CharField(max_length=50, choices=PAYMETHOD_CHOICES, default='Efectivo', verbose_name="Metodo de Pago")
+    
     purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE)
     
     def __str__(self):
@@ -121,16 +122,20 @@ class Sales(models.Model):
     ]
     
     saleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")   
-    
+    saleDiscountPercentage = models.FloatField(default=0.0, verbose_name="Porcentaje de Descuento", help_text="Descuento en porcentaje de subtotal")
     employed = models.ForeignKey('postulation.Employed', on_delete=models.CASCADE, verbose_name="Empleado")   
     pays = models.ForeignKey(Pays, on_delete=models.CASCADE, verbose_name="Pago")  
     purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, verbose_name="Orden de pedido")
     
-    def calculate_total(self):
+
+    @property
+    def total(self):
+        subtotal = self.saleSubAmount - self.discountAmount
         iva_percentage = self.saleIvaAmount / 100.0
-        iva_amount = self.saleSubAmount * iva_percentage
-        total = self.saleSubAmount + iva_amount
+        iva_amount = subtotal * iva_percentage
+        total = subtotal + iva_amount
         return total
+
     
     def __str__(self):
         return str(self.saleAmount)

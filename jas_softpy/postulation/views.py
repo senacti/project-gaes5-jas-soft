@@ -10,7 +10,7 @@ from django.contrib.staticfiles import finders
 
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Postulation
+from .models import Employed, Postulation
 
 class PostulationInvoicePdfView(View):
      
@@ -74,9 +74,13 @@ class PostulationInvoicePdfView(View):
 class PostulationListView(ListView):
     template_name = "postulation/Postulacion.html"
     queryset = Postulation.objects.all().order_by('-id')
+    context_object_name = 'postulation'
+    
+    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['message'] = 'Listado Postulaciones'
-        print(context)
+        context['employed'] = Employed.objects.all()
+        
         return context

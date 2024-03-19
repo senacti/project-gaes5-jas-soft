@@ -1,60 +1,141 @@
-<!DOCTYPE html>
-{% load static %}
+<<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal con CSS integrado</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        /* Estilos para la modal */
+        .modal {
+            display: none; /* Por defecto, ocultamos la modal */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        }
 
+        .modal-dialog {
+            margin: 10% auto; /* Centramos la modal verticalmente */
+            width: 50%; /* Ancho de la modal */
+            max-width: 600px; /* Ancho máximo */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            margin-top: 20px;
+        }
+
+        /* Estilos para el botón de cerrar */
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 24px;
+            color: #000;
+            opacity: 0.5;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Modal HTML -->
 <div class="modal" id="create">
     <div class="modal-dialog">
         <div class="modal-content">
-            
             <div class="modal-header">
                 <h2>Crear Producto</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            
+
             <form action="{% url 'create_inventory' %}" class="was-validated" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <div class="form-container">
+                <div class="modal-body">
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Product.name }}" class="form-control" placeholder="Nombre" required style="width: 50%;">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
-                        <label for="size">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Product.size }}" class="form-control" placeholder="Tamaño" required style="width: 50%;">
-                        <label for="size">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Product.color }}" class="form-control" placeholder="Color" required style="width: 50%;">
+                        <input type="text" id="name" name="name" value="{{ Product.name }}" class="form-control" placeholder="Nombre" required>
                     </div>
                     <div class="form-group">
-						<label for="state">Estado</label>
-						<select id="state" name="state" class="form-control" required style="width: 50%;">
+                        <label for="stock">Cantidad</label>
+                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}" class="form-control" placeholder="Cantidad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Tamaño</label>
+                        <input type="text" id="size" name="size" value="{{ Product.size }}" class="form-control" placeholder="Tamaño" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <input type="text" id="color" name="color" value="{{ Product.color }}" class="form-control" placeholder="Color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado</label>
+                        <select id="state" name="state" class="form-control" required>
                             <option value="selecciona">Selecciona</option>
                             <option value="Producción">Producción</option>
                             <option value="Alistamiento">Alistamiento</option>
                             <option value="Stock">Stock</option>
                             <option value="Agotado">Agotado</option>
-						</select>
-
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="category">Categoría</label>
-						<select id="category" name="category" class="form-control" required style="width: 50%;">
+                        <select id="category" name="category" class="form-control" required>
                             <option value="selecciona">Selecciona</option>
                             <option value="Portacomidas">Portacomidas</option>
                             <option value="Ganchos">Ganchos</option>
                             <option value="Envases">Envases</option>
                             <option value="Atomizadores">Atomizadores</option>
-						</select>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
                         <label for="id_image">Imagen producto:</label>
                         <input type="file" name="image" id="id_image" accept="image/*" required>                      
-					</div>	
-
-                    
+                    </div>
                 </div>
-                <button type="submit" id="submitproducto" class="hidden"></button>
-                
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </div>
             </form>
-            
         </div>
     </div>
 </div>
+
+<!-- Bootstrap JS -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

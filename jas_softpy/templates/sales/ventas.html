@@ -91,7 +91,8 @@
 									<th>Fecha</th>
 									<th>Total</th>
 									<th>Subtotal</th>									
-									<th>IVA</th>									
+									<th>IVA</th>	
+									<th>Descuento</th>								
 									<th>Empleado</th>
 									<th>Pago</th>
 									<th>Ordenpedido</th>
@@ -105,6 +106,7 @@
 										<td>{{ sale.saleAmount }}</td>
 										<td>{{ sale.saleSubAmount }}</td>
 										<td>{{ sale.saleIvaAmount }}</td>
+										<td>{{ sale.saleDiscountPercentage }}</td>
 										<td>{{ sale.employed }}</td>
 										<td>{{ sale.pays }}</td>
 										<td>{{ sale.purchaseOrder }}</td>
@@ -152,7 +154,10 @@
 							<a class="button-excel" href="@{/ventum/exportar/excel}">
 								Exportar a Excel
 							</a>
-						
+						</div>
+					</div>
+				</div>
+			</div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
