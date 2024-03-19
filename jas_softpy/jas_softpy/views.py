@@ -465,10 +465,10 @@ def EditSuggestion(request, id):
     sugerencia.descriptCategory = request.POST.get('descriptCategory', '')
     sugerencia.save()
     messages.success(request, '¡La sugerencia se ha actualizado!')
-    return redirect('Sugerencia')
+    return redirect('sugerencias')
 
 def deletesuggestion(request, id):
     sugerencia = get_object_or_404(Suggestions, pk=id)
     sugerencia.delete()    
     messages.success(request, 'Sugerencia eliminada!')
-    return redirect('Sugerencia')
+    return redirect('sugerencias')
