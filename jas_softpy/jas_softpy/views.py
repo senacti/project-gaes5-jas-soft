@@ -198,15 +198,48 @@ def create_production_order(request):
                         
 def edit_production_order(request, id):
         productionorder = ProductionOrder.objects.get(id=id)
-        return render(request, "EditProductOrder.html", {"ProductionOrder": productionorder})
-
-def editProductionOrder(request,id):  
-    if request.metthod == 'POST':
-        productionorder = get_object_or_404(ProductionOrder, id=id)
-        productionorder.quantity_used = int(request.POST.get('quantity_used',0))
+        return render(request, "production/EditProductOrder.html", {"ProductionOrder": productionorder})
     
-    messages.success(request, '¡Orden de producción actualizada!')
-    return redirect('ordenpedido')
+def editProductionOrder(request,id):  
+    if request.method == 'POST':
+        try:
+            order = ProductionOrder.objects.get(id=id)
+            if not order:
+                messages.error(request, 'La orden de producción no existe')
+                return redirect('ordenpedido')
+
+            quantity_used = int(request.POST['quantity_used[]'])
+            supplies_ids = request.POST.getlist('supplies_id[]')
+
+            current_datetime = datetime.now()
+
+            for supplies_id in supplies_ids:
+                supplies_instance = Supplies.objects.get(id=supplies_id)
+
+                if quantity_used <= supplies_instance.stock:
+                    order.supplieProductionCode = request.POST['supplieProductionCode']  # Supongamos que también quieres editar este campo
+                    order.save()
+
+                    SupplieProduction.objects.filter(production_order=order).update(
+                        quantity=quantity_used,
+                        Production_OrderDate=current_datetime,
+                        supplies=supplies_instance
+                    )
+
+                    supplies_instance.stock -= quantity_used
+                    supplies_instance.save()
+                else:
+                    messages.error(request, f'No hay suficiente stock para el insumo {supplies_instance.name}')
+                    return redirect('ordenpedido')
+
+            messages.success(request, '¡Orden de producción editada exitosamente!')
+            return redirect('ordenpedido')
+
+        except Exception as e:
+            messages.error(request, f'Error al procesar el formulario: {str(e)}')
+            return redirect('ordenpedido')
+    else:
+        return render(request, 'EditProductOrder.html')
     
 def deleteProductionOrder(request, id):    
     productionorder = get_object_or_404(ProductionOrder, id=id)

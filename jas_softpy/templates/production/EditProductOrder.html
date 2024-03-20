@@ -4,7 +4,6 @@
 <div class="modal" id="update">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            
             <div class="modal-header">
                 <h2>Actualizar Orden de Producción</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
@@ -12,28 +11,30 @@
             <form action="{% if ProductionOrder.id %}{% url 'update_production_order' id=ProductionOrder.id %}{% endif %}" class="was-validated" method="post">  
                 {% csrf_token %}
                 <div class="form-container row">
-                    <div id="insumosContainer">                        
+                    <div id="insumosContainer">
+                        {% for i in production_order.supplies.all %}
                         <div class="form-group insumo-container col-4">
                             <label for="quantity_used">Cantidad</label>
-                            <input type="number" name="quantity_used[]" class="form-control" placeholder="Cantidad" value="{{ production_order.quantity_used }}" required >
+                            <input type="number" name="quantity_used[]" class="form-control" placeholder="Cantidad" value="{{ i.quantity }}" required>
                         </div>
                         <div class="form-group insumo-container col-4">
                             <label for="supplies_id">Suministros</label>
-                            <select name="supplies_id[]" class="form-control" required >
+                            <select name="supplies_id[]" class="form-control" required>
                                 <option value="" selected disabled>Selecciona</option>
                                 {% for supply in lista_insumos %}
-                                    <option value="{{ supply.id }}" {% if supply.id == production_order.supply.id %} selected {% endif %}>{{ supply.name }}</option>
+                                <option value="{{ supply.id }}" {% if supply.id == i.supplies.id %} selected {% endif %}>{{ supply.name }}</option>
                                 {% endfor %}
-                            </select>                            
+                            </select>
                         </div>
+                        {% endfor %}
                     </div>
                     <button type="button" onclick="agregarInsumo()">
-                        <img src="{% static 'img/agregar.png' %}"> 
+                        <img src="{% static 'img/agregar.png' %}">
                     </button>
                 </div>
-                
+
                 <button type="submit" id="submitUpdateOrder" class="hidden"></button>
-                
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" onclick="document.getElementById('submitUpdateOrder').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
@@ -64,7 +65,7 @@
                     container.appendChild(div);
                 }
             </script>
-            
+
         </div>
     </div>
 </div>
