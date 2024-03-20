@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 from production.views import ProductionInvoicePdfView, ProductionListView, SuppliesListView
 from inventory.views import InventoryInvoicePdfView, ProductListViewInventory, ProductListViewCatalogo
 from sales.views import SaleInvoicePdfView,  SalesListView
-from postulation.views import PostulationInvoicePdfView, PostulationListView
+from postulation.views import PostulationInvoicePdfView, PostulationListView, OfferListView
 from suggestions.views import SuggestionsListView
 from . import views
 from django.contrib.auth import views as auth_views
@@ -28,7 +28,6 @@ urlpatterns = [
     path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(template_name="password/reset.html"), name="password_reset_confirm"),
     path('reset_password_complete/', auth_views.PasswordResetCompleteView.as_view(template_name="password/password_reset_done.html"), name="password_reset_complete"),      
     
-    path('ofertas/', views.ofertas, name='ofertas'),
     path('register/', views.register, name='register'),
     path('login/', views.login_view, name='login_jas'),
     path('logout/', views.logout_view, name='logout'),
@@ -37,6 +36,9 @@ urlpatterns = [
     path('sales/', views.sales, name='sales'),
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
 
+    path('ofertas/', OfferListView.as_view(), name='ofertas'),
+    path('postulaciones/', include('postulation.urls')), 
+    
     path('Postulacion/', PostulationListView.as_view(), name='Postulacion'),
     path('postulation/postulation_invoice/', PostulationInvoicePdfView.as_view(), name='postulation_invoice_pdf'),  
     path('postulation/create_postulation/', views.create_postulation, name='create_postulation'),

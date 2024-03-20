@@ -1,5 +1,5 @@
 from django.db import models
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 class Employed(models.Model):
@@ -40,7 +40,9 @@ class Postulation(models.Model):
 
     def __str__(self):
         return self.descripOffer
-    
+
+    def endOffers(self):
+        return self.startOffers + timedelta(days=7)
     class Meta:
         verbose_name = "Postulación"
         verbose_name_plural = "Postulaciones"

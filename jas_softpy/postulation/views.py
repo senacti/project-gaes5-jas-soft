@@ -76,11 +76,20 @@ class PostulationListView(ListView):
     queryset = Postulation.objects.all().order_by('-id')
     context_object_name = 'postulation'
     
-    
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['message'] = 'Listado Postulaciones'
         context['employed'] = Employed.objects.all()
         
         return context
+class OfferListView(ListView):
+    template_name = "ofertas.html"
+    queryset = Postulation.objects.all().order_by('-id')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'Listado Ofertas'
+        
+        return context
+
+
