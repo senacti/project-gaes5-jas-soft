@@ -68,6 +68,7 @@ urlpatterns = [
     path('production/editar/<int:id>', views.editProductionOrder, name='update_production_order'),    
     path('production/eliminar/<id>/', views.deleteProductionOrder, name='delete_production_order'),
     
+    path('correo/', views.correo, name='correo'),
     path('sugerencias/', SuggestionsListView.as_view(), name='sugerencias'),  
     path('sugerencias/create_sugerencias/', views.create_suggestion, name='create_sugerencias'),
     path('sugerencias/edit/<int:id>', views.editsuggestion, name = 'edit_sugerencias'),

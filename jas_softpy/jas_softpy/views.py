@@ -64,28 +64,30 @@ def ofertas(request):
     })
 
 def send_email(mail):
+    
     context = {'mail': mail}
 
     template = get_template('correo.html')
     content = template.render(context)
 
     email = EmailMultiAlternatives(
-        'Correo de prueba',
-        'Primer correo JAS_SOFT',
-        settings.EMAIL_HOST_USER,
-        [mail],
+         'Correo de prueba',
+         'Primer correo JAS_SOFT',
+         settings.EMAIL_HOST_USER,
+         [mail],
     )
 
     email.attach_alternative(content, 'text/html')
     email.send()
 
-def sugerencias(request):
+def correo(request):
     if request.method == 'POST':
-        mail = request.POST.get('mail')
-
-        send_email(mail)
+         mail = request.POST.get('mail')
+         send_email(mail)
         
-    return render(request,'sugerencias.html',{})
+        
+        
+    return render(request,'suc.html',{})
 
 def index(request):
     return render(request,'index.html',{
