@@ -7,8 +7,11 @@
     <title>Promoplast | Editar Insumo</title>
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
 
+    <!-- Agrega tus estilos CSS aquí -->
     <style>
-      
+        /* Estilos generales */
+
+        /* Estilos para la modal */
         .modal {
             display: flex;
             align-items: center;
@@ -18,26 +21,26 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5); 
-            z-index: 9999; 
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+            z-index: 9999; /* Asegura que la modal esté en la parte superior */
         }
 
         .modal-dialog {
-            width: 50%; 
-            background-color: #fff; /
+            width: 50%; /* Ancho de la modal */
+            background-color: #fff; /* Fondo de la modal */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra */
         }
 
         .modal-content {
-            overflow: hidden;
+            overflow: hidden; /* Evita desbordamiento de contenido */
         }
 
         .modal-header h2 {
-            margin-top: 0; 
-            font-size: 24px; 
-            color: #333;
+            margin-top: 0; /* Elimina el margen superior de h2 */
+            font-size: 24px; /* Tamaño de la fuente */
+            color: #333; /* Color del texto */
         }
 
         .form-group {
@@ -58,10 +61,10 @@
         }
 
         label {
-            font-size: 18px; 
-            color: #333; 
-            display: block; 
-            margin-bottom: 5px; 
+            font-size: 18px; /* Tamaño de la fuente */
+            color: #333; /* Color del texto */
+            display: block; /* Para que los input estén debajo de los textos */
+            margin-bottom: 5px; /* Espacio entre los elementos */
         }
 
         input[type="text"],
@@ -92,14 +95,14 @@
         }
 
         .btn-danger {
-            background-color: #ff5f5f; 
-            color: #fff; 
+            background-color: #ff5f5f; /* Rojo */
+            color: #fff; /* Texto blanco */
             margin-right: 10px;
         }
 
         .btn-primary {
-            background-color: #5f85ff; 
-            color: #fff;
+            background-color: #5f85ff; /* Azul */
+            color: #fff; /* Texto blanco */
         }
 
         .pagina-editar {
@@ -132,8 +135,9 @@
                             <input type="number" id="stock" name="stock" value="{{ Supplies.stock }}" class="form-control" placeholder="Cantidad" required>
                         </div>
                         <div class="form-group">
-                            <label for="stock">Tamaño (Descripción) *</label>                            
-                            <input type="text" id="size" name="size" value="{{ Supplies.size }}" class="form-control" placeholder="Ej: 1L , 25 X 25cm" required>
+                            <label for="size">Tamaño</label>
+                            <small class="form-text text-muted">(1L , 25 X 25)</small>
+                            <input type="text" id="size" name="size" value="{{ Supplies.size }}" class="form-control" placeholder="Tamaño" required>
                         </div>
                         <div class="form-group">
                             <label for="color">Color</label>
