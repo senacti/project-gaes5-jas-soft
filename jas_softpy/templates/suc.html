@@ -25,59 +25,63 @@
 
 <body>
     <header class="cabecera">
-		<div class="logo-container">
-			<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
-		</div>
-		<ul class="list-menu-ul">
-			<li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana"> </li>
-			
-			<li class="nav-item dropdown">
-				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+        <div class="logo-container">
+            <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+        </div>
+        <ul class="list-menu-ul">
+            <li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana">
+            </li>
+
+            <li class="nav-item dropdown">
+                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" v-pre>
                     <span>{{ user.username }}</span>
                 </a>
-				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-					<a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-						Cerrar sesión
-					</a>
-					<form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
-						{% csrf_token %}
-					</form>
-				</div>	
-			</li>
-		</ul>
-	</header>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+                    <a class="dropdown-item" href="#"
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Cerrar sesión
+                    </a>
+                    <form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
+                        {% csrf_token %}
+                    </form>
+                </div>
+            </li>
+        </ul>
+    </header>
     <div class="container-fluid">
         <div class="row">
             <div class="col-2 barmenu">
-				<h3 class="mt-4">PROMOPLAST</h3>
-				<p></p>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'home' %}">MENU</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
-							<li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
-					</li>
-					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
-							<li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
+                <h3 class="mt-4">PROMOPLAST</h3>
+                <p></p>
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'home' %}">MENU</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">PRODUCCIÓN</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
+                            <li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                            aria-expanded="false">GESTIÓN P.</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
+                            <li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
 
 
             <div class="col-10" id="contentd">
@@ -95,77 +99,16 @@
                                     <label for="mail" class="form-label">Dirección de Correo</label>
                                     <input type="text" class="form-control" id="mail" name="mail" required>
                                 </div>
-                                
+                                <div class="mb-3">
+                                    <label for="subject" class="form-label">Asunto</label>
+                                    <input type="text" class="form-control" id="subject" name="subject" required>
+                                </div>
                                 <button type="submit" class="btn btn-primary">Enviar</button>
                             </form>
                         </div>
-                        <!--<nav class="descrip-menu">
-                            <a class="message-ubication" href="{% url 'rrhh' %}">Postulaciones</a>
-                        </nav>
-                        <table class="table table-striped" id="tablas">
-                            <thead class="thead">
-                                <tr>
-                                    <th>ID Sugerencias</th>
-                                    <th>Categoria Sugerencias</th>
-                                    <th>Descripcion Sugerencias</th>
-                                    <th>Id Empleado</th>
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for suggestion in Buzones %}
-                                    <tr>
-                                        <td>{{ suggestion.IdSugerencias }}</td>
-                                        <td>{{ suggestion.CategoriaSugerencia }}</td>
-                                        <td>{{ suggestion.DescripSugerencias }}</td>
-                                        <td>{{ suggestion.IdEmpleado }}</td>
-                                        <td>
-                                            <a href="@{/buzon/editar/} + ${in.IdSugerencias}">
-                                                <button type="button" class="btn btn-success">
-                                                    Editar
-                                                </button>
-                                            </a>
-    
-                                        </td>
-                                        <td>
-                                            <a href="@{/buzon/eliminar/} + ${in.IdSugerencias}">
-                                                <button type="button" class="btn btn-danger">
-                                                    Eliminar
-                                                </button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                        <div class="button-new">
-                            <button type="button" class="" id="nuevaPQRSButton">
-                                Nueva PQRS
-                            </button>
-                            <a class="button-excel" th:href="@{/buzon/exportar/excel}">
-                                Exportar a Excel
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-                <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
-                <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
-                <script>
-                    $(document).ready(function () {
-                        var oTable = $("#tablas").dataTable({
-                            dom: 'Bfrtip',
-                            language: {
-                                // Add your language settings here
-                            },
-                        });
-                    });
-                </script>
-            </div>
-        </div>-->
-                    </div>
-</body>
 
+                    </div>
+
+
+</body>
 </html>
