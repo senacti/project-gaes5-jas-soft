@@ -56,7 +56,7 @@ class PostulationInvoicePdfView(View):
             }
         
         response = HttpResponse(content_type='application/pdf')
-        response['Content-Disposition'] = 'attachment; filename="salesreport.pdf"'
+        response['Content-Disposition'] = 'attachment; filename="postulationreport.pdf"'
         
         html = template.render(context)
         pisa_status = pisa.CreatePDF(   
