@@ -88,6 +88,8 @@ urlpatterns = [
     path('ventas/editar/<int:id>', views.editsales, name='editsales'),
     path('ventas/editar/<int:id>', views.EditSales, name='EditSales'),    
     path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
+    
+    path('', views.custom_login_required, name='custom_login_required'),
 ]
 
 if settings.DEBUG:
