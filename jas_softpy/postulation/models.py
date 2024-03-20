@@ -8,8 +8,8 @@ class Employed(models.Model):
     
     POSITION_CHOICES = [
         ('Administrador', 'Administrador'),
-        ('JefeDeVentas', 'Jefe de ventas'),
-        ('JefeDeProduccion', 'Jefe de produccion'),
+        ('Jefe De Ventas', 'Jefe de ventas'),
+        ('Jefe De Produccion', 'Jefe de produccion'),
         ('Secretaria', 'Secretaria'),
     ]
 
@@ -31,7 +31,7 @@ class Postulation(models.Model):
    
     STATEPOSTULATIONS_CHOICES = [
         ('Activa', 'Activa'),
-        ('EnRevision', 'En Revisión'),
+        ('En Revision', 'En Revisión'),
         ('Seleccionado', 'Seleccionado'),
         ('Declinada', 'Declinada'),
     ]
@@ -68,9 +68,9 @@ class Contract(models.Model):
     contractdate = models.DateField(verbose_name="Fecha del Contrato")
 
     TYPECONTRACT_CHOICES = [
-        ('TerminoFijo', 'Término Fijo'),
+        ('Termino Fijo', 'Término Fijo'),
         ('Indefinido', 'Indefinido'),
-        ('ObraoLabor', 'Obra o labor'),
+        ('Obra o Labor', 'Obra o labor'),
         ('Temporal', 'Temporal'),
     ]
 

@@ -10,59 +10,86 @@
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/css2.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    
     <title>Promoplast | Registro</title>
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
+    <style>
+        .error-message {
+            color: red;
+        }
+
+        .back-link {
+            float: left;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .form-title {
+            float: right;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 5%; /* Margen superior del pie de página */
+        }
+    </style>
 </head>
 
 <body>
     <header>
         <h2>PROMOPLAST</h2>
-        <img class="imglogin" src="{% static 'img/logo.png' %}" alt="Esta imagen no se puede visualizar">
-        <h2>Registro</h2>
+            <img class="imglogin" src="{% static 'img/logo.png' %}" alt="Esta imagen no se puede visualizar" width="150px" height="150px">
+        <h2>Registro de ususarios</h2>
     </header>
 
     <section class="form-register">
+        <a href="{% url 'login_jas' %}" class="back-link">&#8592; Volver al ingreso</a>
+        <h4 class="form-title">Formulario Registro</h4>
+
+        <div style="clear:both;"></div> <!-- Añadido para limpiar el float -->
+
         <form method="POST" action="{% url 'register' %}">
             {% csrf_token %}
-            <h4>Formulario Registro</h4>
-            {% for field in form%}
-            <div clas="form-group">
 
+            {% for field in form %}
+            <div class="form-group">
                 {{ field.label_tag }}
                 {{ field }}
-
-                {% if field.erros %}
-                {{ field.erros }}
+                {% if field.errors %}
+                {% for error in field.errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
                 {% endif %}
-
             </div>
             {% endfor %}
 
+            {% if form.non_field_errors %}
+            <div class="form-group">
+                {% for error in form.non_field_errors %}
+                <p class="error-message">{{ error }}</p>
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="row mb-0">
                 <div class="col-md-6 offset-md-4">
-                    <button type="submit" class="btn btn-primary">
-                        Registrarse
-                    </button>
+                    <button type="submit" class="btn btn-primary">Registrarse</button>
                 </div>
             </div>
-
-            <a href="{% url 'login_jas' %}" class="back-link">&#8592; Volver al ingreso</a>
         </form>
-        
     </section>
 
-     
 </body>
 
 <footer>
-    <div class="pie_pagina">        
+    <div class="pie_pagina">
         <div class="group2">
             <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
         </div>
     </div>
-  </footer>
-
+</footer>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </html>

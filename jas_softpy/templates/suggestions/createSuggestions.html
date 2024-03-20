@@ -4,24 +4,6 @@
 <div class="modal fade" id="create_sugerencia" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <style>
         /* Estilos para la modal */
-        .modal {
-            display: none; /* Por defecto, ocultamos la modal */
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
-        }
-
-        .modal-dialog {
-            margin: 10% auto; /* Centramos la modal verticalmente */
-            width: 80%; /* Ancho de la modal */
-            max-width: 800px; /* Ancho máximo */
-        }
-
         .modal-content {
             background-color: #fff;
             border: 1px solid #ccc;
@@ -50,7 +32,8 @@
             padding-top: 20px;
             margin-top: 20px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
+            background-color: #fff; /* Fondo blanco */
         }
 
         /* Estilos para el botón de cerrar */
@@ -59,7 +42,7 @@
             border: none;
             cursor: pointer;
             font-size: 24px;
-            color: #000;
+            color: red; /* Color rojo */
             opacity: 0.5;
         }
 
@@ -67,22 +50,16 @@
             opacity: 1;
         }
 
-        /* Estilos para los campos de la modal */
-        .modal-content .form-group {
-            margin-bottom: 20px;
-            width: 100%; /* Hacemos que los campos ocupen todo el ancho */
+        /* Estilos para el botón de guardar */
+        .btn-primary {
+            background-color: blue; /* Color azul */
+            border: none;
+            color: #fff; /* Texto blanco */
         }
 
-        .modal-content .form-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
-        }
-
-        .modal-content .form-group select,
-        .modal-content .form-group input[type="text"] {
-            width: 100%;
-            margin-top: 5px; /* Espacio entre el input y la siguiente etiqueta */
+        /* Ajustar los botones a la izquierda */
+        .modal-footer .btn {
+            margin-right: 10px;
         }
     </style>
 
@@ -117,7 +94,7 @@
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" onclick="document.getElementById('submitsugerencia').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
+                    <button type="button" onclick="document.getElementById('submitsugerencia').click();return false;" class="btn btn-primary" >{{ 'Guardar' }}</button>
                 </div>
             </form>
             

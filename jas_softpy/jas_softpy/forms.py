@@ -23,17 +23,27 @@ class RegisterForm(forms.Form):
         'id': 'email',
         'placeholder': 'usuario@gmail.com'
     }))
-    password = forms.CharField(label='Contraseña', required=True, widget=forms.PasswordInput(attrs={
-        'class': 'form-control controls col-md-4 col-form-label text-md-end',
-        'id': 'password',
-        'placeholder': '*********'
-    }))
+    password = forms.CharField(
+        label='Contraseña',
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control controls col-md-4 col-form-label text-md-end',
+            'id': 'password',
+            'placeholder': '*********'
+        }),
+        min_length=8,  # Añadimos esta línea para que la contraseña tenga al menos 8 caracteres
+        help_text='La contraseña debe tener al menos 8 caracteres'  # Añadimos este help text
+    )
 
-    password2 = forms.CharField(label='Confirmar contraseña', required=True, widget=forms.PasswordInput(attrs={
-        'class': 'form-control controls col-md-4 col-form-label text-md-end',
-        'id': 'password-confirm',
-        'placeholder': '*********'
-    }))
+    password2 = forms.CharField(
+        label='Confirmar contraseña',
+        required=True,
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control controls col-md-4 col-form-label text-md-end',
+            'id': 'password-confirm',
+            'placeholder': '*********'
+        })
+    )
 
     def clean_username(self):
         username = self.cleaned_data.get('username')

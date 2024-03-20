@@ -1,60 +1,59 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    {% load static %}
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/barmenu.css' %}">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">    
+	<link rel="stylesheet" type="text/css" href="{% static 'css/Style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/Header.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/barmenu.css' %}">
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.dataTables.min.css' %}">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
-    <title>PromoPlast | Postulaciones</title>
-
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
-
-
+	<link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
+	<title>PromoPlast | Postulacion</title>
+    
 </head>
 
-<body>
+<body class>
 
-    <header class="cabecera">
-        <div class="logo-container">
-            <img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
-        </div>
-        <ul class="list-menu-ul">
-            <li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana">
-            </li>
-
-            <li class="nav-item dropdown">
-                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+	<header class="cabecera">
+		<div class="logo-container">
+			<img class="logo-dash-admin" src="{% static 'img/logo.png' %}" alt="logo">
+		</div>
+		<ul class="list-menu-ul">
+			<li class="list-menu-dash"> <img class="img-menu-dash" src="{% static 'img/campana.png' %}" alt="Campana"> </li>
+			
+			<li class="nav-item dropdown">
+				<a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false" v-pre>
                     <span>{{ user.username }}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
-                    <a class="dropdown-item" href="#"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Cerrar sesión
-                    </a>
-                    <form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
-                        {% csrf_token %}
-                    </form>
-                </div>
-            </li>
-        </ul>
-    </header>
+				<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown" id="cerrar">
+					<a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+						Cerrar sesión
+					</a>
+					<form id="logout-form" action="{% url 'logout' %}" method="post" class="d-none">
+						{% csrf_token %}
+					</form>
+				</div>	
+			</li>
+		</ul>
+	</header>
+	
     <div class="container-fluid">
         <div class="row">
-
+            
             {% include 'menumodulos.html' %}
 
             <div class="col-10" id="contentd">
@@ -72,8 +71,7 @@
                                     <th>Descripción Oferta</th>
                                     <th>Perfil</th>
                                     <th>Estado</th>
-                                    <th>Editar</th>
-                                    <th>Eliminar</th>
+                                    <th>Funciones</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -94,8 +92,6 @@
                                                 Editar
                                             </button>
                                         </a>
-                                    </td>
-                                    <td>
                                         <a href="{% url 'delete_postulation' id=Postulacion.id %}">
                                             <button type="button" class="btn btn-danger">
                                                 Eliminar
@@ -118,20 +114,14 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dataTables.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/dataTables.bootstrap.min.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.min.js"
-        integrity="sha384-Rx+T1VzGupg4BHQYs2gCW9It+akI2MM/mndMCy36UVfodzcJcF0GGLxZIzObiEfa"
-        crossorigin="anonymous"></script>
-    <script>
+	<script>
         $(document).ready(function () {
             var oTable = $("#tablas").dataTable({
                 dom: 'Bfrtip',
@@ -141,7 +131,7 @@
                     sLengthMenu: "Mostrar MENU",
                     sZeroRecords: "No se encontraron resultados",
                     sEmptyTable: "Ningún dato disponible en esta tabla",
-                    sInfo: "Mostrando del inicio al fin de total registros",
+                    sInfo: "Mostrando del inicio al fin de un total registros",
                     sInfoEmpty: "Mostrando del 0 al 0 de un total de 0 registros",
                     sInfoFiltered: "(filtrado de un total de MAX registros)",
                     sInfoPostFix: "",
@@ -165,15 +155,16 @@
         });
 
         function mostrarid() {
-            id = document.getElementById('idpostulacion').value;
+            id = document.getElementById('idventa').value;
             alert(id);
         }
 
         function abrirmodal() {
-            $('#editPostulationModal' + id).modal('show');
+            $('#editar').show();
         }
     </script>
 
+	
 </body>
 
 </html>
