@@ -1,6 +1,7 @@
+<!-- sales.html -->
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -14,7 +15,6 @@
     <!--<link rel="stylesheet" type="text/css" href="{% static 'css/estilos-dash-admin.css' %}">-->
 
     <title>Promoplast | Empleo</title>
-
 
     <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
 </head>
@@ -37,25 +37,25 @@
                     <tr>
                         <th>id</th>
                         <th>Fecha Publicación</th>
+                        <th>Fecha Final</th>
                         <th>Descripción Oferta</th>
                         <th>Perfil</th>
                         <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>12/02/2003</td>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non vel officiis </td><br>
-                        <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum deserunt</td>
-                        <td>En Revisión</td>
-                    </tr>
+                    {% for postulacion in postulaciones %}
+                        <tr>
+                            <td>{{ postulacion.startOffers }}</td>
+                            <td>{{ postulacion.descripOffer }}</td>
+                            <td>{{ postulacion.profilePostulation }}</td>
+                            <td>{{ postulacion.StatePostulations }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </section>
     </main>
-
-
 </body>
 
 </html>
