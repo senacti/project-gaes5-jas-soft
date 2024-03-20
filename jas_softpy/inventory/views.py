@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.query import QuerySet
 from django.shortcuts import render
 from .models import Product
@@ -67,7 +68,7 @@ class InventoryInvoicePdfView(View):
                         return HttpResponse('We had some errors <pre>' + html + '</pre>')
                 return response
 
-class ProductListViewInventory(ListView):
+class ProductListViewInventory(LoginRequiredMixin, ListView):
     template_name = "inventory/producto.html"
     queryset = Product.objects.exclude(image__isnull=True).order_by('-fabricationDate')
 
