@@ -77,8 +77,7 @@
 									<th>Tamaño</th>
 									<th>Color</th>
 									<th>Codigo Insumo</th>
-									<th>Editar</th>
-									<th>Eliminar</th>
+									<th>Acciones</th>									
 								</tr>
 							</thead>
 							<tbody>								
@@ -103,9 +102,8 @@
 													</a>
 												{% endif %}
 											{% endfor %}
-										{% endif %}									
-									</td>
-									<td>
+										{% endif %}								
+									
 										{% if user_permissions %}
 											{% for permiso in user_permissions %} 
 												{% if permiso == 'delete_supplies' %}
