@@ -147,10 +147,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-LOGIN_REDIRECT_URL = 'index '
-LOGOUT_REDIRECT_URL = 'login_jas'
+#LOGIN_REDIRECT_URL = 'index '
+#LOGOUT_REDIRECT_URL = 'login_jas'
 
-
+# Configuracion de la URL de inicio de sesión personalizada
+LOGIN_URL = 'custom_login_required'
 
 EMAIL_HOST = 'smtp.googlemail.com'
 EMAIL_PORT = 587

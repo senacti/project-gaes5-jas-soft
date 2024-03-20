@@ -1,7 +1,7 @@
 from datetime import datetime
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth import logout
 from django.contrib.auth import authenticate
@@ -11,9 +11,8 @@ from django.core.mail import EmailMultiAlternatives
 from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-from django.shortcuts import redirect
 from sales.models import Pays, PurchaseOrder, Sales
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -24,69 +23,78 @@ from suggestions.models import Suggestions
 from .forms import RegisterForm
 from django.contrib import messages
 
+def custom_login_required(request):   
+    return render(request, 'index.html')
+
 def logout_view(request):
     logout(request)
     return redirect('index')
         
+@login_required
 def home(request):
     return render(request,'home.html',{
         #context
-    })
+})
 
+@login_required
 def producto(request):
-    return render(request,'producto.html',{
+    return render(request,'producto',{
         #context
-    })
+})
 
+@login_required
 def rrhh(request):
     return render(request,'rrhh.html',{
         #context
     })
 
+@login_required
 def postulacion(request):
     return render(request,'postulation/Postulacion.html',{
         #context
     })
 
+@login_required
 def ordenpedido(request):
     return render(request,'ordenpedido.html',{
         #context
     })
 
+@login_required
 def insumo(request):
     return render(request,'insumo.html',{
         #context
     })
 
+@login_required
 def ofertas(request):
     return render(request,'ofertas.html',{
         #context
     })
 
-def send_email(mail, subject):
+@login_required
+def send_email(mail):
+    
     context = {'mail': mail}
 
     template = get_template('correo.html')
     content = template.render(context)
 
     email = EmailMultiAlternatives(
-        subject,  # Asunto del correo
-        'Primer correo JAS_SOFT',
-        settings.EMAIL_HOST_USER,
-        [mail],
+         'Correo de prueba',
+         'Primer correo JAS_SOFT',
+         settings.EMAIL_HOST_USER,
+         [mail],
     )
 
     email.attach_alternative(content, 'text/html')
     email.send()
 
+@login_required
 def correo(request):
     if request.method == 'POST':
-        mail = request.POST.get('mail')
-        subject = request.POST.get('subject') 
-        send_email(mail, subject)
-    return render(request, 'suc.html', {})
-        
-        
+         mail = request.POST.get('mail')
+         send_email(mail)
         
     return render(request,'suc.html',{})
 
@@ -95,6 +103,7 @@ def index(request):
         #context
     })    
 
+@login_required
 def sales(request):
     return render(request,'sales/ventas.html',{
         #context
