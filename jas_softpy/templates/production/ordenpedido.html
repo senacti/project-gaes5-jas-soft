@@ -26,7 +26,7 @@
 	<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
 	<link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
-	<title>PromoPlast | Produccion</title>
+	<title>PromoPlast | Orden Produccion</title>
 </head>
 
 <body>
@@ -68,7 +68,7 @@
 					<div class="container">
 						<div class="table-wrapper">							
 							<div class="container mt-3">
-								<h2>Orden Pedido</h2>
+								<h2>Orden Produccion</h2>
 								<div class="col-sm-8"></div>
 								<p></p>							
 								<table class="table table-striped" id="tablas">
@@ -89,11 +89,7 @@
 											<td>{{ production_order.quantity }}</td>
 											<td>{{ production_order.supplies }}</td>
 											<td>
-												<a href="{% url 'edit_production_order' production_order.id %}">
-													<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editOrderProduction">
-														Editar
-													</button>
-												</a>									
+								
 												<a href="{% url 'delete_production_order' production_order.id %}">
 													{% if user_permissions %}
 													{% for permiso in user_permissions %} 

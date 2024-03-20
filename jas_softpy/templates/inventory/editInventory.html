@@ -1,59 +1,168 @@
 <!DOCTYPE html>
 {% load static %}
 
+<style>
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Fondo oscuro */
+        z-index: 9999; /* Asegura que la modal esté en la parte superior */
+    }
+
+    .modal-dialog {
+        width: 50%; /* Ancho de la modal */
+        background-color: #fff; /* Fondo de la modal */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Sombra */
+    }
+
+    .modal-content {
+        overflow: hidden; /* Evita desbordamiento de contenido */
+    }
+
+    .modal-header h2 {
+        margin-top: 0; /* Elimina el margen superior de h2 */
+        font-size: 24px; /* Tamaño de la fuente */
+        color: #333; /* Color del texto */
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .modal-footer {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    label {
+        font-size: 18px; /* Tamaño de la fuente */
+        color: #333; /* Color del texto */
+        display: block; /* Para que los input estén debajo de los textos */
+        margin-bottom: 5px; /* Espacio entre los elementos */
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3e%3cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 12px);
+        background-position-y: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn-danger {
+        background-color: #ff5f5f; /* Rojo */
+        color: #fff; /* Texto blanco */
+        margin-right: 10px;
+    }
+
+    .btn-primary {
+        background-color: #5f85ff; /* Azul */
+        color: #fff; /* Texto blanco */
+    }
+    
+    .pagina-editar {
+        background-image: url('/static/img/imgfondo.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    
+
+</style>
+
+<body class="pagina-editar">
+
 <div class="modal" id="editarProductModal">
     <div class="modal-dialog">
         <div class="modal-content">
-            
             <div class="modal-header">
-                <h2>Crear Producto</h2>                
+                <h2>Editar Producto</h2>                
             </div>
-            
             <form action="{% if Product.id %}{% url 'update_inventory' id=Product.id %}{% endif %}" class="was-validated" method="post">
                 <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Product.id }}">
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
                         <label for="name">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Product.name }}" readonly class="form-control" placeholder="Nombre" required style="width: 50%;">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}"  class="form-control" placeholder="Cantidad" required style="width: 50%;">
-                        <label for="size">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Product.size }}" readonly class="form-control" placeholder="Tamaño" required style="width: 50%;">
-                        <label for="size">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Product.color }}" readonly class="form-control" placeholder="Color" required style="width: 50%;">
+                        <input type="text" id="name" name="name" value="{{ Product.name }}" readonly class="form-control" placeholder="Nombre" required>
                     </div>
                     <div class="form-group">
-						<label for="state">Estado</label>
-						<select id="state" name="state" class="form-control" required style="width: 50%;">
+                        <label for="stock">Cantidad</label>
+                        <input type="number" id="stock" name="stock" value="{{ Product.stock }}" class="form-control" placeholder="Cantidad" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="size">Tamaño</label>
+                        <input type="text" id="size" name="size" value="{{ Product.size }}" readonly class="form-control" placeholder="Tamaño" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="color">Color</label>
+                        <input type="text" id="color" name="color" value="{{ Product.color }}" readonly class="form-control" placeholder="Color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="state">Estado</label>
+                        <select id="state" name="state" class="form-control" required>
                             <option value="{{ Product.state }}">{{ Product.state }}</option>
                             <option value="selecciona">Selecciona</option>
                             <option value="Producción">Producción</option>
                             <option value="Alistamiento">Alistamiento</option>
                             <option value="Stock">Stock</option>
                             <option value="Agotado">Agotado</option>
-						</select>
-
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="category">Categoría</label>
-						<select id="category" name="category" class="form-control" required style="width: 50%;">
+                        <select id="category" name="category" class="form-control" required>
                             <option value="{{ Product.category }}">{{ Product.category }}</option>
                             <option value="selecciona">Selecciona</option>
                             <option value="Portacomidas">Portacomidas</option>
                             <option value="Ganchos">Ganchos</option>
                             <option value="Envases">Envases</option>
                             <option value="Atomizadores">Atomizadores</option>
-						</select>                                        
-					</div>	
-                    
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" id="submitproducto" class="hidden"></button>
-                
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="{% url 'producto' %}" class="btn btn-danger">Cerrar</a>
                     <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
             </form>
-            
         </div>
     </div>
 </div>
+
+</body>
