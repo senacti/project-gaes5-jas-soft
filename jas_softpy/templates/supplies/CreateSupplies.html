@@ -1,36 +1,126 @@
 <!DOCTYPE html>
 {% load static %}
 
-<div class="modal" id="create">
+<div class="modal fade" id="create" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <style>
+        /* Estilos para la modal */
+        .modal {
+            display: none; /* Por defecto, ocultamos la modal */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        }
+
+        .modal-dialog {
+            margin: 10% auto; /* Centramos la modal verticalmente */
+            width: 80%; /* Ancho de la modal */
+            max-width: 800px; /* Ancho máximo */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Estilos para el botón de cerrar */
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #000;
+            opacity: 0.5;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+        }
+
+        /* Estilos para los campos de la modal */
+        .modal-content .form-group {
+            margin-bottom: 20px;
+            width: 100%; /* Hacemos que los campos ocupen todo el ancho */
+        }
+
+        .modal-content .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px; /* Espacio entre la etiqueta y el input */
+        }
+
+        .modal-content .form-group input[type="text"],
+        .modal-content .form-group input[type="number"] {
+            width: 100%;
+            margin-top: 5px; /* Espacio entre el input y la siguiente etiqueta */
+        }
+    </style>
+
     <div class="modal-dialog">
         <div class="modal-content">
-            
             <div class="modal-header">
-                <h2>Crear Insumo</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <h2 class="modal-title" id="exampleModalLabel">Crear Insumo</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             
             <form action="{% url 'create_supplies' %}" class="was-validated" method="post">
                 {% csrf_token %}
-                <div class="form-container">
-                    <div class="form-group">
-                        <label for="stock">Nombre</label>
-                        <input type="text" id="name" name="name" value="{{ Supplies.name }}" class="form-control" placeholder="Nombre" required style="width: 50%;">
-                        <label for="stock">Cantidad</label>
-                        <input type="number" id="stock" name="stock" value="{{ Supplies.stock }}" class="form-control" placeholder="Cantidad" required style="width: 50%;">
+                <div class="modal-body">
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label for="name">Nombre</label>
+                            <input type="text" id="name" name="name" value="{{ Supplies.name }}" class="form-control" placeholder="Nombre" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="stock">Cantidad</label>
+                            <input type="number" id="stock" name="stock" value="{{ Supplies.stock }}" class="form-control" placeholder="Cantidad" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="size">Tamaño</label>
+                            <input type="text" id="size" name="size" value="{{ Supplies.size }}" class="form-control" placeholder="Tamaño" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="color">Color</label>
+                            <input type="text" id="color" name="color" value="{{ Supplies.color }}" class="form-control" placeholder="Color" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-						<label for="stock">Tamaño</label>
-                        <input type="text" id="size" name="size" value="{{ Supplies.size }}" class="form-control" placeholder="Tamaño" required style="width: 50%;">
-                        <label for="stock">Color</label>
-                        <input type="text" id="color" name="color" value="{{ Supplies.color }}" class="form-control" placeholder="color" required style="width: 50%;">
-					</div>	
                 </div>
+                
                 <button type="submit" id="submitordenpedido" class="hidden"></button>
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'guardar' }}</button>
+                    <button type="button" onclick="document.getElementById('submitordenpedido').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
             </form>
             

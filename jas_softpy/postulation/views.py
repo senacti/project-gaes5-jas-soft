@@ -50,7 +50,7 @@ class PostulationInvoicePdfView(View):
         
         template = get_template('postulation/postulation_invoice.html')
         context = {
-            'sales': Postulation.objects.all(),
+            'postulations': Postulation.objects.all(),
             'comp': {'name': 'PROMOPLAST S.A.S', 'addres' : 'Bogotá, Colombia'},
             'icon': '{}{}'.format(settings.STATIC_URL, 'img/logo.png')
             }

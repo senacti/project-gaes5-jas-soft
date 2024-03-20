@@ -1,19 +1,23 @@
 import os
 
 from django.shortcuts import render
+from django.urls import reverse
 from django.views import View
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from django.views.generic.list import ListView
-from .models import PurchaseOrder, Sales, Employed
+from .models import Pays, PurchaseOrder, Sales, Employed
 from .utils import breadcrumb
 from .utils import get_or_create_order
 from .models import Order
 from carts.utils import get_or_create_cart
 from django.contrib.auth.decorators import login_required
+
+from .models import Sales
+from postulation.models import Employed
 
 # Create your views here.
 
@@ -98,30 +102,19 @@ class SaleInvoicePdfView(View):
         if pisa_status.err:
             return HttpResponse('We had some errors <pre>' + html + '</pre>')
         return response
-    
-class PurchaseOrderListView(ListView):
-    template_name = "sales/ordenpedido.html"
-    queryset = PurchaseOrder.objects.exclude
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['message'] = 'VENTAS | PRODUCTOS'
-        print(context)
-        return context
 
 class SalesListView(ListView):
     template_name = "sales/ventas.html"
     model = Sales
-    context_object_name = 'sales'    
+    context_object_name = 'sales'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['message'] = 'VENTAS '
-        
-
+        context['message'] = 'VENTAS'
         context['lista_sales'] = Sales.objects.all()
+        context['pays'] = Pays.objects.all()
         context['purchase_orders'] = PurchaseOrder.objects.all()
-        context['employed'] = Employed.objects.all()
-
+        context['employed'] = Employed.objects.all()  # Agrega esta línea para pasar la lista de empleados al contexto
         return context
 
