@@ -27,23 +27,23 @@
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">PRODUCCIÓN</a>
             <ul class="dropdown-menu">
 
-                {% if permission_insumo %}
+                {% if permission_insumo or user.is_staff %}
                     <li><a class="dropdown-item" href="{% url 'insumo' %}">Insumos</a></li>
                 {% endif %}
 
-                {% if permission_orden_pedido %}
+                {% if permission_orden_pedido or user.is_staff %}
                     <li><a class="dropdown-item" href="{% url 'ordenpedido' %}">Orden de pedido</a></li>
                 {% endif %}
             </ul>
         </li>
 
-        {% if permission_inventory %}
+        {% if permission_inventory or user.is_staff %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'producto' %}">INVENTARIO</a>
             </li>
         {% endif %}
 
-        {% if permission_venta %}
+        {% if permission_venta or user.is_staff %}
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'ventas' %}">VENTAS</a> 
             </li>
@@ -52,11 +52,11 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">GESTIÓN P.</a>
             <ul class="dropdown-menu">
-                {% if permission_sugerencia %}
+                {% if permission_sugerencia or user.is_staff %}
                     <li><a class="dropdown-item" href="{% url 'sugerencias' %}">Sugerencias</a></li>
                 {% endif %}
 
-                {% if permission_postulacion %}
+                {% if permission_postulacion or user.is_staff %}
                     <li><a class="dropdown-item" href="{% url 'Postulacion' %}">Postulaciones</a></li>
                 {% endif %}
             </ul>

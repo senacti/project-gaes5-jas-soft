@@ -44,47 +44,49 @@
         <center>
             <div class="contenedor">
 
-                {% if permission_production %}
+                {% if permission_production or user.is_staff %}
                     <a href="{% url 'ordenpedido' %}" class="contenedor-moduls">
                         <img class="img-moduls" src="{% static 'img/casco.png' %}" alt="img01">
-                        <h2 class="title-moduls">PRODUCCION</h2>
-                        <p class="text-moduls">Insumos, provedores y mas...</p>
+                        <h2 class="title-moduls">PRODUCCIÓN</h2>
+                        <p class="text-moduls">Insumos, provedores y más...</p>
                     </a>
                 {% endif %}
 
-                {% if permission_inventory %}
+                {% if permission_inventory or user.is_staff %}
                     <a href="{% url 'producto' %}" class="contenedor-moduls">
                         <img class="img-moduls" src="{% static 'img/inventario.png' %}" alt="img01">
                         <h2 class="title-moduls">INVENTARIO</h2>
-                        <p class="text-moduls">Crear, modifica, consulta los productos y mas...</p>
+                        <p class="text-moduls">Crear, modifica, consulta los productos y más...</p>
                     </a>
                 {% endif %}
 
-                {% if permission_venta %}
+                {% if permission_venta or user.is_staff %}
                     <a href="{% url 'ventas' %}" class="contenedor-moduls">
                         <img class="img-moduls" src="{% static 'img/carro.png' %}" alt="img01">
                         <h2 class="title-moduls">VENTAS</h2>
-                        <p class="text-moduls">Guarda, modifica, consulta las ventas y mas...</p>
+                        <p class="text-moduls">Guarda, modifica, consulta las ventas y más...</p>
                     </a>
                 {% endif %}
 
-                {% if permission_gestion %}
+                {% if permission_gestion or user.is_staff %}
                     <a href="{% url 'rrhh' %}" class="contenedor-moduls">
                         <img class="img-moduls" src="{% static 'img/users.png' %}"  alt="img01">
                         <h2 class="title-moduls"> GESTION DE PERSONAL</h2>
-                        <p class="text-moduls">Contrato, consulta de agendamiento, buzon de sugerencias y mas...</p>
+                        <p class="text-moduls">Contrato, consulta de agendamiento, buzon de sugerencias y más...</p>
                     </a>
                 {% endif %}
                 
-                <a href="{% url 'admin:index' %}" class="contenedor-moduls">
-                    <img class="img-moduls" src="{% static 'img/administracion.png' %}"  alt="img01">
-                    <h2 class="title-moduls"> ADMINISTRACION PERSONALIZADA</h2>
-                    <p class="text-moduls">Consulta, modifica, elimina desde el admin...</p>
-                </a>
+                {% if permission_gestion or user.is_staff %}
+                    <a href="{% url 'admin:index' %}" class="contenedor-moduls">
+                        <img class="img-moduls" src="{% static 'img/administracion.png' %}"  alt="img01">
+                        <h2 class="title-moduls"> ADMINISTRADOR</h2>
+                        <p class="text-moduls">Consulta, modifica, elimina desde zona de administración </p>
+                    </a>
+                {% endif %}
 
                 <a href="" class="contenedor-moduls">
                     <img class="img-moduls" src="{% static 'img/configuracion.png' %}"  alt="img01">
-                    <h2 class="title-moduls">PROXIMAMENTE</h2>
+                    <h2 class="title-moduls">PRÓXIMAMENTE</h2>
                     <p class="text-moduls"> </p>
                 </a>
 

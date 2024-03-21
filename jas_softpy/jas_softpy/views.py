@@ -116,14 +116,8 @@ def login_view(request):
 
         user = authenticate(username=username, password=password)
         if user:
-            if user.is_staff:
-                login(request, user)
-                messages.success(request, 'Bienvenido {}'.format(user.username))
-                return redirect('admin:index')
-            else:
-                login(request, user)
-                return home(request)
-
+            login(request, user)
+            return home(request)
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
 

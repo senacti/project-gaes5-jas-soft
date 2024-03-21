@@ -78,7 +78,7 @@ class ProductionOrder(models.Model):
         ordering = ['id']
         
 class SupplieProduction(models.Model):        
-    Production_OrderDate = models.DateField(auto_now_add=True, verbose_name="Orden de produccion")       
+    Production_OrderDate = models.DateField(auto_now_add=True, verbose_name="Orden de producción")       
     quantity = models.IntegerField(default=1)
     production_order = models.ForeignKey(ProductionOrder, on_delete=models.CASCADE)
     supplies = models.ForeignKey(Supplies, on_delete=models.CASCADE)   
