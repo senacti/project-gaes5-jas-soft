@@ -53,30 +53,4 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    var insumoCtx = document.getElementById("insumoChart").getContext("2d");
-    var insumoChart = new Chart(insumoCtx, {
-        type: "line",
-        data: {
-            labels: insumoChartLabels,
-            datasets: [{
-                label: 'Uso de insumos',
-                data: insumoChartData,
-                backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                borderColor: 'rgba(54, 162, 235, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero: true
-                    }
-                }]
-            }
-        }
-    });
-
 });

@@ -1,0 +1,13 @@
+{% extends 'admin/base_site.html' %}
+
+{% block sidebar %}
+    {{ block.super }}
+    <li>
+        <a href="{% url 'home' %}" class="viewsitelink" target="_blank">
+            <button type="button" class="button" style="margin-top: 8px;">
+                <img src="/static/admin/img/icon-yes.svg" class="icon" alt="Yes">
+                <span class="text">Ir a dashboard</span>
+            </button>
+        </a>
+    </li>
+{% endblock %}

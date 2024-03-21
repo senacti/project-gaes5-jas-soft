@@ -111,10 +111,19 @@ class SalesListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
         context['message'] = 'VENTAS'
         context['lista_sales'] = Sales.objects.all()
         context['pays'] = Pays.objects.all()
         context['purchase_orders'] = PurchaseOrder.objects.all()
-        context['employed'] = Employed.objects.all()  # Agrega esta línea para pasar la lista de empleados al contexto
+        context['employed'] = Employed.objects.all()  
+        
+        sales_chart_labels = [...]  
+        sales_chart_data = [...]    
+
+        context = {
+                'sales_chart_labels': sales_chart_labels,
+                'sales_chart_data': sales_chart_data,
+        }
         return context
 
