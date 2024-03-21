@@ -71,8 +71,13 @@ def ofertas(request):
     return render(request,'ofertas.html',{
         #context
     })
+    
+def prueba(request):
+    return render(request,'correo.html',{
+        #context
+    })
 
-@login_required
+
 def send_email(mail):
     
     context = {'mail': mail}
@@ -90,7 +95,7 @@ def send_email(mail):
     email.attach_alternative(content, 'text/html')
     email.send()
 
-@login_required
+
 def correo(request):
     if request.method == 'POST':
          mail = request.POST.get('mail')
