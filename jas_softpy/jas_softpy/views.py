@@ -455,8 +455,11 @@ def create_sales(request):
 
     
 def editsales(request, id):
-    sales = Sales.objects.get(id=id)    
-    return render(request, "Sales/editSales.html", {"Sales":sales})
+    sales = Sales.objects.get(id=id)  
+    employees = Employed.objects.all()  # Obtén todos los empleados
+    payment_methods = PurchaseOrder.objects.all()  # Obtén todos los métodos de pago
+    return render(request, "Sales/editSales.html", {"Sales": sales, "Employed": employees, "PurchaseOrder": payment_methods})
+
 
 @require_POST
 def EditSales(request, id):       
@@ -490,8 +493,13 @@ def deletesales(request, id):
     
     sales = Sales.objects.get(pk=id)
     sales.delete()    
+<<<<<<< Updated upstream
     messages.success(request, 'Postulación eliminada!')
     return redirect('ventas')
+=======
+    messages.success(request, 'Venta eliminada!')
+    return redirect('sales')
+>>>>>>> Stashed changes
 
 
 from django.contrib import messages

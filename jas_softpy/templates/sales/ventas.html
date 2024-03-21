@@ -113,8 +113,13 @@
 										{% if user_permissions %}
 											{% for permiso in user_permissions %} 
 												{% if permiso == 'change_supplies' %}
+<<<<<<< Updated upstream
 													<a href="{% url 'edit_sales' sale.id %}">											
 														<button type="button" onclick="abrirmodal('{{ sale.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editmodalsales_{{ sale.id }}">
+=======
+													<a href="{% url 'editsales' sale.id %}">											
+														<button type="button" onclick="abrirmodal('{{ sale.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#edit_{{ sale.id }}">
+>>>>>>> Stashed changes
 															Editar
 														</button>
 													</a>

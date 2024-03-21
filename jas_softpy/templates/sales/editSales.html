@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< Updated upstream
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -216,3 +217,196 @@
 </script>
 
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+=======
+{% load static %}
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promoplast | Editar Venta</title>
+
+</head>
+<style>
+    /* Estilos para la modal */
+    .modal {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        /* Fondo oscuro */
+        z-index: 9999;
+        /* Asegura que la modal esté en la parte superior */
+    }
+
+    .modal-dialog {
+        width: 50%;
+        /* Ancho de la modal */
+        background-color: #fff;
+        /* Fondo de la modal */
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+        /* Sombra */
+    }
+
+    .modal-content {
+        overflow: hidden;
+        /* Evita desbordamiento de contenido */
+    }
+
+    .modal-header h2 {
+        margin-top: 0;
+        /* Elimina el margen superior de h2 */
+        font-size: 24px;
+        /* Tamaño de la fuente */
+        color: #333;
+        /* Color del texto */
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    .form-control {
+        width: 100%;
+    }
+
+    .modal-footer {
+        margin-top: 20px;
+        text-align: right;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    label {
+        font-size: 18px;
+        /* Tamaño de la fuente */
+        color: #333;
+        /* Color del texto */
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    select {
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3e%3cpath d='M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position-x: calc(100% - 12px);
+        background-position-y: center;
+    }
+
+    .btn {
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .btn-danger {
+        background-color: #ff5f5f;
+        /* Rojo */
+        color: #fff;
+        /* Texto blanco */
+        margin-right: 10px;
+    }
+
+    .btn-primary {
+        background-color: #5f85ff;
+        /* Azul */
+        color: #fff;
+        /* Texto blanco */
+    }
+
+    .pagina-editar {
+        background-image: url('/static/img/imgfondo.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
+
+<body class="pagina-editar">
+
+    <div class="modal" id="editSalesModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Editar Venta</h2>
+                    <button type="button" class="btn-close" data-bs-dismiss="editSalesModal">&times;</button>
+                </div>
+    
+                <form action="{% if sale.id %}{% url 'EditSales' id=sale.id %}{% endif %}" class="was-validated"
+                    method="post">
+                    {% csrf_token %}
+                    <div class="modal-body">
+                        <div class="form-container">
+                            <div id="insumosContainer">
+                                <div class="form-group">
+                                    <label for="saleSubAmount">Subtotal</label>
+                                    <input type="number" name="saleSubAmount" id="saleSubAmount" class="form-control"
+                                        placeholder="Subtotal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="saleIvaAmount">IVA</label>
+                                    <select id="saleIvaAmount" name="saleIvaAmount" class="form-control" required>
+                                        <option value="0%">0%</option>
+                                        <option value="5%">5%</option>
+                                        <option value="10%">10%</option>
+                                        <option value="19%">19%</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="saleDiscount">Descuento</label>
+                                    <input type="number" name="saleDiscount" id="saleDiscount" class="form-control"
+                                        placeholder="Descuento" step="0.01" min="0" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Employed">Empleado</label>
+                                    <select name="Employed" class="form-control" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        {% for employee in Employed %}
+                                        <option value="{{ employee.id }}" {% if employee.id == Sales.employed.id %} selected {% endif %}>{{ employee.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="PurchaseOrder">Orden de pedido</label>
+                                    <select name="PurchaseOrder" class="form-control" required>
+                                        <option value="" selected disabled>Selecciona</option>
+                                        {% for payment_method in PurchaseOrder %}
+                                        <option value="{{ payment_method.id }}" {% if payment_method.id == Sales.purchaseOrder.id %} selected {% endif %}>{{ payment_method.stockProduct }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="{% url 'ventas' %}" class="btn btn-danger">Cerrar</a>
+                        <button type="submit" id="submitventas" class="btn btn-primary">Guardar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+>>>>>>> Stashed changes
