@@ -37,7 +37,7 @@ urlpatterns = [
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
     path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
     path('ventas/editar/<int:id>', views.editsales, name='edit_sales'),
-    path('ventas/editar/<int:id>', views.EditSales, name='update_sales'),    
+    path('ventas/actualizar/<int:id>', views.EditSales, name='update_sales'), 
     path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
 
     path('ofertas/', OfferListView.as_view(), name='ofertas'),
@@ -66,6 +66,8 @@ urlpatterns = [
     path('supplies/edit/<int:id>/', views.editsupplies, name='edit_supplies'),
     path('supplies/update/<int:id>/', views.EditSupplies, name='update_supplies'),
     path('supplies/delete/<id>/', views.deleteSupplies, name='delete_supplies'),
+    path('supplies/export/', views.export_supplies, name='export_supplies'),
+    path('supplies/import/', views.import_supplies, name='import_supplies'),
     
     path('ordenpedido/', ProductionListView.as_view() ,name='ordenpedido'),
     path('production/product_invoice/', ProductionInvoicePdfView.as_view(), name='production_invoice_pdf'),

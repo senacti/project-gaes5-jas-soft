@@ -131,7 +131,9 @@
 											data-bs-target="#create">
 											Nuevo Insumo
 										</button>
-										<a href="{% url 'production_invoice_pdf'%}" class="btn btn-info"><i class="material-icons">&#xE24D;</i> <span>Exportar</span></a>
+										<a href="{% url 'production_invoice_pdf'%}" class="btn btn-primary"><i class="material-icons">&#xE24D;</i><span>PDF</span></a>										
+										<a href="{% url 'export_supplies' %}" class="btn btn-primary"><i class="material-icons">&#xE24D;</i>Excel</a>
+										
 									{% endif %}
 								{% endfor %}
 							{% endif %}												

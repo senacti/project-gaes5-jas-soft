@@ -71,7 +71,21 @@ class ProductionOrderResource(resources.ModelResource):
         attribute='supplieproduction__Production_OrderDate'
     )
 
+    def display_supplies(self, instance):
+        supplie_productions = instance.supplieproduction_set.all()
+        return ", ".join([f"{supply.supplies.name} - {supply.supplies.supplieCode}" for supply in supplie_productions])
+
     class Meta:
         model = ProductionOrder
-        fields = ('production_order_date', 'supplies', 'quantity_used',)
-    
+        fields = ('production_order_date', 'display_supplies', 'get_stock', 'productionOrderCode')
+
+    def dehydrate_productionOrderCode(self, instance):
+        return instance.supplieProductionCode
+
+    def dehydrate_get_stock(self, instance):
+        productionorder_stoc = instance.supplieproduction_set.all()
+        return ", ".join([f"{productorder.quantity}" for productorder in productionorder_stoc])
+
+    def dehydrate_display_supplies(self, instance):
+        supplie_productions = instance.supplieproduction_set.all()
+        return ", ".join([f"{supply.supplies.name} - {supply.supplies.supplieCode}" for supply in supplie_productions])

@@ -12,7 +12,10 @@ from django.contrib.auth.models import User
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from tablib import Dataset
 from django.contrib.auth import logout
+from production.admin import SupplieResource
 from sales.models import Pays, PurchaseOrder, Sales
 
 from production.models import ProductionOrder, SupplieProduction, Supplies
@@ -306,8 +309,35 @@ def deleteSupplies(request, id):
     supplies = Supplies.objects.get(pk=id)
     supplies.delete()    
     messages.success(request, 'Orden de producción eliminado!')
-    return redirect('insumo')         
+    return redirect('insumo') 
 
+def import_supplies(request):
+    if request.method == 'POST':
+        supplie_resource = SupplieResource()
+        dataset = Dataset()
+        new_supplies = request.FILES['myfile']
+
+        import_supplies = dataset.load(new_supplies.read(), format='xlsx')
+        result = supplie_resource.import_data(dataset, dry_run=True)
+
+        if not result.has_errors():
+            supplie_resource.import_data(dataset, dry_run=False)
+            messages.success(request, 'Los datos se han importado correctamente.')
+            return HttpResponseRedirect(reverse('insumo'))
+        else:
+            messages.error(request, 'Hubo un error al importar los datos.')
+            return render(request, 'production/insumo.html')
+    else:
+        return render(request, 'production/insumo.html')
+
+def export_supplies(request):
+    
+    supplie_resource = SupplieResource()
+    dataset = supplie_resource.export()
+    response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = 'attachment; filename="supplies.xlsx"'
+    return response
+    
 def createinventory(request):
     if request.method == 'POST':     
         name = request.POST.get('name')
@@ -461,26 +491,18 @@ def editsales(request, id):
 @require_POST
 def EditSales(request, id):       
     if request.method == 'POST':
-        sales = get_object_or_404(Sales, id=id)
+        sales = get_object_or_404(Sales, id=id)        
+        print(request.POST,"---------")
         
-        # Obtener los IDs de los campos relacionados
-        employed_id = request.POST.get('employed_id', '')
-        pays_id = request.POST.get('pays_id', '')
-        purchaseOrder_id = request.POST.get('purchaseOrder_id', '')
-
-        # Asignar los valores a los campos de la venta
-        sales.saleAmount = int(request.POST.get('saleAmount', 0))
-        sales.saleSubAmount = int(request.POST.get('saleSubAmount', 0))
+               
+        
+        sales.saleAmount = request.POST.get('saleAmount', '')
+        sales.saleSubAmount = request.POST.get('saleSubAmount', '')
         sales.saleIvaAmount = request.POST.get('saleIvaAmount', '')
-        
-        # Asignar los IDs de los campos relacionados
-        sales.employed_id = employed_id
-        sales.pays_id = pays_id
-        sales.purchaseOrder_id = purchaseOrder_id
-        
-        # Guardar la venta actualizada
+       
         sales.save()
         messages.success(request, '¡La venta se ha actualizado!')
+        print("Venta actualizada:", sales) 
     else:
         messages.error(request, '¡La solicitud no es válida!')
     
