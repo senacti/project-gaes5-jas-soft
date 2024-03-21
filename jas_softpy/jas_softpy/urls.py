@@ -35,6 +35,10 @@ urlpatterns = [
 
     path('sales/', views.sales, name='sales'),
     path('sales/sale_invoice/', SaleInvoicePdfView.as_view(), name='sale_invoice_pdf'),
+    path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
+    path('ventas/editar/<int:id>', views.editsales, name='edit_sales'),
+    path('ventas/editar/<int:id>', views.EditSales, name='update_sales'),    
+    path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
 
     path('ofertas/', OfferListView.as_view(), name='ofertas'),
     path('postulaciones/', include('postulation.urls')), 
@@ -84,10 +88,7 @@ urlpatterns = [
     
     path('ventas/', SalesListView.as_view(), name='ventas'),
    
-    path('ventas/create_sales/', views.create_sales, name='create_purchaseorder'),
-    path('ventas/editar/<int:id>', views.editsales, name='editsales'),
-    path('ventas/editar/<int:id>', views.EditSales, name='EditSales'),    
-    path('ventas/eliminar/<id>/', views.deletesales, name='deletesales'),
+  
     
     path('', views.custom_login_required, name='custom_login_required'),
 ]

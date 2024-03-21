@@ -109,13 +109,12 @@
 										<td>{{ sale.employed }}</td>
 										<td>{{ sale.pays }}</td>
 										<td>{{ sale.purchaseOrder }}</td>
-										<td>										
-									
+										<td>									
 										{% if user_permissions %}
 											{% for permiso in user_permissions %} 
 												{% if permiso == 'change_supplies' %}
-													<a href="{% url 'editsales' sale.id %}">											
-														<button type="button" onclick="abrirmodal('{{ sale.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editSuppliesModal_{{ insumo.id }}">
+													<a href="{% url 'edit_sales' sale.id %}">											
+														<button type="button" onclick="abrirmodal('{{ sale.id }}')" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#editmodalsales_{{ sale.id }}">
 															Editar
 														</button>
 													</a>
@@ -199,7 +198,7 @@
         }
 
         function abrirmodal() {
-            $('#editar').show();
+            $('#editmodalsales').show();
         }
     </script>
 

@@ -462,25 +462,36 @@ def editsales(request, id):
 def EditSales(request, id):       
     if request.method == 'POST':
         sales = get_object_or_404(Sales, id=id)
-        sales.saleAmount = int(request.POST.get('saleAmount', ''))
-        sales.saleSubAmount = int(request.POST.get('saleSubAmount', ''))
+        
+        # Obtener los IDs de los campos relacionados
+        employed_id = request.POST.get('employed_id', '')
+        pays_id = request.POST.get('pays_id', '')
+        purchaseOrder_id = request.POST.get('purchaseOrder_id', '')
+
+        # Asignar los valores a los campos de la venta
+        sales.saleAmount = int(request.POST.get('saleAmount', 0))
+        sales.saleSubAmount = int(request.POST.get('saleSubAmount', 0))
         sales.saleIvaAmount = request.POST.get('saleIvaAmount', '')
-        sales.pays = request.POST.get('pays', '')
-        sales.employed = request.POST.get('employed', '')
-        sales.purchaseOrder = request.POST.get('purchaseOrder', '')
+        
+        # Asignar los IDs de los campos relacionados
+        sales.employed_id = employed_id
+        sales.pays_id = pays_id
+        sales.purchaseOrder_id = purchaseOrder_id
+        
+        # Guardar la venta actualizada
         sales.save()
         messages.success(request, '¡La venta se ha actualizado!')
     else:
-        messages.error(request, '¡La solicitud no es valida!')
+        messages.error(request, '¡La solicitud no es válida!')
     
-    return redirect('sales')
+    return redirect('ventas')
 
 def deletesales(request, id):
     
     sales = Sales.objects.get(pk=id)
     sales.delete()    
     messages.success(request, 'Postulación eliminada!')
-    return redirect('sales')
+    return redirect('ventas')
 
 
 from django.contrib import messages

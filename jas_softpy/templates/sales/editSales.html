@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Venta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+    <style>
+        /* Estilos para la modal */
+        .modal {
+            display: block; /* Mostramos la modal */
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+        }
+
+        .modal-dialog {
+            margin: 10% auto; /* Centramos la modal verticalmente */
+            width: 80%; /* Ancho de la modal */
+            max-width: 800px; /* Ancho máximo */
+        }
+
+        .modal-content {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+        }
+
+        .modal-body {
+            padding-bottom: 20px;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Estilos para el botón de cerrar */
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: #000;
+            opacity: 0.5;
+        }
+
+        .btn-close:hover {
+            opacity: 1;
+        }
+
+        /* Estilos para los campos de la modal */
+        .modal-content .form-group {
+            margin-bottom: 20px;
+            width: 100%; /* Hacemos que los campos ocupen todo el ancho */
+        }
+
+        .modal-content .form-group label {
+            display: block;
+            font-weight: bold;
+        }
+
+        .modal-content .form-group input[type="text"],
+        .modal-content .form-group input[type="number"],
+        .modal-content .form-group select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="modal" id="editmodalsales">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Venta</h2>                
+            </div>
+            
+            <form action="{% if Sales.id %}{% url 'update_sales' id=Sales.id %}{% endif %}" class="was-validated" method="post">
+                {% csrf_token %}
+                <div class="form-container">
+                    <div class="form-group">
+                        <label for="saleAmount">Valor de la venta</label>
+                        <input type="text" name="saleAmount" id="saleAmount" class="form-control" placeholder="Valor de la venta" value="{{ Sales.saleAmount }}" required>
+                    </div>                 
+                    <div class="form-group">
+                        <label for="saleSubAmount">Subtotal</label>
+                        <input type="number" name="saleSubAmount" id="saleSubAmount" class="form-control" placeholder="Ej: 1000000" value="{{ Sales.saleSubAmount }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="saleIvaAmount">IVA</label>
+                        <select id="saleIvaAmount" name="saleIvaAmount" class="form-control" required>
+                            <option value="{{ Sales.saleIvaAmount }}">{{ Sales.saleIvaAmount }}</option>
+                            <option value="0">0%</option>
+                            <option value="5">5%</option>
+                            <option value="10">10%</option>
+                            <option value="19">19%</option>
+                        </select>
+                    </div>                        
+                    <div class="form-group">
+                        <label for="employed_id">Empleado</label>
+                        <select name="employed_id" class="form-control" required>
+                            <option value="{{ Sales.employed.id }}">{{ Sales.employed.name }}</option>
+                            {% for employee in employed %} 
+                                <option value="{{ employee.id }}">{{ employee.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>                    
+                    <div class="form-group">
+                        <label for="pays_id">Tipo pago</label>
+                        <select name="pays_id" class="form-control" required>
+                            <option value="{{ Sales.pays.id }}">{{ Sales.pays.payMethod }}</option>
+                            {% for pay in pays %}
+                                <option value="{{ pay.id }}">{{ pay.payMethod }}</option>
+                            {% endfor %}
+                        </select>                            
+                    </div>
+                    <div class="form-group">
+                        <label for="purchaseOrder_id">Orden de pedido</label>
+                        <select name="purchaseOrder_id" class="form-control" required>
+                            <option value="{{ Sales.purchaseOrder.id }}">{{ Sales.purchaseOrder.product }}</option>
+                            {% for order in purchase_orders %}
+                                <option value="{{ order.id }}">{{ order.product }}</option>
+                            {% endfor %}
+                        </select>                            
+                    </div>                        
+                </div>
+                <button type="submit" id="submitproducto" class="hidden"></button>
+                <div class="modal-footer">
+                    <a href="{% url 'ventas' %}" class="btn btn-danger">Cerrar</a>
+                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
+                </div>
+                <script>                    
+                    document.addEventListener("DOMContentLoaded", function() {
+                        function calcularTotal() {
+                            var saleSubAmount = parseFloat(document.getElementById('saleSubAmount').value);
+                            var saleIvaAmount = parseFloat(document.getElementById('saleIvaAmount').value);
+                    
+                            var subtotalConIva = saleSubAmount * (1 + saleIvaAmount / 100);
+                            
+                            // No se calcula el descuento
+                            
+                            // El total se mantiene sin formato
+                            document.getElementById('saleAmount').value = subtotalConIva;
+                        }                  
+                    
+                        document.getElementById('saleSubAmount').addEventListener('input', calcularTotal);
+                        document.getElementById('saleIvaAmount').addEventListener('change', calcularTotal);
+                        
+                        // No se necesita el evento para el descuento, ya que se ha eliminado el cálculo del descuento
+                        
+                        // Calcular el total inicial al cargar la página
+                        calcularTotal();
+                    });                   
+                </script>          
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+<!-- Bootstrap JS -->
+<script>
+    document.getElementById('salesForm').addEventListener('submit', function(event) {
+        // Previene el envío del formulario por defecto
+        event.preventDefault();
+
+        // Obtén el formulario
+        var form = document.getElementById('salesForm');
+
+        // Crea un objeto FormData para enviar los datos del formulario al servidor
+        var formData = new FormData(form);
+
+        // Realiza una solicitud AJAX para enviar los datos del formulario al servidor
+        fetch(form.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            // Maneja la respuesta del servidor
+            if (response.ok) {
+                // Si la respuesta es exitosa, redirige a alguna página
+                window.location.href = "{% url 'ventas' %}";
+            } else {
+                // Si la respuesta no es exitosa, muestra un mensaje de error o maneja el error de otra manera
+                console.error('Error al enviar el formulario');
+            }
+        })
+        .catch(error => {
+            // Maneja cualquier error de red u otro error que pueda ocurrir
+            console.error('Error:', error);
+        });
+    });
+</script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
