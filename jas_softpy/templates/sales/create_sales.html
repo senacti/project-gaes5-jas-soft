@@ -113,12 +113,13 @@
                         </div>
                         <div class="form-group">
                             <label for="saleIvaAmount">IVA</label>
-                            <select name="saleIvaAmount" id="saleIvaAmount" class="form-control" required >
-                                <option value="" selected disabled>Selecciona</option>
-                                {% for sales in lista_sales %}
-                                    <option value="{{ sales.id }}">{{ sales.saleIvaAmount }}</option>
-                                {% endfor %}
-                            </select>                            
+                            <select id="saleIvaAmount" name="saleIvaAmount" class="form-control" required>
+                                <option value="selecciona">Selecciona</option>
+                                <option value="0%">0%</option>
+                                <option value="5%">5%</option>
+                                <option value="10%">10%</option>
+                                <option value="19%">19%</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="saleDiscount">Descuento</label>

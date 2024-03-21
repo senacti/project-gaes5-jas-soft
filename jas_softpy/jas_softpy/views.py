@@ -408,7 +408,7 @@ def create_sales(request):
         pays_id = request.POST.get('pays')
         purchaseOrder_id = request.POST.get('purchaseOrder')
 
-        employed_instance = Employed.objects.get(id=employed_id)
+        employed_instance = Employed.objects.filter(id=employed_id).first()
         pays_instance = Pays.objects.get(id=pays_id)
         purchaseOrder_instance = PurchaseOrder.objects.get(id=purchaseOrder_id)
 

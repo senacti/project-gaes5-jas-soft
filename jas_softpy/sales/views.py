@@ -85,7 +85,7 @@ class SaleInvoicePdfView(View):
         template = get_template('sales/sale_invoice.html')
         context = {
             'sales': Sales.objects.all(),
-            'comp': {'name': 'PROMOPLAST S.A.S', 'addres' : 'Bogotá, Colombia'},
+            'comp': {'name': 'PROMOPLAST S.A.S', 'addres' : 'BogotÃ¡, Colombia'},
             'icon': '{}{}'.format(settings.STATIC_URL, 'img/logo.png')
             }
         
@@ -117,13 +117,4 @@ class SalesListView(ListView):
         context['pays'] = Pays.objects.all()
         context['purchase_orders'] = PurchaseOrder.objects.all()
         context['employed'] = Employed.objects.all()  
-        
-        sales_chart_labels = [...]  
-        sales_chart_data = [...]    
-
-        context = {
-                'sales_chart_labels': sales_chart_labels,
-                'sales_chart_data': sales_chart_data,
-        }
         return context
-
