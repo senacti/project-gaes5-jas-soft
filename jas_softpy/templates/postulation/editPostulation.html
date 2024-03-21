@@ -1,127 +1,102 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
-    <title>Promoplast | Editar Postulacion</title>
+
+<div class="modal fade" id="create_postulation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <style>
-        .modal {
-            background-color: rgba(255, 255, 255, 0.9); /* Color de fondo de la modal */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombra */
-            max-width: 400px; /* Ancho máximo de la modal */
-            margin: 0 auto; /* Centrar horizontalmente */
-        }
-
+        /* Estilos para la modal */
         .modal-content {
-            margin-bottom: 20px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
+            background-color: #fff;
             border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
+            border-radius: 5px;
+            padding: 20px;
         }
 
-        .btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
+        .modal-header {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
         }
 
-        .btn-primary {
-            background-color: #007bff;
-            color: #fff;
+        .modal-header h2 {
+            margin: 0;
         }
 
-        .btn-danger {
-            background-color: #dc3545;
-            color: #fff;
+        .modal-body {
+            padding-bottom: 20px;
         }
 
         .modal-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            border-top: 1px solid #ccc;
+            padding-top: 20px;
+            margin-top: 20px;
+            display: flex; }
+
+        /* Estilos para el botón de cerrar */
+        .btn-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;color: red; /* Color rojo */
+            opacity: 0.5;
         }
 
-
-        .pagina-editar {
-            background-image: url('/static/img/imgfondo.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: Arial, sans-serif;
+        .btn-close:hover {
+            opacity: 1;
         }
-        
-        /* Añade más estilos según tus necesidades */
+
+        /* Estilos para el botón de guardar */
+        .btn-primary {
+            background-color: blue; /* Color azul */
+            border: none;
+            color: #fff; /* Texto blanco */
+        }
+
+        /* Ajustar los botones a la izquierda */
+        .modal-footer .btn {
+            margin-right: 10px;
+        }
     </style>
-</head>
-<body class="pagina-editar">
 
-<div class="modal" id="editPostulationModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <div class="modal-header">
-                <h2>Editar Postulación</h2>
+                <h2 class="modal-title" id="exampleModalLabel">Crear Postulación</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
-            <form action="{% if Postulation.id %}{% url 'update_postulation' id=Postulation.id %}{% endif %}"
-                class="was-validated" method="post">
-                <input type="hidden" name="id" id="id" required maxlength="20" value="{{ Postulation.id }}">
+            
+            <form action="{% url 'create_postulation' %}" class="was-validated" method="POST">
                 {% csrf_token %}
-                <div class="form-container">
-                    <div class="form-group">
-                        <label for="descripOffer">Descripción Oferta</label>
-                        <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulation.descripOffer }}"
-                            class="form-control" placeholder="Descripción" required>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="startOffers" class="form-label">Fecha</label>
+                        <input type="date" id="startOffers" name="startOffers" value="{{ Postulation.startOffers }}" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="profilePostulation">Perfil de Postulación</label>
-                        <input type="text" id="profilePostulation" name="profilePostulation"
-                            value="{{ Postulation.profilePostulation }}" class="form-control" placeholder="Perfil"
-                            required>
+                    <div class="mb-3">
+                        <label for="descripOffer" class="form-label">Descripción Oferta</label>
+                        <input type="text" id="descripOffer" name="descripOffer" value="{{ Postulation.descripOffer }}" class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label for="StatePostulations">Estado</label>
+                    <div class="mb-3">
+                        <label for="profilePostulation" class="form-label">Perfil</label>
+                        <input type="text" id="profilePostulation" name="profilePostulation" value="{{ Postulation.profilePostulation }}" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="StatePostulations" class="form-label">Estado</label>
                         <select id="StatePostulations" name="StatePostulations" class="form-control" required>
-                            <option value="{{ Postulacion.StatePostulations }}">{{ Postulacion.StatePostulations }}</option>
-                            <option value="activa">Activa</option>
-                            <option value="enrevision">En Revisión</option>
-                            <option value="Seleccionado">Seleccionado</option>
+                            <option value="selecciona">Selecciona</option>
+                            <option value="Activa">Activa</option>
+                            <option value="EnRevision">En Revisión</option>
+                            <option value="seleccionado">Seleccionado</option>
                             <option value="Declinada">Declinada</option>
                         </select>
                     </div>
-
                 </div>
                 <div class="modal-footer">
-                    <a href="{% url 'Postulacion' %}" class="btn btn-danger">Cerrar</a>
-                    <button type="submit" id="submitpostulacion" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="submit" class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
             </form>
-
         </div>
     </div>
 </div>
-
-</body>
-</html>
