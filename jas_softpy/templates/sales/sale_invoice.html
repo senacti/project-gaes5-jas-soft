@@ -50,11 +50,9 @@
     <tr>
         <th style="width: 25%;">FECHA DE VENTA</th>
         <th style="width: 25%;">VALOR VENTA</th>
-        <th style="width: 25%;">SUBTOTAL VENTA</th>
-        <th style="width: 25%;">DESCUENTO VENTA</th>
+        <th style="width: 25%;">SUBTOTAL VENTA</th>       
         <th style="width: 25%;">IVA VENTA</th> 
-        <th style="width: 25%;">EMPLEADO</th> 
-        <th style="width: 25%;">CLIENTE</th> 
+        <th style="width: 25%;">EMPLEADO</th>         
         <th style="width: 25%;">PAGO</th> 
         <th style="width: 25%;">ORDEN DE PAGO</th>         
     </tr>
@@ -64,11 +62,9 @@
         <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
             <td class="text-left">{{ sale.SaleDate }}</td>
             <td class="text-left">{{ sale.SaleAmount }}</td>
-            <td class="text-left">{{ sale.SaleSubAmount }}</td>
-            <td class="text-left">{{ sale.SaleDisAmount }}</td>
+            <td class="text-left">{{ sale.SaleSubAmount }}</td>            
             <td class="text-left">{{ sale.SaleIvaAmount }}</td>  
-            <td class="text-left">{{ sale.Employed }}</td>  
-            <td class="text-left">{{ sale.Client }}</td>  
+            <td class="text-left">{{ sale.Employed }}</td>            
             <td class="text-left">{{ sale.Pays }}</td>  
             <td class="text-left">{{ sale.PurchaseOrder }}</td>         
         </tr>

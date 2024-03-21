@@ -1,4 +1,4 @@
-// sales_chart.js
+
 document.addEventListener("DOMContentLoaded", function () {
     var ctx = document.getElementById('salesChart').getContext('2d');
     

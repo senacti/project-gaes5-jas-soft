@@ -113,8 +113,8 @@ class SalesListView(ListView):
         context = super().get_context_data(**kwargs)
         
         context['message'] = 'VENTAS'
-        context['lista_sales'] = Sales.objects.all()
+        context['lista_sales'] = Sales.objects.annotate()
         context['pays'] = Pays.objects.all()
-        context['purchase_orders'] = PurchaseOrder.objects.all()
-        context['employed'] = Employed.objects.all()  
+        context['purchase_orders'] = PurchaseOrder.objects.annotate()
+        context['employed'] = Employed.objects.annotate()  
         return context

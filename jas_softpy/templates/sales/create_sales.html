@@ -95,8 +95,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Crear Orden de pedido</h2>
-                <button type="button" class="btn-close" data-bs-dismiss="modal">&times;</button>
+                <h2>Crear Orden de pedido</h2>                
             </div>
             
             <form action="{% url 'create_purchaseorder' %}" class="was-validated" method="post" id="ordenForm">
@@ -109,53 +108,47 @@
                         </div>                 
                         <div class="form-group">
                             <label for="saleSubAmount">Subtotal</label>
-                            <input type="number" name="saleSubAmount" id="saleSubAmount" class="form-control" placeholder="Subtotal" required >
+                            <input type="number" name="saleSubAmount" id="saleSubAmount" class="form-control" placeholder="Ej: 1000000" required >
                         </div>
                         <div class="form-group">
                             <label for="saleIvaAmount">IVA</label>
                             <select id="saleIvaAmount" name="saleIvaAmount" class="form-control" required>
                                 <option value="selecciona">Selecciona</option>
-                                <option value="0%">0%</option>
-                                <option value="5%">5%</option>
-                                <option value="10%">10%</option>
-                                <option value="19%">19%</option>
+                                <option value="0">0%</option>
+                                <option value="5">5%</option>
+                                <option value="10">10%</option>
+                                <option value="19">19%</option>
                             </select>
-                        </div>
+                        </div>                        
                         <div class="form-group">
-                            <label for="saleDiscount">Descuento</label>
-                            <input type="number" name="saleDiscount" id="saleDiscount" class="form-control" placeholder="Descuento" step="0.01" min="0" required >
-                        </div>
-                        <div class="form-group">
-                            <label for="Employed">Empleado</label>
-                            <select name="Employed" class="form-control" required>
+                            <label for="employed_id">Empleado</label>
+                            <select name="employed_id" class="form-control" required>
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for employee in employed %}  <!-- Cambia 'sales' por 'employed' -->
-                                    <option value="{{ employee.id }}">{{ employee.name }}</option> <!-- Ajusta según los campos de tu modelo Employed -->
+                                {% for employee in employed %} 
+                                    <option value="{{ employee.id }}">{{ employee.name }}</option>
                                 {% endfor %}
                             </select>
                         </div>                    
                         <div class="form-group">
-                            <label for="pays">Tipo pago</label>
-                            <select name="pays" class="form-control" required>
+                            <label for="pays_id">Tipo pago</label>
+                            <select name="pays_id" class="form-control" required>
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sale in lista_sales %}
-                                    <option value="{{ sale.id }}">{{ sale.pays }}</option>
+                                {% for pay in pays %}
+                                    <option value="{{ pay.id }}">{{ pay.payMethod }}</option>
                                 {% endfor %}
                             </select>                            
                         </div>
                         <div class="form-group">
                             <label for="purchaseOrder">Orden de pedido</label>
-                            <select name="purchaseOrder" class="form-control" required>
+                            <select name="purchaseOrder_id" class="form-control" required>
                                 <option value="" selected disabled>Selecciona</option>
-                                {% for sale in lista_sales %}
-                                    <option value="{{ sale.id }}">{{ sale.purchaseOrder }}</option>
+                                {% for order in purchase_orders %}
+                                    <option value="{{ order.id }}">{{ order.product}}</option>
                                 {% endfor %}
                             </select>                            
-                        </div>
-                        
+                        </div>                        
                     </div>
-                </div>                
-                
+                </div>               
                 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -167,31 +160,24 @@
                         function calcularTotal() {
                             var saleSubAmount = parseFloat(document.getElementById('saleSubAmount').value);
                             var saleIvaAmount = parseFloat(document.getElementById('saleIvaAmount').value);
-                            var saleDiscount = parseFloat(document.getElementById('saleDiscount').value);
-                            
+                    
                             var subtotalConIva = saleSubAmount * (1 + saleIvaAmount / 100);
-                            var descuentoAplicado = subtotalConIva * (saleDiscount / 100);
-                            var total = subtotalConIva - descuentoAplicado;
-                
-                            var formatter = new Intl.NumberFormat('es-CO', {
-                                style: 'currency',
-                                currency: 'COP'
-                            });
-                            var totalFormatted = formatter.format(total);                
                             
-                            document.getElementById('saleAmount').value = totalFormatted;
+                            // No se calcula el descuento
+                            
+                            // El total se mantiene sin formato
+                            document.getElementById('saleAmount').value = subtotalConIva;
                         }                  
-                
+                    
                         document.getElementById('saleSubAmount').addEventListener('input', calcularTotal);
                         document.getElementById('saleIvaAmount').addEventListener('change', calcularTotal);
-                        document.getElementById('saleDiscount').addEventListener('input', calcularTotal);
+                        
+                        // No se necesita el evento para el descuento, ya que se ha eliminado el cálculo del descuento
                         
                         // Calcular el total inicial al cargar la página
                         calcularTotal();
-                    });
-                </script>
-                
-                
+                    });                   
+                </script>                
             </form>
         </div>
     </div>

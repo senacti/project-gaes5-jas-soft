@@ -17,7 +17,7 @@ class SalesAdmin(ImportExportModelAdmin):
 
     change_list_template = "admin/custom_change_list.html"
 
-    list_display = ('saleDate', 'saleAmount','saleSubAmount','saleIvaAmount','saleDiscountPercentage','employed','pays','purchaseOrder')
+    list_display = ('saleDate', 'saleAmount','saleSubAmount','saleIvaAmount','employed','pays','purchaseOrder')
     search_fields = ('employed',)
     list_editable = ()
     list_filter = ('saleDate',)

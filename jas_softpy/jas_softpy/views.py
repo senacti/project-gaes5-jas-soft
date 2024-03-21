@@ -408,26 +408,26 @@ def create_sales(request):
         saleDate = datetime.now()
         saleAmount = request.POST['saleAmount']
         saleSubAmount = request.POST['saleSubAmount']
-        saleIvaAmount = request.POST['saleIvaAmount']
-        employed_id = request.POST.get('employed')
-        pays_id = request.POST.get('pays')
-        purchaseOrder_id = request.POST.get('purchaseOrder')
+        saleIvaAmount = request.POST['saleIvaAmount']        
+        employed_id = request.POST.get('employed_id')
+        pays_id = request.POST.get('pays_id')
+        purchaseOrder_id = request.POST.get('purchaseOrder_id')
 
-        employed_instance = Employed.objects.filter(id=employed_id).first()
+        employed_instance = Employed.objects.get(id=employed_id) 
         pays_instance = Pays.objects.get(id=pays_id)
-        purchaseOrder_instance = PurchaseOrder.objects.get(id=purchaseOrder_id)
+        purchaseOrder_instance = PurchaseOrder.objects.filter(id=purchaseOrder_id).first()
 
-        sale_instance = Sales.objects.create(
+        Sales.objects.create(            
             saleDate=saleDate,
             saleAmount=saleAmount,
             saleSubAmount=saleSubAmount,
-            saleIvaAmount=saleIvaAmount,
+            saleIvaAmount=saleIvaAmount,            
             employed=employed_instance,  
             pays=pays_instance,
-            purchaseOrder=purchaseOrder_instance,
+            purchaseOrder=purchaseOrder_instance,            
         )
-
-        try:
+       
+        """try:
             
             product_id = request.POST.get('product')
             product_instance = Product.objects.get(id=product_id)
@@ -445,13 +445,14 @@ def create_sales(request):
         except Product.DoesNotExist:            
             messages.error(request, "El producto asociado a la venta no existe")            
             sale_instance.delete()
-            return redirect('ventas')  
+            return redirect('ventas')  """
 
         messages.success(request, '¡La venta se registró exitosamente!')
         return redirect('ventas')
     else:        
         iva_choices = Sales.IVA_CHOICES
         return render(request, 'tu_template.html', {'iva_choices': iva_choices})
+
     
 def editsales(request, id):
     sales = Sales.objects.get(id=id)    

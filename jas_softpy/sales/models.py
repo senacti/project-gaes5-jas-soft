@@ -2,12 +2,11 @@ import datetime
 import uuid
 from django.utils import timezone
 from carts.models import Cart
+from postulation.models import Employed
 from users.models import User
 from shipping_addresses.models import ShippingAddress
 from django.db.models.signals import pre_save
 from django.db import models
-
-
 
 from enum import Enum
 
@@ -84,6 +83,7 @@ class PurchaseOrder(models.Model):
     class Meta:
         verbose_name = "Orden pedido"
         verbose_name_plural = "ordenpedidos"
+        ordering = ['id']
         
 class Pays(models.Model):
     payAmount = models.FloatField(verbose_name="Valor Pago")
@@ -107,7 +107,8 @@ class Pays(models.Model):
     def __str__(self):
         return f"{self.payTipe} - {self.purchaseOrder}"
     
-    ordering = ['id']
+    class Meta:
+        ordering = ['id']
 
 class Sales(models.Model):   
     saleDate = models.DateTimeField(default=timezone.now, verbose_name="Fecha Venta")   
@@ -121,16 +122,14 @@ class Sales(models.Model):
         (19, '19%'),
     ]
     
-    saleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")   
-    saleDiscountPercentage = models.FloatField(default=0.0, verbose_name="Porcentaje de Descuento", help_text="Descuento en porcentaje de subtotal")
-    employed = models.ForeignKey('postulation.Employed', on_delete=models.CASCADE, verbose_name="Empleado")   
+    saleIvaAmount = models.IntegerField(choices=IVA_CHOICES, verbose_name="Valor IVA")       
+    employed = models.ForeignKey(Employed, on_delete=models.CASCADE, verbose_name="Empleado")   
     pays = models.ForeignKey(Pays, on_delete=models.CASCADE, verbose_name="Pago")  
     purchaseOrder = models.ForeignKey(PurchaseOrder, on_delete=models.CASCADE, verbose_name="Orden de pedido")
     
-
     @property
     def total(self):
-        subtotal = self.saleSubAmount - self.discountAmount
+        subtotal = self.saleSubAmount
         iva_percentage = self.saleIvaAmount / 100.0
         iva_amount = subtotal * iva_percentage
         total = subtotal + iva_amount
@@ -147,14 +146,3 @@ class Sales(models.Model):
         
         ordering = ['id']
         
-class Employed(models.Model):
-    name = models.CharField(max_length=100, verbose_name="Nombre")
-    position = models.CharField(max_length=100, verbose_name="Cargo")
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = "Empleado"
-        verbose_name_plural = "Empleados"
-        db_table = "empleados"
