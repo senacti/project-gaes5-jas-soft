@@ -128,7 +128,7 @@
                 <h2>Editar Venta</h2>                
             </div>
             
-            <form id="salesForm" action="{% if Sales.id %}{% url 'update_sales' id=Sales.id %}{% endif %}" class="was-validated" method="post">
+            <form action="{% if Sales.id %}{% url 'update_sales' id=Sales.id %}{% endif %}" class="was-validated" method="post">
                 {% csrf_token %}
                 <div class="form-container">
                     <div class="form-group">
@@ -177,10 +177,10 @@
                         </select>                            
                     </div>                        
                 </div>
-                <button type="submit" id="submitventas" class="hidden"></button>
+                <button type="submit" id="submitproducto" class="hidden"></button>
                 <div class="modal-footer">
                     <a href="{% url 'ventas' %}" class="btn btn-danger">Cerrar</a>
-                    <button type="button" onclick="document.getElementById('submitventas').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
+                    <button type="button" onclick="document.getElementById('submitproducto').click();return false;" class="btn btn-primary">{{ 'Guardar' }}</button>
                 </div>
                 <script>                    
                     document.addEventListener("DOMContentLoaded", function() {
