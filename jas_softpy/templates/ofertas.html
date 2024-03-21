@@ -1,13 +1,15 @@
-<!-- sales.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tabla de Ofertas</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/sales.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/headercss.css' %}">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,21 +87,45 @@
         .btn-ver-oferta:hover {
             background-color: #0056b3;
         }
-    </style>
-    <title>Promoplast | Empleo</title>
-    <link rel="shortcut icon" href="{% static 'img/iconlogo.png' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/buttons.css' %}">
-    <link rel="stylesheet" href="{% static 'css/sales.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
-</head>
 
+        .register-link {
+            color: blue; /* Establece el color del texto en azul */
+            text-decoration: underline; /* Subraya el texto */
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #f5f5f5;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .back-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-bottom: 2%;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
 <body>
-    <header>
-        <img class="logo-compania" src="{% static 'img/logo.png'%}" alt="logo">
-        <h1>Ofertas de Empleo</h1>
-        <a href="/" class="btn-ingresar"><img class="img-login" src="/static/img/icons8-atr%C3%A1s-64.png"
-                alt="ingresar"></a>
-    </header><br><br>
+    <!-- Encabezado -->
+    <header class="dash">
+        <img class="logo-index" src="{% static 'img/logo.png' %}" alt="logo">
+        <h2 class="title-index"> PROMOPLAST </h2>
+      </header>
+
+    <!-- Contenido de la tabla de ofertas -->
     <table>
         <thead>
             <tr>
@@ -126,15 +152,17 @@
             {% endfor %}
         </tbody>
     </table>
-<br><br><br><br><br><br><br><br>
+
+    <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <h2>Información de la oferta</h2>
-            <p>Para ver la oferta primero necesitas registrate. Haz click <a href="{% url 'register' %}">aquí</a> para registrarte. </p>
+            <p>Para ver la oferta primero necesitas registrarte. Haz click <a href="{% url 'register' %}" class="register-link">aquí</a> para registrarte. </p>
         </div>
     </div>
 
+    <!-- Script para el modal -->
     <script>
         function openModal() {
             document.getElementById("myModal").style.display = "block";
@@ -144,20 +172,21 @@
             document.getElementById("myModal").style.display = "none";
         }
 
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (event.target == document.getElementById("myModal")) {
                 document.getElementById("myModal").style.display = "none";
             }
         }
     </script>
 
-</body>
-<footer>
-    <div class="pie_pagina">
-        <div class="group2">
-            <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
+    <!-- Footer -->
+    <footer>
+        <button class="back-btn" onclick="window.history.back()">Volver</button>
+        <div class="pie_pagina">
+            <div class="group2">
+                <small>&copy;2023 <b>JAS-SOFT</b> - Todos los derechos reservados</small>
+            </div>
         </div>
-    </div>
-</footer>
-
+    </footer>
+</body>
 </html>
